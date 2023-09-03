@@ -1,0 +1,25 @@
+{
+  "name": "@identity/profile-layout-fragment",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.tsx",
+  "devDependencies": {
+    "@atls-ui-proto/layout": "0.0.7",
+    "@atls-ui-proto/placeholder": "0.0.9",
+    "@atls-ui-proto/text": "0.0.11",
+    "@emotion/react": "11.9.3",
+    "@emotion/styled": "11.9.3",
+    "@types/react": "^17.0.58",
+    "@types/styled-system": "^5.1.16",
+    "next": "^12.3.4",
+    "react": "^18.2.0",
+    "react-intl": "^5.25.1",
+    "styled-system": "^5.1.5",
+    "styled-tools": "^1.7.2"
+  },
+  "peerDependencies": {
+    "next": "*",
+    "react": "*",
+    "react-intl": "*"
+  }
+}

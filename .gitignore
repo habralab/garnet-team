@@ -50,3 +50,55 @@ dist/
 
 # Env
 .env
+
+# .NET Core build and runtime artifacts
+bin/
+obj/
+out/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Rider IDE specific
+.idea/
+
+# User-specific files
+*.rsuser
+
+# .NET Core specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Tye
+.tye/
+
+# Visual Studio for Mac
+*.userprefs
+*.usertasks
+config.make
+*.pidb
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+
+# Rider
+*.sln.iml
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# VS Code directories
+.vscode/
+
+# Dump file
+*.stackdump
