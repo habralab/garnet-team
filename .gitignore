@@ -62,6 +62,7 @@ out/
 
 # Rider IDE specific
 .idea/
+_ReSharper.Caches/
 
 # User-specific files
 *.rsuser
