@@ -20,6 +20,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "features
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "features\user\server\UserService\UserService.csproj", "{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{D4E31ED1-50F3-42F0-BB63-2DF48129273D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{56E483BD-7F85-4759-BC3E-6DF80A726AC6}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\checks.yaml = .github\workflows\checks.yaml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +40,7 @@ Global
 		{243FF0F5-243A-4437-9C98-5367E6E7BB53} = {1E81FB76-E341-497E-91A6-87919D374147}
 		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF} = {7841A7B0-B4DC-4664-B2C2-599FADB6079C}
 		{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68} = {243FF0F5-243A-4437-9C98-5367E6E7BB53}
+		{56E483BD-7F85-4759-BC3E-6DF80A726AC6} = {D4E31ED1-50F3-42F0-BB63-2DF48129273D}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
