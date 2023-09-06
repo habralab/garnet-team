@@ -3,6 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CDF4496B-91E6-4801-A0DA-AE4467BB9561}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+		LICENSE = LICENSE
+		.gitignore = .gitignore
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "features", "features", "{1E81FB76-E341-497E-91A6-87919D374147}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "identity", "identity", "{7841A7B0-B4DC-4664-B2C2-599FADB6079C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "user", "user", "{243FF0F5-243A-4437-9C98-5367E6E7BB53}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityService", "features\identity\server\IdentityService\IdentityService.csproj", "{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserService", "features\user\server\UserService\UserService.csproj", "{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -10,5 +27,21 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7841A7B0-B4DC-4664-B2C2-599FADB6079C} = {1E81FB76-E341-497E-91A6-87919D374147}
+		{243FF0F5-243A-4437-9C98-5367E6E7BB53} = {1E81FB76-E341-497E-91A6-87919D374147}
+		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF} = {7841A7B0-B4DC-4664-B2C2-599FADB6079C}
+		{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68} = {243FF0F5-243A-4437-9C98-5367E6E7BB53}
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D980DBD6-65B5-4F74-9F3C-70DFBF76C0CF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3B10F3C9-A49B-47DD-A9E4-EE96C51F6B68}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
