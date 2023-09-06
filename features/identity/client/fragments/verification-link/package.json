@@ -1,0 +1,31 @@
+{
+  "name": "@identity/verification-link-fragment",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.tsx",
+  "devDependencies": {
+    "@emotion/styled": "11.9.3",
+    "@fork/next-identity-integration": "workspace:0.0.12",
+    "@identity/messages-fragment": "workspace:0.0.1",
+    "@types/react": "17.0.38",
+    "@types/styled-system": "5.1.16",
+    "@ui/button": "workspace:0.0.1",
+    "@ui/input": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/logo": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1",
+    "next": "12.3.4",
+    "react-intl": "5.24.3",
+    "styled-system": "5.1.5",
+    "styled-tools": "1.7.2"
+  },
+  "peerDependencies": {
+    "@emotion/styled": "*",
+    "@fork/next-identity-integration": "*",
+    "next": "*",
+    "react": "*",
+    "react-intl": "*",
+    "styled-system": "*",
+    "styled-tools": "*"
+  }
+}

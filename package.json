@@ -1,7 +1,8 @@
 {
-  "name": "ruby-team",
+  "name": "garnet-team",
   "private": true,
   "license": "BSD 3-Clause",
+  "workspaces": ["featuers/"],
   "devDependencies": {
     "@atls/code-service": "^0.0.21",
     "@atls/config-jest": "^0.0.6",
