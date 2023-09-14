@@ -1,0 +1,27 @@
+name: 🐛 Баг
+description: Отчет об ошибке
+title: "🐛 "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        # 🐛 Баг
+  - type: textarea
+    id: reproduce-steps
+    attributes:
+      label: Шаги воспроизведения
+      placeholder: Список шагов воспроизведения ошибки, что идет не так
+    validations:
+      required: true
+  - type: textarea
+    id: required-behaviour
+    attributes:
+      label: Ожидаемое поведение
+      placeholder: Каким образом система должна функционировать
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Дополнительная информация
+      placeholder: Прочая информация, которая поможет в исправлении ошибки
