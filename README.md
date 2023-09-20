@@ -1,5 +1,4 @@
-![GARNet Header](https://github.com/habralab/garnet-team/assets/17460456/630477e9-e730-4a93-8b52-e87c83c2d933)
-
+![GARNet Header](https://github.com/habralab/garnet-team/assets/17460456/03d4ea06-0468-45ce-8a37-eb1cc22d8085)
 
 # ♨️ GARNet - Group Activity and Rating Network
 
@@ -30,5 +29,4 @@ API: **GraphQL**
 | [Анна](https://career.habr.com/exanngell) |  |
 
 ---
-
-![GARNet Footer](https://github.com/habralab/garnet-team/assets/17460456/d15b2e39-3289-46e2-b295-365d92304633)
+![GARNet Footer](https://github.com/habralab/garnet-team/assets/17460456/d88d1d4f-ab83-49ea-b4a8-aa31efd3b819)
