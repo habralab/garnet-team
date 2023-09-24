@@ -1,0 +1,10 @@
+servers:
+  - 85.92.110.73
+
+accessories:
+  db:
+    host: 85.92.110.73
+    
+traefik:
+  labels:
+    traefik.http.routers.garnet-backend-websecure-stage.rule: Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/api/`)
