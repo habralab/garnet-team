@@ -50,6 +50,10 @@ dist/
 
 # Env
 .env
+.env.*
+
+# Kamal
+.kamal/
 
 # .NET Core build and runtime artifacts
 bin/
@@ -59,6 +63,9 @@ out/
 *.user
 *.userosscache
 *.sln.docstates
+
+# SpecFlow C# files
+*.feature.cs
 
 # Rider IDE specific
 .idea/

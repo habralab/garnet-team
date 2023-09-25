@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Garnet.Team</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Garnet.Teams.Application\Garnet.Teams.Application.csproj" />
+      <ProjectReference Include="..\Garnet.Teams.Infrastructure\Garnet.Teams.Infrastructure.csproj" />
+    </ItemGroup>
+
+</Project>
