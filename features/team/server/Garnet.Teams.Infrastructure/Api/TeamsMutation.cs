@@ -5,11 +5,11 @@ using HotChocolate.Types;
 namespace Garnet.Teams.Infrastructure.Api
 {
     [ExtendObjectType("Mutation")]
-    public class TeamMutation
+    public class TeamsMutation
     {
         private readonly TeamService _teamService;
 
-        public TeamMutation(TeamService teamService)
+        public TeamsMutation(TeamService teamService)
         {
             _teamService = teamService;
         }
