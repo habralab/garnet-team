@@ -1,3 +1,4 @@
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using MongoDB.Driver;
 
@@ -18,7 +19,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string teamId)
         {
             var db = _dbFactory.Create();
-            var teamParticipant = TeamParticipantDocument.Create(userId, teamId);
+            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, teamId);
             await db.TeamParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
             return TeamParticipantDocument.ToDomain(teamParticipant);
         }
