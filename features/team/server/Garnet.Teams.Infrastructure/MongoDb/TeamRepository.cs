@@ -16,14 +16,24 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public Task<Team> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId)
+        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+            var team = TeamDocument.Create(
+             Uuid.NewMongo(),
+             name,
+             description,
+             ownerUserId
+            );
+            await db.Teams.InsertOneAsync(team, cancellationToken: ct);
+            return TeamDocument.ToDomain(team);
         }
 
-        public Task<Team?> GetTeamById(CancellationToken ct, string teamId)
+        public async Task<Team?> GetTeamById(CancellationToken ct, string teamId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+            var team = await db.Teams.Find(o => o.Id == teamId).FirstOrDefaultAsync(ct);
+            return team is not null ? TeamDocument.ToDomain(team) : null;
         }
 
         public async Task CreateIndexes(CancellationToken ct)
