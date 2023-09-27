@@ -12,19 +12,14 @@ namespace Garnet.Teams.AcceptanceTests.Features.CreateTeam
     [Binding]
     public class CreateTeamSteps : BaseSteps
     {
-        private readonly CurrentUserProviderFake _currentUserProviderFake;
         private UserDocumentBuilder _user;
 
-        public CreateTeamSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
-        {
-            _currentUserProviderFake = currentUserProviderFake;
-        }
+        public CreateTeamSteps(StepsArgs args) : base(args) { }
 
         [Given(@"существует пользователь '([^']*)'")]
         public async Task GivenСуществуетПользователь(string username)
         {
-            var id = _currentUserProviderFake.RegisterUser(username, Uuid.NewMongo());
-            _user = GiveMe.User().WithId(id);
+            _user = GiveMe.User().WithId(Uuid.NewMongo());
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
