@@ -7,7 +7,7 @@ namespace Garnet.Projects.AcceptanceTests.Support;
 public class ProjectDocumentBuilder
 {
     private string _id = Uuid.NewMongo();
-    private string _ownerUserName = "OwnerUserName";
+    private string _ownerUserId = "OwnerUserId";
     private string _projectName = "ProjectName";
 
     public ProjectDocumentBuilder WithId(string id)
@@ -16,9 +16,9 @@ public class ProjectDocumentBuilder
         return this;
     }
 
-    public ProjectDocumentBuilder WithUserName(string userName)
+    public ProjectDocumentBuilder WithUserName(string userId)
     {
-        _ownerUserName = userName;
+        _ownerUserId = userId;
         return this;
     }
 
@@ -31,7 +31,7 @@ public class ProjectDocumentBuilder
     
     public ProjectDocument Build()
     {
-        return ProjectDocument.Create(_id, _ownerUserName, _projectName);
+        return ProjectDocument.Create(_id, _ownerUserId, _projectName);
     }
 
     public static implicit operator ProjectDocument(ProjectDocumentBuilder builder)
@@ -40,7 +40,7 @@ public class ProjectDocumentBuilder
     }
 }
 
-public static class GiveMeExtensions
+public static partial class GiveMeExtensions
 {
     public static ProjectDocumentBuilder Project(this GiveMe _)
     {
