@@ -32,8 +32,7 @@ public class ProjectsRepository : IProjectsRepository
         var db = _dbFactory.Create();
         await db.Projects.Indexes.CreateOneAsync(
             new CreateIndexModel<ProjectDocument>(
-                _i.Text(o => o.OwnerUserId)
-                    .Text(o => o.ProjectName)
+                _i.Text(o => o.ProjectName)
             ),
             cancellationToken: ct);
     }
