@@ -5,6 +5,7 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Identity.SecretKey;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.User;
+using Garnet.Project;
 
 namespace Garnet;
 
@@ -33,7 +34,8 @@ public static class Program
             .AddQueryType(o => o.Name("Query"))
             .AddMutationType(o => o.Name("Mutation"))
             .AddMutationConventions(applyToAllMutations: true)
-            .AddGarnetUsers();
+            .AddGarnetUsers()
+            .AddGarnetProjects();
 
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
