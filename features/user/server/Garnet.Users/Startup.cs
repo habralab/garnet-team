@@ -11,12 +11,14 @@ namespace Garnet.User;
 
 public static class Startup
 {
-    public static void AddGarnetUsers(this IRequestExecutorBuilder builder)
+    public static IRequestExecutorBuilder AddGarnetUsers(this IRequestExecutorBuilder builder)
     {
         builder.AddType<UsersQuery>();
         builder.AddType<UsersMutation>();
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddRepeatableMigrations();
+
+        return builder;
     }
     
     private static void AddGarnetUsersInternal(this IServiceCollection services)
