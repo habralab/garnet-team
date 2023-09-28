@@ -8,6 +8,8 @@ namespace Garnet.Teams.AcceptanceTests
     {
         protected readonly CurrentUserProviderFake _currentUserProviderFake;
         protected UserDocumentBuilder _user = null!;
+        protected TeamDocumentBuilder _team = null!;
+        
         protected BaseStepsWithGivenUser(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
