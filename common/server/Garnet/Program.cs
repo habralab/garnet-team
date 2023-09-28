@@ -4,6 +4,7 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Identity.SecretKey;
 using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Team;
 using Garnet.User;
 using Garnet.Project;
 
@@ -35,6 +36,7 @@ public static class Program
             .AddMutationType(o => o.Name("Mutation"))
             .AddMutationConventions(applyToAllMutations: true)
             .AddGarnetUsers()
+            .AddGarnetTeams()
             .AddGarnetProjects();
 
         builder.Services.AddControllers();
