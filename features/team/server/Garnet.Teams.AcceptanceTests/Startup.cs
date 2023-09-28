@@ -1,6 +1,4 @@
-using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
-using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api;

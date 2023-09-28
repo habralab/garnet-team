@@ -1,4 +1,3 @@
-using Garnet.Teams.Application;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb
