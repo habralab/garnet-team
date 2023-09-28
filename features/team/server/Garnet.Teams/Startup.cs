@@ -13,6 +13,7 @@ namespace Garnet.Team
         public static IRequestExecutorBuilder AddGarnetTeams(this IRequestExecutorBuilder builder)
         {
             builder.AddType<TeamsMutation>();
+            builder.AddType<TeamsQuery>();
             builder.Services.AddGarnetTeamsInternal();
             builder.Services.AddRepeatableMigrations();
 
