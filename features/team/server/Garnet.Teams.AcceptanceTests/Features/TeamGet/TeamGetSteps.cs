@@ -1,17 +1,14 @@
+using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
+
 namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
 {
     [Binding]
-    public class TeamGetSteps : BaseSteps
+    [Scope(Scenario = "Просмотр карточки команды")]
+
+    public class TeamGetSteps : BaseStepsWithGivenUser
     {
-        public TeamGetSteps(StepsArgs args) : base(args)
-        {
-        }
-
-        [Given(@"существует пользователь '([^']*)'")]
-        public async Task GivenСуществуетПользователь(string username)
-        {
-
-        }
+        public TeamGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(currentUserProviderFake, args) { }
 
         [Given(@"существует команда '([^']*)' с владельцем '([^']*)' и описанием '([^']*)'")]
         public async Task GivenСуществуетКомандаСВладельцемИОписанием(string team, string ownerUsername, string description)

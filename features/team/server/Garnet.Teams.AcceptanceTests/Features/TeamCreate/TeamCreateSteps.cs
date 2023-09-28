@@ -9,23 +9,10 @@ using MongoDB.Driver;
 namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
 {
     [Binding]
-    public class TeamCreateSteps : BaseSteps
+    [Scope(Scenario = "Создание команды")]
+    public class TeamCreateSteps : BaseStepsWithGivenUser
     {
-        private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private UserDocumentBuilder _user = null!;
-
-        public TeamCreateSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
-        {
-            _currentUserProviderFake = currentUserProviderFake;
-        }
-
-        [Given(@"существует пользователь '([^']*)'")]
-        public Task GivenСуществуетПользователь(string username)
-        {
-            _user = GiveMe.User().WithId(Uuid.NewMongo());
-            _currentUserProviderFake.RegisterUser(username, _user.Id);
-            return Task.CompletedTask;
-        }
+        public TeamCreateSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(currentUserProviderFake, args) { }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
         public async Task WhenПользовательСоздаетКоманду(string username, string team)
