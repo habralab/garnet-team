@@ -4,6 +4,5 @@ namespace Garnet.Teams.Application
     {
         Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string teamId);
         Task<TeamParticipant[]> GetParticipantsFromTeam(CancellationToken ct, string teamId);
-        Task CreateIndexes(CancellationToken ct);
     }
 }

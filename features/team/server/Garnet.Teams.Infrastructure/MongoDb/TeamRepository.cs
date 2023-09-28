@@ -43,7 +43,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 new CreateIndexModel<TeamDocument>(
                     _i.Text(o => o.Name)
                         .Text(o => o.Description)
-                        .Text(o => o.OwnerUserId)
                 ),
                 cancellationToken: ct);
         }

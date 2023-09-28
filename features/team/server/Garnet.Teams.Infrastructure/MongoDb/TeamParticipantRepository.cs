@@ -30,16 +30,5 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             var teamParticipants = await db.TeamParticipants.Find(x => x.TeamId == teamId).ToListAsync();
             return teamParticipants.Select(o => TeamParticipantDocument.ToDomain(o)).ToArray();
         }
-
-        public async Task CreateIndexes(CancellationToken ct)
-        {
-            var db = _dbFactory.Create();
-            await db.TeamParticipants.Indexes.CreateOneAsync(
-                new CreateIndexModel<TeamParticipantDocument>(
-                _i.Text(o => o.TeamId)
-                ),
-                cancellationToken: ct
-            );
-        }
     }
 }

@@ -19,7 +19,7 @@ namespace Garnet.Teams.AcceptanceTests
 
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
-            
+
             services.AddScoped<TeamService>();
 
             services.AddScoped<TeamsMutation>();
@@ -33,17 +33,16 @@ namespace Garnet.Teams.AcceptanceTests
         }
 
         private static void AddMongoDb(IServiceCollection services)
-    {
-        services.AddScoped<MongoDbRunner>(_ => MongoDbRunner.Start());
-        services.AddScoped<DbFactory>(o =>
         {
-            var mongo = o.GetRequiredService<MongoDbRunner>();
-            return new DbFactory(mongo.ConnectionString);
-        });
-        services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
+            services.AddScoped<MongoDbRunner>(_ => MongoDbRunner.Start());
+            services.AddScoped<DbFactory>(o =>
+            {
+                var mongo = o.GetRequiredService<MongoDbRunner>();
+                return new DbFactory(mongo.ConnectionString);
+            });
+            services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
 
-        services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
-        services.AddScoped<IRepeatableMigration, CreateIndexesTeamParticipantMigration>();
-    }
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
+        }
     }
 }
