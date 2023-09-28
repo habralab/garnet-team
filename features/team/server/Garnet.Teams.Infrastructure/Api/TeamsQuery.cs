@@ -1,5 +1,7 @@
 using System.Security.Claims;
+using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
+using HotChocolate.Execution;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -8,9 +10,18 @@ namespace Garnet.Teams.Infrastructure.Api
 
     public class TeamsQuery
     {
-        public async Task<TeamGetPayload> TeamGet(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        private readonly TeamService _teamService;
+
+        public TeamsQuery(TeamService teamService)
         {
-            return null;
+            _teamService = teamService;
+        }
+
+        public async Task<TeamGetPayload> TeamGet(CancellationToken ct, string teamId)
+        {
+            var team = await _teamService.GetTeamById(ct, teamId)
+                ?? throw new QueryException($"Команда с идентификатором '{teamId}' не найдена");
+            return new TeamGetPayload(team.Description);
         }
     }
 }
