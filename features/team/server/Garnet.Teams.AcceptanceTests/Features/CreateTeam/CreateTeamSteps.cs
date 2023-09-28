@@ -32,7 +32,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.CreateTeam
         public async Task WhenПользовательСоздаетКоманду(string username, string team)
         {
             var input = new TeamCreateInput(team, string.Empty);
-            await Mutation.CreateTeam(CancellationToken.None, _currentUserProviderFake.LoginAs(username), input);
+            await Mutation.TeamCreate(CancellationToken.None, _currentUserProviderFake.LoginAs(username), input);
         }
 
         [Then(@"в системе присутствует команда '([^']*)'")]

@@ -16,7 +16,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamService = teamService;
         }
 
-        public async Task<TeamCreatePayload> CreateTeam(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
+        public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
             var team = await _teamService.CreateTeam(ct, input.Name, input.Description, new CurrentUserProvider(claims));
             return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description);
