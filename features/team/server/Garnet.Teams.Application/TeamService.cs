@@ -1,4 +1,6 @@
 
+using Garnet.Common.Application;
+
 namespace Garnet.Teams.Application
 {
     public class TeamService
@@ -11,10 +13,10 @@ namespace Garnet.Teams.Application
             _teamRepository = teamRepository;
         }
 
-        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId)
+        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, ICurrentUserProvider currentUserProvider)
         {
-            var team = await _teamRepository.CreateTeam(ct, name, description, ownerUserId);
-            await _teamParticipantsRepository.CreateTeamParticipant(ct, ownerUserId, team.Id);
+            var team = await _teamRepository.CreateTeam(ct, name, description, currentUserProvider.UserId);
+            await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
             return team;
         }
 
