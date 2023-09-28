@@ -28,6 +28,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<TeamService>();
 
             services.AddScoped<TeamsMutation>();
+            services.AddScoped<TeamsQuery>();
 
             services.AddScoped<GiveMe>();
             services.AddScoped<StepsArgs>();
