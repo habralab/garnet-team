@@ -10,11 +10,13 @@ namespace Garnet.Team
 {
     public static class Startup
     {
-        public static void AddGarnetUsers(this IRequestExecutorBuilder builder)
+        public static IRequestExecutorBuilder AddGarnetTeams(this IRequestExecutorBuilder builder)
         {
             builder.AddType<TeamsMutation>();
             builder.Services.AddGarnetTeamsInternal();
             builder.Services.AddRepeatableMigrations();
+
+            return builder;
         }
 
         private static void AddGarnetTeamsInternal(this IServiceCollection services)
