@@ -1,5 +1,7 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
+using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.AcceptanceTests.Features.Support;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
@@ -10,22 +12,27 @@ namespace Garnet.Teams.AcceptanceTests.Features.CreateTeam
     [Binding]
     public class CreateTeamSteps : BaseSteps
     {
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
         private UserDocumentBuilder _user = null!;
 
-        public CreateTeamSteps(StepsArgs args) : base(args) { }
+        public CreateTeamSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        {
+            _currentUserProviderFake = currentUserProviderFake;
+        }
 
         [Given(@"существует пользователь '([^']*)'")]
         public Task GivenСуществуетПользователь(string username)
         {
             _user = GiveMe.User().WithId(Uuid.NewMongo());
+            _currentUserProviderFake.RegisterUser(username, _user.Id);
             return Task.CompletedTask;
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
         public async Task WhenПользовательСоздаетКоманду(string username, string team)
         {
-            var input = new TeamCreateInput(_user.Id, team, string.Empty);
-            await Mutation.CreateTeam(CancellationToken.None, input);
+            var input = new TeamCreateInput(team, string.Empty);
+            await Mutation.CreateTeam(CancellationToken.None, _currentUserProviderFake.LoginAs(username), input);
         }
 
         [Then(@"в системе присутствует команда '([^']*)'")]

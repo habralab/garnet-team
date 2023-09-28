@@ -1,4 +1,6 @@
+using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
+using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api;
@@ -16,6 +18,9 @@ namespace Garnet.Teams.AcceptanceTests
         public static IServiceCollection CreateServices()
         {
             var services = new ServiceCollection();
+
+            services.AddScoped<CurrentUserProviderFake>();
+            services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
