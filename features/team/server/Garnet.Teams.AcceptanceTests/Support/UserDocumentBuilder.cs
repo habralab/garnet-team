@@ -1,7 +1,7 @@
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
 
-namespace Garnet.Teams.AcceptanceTests.Features.Support
+namespace Garnet.Teams.AcceptanceTests.Support
 {
     public class UserDocumentBuilder
     {

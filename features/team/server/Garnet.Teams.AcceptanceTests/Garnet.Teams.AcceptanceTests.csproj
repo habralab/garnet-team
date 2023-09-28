@@ -30,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Features\CreateTeam\CreateTeam.feature.cs">
+      <Compile Update="Features\CreateTeam\TeamCreate.feature.cs">
         <DependentUpon>CreateTeam.feature</DependentUpon>
         <AutoGen>true</AutoGen>
         <DesignTime>true</DesignTime>

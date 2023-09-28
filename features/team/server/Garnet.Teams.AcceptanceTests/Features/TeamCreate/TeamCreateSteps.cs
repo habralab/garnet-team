@@ -1,21 +1,20 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
-using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.AcceptanceTests.Features.Support;
+using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.AcceptanceTests.Features.CreateTeam
+namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
 {
     [Binding]
-    public class CreateTeamSteps : BaseSteps
+    public class TeamCreateSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private UserDocumentBuilder _user = null!;
 
-        public CreateTeamSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamCreateSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
         }
