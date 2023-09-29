@@ -19,12 +19,6 @@ public class ProjectGetSteps : BaseSteps
         _currentUserProviderFake = currentUserProviderFake;
     }
 
-    [Given(@"существует пользователь '([^']*)'")]
-    public Task GivenСуществуетПользователь(string username)
-    {
-        _currentUserProviderFake.RegisterUser(username, Uuid.NewMongo());
-        return Task.CompletedTask;
-    }
 
     [Given(@"существует проект '(.*)' с описанием '(.*)'")]
     public async Task ThenСуществуетПроектСНазваниемИОписанием(string projectName, string description)
