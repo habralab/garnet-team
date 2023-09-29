@@ -1,4 +1,3 @@
-using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.MongoDb;
 
@@ -7,8 +6,8 @@ namespace Garnet.Teams.AcceptanceTests.Support
     public class TeamDocumentBuilder
     {
         public string Id { get; private set; } = Uuid.NewMongo();
-        public string Name { get; private set; } = null!;
-        public string Description { get; private set; } = null!;
+        public string Name { get; private set; } = "TeamName";
+        public string Description { get; private set; } = "TeamDescription";
         public string OwnerUserId { get; private set; } = Uuid.NewMongo();
 
         public TeamDocumentBuilder WithId(string id)
@@ -26,6 +25,12 @@ namespace Garnet.Teams.AcceptanceTests.Support
         public TeamDocumentBuilder WithDescription(string description)
         {
             Description = description;
+            return this;
+        }
+
+        public TeamDocumentBuilder WithOwnerUserId(string ownerUserId)
+        {
+            OwnerUserId = ownerUserId;
             return this;
         }
 
