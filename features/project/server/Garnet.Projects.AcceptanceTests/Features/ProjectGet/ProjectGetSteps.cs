@@ -41,8 +41,9 @@ public class ProjectGetSteps : BaseSteps
     }
 
     [Then(@"описание проекта состоит из '(.*)'")]
-    public async Task ThenОписаниеПроектаСостоитИз(string description)
+    public Task ThenОписаниеПроектаСостоитИз(string description)
     {
-
+        _response!.Description.Should().Be(description);
+        return Task.CompletedTask;
     }
 }
