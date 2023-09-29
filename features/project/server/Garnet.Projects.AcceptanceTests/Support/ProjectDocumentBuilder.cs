@@ -9,6 +9,7 @@ public class ProjectDocumentBuilder
     private string _id = Uuid.NewMongo();
     private string _ownerUserId = "OwnerUserId";
     private string _projectName = "ProjectName";
+    private string? _description = "Description";
 
     public ProjectDocumentBuilder WithId(string id)
     {
@@ -27,11 +28,17 @@ public class ProjectDocumentBuilder
         _projectName = projectName;
         return this;
     }
+
+    public ProjectDocumentBuilder WithDescription(string? description)
+    {
+        _description = description;
+        return this;
+    }
     
     
     public ProjectDocument Build()
     {
-        return ProjectDocument.Create(_id, _ownerUserId, _projectName);
+        return ProjectDocument.Create(_id, _ownerUserId, _projectName, _description);
     }
 
     public static implicit operator ProjectDocument(ProjectDocumentBuilder builder)

@@ -13,9 +13,9 @@ public class ProjectsService
         _repository = repository;
     }
 
-    public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider, string projectName)
+    public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider, string projectName, string? description)
     {
-        return await _repository.CreateProject(ct, currentUserProvider.UserId, projectName);
+        return await _repository.CreateProject(ct, currentUserProvider.UserId, projectName, description);
     }
     
 }
