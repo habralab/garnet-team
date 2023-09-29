@@ -27,12 +27,20 @@ public class ProjectsRepository : IProjectsRepository
         return ProjectDocument.ToDomain(project);
     }
 
+    public async Task<Project?> GetProject(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.Find(o => o.Id == projectId).FirstOrDefaultAsync(ct);
+        return project is not null ? ProjectDocument.ToDomain(project) : null;
+    }
+
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();
         await db.Projects.Indexes.CreateOneAsync(
             new CreateIndexModel<ProjectDocument>(
                 _i.Text(o => o.ProjectName)
+                    .Text(o => o.Description)
             ),
             cancellationToken: ct);
     }
