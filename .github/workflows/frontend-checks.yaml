@@ -1,4 +1,4 @@
-name: Checks
+name: Frontend Check-In
 
 on: [pull_request]
 
