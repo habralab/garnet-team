@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
@@ -8,12 +9,16 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
     [Binding]
     public class TeamGetSteps : BaseSteps
     {
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
         private TeamDocumentBuilder _team = null!;
         private TeamGetPayload _teamGetPayload = null!;
         private Exception? _exception;
         private string _id = null!;
 
-        public TeamGetSteps(StepsArgs args) : base(args) { }
+        public TeamGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        {
+            _currentUserProviderFake = currentUserProviderFake;
+        }
 
         [Given(@"существует команда '([^']*)' с описанием '([^']*)'")]
         public async Task GivenСуществуетКомандаСВладельцемИОписанием(string team, string description)
@@ -22,9 +27,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             await Db.Teams.InsertOneAsync(_team);
         }
 
-        [When(@"пользователь открывает карточку команды '([^']*)'")]
-        public async Task WhenОткрываетКарточкуКоманды(string team)
+        [When(@"'([^']*)' открывает карточку команды '([^']*)'")]
+        public async Task WhenОткрываетКарточкуКоманды(string username, string team)
         {
+            _currentUserProviderFake.LoginAs(username);
             _teamGetPayload = await Query.TeamGet(CancellationToken.None, _team.Id);
         }
 
@@ -42,9 +48,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             return Task.CompletedTask;
         }
 
-        [When(@"пользователь открывает карточку команды, которой нет в системе")]
-        public async Task WhenПользовательОткрываетКарточкуКомандыКоторойНетВСистеме()
+        [When(@"'([^']*)' открывает карточку команды, которой нет в системе")]
+        public async Task WhenПользовательОткрываетКарточкуКомандыКоторойНетВСистеме(string username)
         {
+            _currentUserProviderFake.LoginAs(username);
             _id = Uuid.NewMongo();
             try
             {
