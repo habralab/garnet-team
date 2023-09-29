@@ -18,7 +18,7 @@ public class ProjectsMutation
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct, ClaimsPrincipal claims, ProjectCreateInput input)
     {
-        var result = await _projectsService.CreateProject(ct, new CurrentUserProvider(claims), input.ProjectName);
-        return new ProjectCreatePayload(result.Id, result.OwnerUserId, result.ProjectName);
+        var result = await _projectsService.CreateProject(ct, new CurrentUserProvider(claims), input.ProjectName, input.Description);
+        return new ProjectCreatePayload(result.Id, result.OwnerUserId, result.ProjectName, result.Description);
     }
 }

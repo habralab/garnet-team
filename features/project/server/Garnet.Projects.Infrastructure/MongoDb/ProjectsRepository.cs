@@ -15,17 +15,24 @@ public class ProjectsRepository : IProjectsRepository
     }
 
 
-    public async Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName)
+    public async Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName, string? description)
     {
         var db = _dbFactory.Create();
         var project = ProjectDocument.Create(
             Uuid.NewMongo(),
             ownerUserId,
-            projectName);
+            projectName,
+            description);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);
     }
 
+    public async Task<Project?> GetProject(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.Find(o => o.Id == projectId).FirstOrDefaultAsync(ct);
+        return project is not null ? ProjectDocument.ToDomain(project) : null;
+    }
 
     public async Task CreateIndexes(CancellationToken ct)
     {
@@ -33,6 +40,7 @@ public class ProjectsRepository : IProjectsRepository
         await db.Projects.Indexes.CreateOneAsync(
             new CreateIndexModel<ProjectDocument>(
                 _i.Text(o => o.ProjectName)
+                    .Text(o => o.Description)
             ),
             cancellationToken: ct);
     }
