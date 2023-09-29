@@ -1,11 +1,11 @@
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.Support;
+using Garnet.User;
 using Garnet.Users.Application;
 using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
-using Garnet.Users.Infrastructure.MongoDb.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
@@ -20,6 +20,7 @@ public static class Startup
         var services = new ServiceCollection();
         
         AddMongoDb(services);
+        AddMessageBus(services);
 
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
@@ -46,6 +47,11 @@ public static class Startup
         });
         services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
 
-        services.AddScoped<IRepeatableMigration, CreateIndexesMigration>();
+        services.AddRepeatableMigrations();
+    }
+
+    private static void AddMessageBus(IServiceCollection services)
+    {
+        services.AddGarnetUsersMessageBus(Uuid.NewGuid());
     }
 }

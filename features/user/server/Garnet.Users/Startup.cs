@@ -1,10 +1,11 @@
+using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Users.Application;
+using Garnet.Users.Events;
 using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
 using Garnet.Users.Infrastructure.MongoDb.Migrations;
 using HotChocolate.Execution.Configuration;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.User;
@@ -16,6 +17,7 @@ public static class Startup
         builder.AddType<UsersQuery>();
         builder.AddType<UsersMutation>();
         builder.Services.AddGarnetUsersInternal();
+        builder.Services.AddGarnetUsersMessageBus(nameof(Users));
         builder.Services.AddRepeatableMigrations();
 
         return builder;
@@ -32,7 +34,16 @@ public static class Startup
         services.AddScoped<IUsersRepository, UsersRepository>();
     }
 
-    private static void AddRepeatableMigrations(this IServiceCollection services)
+    public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)
+    {
+        services.AddGarnetMessageBus(name, o =>
+        {
+            o.RegisterMessage<UserCreatedEvent>();
+            o.RegisterMessage<UserUpdatedEvent>();
+        });
+    }
+
+    public static void AddRepeatableMigrations(this IServiceCollection services)
     {
         services.AddScoped<IRepeatableMigration, CreateIndexesMigration>();
     }
