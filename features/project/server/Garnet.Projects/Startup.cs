@@ -13,6 +13,7 @@ public static class Startup
     public static IRequestExecutorBuilder AddGarnetProjects(this IRequestExecutorBuilder builder)
     {
         builder.AddType<ProjectsMutation>();
+        builder.AddType<ProjectsQuery>();
         builder.Services.AddGarnetProjectsInternal();
         builder.Services.AddRepeatableMigrations();
         
