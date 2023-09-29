@@ -1,0 +1,39 @@
+using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application;
+using MongoDB.Driver;
+
+namespace Garnet.Projects.Infrastructure.MongoDb;
+
+public class ProjectsRepository : IProjectsRepository
+{
+    private readonly DbFactory _dbFactory;
+    private readonly IndexKeysDefinitionBuilder<ProjectDocument> _i = Builders<ProjectDocument>.IndexKeys;
+
+    public ProjectsRepository(DbFactory dbFactory)
+    {
+        _dbFactory = dbFactory;
+    }
+
+
+    public async Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName)
+    {
+        var db = _dbFactory.Create();
+        var project = ProjectDocument.Create(
+            Uuid.NewMongo(),
+            ownerUserId,
+            projectName);
+        await db.Projects.InsertOneAsync(project, cancellationToken: ct);
+        return ProjectDocument.ToDomain(project);
+    }
+
+
+    public async Task CreateIndexes(CancellationToken ct)
+    {
+        var db = _dbFactory.Create();
+        await db.Projects.Indexes.CreateOneAsync(
+            new CreateIndexModel<ProjectDocument>(
+                _i.Text(o => o.ProjectName)
+            ),
+            cancellationToken: ct);
+    }
+}
