@@ -2,6 +2,7 @@
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.AcceptanceTests.Support;
+using Garnet.Projects.Infrastructure.Api.ProjectGet;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
@@ -11,6 +12,7 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectGet;
 public class ProjectGetSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
+    private ProjectPayload? _response;
 
     public ProjectGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
     {
@@ -34,7 +36,8 @@ public class ProjectGetSteps : BaseSteps
     [When(@"пользователь '(.*)' просматривает карточку проекта '(.*)'")]
     public async Task WhenПользовательПросматриваетПроект(string username, string projectName)
     {
-
+        var project = await Db.Projects.Find(o => o.ProjectName == projectName).FirstAsync();
+        _response = await Query.ProjectGet(CancellationToken.None, project.Id);
     }
 
     [Then(@"описание проекта состоит из '(.*)'")]

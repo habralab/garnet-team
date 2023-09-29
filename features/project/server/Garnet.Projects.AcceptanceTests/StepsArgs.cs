@@ -7,12 +7,14 @@ namespace Garnet.Projects.AcceptanceTests;
 public class StepsArgs
 {
     public Db Db { get; }
+    public ProjectsQuery Query { get; }
     public ProjectsMutation Mutation { get; }
     public GiveMe GiveMe { get; }
 
-    public StepsArgs(Db db, ProjectsMutation mutation, GiveMe giveMe)
+    public StepsArgs(Db db, ProjectsQuery query, ProjectsMutation mutation, GiveMe giveMe)
     {
         Db = db;
+        Query = query;
         Mutation = mutation;
         GiveMe = giveMe;
     }

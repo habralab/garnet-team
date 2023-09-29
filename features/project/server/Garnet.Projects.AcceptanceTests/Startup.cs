@@ -28,6 +28,7 @@ public static class Startup
         services.AddScoped<ProjectsService>();
 
         services.AddScoped<ProjectsMutation>();
+        services.AddScoped<ProjectsQuery>();
 
         services.AddScoped<GiveMe>();
         services.AddScoped<StepsArgs>();
