@@ -22,10 +22,10 @@ public class ProjectCreateSteps : BaseSteps
     }
     
     [Given(@"существует пользователь '([^']*)'")]
-    public async Task GivenСуществуетПользователь(string username)
+    public Task GivenСуществуетПользователь(string username)
     {
-        var id = _currentUserProviderFake.RegisterUser(username, Uuid.NewMongo());
-        var user = GiveMe.User().WithId(id);
+        _currentUserProviderFake.RegisterUser(username, Uuid.NewMongo());
+        return Task.CompletedTask;
     }
 
     [When(@"пользователь '(.*)' создает проект '(.*)'")]
