@@ -16,7 +16,7 @@ public class ProjectDocumentBuilder
         return this;
     }
 
-    public ProjectDocumentBuilder WithUserName(string userId)
+    public ProjectDocumentBuilder WithOwnerUserId(string userId)
     {
         _ownerUserId = userId;
         return this;
