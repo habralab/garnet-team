@@ -1,16 +1,21 @@
 using Garnet.Common.Application;
+using Garnet.Common.Application.MessageBus;
+using Garnet.Users.Events;
 
 namespace Garnet.Users.Application;
 
 public class UsersService
 {
     private readonly IUsersRepository _repository;
+    private readonly IMessageBus _messageBus;
 
     public UsersService(
-        IUsersRepository repository
+        IUsersRepository repository,
+        IMessageBus messageBus
     )
     {
         _repository = repository;
+        _messageBus = messageBus;
     }
 
     public async Task<User> CreateSystemUser(CancellationToken ct)
@@ -20,7 +25,9 @@ public class UsersService
 
     public async Task<User> CreateUser(CancellationToken ct, string identityId, string username)
     {
-        return await _repository.CreateUser(ct, identityId, username);
+        var user = await _repository.CreateUser(ct, identityId, username);
+        await _messageBus.Publish(new UserCreatedEvent(user.Id, user.UserName));
+        return user;
     }
     
     public async Task<User?> GetUser(CancellationToken ct, string id)
@@ -35,6 +42,8 @@ public class UsersService
     
     public async Task<User> EditCurrentUserDescription(CancellationToken ct, ICurrentUserProvider currentUserProvider, string description)
     {
-        return await _repository.EditUserDescription(ct, currentUserProvider.UserId, description);
+        var user = await _repository.EditUserDescription(ct, currentUserProvider.UserId, description);
+        await _messageBus.Publish(new UserUpdatedEvent(user.Id, user.UserName, user.Description, user.Tags));
+        return user;
     }
 }
