@@ -1,5 +1,4 @@
 using FluentAssertions;
-using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
@@ -7,37 +6,42 @@ using Garnet.Teams.Infrastructure.Api.TeamGet;
 namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
 {
     [Binding]
-    public class TeamGetSteps : BaseStepsWithGivenUser
+    public class TeamGetSteps : BaseSteps
     {
-        private TeamGetPayload _teamGetPayload;
+        private TeamDocumentBuilder _team = null!;
+        private TeamGetPayload _teamGetPayload = null!;
         private Exception? _exception;
-        private string _id;
+        private string _id = null!;
 
-        public TeamGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(currentUserProviderFake, args) { }
+        public TeamGetSteps(StepsArgs args) : base(args) { }
 
-        [Given(@"существует команда '([^']*)' с владельцем '([^']*)' и описанием '([^']*)'")]
-        public async Task GivenСуществуетКомандаСВладельцемИОписанием(string team, string ownerUsername, string description)
+        [Given(@"существует команда '([^']*)' с описанием '([^']*)'")]
+        public async Task GivenСуществуетКомандаСВладельцемИОписанием(string team, string description)
         {
             _team = GiveMe.Team().WithName(team).WithDescription(description);
             await Db.Teams.InsertOneAsync(_team);
         }
 
-        [Scope(Tag = "Команда_найдена")]
-        [When(@"'([^']*)' открывает карточку команды '([^']*)'")]
-        public async Task WhenОткрываетКарточкуКоманды(string username, string team)
+        [When(@"пользователь открывает карточку команды '([^']*)'")]
+        public async Task WhenОткрываетКарточкуКоманды(string team)
         {
             _teamGetPayload = await Query.TeamGet(CancellationToken.None, _team.Id);
         }
 
-        [Scope(Tag = "Команда_найдена")]
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
         public Task ThenОписаниеКомандыВКарточкеСостоитИз(string description)
         {
-            _teamGetPayload.Description.Should().Be(_team.Description);
+            _teamGetPayload.Description.Should().Be(description);
             return Task.CompletedTask;
         }
 
-        [Scope(Tag = "Команда_не_найдена")]
+        [Then(@"имя команды в карточке состоит из '([^']*)'")]
+        public Task ThenмяКомандыВКарточкеСостоитИз(string name)
+        {
+            _teamGetPayload.Name.Should().Be(name);
+            return Task.CompletedTask;
+        }
+
         [When(@"пользователь открывает карточку команды, которой нет в системе")]
         public async Task WhenПользовательОткрываетКарточкуКомандыКоторойНетВСистеме()
         {
@@ -46,13 +50,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             {
                 await Query.TeamGet(CancellationToken.None, _id);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 _exception = ex;
             }
         }
 
-        [Scope(Tag = "Команда_не_найдена")]
         [Then(@"происходит ошибка '(.*)'")]
         public Task ThenПроисходитОшибка(string error)
         {
