@@ -19,6 +19,6 @@ public class ProjectsQuery
     {
         var project = await _projectsService.GetProject(ct, projectId)
                       ?? throw new QueryException($"Проект с идентификатором '{projectId}' не найден");
-        return new ProjectPayload(project.OwnerUserId, project.ProjectName, project.Description);
+        return new ProjectPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
     }
 }
