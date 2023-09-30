@@ -1,0 +1,79 @@
+name: Backend Build and Deploy
+
+on:
+  workflow_call:
+    inputs:
+      deployment_target:
+        description: 'Target to deploy (stage/prod)'
+        type: string
+        required: true
+        default: 'stage'
+      deployment_target_url:
+        description: 'Deployment target public url'
+        type: string
+        required: true
+        default: 'https://stage.garnet.pet-project.habr.com/'
+        
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DEPLOYMENT_TARGET: ${{ inputs.deployment_target }}
+  DEPLOYMENT_TARGET_URL: ${{ inputs.deployment_target_url }}
+  NET_VERSION: '6.0.300'
+  GITHUB_API_KEY: ${{ github.token }}
+  SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+  KAMAL_REGISTRY_USERNAME: ${{ secrets.KAMAL_REGISTRY_USERNAME }}
+  MONGO_CONNSTRING: ${{ secrets.MONGO_CONNSTRING }}
+  GARNET_API_KEY: ${{ secrets.GARNET_API_KEY }}
+
+jobs:
+  build_and_publish:
+    name: Build and Deploy
+    runs-on: ubuntu-20.04
+    environment:
+      name: ${{ env.DEPLOYMENT_TARGET }}
+      url: ${{ env.DEPLOYMENT_TARGET_URL }}
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.NET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test --no-restore
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.2.2
+          bundler-cache: true
+          
+      - name: Install dependencies
+        run: |
+          gem install specific_install
+          gem specific_install https://github.com/basecamp/kamal.git
+          
+      - uses: webfactory/ssh-agent@v0.7.0
+        with:
+          ssh-private-key: ${{ env.SSH_PRIVATE_KEY }}
+
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Push envs to ${{ env.DEPLOYMENT_TARGET }}
+        run: kamal env push -d ${{ env.DEPLOYMENT_TARGET }}
+        
+      - name: Deploy to ${{ env.DEPLOYMENT_TARGET }}
+        run: kamal deploy -d ${{ env.DEPLOYMENT_TARGET }}

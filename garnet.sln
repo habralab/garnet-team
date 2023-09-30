@@ -22,6 +22,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\backend-checks.yaml = .github\workflows\backend-checks.yaml
 		.github\workflows\frontend-checks.yaml = .github\workflows\frontend-checks.yaml
+		.github\workflows\backend-deploy.yaml = .github\workflows\backend-deploy.yaml
+		.github\workflows\backend-deploy-prod.yaml = .github\workflows\backend-deploy-prod.yaml
+		.github\workflows\backend-deploy-stage.yaml = .github\workflows\backend-deploy-stage.yaml
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ISSUE_TEMPLATE", "ISSUE_TEMPLATE", "{EF1BE5AD-24F8-4636-9DB9-99AFB3C6C274}"
