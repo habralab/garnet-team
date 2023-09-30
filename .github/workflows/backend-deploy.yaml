@@ -19,8 +19,6 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DEPLOYMENT_TARGET: ${{ inputs.deployment_target }}
-  DEPLOYMENT_TARGET_URL: ${{ inputs.deployment_target_url }}
   NET_VERSION: '6.0.300'
   GITHUB_API_KEY: ${{ github.token }}
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -34,8 +32,8 @@ jobs:
     name: Build and Deploy
     runs-on: ubuntu-20.04
     environment:
-      name: ${{ env.DEPLOYMENT_TARGET }}
-      url: ${{ env.DEPLOYMENT_TARGET_URL }}
+      name: ${{ inputs.deployment_target }}
+      url: ${{ inputs.deployment_target_url }}
     steps:
       - uses: actions/checkout@v3
 
@@ -73,7 +71,7 @@ jobs:
         uses: docker/setup-buildx-action@v2
 
       - name: Push envs to destination
-        run: kamal env push -d ${{ env.DEPLOYMENT_TARGET }}
+        run: kamal env push -d ${{ inputs.deployment_target }}
         
       - name: Deploy to destination
-        run: kamal deploy -d ${{ env.DEPLOYMENT_TARGET }}
+        run: kamal deploy -d ${{ inputs.deployment_target }}

@@ -11,7 +11,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
     public class TeamGetSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private TeamGetPayload _teamGetPayload = null!;
+        private TeamPayload _teamGetPayload = null!;
         private Exception? _exception;
         private string _id = null!;
 
@@ -20,10 +20,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             _currentUserProviderFake = currentUserProviderFake;
         }
 
-        [Given(@"существует команда '([^']*)' с описанием '([^']*)'")]
-        public async Task GivenСуществуетКомандаСВладельцемИОписанием(string teamName, string description)
+        [Given(@"существует команда '([^']*)'")]
+        public async Task GivenСуществует(string teamName)
         {
-            var team = GiveMe.Team().WithName(teamName).WithDescription(description);
+            var team = GiveMe.Team().WithName(teamName);
             await Db.Teams.InsertOneAsync(team);
         }
 

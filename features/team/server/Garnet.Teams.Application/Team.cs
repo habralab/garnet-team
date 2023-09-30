@@ -4,6 +4,7 @@ namespace Garnet.Teams.Application
         string Id,
         string Name,
         string Description,
-        string OwnerUserId
+        string OwnerUserId,
+        string[] Tags
     );
 }

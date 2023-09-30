@@ -1,6 +1,7 @@
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
+using Garnet.Common.Application.S3;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.User;
 using Garnet.Users.Application;
@@ -24,6 +25,9 @@ public static class Startup
 
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
+
+        services.AddScoped<RemoteFileStorageFake>();
+        services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
     
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<UsersService>();

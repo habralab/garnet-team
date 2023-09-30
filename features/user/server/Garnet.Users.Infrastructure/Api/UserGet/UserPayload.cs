@@ -7,5 +7,6 @@ public record UserPayload(
     string Id,
     string UserName,
     string Description,
+    string AvatarUrl,
     string[] Tags
 );

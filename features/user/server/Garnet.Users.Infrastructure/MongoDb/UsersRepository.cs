@@ -16,26 +16,6 @@ public class UsersRepository : IUsersRepository
         _dbFactory = dbFactory;
     }
     
-    public async Task<User> CreateSystemUser(CancellationToken ct)
-    {
-        var db = _dbFactory.Create();
-        var systemUser = UserDocument.Create("system",
-            string.Empty,
-            "Система",
-            string.Empty,
-            Array.Empty<string>()
-        );
-        await db.Users.FindOneAndReplaceAsync(
-            _f.Eq(o => o.Id, systemUser.Id),
-            replacement: systemUser,
-            options: new FindOneAndReplaceOptions<UserDocument>
-            {
-                IsUpsert = true
-            },
-            cancellationToken: ct);
-        return UserDocument.ToDomain(systemUser);
-    }
-    
     public async Task<User?> GetUser(CancellationToken ct, string id)
     {
         var db = _dbFactory.Create();
@@ -58,6 +38,21 @@ public class UsersRepository : IUsersRepository
         return UserDocument.ToDomain(user);
     }
 
+    public async Task<User> EditUserAvatar(CancellationToken ct, string userId, string avatarUrl)
+    {
+        var db = _dbFactory.Create();
+        var user =
+            await db.Users.FindOneAndUpdateAsync(
+                _f.Eq(o => o.Id, userId),
+                _u.Set(o => o.AvatarUrl, avatarUrl),
+                options: new FindOneAndUpdateOptions<UserDocument>
+                {
+                    ReturnDocument = ReturnDocument.After
+                },
+                cancellationToken: ct);
+        return UserDocument.ToDomain(user);
+    }
+
     public async Task<User> CreateUser(CancellationToken ct, string identityId, string username)
     {
         var db = _dbFactory.Create();
@@ -65,6 +60,7 @@ public class UsersRepository : IUsersRepository
             Uuid.NewMongo(),
             identityId,
             username,
+            string.Empty,
             string.Empty,
             Array.Empty<string>());
         await db.Users.InsertOneAsync(user, cancellationToken: ct);
