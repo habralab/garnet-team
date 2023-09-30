@@ -1,7 +1,6 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using MongoDB.Driver;
 
@@ -20,7 +19,6 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         public Task GivenСуществуетПользователь(string username)
         {
             var id = Uuid.NewMongo();
-            var user = GiveMe.User().WithId(id);
             _currentUserProviderFake.RegisterUser(username, id);
             return Task.CompletedTask;
         }
