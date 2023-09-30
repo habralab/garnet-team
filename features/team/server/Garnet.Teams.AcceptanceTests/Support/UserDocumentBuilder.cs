@@ -4,11 +4,11 @@ namespace Garnet.Teams.AcceptanceTests.Support
 {
     public class UserDocumentBuilder
     {
-        public string Id { get; private set; } = Uuid.NewMongo();
+        private string _id = Uuid.NewMongo();
 
         public UserDocumentBuilder WithId(string id)
         {
-            Id = id;
+            _id = id;
             return this;
         }
     }
