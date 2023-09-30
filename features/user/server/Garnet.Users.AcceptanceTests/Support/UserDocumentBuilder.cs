@@ -10,6 +10,7 @@ public class UserDocumentBuilder
     private string _identityId = Uuid.NewGuid();
     private string _userName = "Username";
     private string _description = "Description";
+    private string _avatarUrl = "";
     private List<string> _tags = new();
 
     public UserDocumentBuilder WithId(string id)
@@ -35,10 +36,16 @@ public class UserDocumentBuilder
         _tags.AddRange(tags);
         return this;
     }
+
+    public UserDocumentBuilder WithAvatarUrl(string avatarUrl)
+    {
+        _avatarUrl = avatarUrl;
+        return this;
+    }
     
     public UserDocument Build()
     {
-        return UserDocument.Create(_id, _identityId, _userName, _description, _tags.ToArray());
+        return UserDocument.Create(_id, _identityId, _userName, _description, _avatarUrl, _tags.ToArray());
     }
 
     public static implicit operator UserDocument(UserDocumentBuilder builder)

@@ -6,7 +6,7 @@ public class RemoteFileStorageFake : IRemoteFileStorage
 {
     public Dictionary<string, byte[]> FilesInStorage { get; } = new();
     
-    public async Task<string> UploadFile(string filePath, string contentType, Stream stream)
+    public async Task<string> UploadFile(string filePath, string? contentType, Stream stream)
     {
         using var memoryStream = new MemoryStream();
         await stream.CopyToAsync(memoryStream);

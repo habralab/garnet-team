@@ -14,10 +14,16 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEdit;
 public class UserEditSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
+    private readonly RemoteFileStorageFake _fileStorageFake;
 
-    public UserEditSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+    public UserEditSteps(
+        CurrentUserProviderFake currentUserProviderFake, 
+        RemoteFileStorageFake fileStorageFake, 
+        StepsArgs args
+    ) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
+        _fileStorageFake = fileStorageFake;
     }
     
     [Given(@"существует пользователь '([^']*)'")]
@@ -65,5 +71,13 @@ public class UserEditSteps : BaseSteps
         var user = await Db.Users.Find(o => o.UserName == username).FirstAsync();
         var avatarUrl = avatar.Replace("ID", user.Id);
         user.AvatarUrl.Should().Be(avatarUrl);
+    }
+
+    [Then(@"в удаленном хранилище для пользователя '(.*)' есть файл '(.*)'")]
+    public async Task ThenВУдаленномХранилищеЕстьФайл(string username, string avatar)
+    {
+        var user = await Db.Users.Find(o => o.UserName == username).FirstAsync();
+        var avatarUrl = avatar.Replace("ID", user.Id);
+        _fileStorageFake.FilesInStorage.Should().ContainKey(avatarUrl);
     }
 }

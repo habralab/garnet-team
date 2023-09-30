@@ -12,7 +12,14 @@ public record UserDocument
     public string AvatarUrl { get; init; } = null!;
     public string[] Tags { get; init; } = Array.Empty<string>();
 
-    public static UserDocument Create(string id, string identityId, string userName, string description, string[] tags)
+    public static UserDocument Create(
+        string id, 
+        string identityId, 
+        string userName, 
+        string description, 
+        string avatarUrl, 
+        string[] tags
+    )
     {
         return new UserDocument
         {
@@ -20,6 +27,7 @@ public record UserDocument
             IdentityId = identityId,
             UserName = userName,
             Description = description,
+            AvatarUrl = avatarUrl,
             Tags = tags
         };
     }

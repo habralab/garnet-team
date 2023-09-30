@@ -40,7 +40,7 @@ public class UsersService
     
     public async Task<User> EditCurrentUserDescription(CancellationToken ct, ICurrentUserProvider currentUserProvider, string description)
     {
-        var user = await _repository.EditUserDescription(ct, "6511b9ec703b6c7b4ea7baf5", description);
+        var user = await _repository.EditUserDescription(ct, currentUserProvider.UserId, description);
         await _messageBus.Publish(user.ToUpdatedEvent());
         return user;
     }

@@ -61,6 +61,7 @@ public class UsersRepository : IUsersRepository
             identityId,
             username,
             string.Empty,
+            string.Empty,
             Array.Empty<string>());
         await db.Users.InsertOneAsync(user, cancellationToken: ct);
         return UserDocument.ToDomain(user);
