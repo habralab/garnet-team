@@ -11,7 +11,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsFilter
     {
         private readonly FilterDefinitionBuilder<TeamDocument> _f = Builders<TeamDocument>.Filter;
         private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
-        private TeamsFilterPayload _result;
+        private TeamsFilterPayload _result = null!;
 
         public TeamsFilterSteps(StepsArgs args) : base(args)
         {
@@ -29,7 +29,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsFilter
         [Given(@"теги команды '([^']*)' состоят из '([^']*)'")]
         public async Task GivenТегиКомандыСостоятИз(string teamName, string tags)
         {
-            var teamTags = tags.Split(',');
+            var teamTags = tags.Split(',').Select(x=> x.Trim());
             await Db.Teams.FindOneAndUpdateAsync(
                 _f.Eq(x => x.Name, teamName),
                 _u.Set(o => o.Tags, teamTags)

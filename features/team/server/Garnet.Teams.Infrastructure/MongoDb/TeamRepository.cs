@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using MongoDB.Driver;
@@ -48,9 +49,25 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 cancellationToken: ct);
         }
 
-        public Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        public async Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var searchFilter = search is null
+                ? _f.Empty
+                : _f.Where(x=> x.Description.Contains(search) || x.Name.Contains(search));
+
+            var tagsFilter = tags.Length > 0
+                ? _f.All(o => o.Tags, tags)
+                : _f.Empty;
+
+            var teams = await db.Teams
+                .Find(searchFilter & tagsFilter)
+                .Skip(skip)
+                .Limit(take)
+                .ToListAsync(ct);
+
+            return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
     }
 }
