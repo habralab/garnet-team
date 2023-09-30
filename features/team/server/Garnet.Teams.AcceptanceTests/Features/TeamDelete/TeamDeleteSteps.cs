@@ -3,6 +3,7 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.MongoDb;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
@@ -14,7 +15,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private TeamDeletePayload _result = null!;
-        private Exception _exception = null!;
+        private QueryException _exception = null!;
 
         public TeamDeleteSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
@@ -47,7 +48,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
             {
                 _result = await Mutation.TeamDelete(CancellationToken.None, claims, team.Id);
             }
-            catch (Exception ex)
+            catch (QueryException ex)
             {
                 _exception = ex;
             }
@@ -71,7 +72,8 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         [Then(@"пользователь получает ошибку '([^']*)'")]
         public Task ThenПользовательПолучаетОшибку(string errorMsg)
         {
-            _exception.Message.Should().Be(errorMsg);
+            var validError = _exception.Errors.Any(x=> x.Message == errorMsg);
+            validError.Should().BeTrue();
             return Task.CompletedTask;
         }
     }

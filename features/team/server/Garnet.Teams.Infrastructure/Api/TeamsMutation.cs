@@ -3,6 +3,8 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
+using HotChocolate;
+using HotChocolate.Execution;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -29,7 +31,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
             if (result.IsFailed)
             {
-                throw new QueryException(result.Errors[0].Message);
+                throw new QueryException(result.Errors.Select(x=> new Error(x.Message)));
             }
 
             var team = result.Value;
