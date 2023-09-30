@@ -49,10 +49,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsFilter
             _result = await Query.TeamsFilter(CancellationToken.None, new TeamsFilterInput(null, teamTags, 0, 100));
         }
 
-        [Then(@"в списке отображается '(\d*)' команда")]
+        [Then(@"в списке отображается '(.*)' команда")]
         public Task ThenВСпискеОтображаетсяКоманда(int resultCount)
         {
-            _result.Teams.Count().Should().Be(1);
+            _result.Teams.Count().Should().Be(resultCount);
             return Task.CompletedTask;
         }
     }

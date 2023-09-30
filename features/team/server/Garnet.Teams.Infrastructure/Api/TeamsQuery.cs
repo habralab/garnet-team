@@ -27,11 +27,12 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamsFilterPayload> TeamsFilter(CancellationToken ct, TeamsFilterInput input)
         {
-            var teams = await _teamService.FilterTeams(ct,
-                                                       input.Search,
-                                                       input.Tags ?? Array.Empty<string>(),
-                                                       input.Skip,
-                                                       input.Take);
+            var teams = await _teamService.FilterTeams(
+                ct,
+                input.Search,
+                input.Tags ?? Array.Empty<string>(),
+                input.Skip,
+                input.Take);
 
             return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.Tags)).ToArray());
         }
