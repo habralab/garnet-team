@@ -1,6 +1,6 @@
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Users.Events;
+using Garnet.Common.Application.S3;
 
 namespace Garnet.Users.Application;
 
@@ -8,25 +8,23 @@ public class UsersService
 {
     private readonly IUsersRepository _repository;
     private readonly IMessageBus _messageBus;
+    private readonly IRemoteFileStorage _fileStorage;
 
     public UsersService(
         IUsersRepository repository,
-        IMessageBus messageBus
+        IMessageBus messageBus,
+        IRemoteFileStorage fileStorage
     )
     {
         _repository = repository;
         _messageBus = messageBus;
-    }
-
-    public async Task<User> CreateSystemUser(CancellationToken ct)
-    {
-        return await _repository.CreateSystemUser(ct);
+        _fileStorage = fileStorage;
     }
 
     public async Task<User> CreateUser(CancellationToken ct, string identityId, string username)
     {
         var user = await _repository.CreateUser(ct, identityId, username);
-        await _messageBus.Publish(new UserCreatedEvent(user.Id, user.UserName));
+        await _messageBus.Publish(user.ToCreatedEvent());
         return user;
     }
     
@@ -43,7 +41,20 @@ public class UsersService
     public async Task<User> EditCurrentUserDescription(CancellationToken ct, ICurrentUserProvider currentUserProvider, string description)
     {
         var user = await _repository.EditUserDescription(ct, currentUserProvider.UserId, description);
-        await _messageBus.Publish(new UserUpdatedEvent(user.Id, user.UserName, user.Description, user.Tags));
+        await _messageBus.Publish(user.ToUpdatedEvent());
+        return user;
+    }
+
+    public async Task<User> EditCurrentUserAvatar(
+        CancellationToken ct,
+        ICurrentUserProvider currentUserProvider,
+        string fileName,
+        string? contentType,
+        Stream imageStream)
+    {
+        var avatarLink = await _fileStorage.UploadFile($"avatars/{currentUserProvider.UserId}", contentType, imageStream);
+        var user = await _repository.EditUserAvatar(ct, currentUserProvider.UserId, avatarLink);
+        await _messageBus.Publish(user.ToUpdatedEvent());
         return user;
     }
 }

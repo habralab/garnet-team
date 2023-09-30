@@ -31,6 +31,7 @@ public static class Program
             .AddAuthorization()
             .AddQueryType(o => o.Name("Query"))
             .AddMutationType(o => o.Name("Mutation"))
+            .AddUploadType()
             .AddMutationConventions(applyToAllMutations: true)
             .AddGarnetUsers()
             .AddGarnetTeams()
