@@ -3,6 +3,7 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
+using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
 {
@@ -10,7 +11,6 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
     public class TeamGetSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private TeamDocumentBuilder _team = null!;
         private TeamGetPayload _teamGetPayload = null!;
         private Exception? _exception;
         private string _id = null!;
@@ -21,17 +21,18 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
         }
 
         [Given(@"существует команда '([^']*)' с описанием '([^']*)'")]
-        public async Task GivenСуществуетКомандаСВладельцемИОписанием(string team, string description)
+        public async Task GivenСуществуетКомандаСВладельцемИОписанием(string teamName, string description)
         {
-            _team = GiveMe.Team().WithName(team).WithDescription(description);
-            await Db.Teams.InsertOneAsync(_team);
+            var team = GiveMe.Team().WithName(teamName).WithDescription(description);
+            await Db.Teams.InsertOneAsync(team);
         }
 
         [When(@"'([^']*)' открывает карточку команды '([^']*)'")]
-        public async Task WhenОткрываетКарточкуКоманды(string username, string team)
+        public async Task WhenОткрываетКарточкуКоманды(string username, string teamName)
         {
+            var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
             _currentUserProviderFake.LoginAs(username);
-            _teamGetPayload = await Query.TeamGet(CancellationToken.None, _team.Id);
+            _teamGetPayload = await Query.TeamGet(CancellationToken.None, team.Id);
         }
 
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
