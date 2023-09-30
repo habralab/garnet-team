@@ -39,14 +39,14 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsFilter
         [When(@"производится поиск команд по запросу '([^']*)'")]
         public async Task WhenПроизводитсяПоискКомандПоЗапросу(string query)
         {
-            _result = await Query.FilterTeams(CancellationToken.None, new TeamsFilterInput(query, null, 0, 100));
+            _result = await Query.TeamsFilter(CancellationToken.None, new TeamsFilterInput(query, null, 0, 100));
         }
 
         [When(@"производится поиск команд по тегам '([^']*)'")]
         public async Task WhenПроизводитсяПоискКомандПоТегу(string tags)
         {
             var teamTags = tags.Split(',');
-            _result = await Query.FilterTeams(CancellationToken.None, new TeamsFilterInput(null, teamTags, 0, 100));
+            _result = await Query.TeamsFilter(CancellationToken.None, new TeamsFilterInput(null, teamTags, 0, 100));
         }
 
         [Then(@"в списке отображается '(.*)' команда")]
