@@ -38,7 +38,7 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<Team>> DeleteTeam(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
-            var team = await _teamRepository.DeleteTeam(ct, teamId);
+            var team = await _teamRepository.GetTeamById(ct, teamId);
 
             if (team is null)
             {
