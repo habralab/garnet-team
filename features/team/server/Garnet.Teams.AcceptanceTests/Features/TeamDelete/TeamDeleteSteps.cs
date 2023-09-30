@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.MongoDb;
 using MongoDB.Driver;
@@ -24,9 +25,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         public async Task GivenВладелецемКомандыЯвляется(string teamName, string username)
         {
             _currentUserProviderFake.LoginAs(username);
-            await Db.Teams.FindOneAndUpdateAsync(
+            var team = await Db.Teams.FindOneAndUpdateAsync(
                 _f.Eq(x => x.Name, teamName),
                 _u.Set(o => o.OwnerUserId, _currentUserProviderFake.UserId)
+            );
+
+            await Db.TeamParticipants.InsertOneAsync(
+                GiveMe.TeamParticipant()
+                    .WithTeamId(team.Id)
+                    .WithUserId(_currentUserProviderFake.UserId)
             );
         }
 
@@ -51,6 +58,14 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstOrDefaultAsync();
             team.Should().BeNull();
+        }
+
+        [Then(@"'([^']*)' не является участником команды")]
+        public async Task ThenНеЯвляетсяУчастникомКоманды(string username)
+        {
+            _currentUserProviderFake.LoginAs(username);
+            var participants = await Db.TeamParticipants.Find(x=> x.UserId == _currentUserProviderFake.UserId).ToListAsync();
+            participants.Should().BeEmpty();
         }
 
         [Then(@"пользователь получает ошибку '([^']*)'")]
