@@ -6,7 +6,6 @@ EXPOSE 3000
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
 COPY ["common/server", "common/server"]
-COPY ["features/identity/server", "features/identity/server"]
 COPY ["features/project/server", "features/project/server"]
 COPY ["features/team/server", "features/team/server"]
 COPY ["features/user/server", "features/user/server"]
