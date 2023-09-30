@@ -5,7 +5,12 @@ image: picolino/garnet-backend
 env:
   secret:
     - MONGO_CONNSTRING
+    - S3_BUCKET
+    - S3_ACCESS_KEY
+    - S3_SECRET_KEY
     - GARNET_API_KEY
+  clear:
+    - S3_ENDPOINT
 
 registry:
   server: ghcr.io
