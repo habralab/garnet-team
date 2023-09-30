@@ -13,9 +13,9 @@ namespace Garnet.Teams.Application
             _teamRepository = teamRepository;
         }
 
-        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, ICurrentUserProvider currentUserProvider)
+        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
         {
-            var team = await _teamRepository.CreateTeam(ct, name, description, currentUserProvider.UserId);
+            var team = await _teamRepository.CreateTeam(ct, name, description, currentUserProvider.UserId, tags);
             await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
             return team;
         }
