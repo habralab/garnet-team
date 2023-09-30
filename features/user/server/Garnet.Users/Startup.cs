@@ -1,5 +1,6 @@
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.S3;
 using Garnet.Users.Application;
 using Garnet.Users.Events;
 using Garnet.Users.Infrastructure.Api;
@@ -19,6 +20,7 @@ public static class Startup
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddGarnetUsersMessageBus(nameof(Users));
         builder.Services.AddRepeatableMigrations();
+        builder.Services.AddGarnetPublicStorage();
 
         return builder;
     }

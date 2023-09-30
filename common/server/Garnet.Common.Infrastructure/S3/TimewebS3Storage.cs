@@ -17,7 +17,7 @@ public class TimewebS3Storage : IRemoteFileStorage
 
     public async Task<string> UploadFile(
         string filePath,
-        string contentType,
+        string? contentType,
         Stream stream
     )
     {

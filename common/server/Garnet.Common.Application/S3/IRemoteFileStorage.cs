@@ -7,7 +7,7 @@ public interface IRemoteFileStorage
     /// <returns>Абсолютная публичная ссылка на файл</returns>
     Task<string> UploadFile(
         string filePath, 
-        string contentType, 
+        string? contentType, 
         Stream stream
     );
 }
