@@ -29,5 +29,10 @@ namespace Garnet.Teams.Application
         {
             return await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
         }
+
+        public async Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        {
+            return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
+        }
     }
 }

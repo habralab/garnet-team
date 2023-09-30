@@ -47,5 +47,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 ),
                 cancellationToken: ct);
         }
+
+        public Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
