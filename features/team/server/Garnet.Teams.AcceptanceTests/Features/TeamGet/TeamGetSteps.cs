@@ -32,7 +32,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
         {
             var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
             _currentUserProviderFake.LoginAs(username);
-            _teamGetPayload = await Query.TeamGet(CancellationToken.None, team.Id);
+            _teamGetPayload = await Query.GetTeam(CancellationToken.None, team.Id);
         }
 
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
@@ -56,7 +56,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             _id = Uuid.NewMongo();
             try
             {
-                await Query.TeamGet(CancellationToken.None, _id);
+                await Query.GetTeam(CancellationToken.None, _id);
             }
             catch (Exception ex)
             {
