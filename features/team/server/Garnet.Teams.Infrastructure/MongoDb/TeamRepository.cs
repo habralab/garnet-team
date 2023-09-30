@@ -53,9 +53,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         {
             var db = _dbFactory.Create();
 
+            search = search?.ToLower();
             var searchFilter = search is null
                 ? _f.Empty
-                : _f.Where(x=> x.Description.Contains(search) || x.Name.Contains(search));
+                : _f.Where(x=> x.Description.ToLower().Contains(search) || x.Name.ToLower().Contains(search));
 
             var tagsFilter = tags.Length > 0
                 ? _f.All(o => o.Tags, tags)
