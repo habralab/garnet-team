@@ -1,0 +1,14 @@
+name: Backend Build and Deploy to Stage
+
+on:
+  push:
+    branches:
+      - stage
+
+jobs:
+  build_and_deploy:
+    uses: habralab/garnet-team/.github/workflows/backend-deploy.yml@master
+    with:
+      deployment_target: stage
+      deployment_target_url: https://stage.garnet.pet-project.habr.com/
+    secrets: inherit
