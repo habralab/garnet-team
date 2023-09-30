@@ -1,4 +1,5 @@
 
+using FluentResults;
 using Garnet.Common.Application;
 
 namespace Garnet.Teams.Application
@@ -35,24 +36,24 @@ namespace Garnet.Teams.Application
             return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
         }
 
-        public async Task<Team> DeleteTeam(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
+        public async Task<Result<Team>> DeleteTeam(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
             var team = await GetTeamById(ct, teamId);
 
             if (team is null)
             {
-                throw new Exception($"Команда с идентификатором '{teamId}' не найдена");
+                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
             }
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                throw new Exception("Команду может удалить только ее владелец");
+                return Result.Fail("Команду может удалить только ее владелец");
             }
 
             await _teamRepository.DeleteTeam(ct, teamId);
             await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
 
-            return team;
+            return Result.Ok(team);
         }
     }
 }
