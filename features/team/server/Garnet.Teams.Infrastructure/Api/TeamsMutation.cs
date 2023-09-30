@@ -3,6 +3,7 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
+using HotChocolate.Execution;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -25,7 +26,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            return null;
+            try
+            {
+                var team = await _teamService.DeleteTeam(ct, teamId, new CurrentUserProvider(claims));
+                return new TeamDeletePayload(new TeamGet.TeamPayload(team.Id, team.Name, team.Description, team.Tags));
+            }
+            catch (Exception ex)
+            {
+                throw new QueryException(ex.Message);
+            }
         }
 
     }

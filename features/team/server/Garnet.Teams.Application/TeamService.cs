@@ -35,14 +35,22 @@ namespace Garnet.Teams.Application
             return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
         }
 
-        public async Task<Team?> DeleteTeam(CancellationToken ct, string teamId)
+        public async Task<Team> DeleteTeam(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
-            var team = await _teamRepository.DeleteTeam(ct, teamId);
+            var team = await GetTeamById(ct, teamId);
 
-            if (team is not null)
+            if (team is null)
             {
-                await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
+                throw new Exception($"Команда с идентификатором '{teamId}' не найдена");
             }
+
+            if (team!.OwnerUserId != currentUserProvider.UserId)
+            {
+                throw new Exception("Команду может удалить только ее владелец");
+            }
+
+            await _teamRepository.DeleteTeam(ct, teamId);
+            await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
 
             return team;
         }
