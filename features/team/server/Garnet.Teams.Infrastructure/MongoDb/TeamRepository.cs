@@ -70,5 +70,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
             return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
+
+        public Task<Team?> DeleteTeam(CancellationToken ct, string teamId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

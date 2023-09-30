@@ -34,5 +34,17 @@ namespace Garnet.Teams.Application
         {
             return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
         }
+
+        public async Task<Team?> DeleteTeam(CancellationToken ct, string teamId)
+        {
+            var team = await _teamRepository.DeleteTeam(ct, teamId);
+
+            if (team is not null)
+            {
+                await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
+            }
+
+            return team;
+        }
     }
 }
