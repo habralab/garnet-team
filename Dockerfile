@@ -10,7 +10,7 @@ COPY ["features/project/server", "features/project/server"]
 COPY ["features/team/server", "features/team/server"]
 COPY ["features/user/server", "features/user/server"]
 RUN dotnet restore "common/server/Garnet/Garnet.csproj"
-RUN dotnet build "common/server/Garnet/Garnet.csproj" -c Release -o /app/build
+RUN dotnet build "common/server/Garnet/Garnet.csproj" -c Release -o /app/build --no-restore
 
 FROM build AS publish
 RUN dotnet publish "common/server/Garnet/Garnet.csproj" -c Release -o /app/publish /p:UseAppHost=false
