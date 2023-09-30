@@ -7,7 +7,7 @@ on:
       
 jobs:
   build_and_deploy:
-    uses: habralab/garnet-team/.github/workflows/backend-deploy.yml@master
+    uses: habralab/garnet-team/.github/workflows/backend-deploy.yaml@master
     with:
       deployment_target: prod
       deployment_target_url: https://garnet.pet-project.habr.com/
