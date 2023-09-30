@@ -25,7 +25,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            return null;
+            var result = await _teamService.DeleteTeam(ct, teamId, new CurrentUserProvider(claims));
+
+            if (result.IsFailed)
+            {
+                throw new QueryException(result.Errors[0].Message);
+            }
+
+            var team = result.Value;
+            return new TeamDeletePayload(new TeamGet.TeamPayload(team.Id, team.Name, team.Description, team.Tags));
         }
 
     }
