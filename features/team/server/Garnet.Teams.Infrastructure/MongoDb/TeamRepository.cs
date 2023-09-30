@@ -1,3 +1,4 @@
+using System.Reflection.Metadata.Ecma335;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using MongoDB.Driver;
@@ -16,14 +17,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId)
+        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId, string[] tags)
         {
             var db = _dbFactory.Create();
             var team = TeamDocument.Create(
              Uuid.NewMongo(),
              name,
              description,
-             ownerUserId
+             ownerUserId,
+             tags
             );
             await db.Teams.InsertOneAsync(team, cancellationToken: ct);
             return TeamDocument.ToDomain(team);
@@ -45,6 +47,28 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                         .Text(o => o.Description)
                 ),
                 cancellationToken: ct);
+        }
+
+        public async Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        {
+            var db = _dbFactory.Create();
+
+            search = search?.ToLower();
+            var searchFilter = search is null
+                ? _f.Empty
+                : _f.Where(x=> x.Description.ToLower().Contains(search) || x.Name.ToLower().Contains(search));
+
+            var tagsFilter = tags.Length > 0
+                ? _f.All(o => o.Tags, tags)
+                : _f.Empty;
+
+            var teams = await db.Teams
+                .Find(searchFilter & tagsFilter)
+                .Skip(skip)
+                .Limit(take)
+                .ToListAsync(ct);
+
+            return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
     }
 }

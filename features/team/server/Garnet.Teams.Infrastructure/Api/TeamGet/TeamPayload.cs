@@ -1,8 +1,9 @@
 namespace Garnet.Teams.Infrastructure.Api.TeamGet
 {
-    public record TeamGetPayload(
+    public record TeamPayload(
         string Id,
         string Name,
-        string Description
+        string Description,
+        string[] Tags
     );
 }

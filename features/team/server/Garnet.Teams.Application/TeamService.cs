@@ -13,9 +13,9 @@ namespace Garnet.Teams.Application
             _teamRepository = teamRepository;
         }
 
-        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, ICurrentUserProvider currentUserProvider)
+        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
         {
-            var team = await _teamRepository.CreateTeam(ct, name, description, currentUserProvider.UserId);
+            var team = await _teamRepository.CreateTeam(ct, name, description, currentUserProvider.UserId, tags);
             await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
             return team;
         }
@@ -28,6 +28,11 @@ namespace Garnet.Teams.Application
         public async Task<TeamParticipant[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
         {
             return await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
+        }
+
+        public async Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        {
+            return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
         }
     }
 }

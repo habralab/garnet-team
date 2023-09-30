@@ -9,6 +9,7 @@ namespace Garnet.Teams.AcceptanceTests.Support
         private string _name  = "TeamName";
         private string _description  = "TeamDescription";
         private string _ownerUserId  = Uuid.NewMongo();
+        private string[] _tags = Array.Empty<string>();
 
         public TeamDocumentBuilder WithId(string id)
         {
@@ -36,7 +37,7 @@ namespace Garnet.Teams.AcceptanceTests.Support
 
         public TeamDocument Build()
         {
-            return TeamDocument.Create(_id, _name, _description, _ownerUserId);
+            return TeamDocument.Create(_id, _name, _description, _ownerUserId, _tags);
         }
 
         public static implicit operator TeamDocument(TeamDocumentBuilder builder)
