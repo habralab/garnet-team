@@ -16,7 +16,7 @@ public class UsersQuery
         _usersService = usersService;
     }
     
-    public async Task<UserPayload> GetUser(CancellationToken ct, string id)
+    public async Task<UserPayload> UserGet(CancellationToken ct, string id)
     {
         var user = await _usersService.GetUser(ct, id)
                    ?? throw new QueryException($"Пользователь с идентификатором '{id}' не найден");
