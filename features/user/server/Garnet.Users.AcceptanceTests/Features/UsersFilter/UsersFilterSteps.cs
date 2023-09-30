@@ -24,7 +24,7 @@ public class UsersFilterSteps : BaseSteps
     [When(@"производится поиск пользователей с запросом '(.*)'")]
     public async Task WhenПроизводитсяПоискПользователейСЗапросом(string search)
     {
-        _result = await Query.FilterUsers(CancellationToken.None, new UsersFilterInput(search, null, 0, 100));
+        _result = await Query.UsersFilter(CancellationToken.None, new UsersFilterInput(search, null, 0, 100));
     }
 
     [Then(@"в списке отображается '(.*)' пользователь")]
@@ -37,7 +37,7 @@ public class UsersFilterSteps : BaseSteps
     public async Task WhenПроизводитсяПоискПользователейПоТегам(string tags)
     {
         var tagsArray = tags.Split(", ");
-        _result = await Query.FilterUsers(CancellationToken.None, new UsersFilterInput(null, tagsArray, 0, 100));
+        _result = await Query.UsersFilter(CancellationToken.None, new UsersFilterInput(null, tagsArray, 0, 100));
     }
 
     [Then(@"в списке у первого пользователя в имени присутсвтует '(.*)'")]
