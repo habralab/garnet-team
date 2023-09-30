@@ -8,5 +8,10 @@ namespace Garnet.Teams.AcceptanceTests.Support
         {
             return new TeamDocumentBuilder();
         }
+        
+        public static TeamParticipantDocumentBuilder TeamParticipant(this GiveMe _)
+        {
+            return new TeamParticipantDocumentBuilder();
+        }
     }
 }
