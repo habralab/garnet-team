@@ -15,9 +15,17 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsFilter
         }
 
         [Given(@"описание команды '([^']*)' состоит из '([^']*)'")]
-        public Task GivenОписаниеКомандыСостоитИз(string teamName, string description)
+        public async Task GivenОписаниеКомандыСостоитИз(string teamName, string description)
         {
-            return Task.CompletedTask;
+            await Db.Teams.FindOneAndUpdateAsync(
+                _f.Eq(x=> x.Name, teamName),
+                _u.Set(o => o.Description, description),
+                options: new FindOneAndUpdateOptions<TeamDocument>
+                {
+                    ReturnDocument = ReturnDocument.After
+                },
+                CancellationToken.None
+            );
         }
 
         [Given(@"теги команды '([^']*)' состоят из '([^']*)'")]

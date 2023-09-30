@@ -20,10 +20,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             _currentUserProviderFake = currentUserProviderFake;
         }
 
-        [Given(@"существует команда '([^']*)' с описанием '([^']*)'")]
-        public async Task GivenСуществуетКомандаСВладельцемИОписанием(string teamName, string description)
+        [Given(@"существует команда '([^']*)'")]
+        public async Task GivenСуществует(string teamName)
         {
-            var team = GiveMe.Team().WithName(teamName).WithDescription(description);
+            var team = GiveMe.Team().WithName(teamName);
             await Db.Teams.InsertOneAsync(team);
         }
 
