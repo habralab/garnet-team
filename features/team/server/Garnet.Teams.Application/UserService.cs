@@ -2,14 +2,21 @@ namespace Garnet.Teams.Application
 {
     public class UserService
     {
-        public Task<string> AddUser(CancellationToken ct, string userId)
+        private readonly IUserRepository _usersRepository;
+
+        public UserService(IUserRepository usersRepository)
         {
-            throw new NotImplementedException();
+            _usersRepository = usersRepository;
         }
 
-        public Task<string?> GetUser(CancellationToken ct, string userId)
+        public async Task<string> AddUser(CancellationToken ct, string userId)
         {
-            throw new NotImplementedException();
+            return await _usersRepository.AddUser(ct, userId);
+        }
+
+        public async Task<string?> GetUser(CancellationToken ct, string userId)
+        {
+            return await _usersRepository.GetUser(ct, userId);
         }
     }
 }
