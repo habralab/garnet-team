@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
