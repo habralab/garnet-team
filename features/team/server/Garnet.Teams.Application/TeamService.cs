@@ -56,9 +56,23 @@ namespace Garnet.Teams.Application
             return Result.Ok(team);
         }
 
-        public Task<Result<Team>> EditTeam(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
+        public async Task<Result<Team>> EditTeam(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
         {
-            return null;
+            var team = await GetTeamById(ct, teamId);
+            
+            if (team is null)
+            {
+                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
+            }
+
+            if (team!.OwnerUserId != currentUserProvider.UserId)
+            {
+                return Result.Fail("Команду может удалить только ее владелец");
+            }
+
+            team = await _teamRepository.EditTeam(ct, teamId, description);
+
+            return Result.Ok(team!);
         }
     }
 }

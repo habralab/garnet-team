@@ -6,6 +6,7 @@ namespace Garnet.Teams.Application
         Task<Team?> GetTeamById(CancellationToken ct, string teamId);
         Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take);
         Task<Team?> DeleteTeam(CancellationToken ct, string teamId);
+        Task<Team?> EditTeam(CancellationToken ct, string teamId, string description);
         Task CreateIndexes(CancellationToken ct);
     }
 }
