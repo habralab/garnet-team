@@ -16,11 +16,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         }
 
         [Given(@"существует пользователь '([^']*)'")]
-        public Task GivenСуществуетПользователь(string username)
+        public async Task GivenСуществуетПользователь(string username)
         {
             var id = Uuid.NewMongo();
             _currentUserProviderFake.RegisterUser(username, id);
-            return Task.CompletedTask;
+            await Db.Users.InsertOneAsync(id);
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
