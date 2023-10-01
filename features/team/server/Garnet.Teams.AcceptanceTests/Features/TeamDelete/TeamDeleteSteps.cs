@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Teams.AcceptanceTests.Contexts;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.MongoDb;
@@ -15,11 +16,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private TeamDeletePayload _result = null!;
-        private QueryException _exception = null!;
+        private ErrorStepContext _errorStepContext;
 
-        public TeamDeleteSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamDeleteSteps(ErrorStepContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
+            _errorStepContext = errorStepContext;
         }
 
         [Given(@"владельцем команды '([^']*)' является '([^']*)'")]
@@ -50,7 +52,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
             }
             catch (QueryException ex)
             {
-                _exception = ex;
+                _errorStepContext.QueryException = ex;
             }
         }
 
@@ -72,7 +74,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         [Then(@"пользователь получает ошибку '([^']*)'")]
         public Task ThenПользовательПолучаетОшибку(string errorMsg)
         {
-            var validError = _exception.Errors.Any(x=> x.Message == errorMsg);
+            var validError = _errorStepContext.QueryException.Errors.Any(x=> x.Message == errorMsg);
             validError.Should().BeTrue();
             return Task.CompletedTask;
         }

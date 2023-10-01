@@ -1,8 +1,10 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Teams.AcceptanceTests.Contexts;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
@@ -12,12 +14,13 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private TeamPayload _teamGetPayload = null!;
-        private Exception? _exception;
+        private ErrorStepContext _errorStepContext;
         private string _id = null!;
 
-        public TeamGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamGetSteps(ErrorStepContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
+            _errorStepContext = errorStepContext;
         }
 
         [Given(@"существует команда '([^']*)'")]
@@ -30,11 +33,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
         [When(@"'([^']*)' открывает карточку команды '([^']*)'")]
         public async Task WhenОткрываетКарточкуКоманды(string username, string teamName)
         {
-            var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             _currentUserProviderFake.LoginAs(username);
             _teamGetPayload = await Query.TeamGet(CancellationToken.None, team.Id);
         }
 
+        [Scope(Feature = "TeamGet")]
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
         public Task ThenОписаниеКомандыВКарточкеСостоитИз(string description)
         {
@@ -58,17 +62,19 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             {
                 await Query.TeamGet(CancellationToken.None, _id);
             }
-            catch (Exception ex)
+            catch (QueryException ex)
             {
-                _exception = ex;
+                _errorStepContext.QueryException = ex;
             }
         }
 
-        [Then(@"происходит ошибка '(.*)'")]
-        public Task ThenПроисходитОшибка(string error)
+        [Scope(Feature = "TeamGet")]
+        [Then(@"пользователь получает ошибку '(.*)'")]
+        public Task ThenПользовательПолучаетОшибку(string error)
         {
             var errorMsg = error.Replace("ID", _id);
-            _exception!.Message.Should().Be(errorMsg);
+            var validError = _errorStepContext.QueryException.Errors.Any(x => x.Message == errorMsg);
+            validError.Should().BeTrue();
             return Task.CompletedTask;
         }
     }
