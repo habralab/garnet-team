@@ -56,7 +56,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             search = search?.ToLower();
             var searchFilter = search is null
                 ? _f.Empty
-                : _f.Where(x=> x.Description.ToLower().Contains(search) || x.Name.ToLower().Contains(search));
+                : _f.Where(x => x.Description.ToLower().Contains(search) || x.Name.ToLower().Contains(search));
 
             var tagsFilter = tags.Length > 0
                 ? _f.All(o => o.Tags, tags)
@@ -76,15 +76,27 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             var db = _dbFactory.Create();
 
             var team = await db.Teams.FindOneAndDeleteAsync(
-                _f.Eq(x=> x.Id, teamId)
+                _f.Eq(x => x.Id, teamId)
             );
 
             return TeamDocument.ToDomain(team);
         }
 
-        public Task<Team?> EditTeam(CancellationToken ct, string teamId, string description)
+        public async Task<Team?> EditTeam(CancellationToken ct, string teamId, string description)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var team = await db.Teams.FindOneAndUpdateAsync(
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.Description, description),
+                options: new FindOneAndUpdateOptions<TeamDocument>
+                {
+                    ReturnDocument = ReturnDocument.After
+                },
+                cancellationToken: ct
+            );
+
+            return TeamDocument.ToDomain(team);
         }
     }
 }
