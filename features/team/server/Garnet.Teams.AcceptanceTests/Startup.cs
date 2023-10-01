@@ -25,8 +25,10 @@ namespace Garnet.Teams.AcceptanceTests
 
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<TeamService>();
+            services.AddScoped<UserService>();
 
             services.AddScoped<TeamsMutation>();
             services.AddScoped<TeamsQuery>();

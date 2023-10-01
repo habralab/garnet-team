@@ -13,6 +13,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
         public IMongoCollection<TeamDocument> Teams => _mongoDatabase.GetCollection<TeamDocument>("Teams");
         public IMongoCollection<TeamParticipantDocument> TeamParticipants => _mongoDatabase.GetCollection<TeamParticipantDocument>("TeamParticipants");
-        public IMongoCollection<string> Users => _mongoDatabase.GetCollection<string>("Users");
+        public IMongoCollection<UserDocument> Users => _mongoDatabase.GetCollection<UserDocument>("Users");
     }
 }

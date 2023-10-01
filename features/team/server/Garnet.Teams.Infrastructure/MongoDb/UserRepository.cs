@@ -1,3 +1,4 @@
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using MongoDB.Driver;
 
@@ -16,8 +17,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<string> AddUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
+
+            var user = UserDocument.Create(Uuid.NewMongo(), userId);
             await db.Users.InsertOneAsync(
-                userId,
+                user,
                 cancellationToken: ct
             );
 
@@ -27,7 +30,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<string?> GetUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
-            return await db.Users.Find(x => x == userId).FirstOrDefaultAsync(ct);
+            var user = await db.Users.Find(x => x.UserId == userId).FirstOrDefaultAsync(ct);
+
+            return user is null ? null : UserDocument.ToDomain(user);
         }
     }
 }
