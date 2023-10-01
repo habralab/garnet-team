@@ -8,17 +8,27 @@ namespace Garnet.Teams.Application
     {
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamParticipantRepository _teamParticipantsRepository;
-        public TeamService(ITeamRepository teamRepository, ITeamParticipantRepository teamParticipantsRepository)
+        private readonly UserService _userService;
+        public TeamService(ITeamRepository teamRepository,
+                           ITeamParticipantRepository teamParticipantsRepository,
+                           UserService userService)
         {
             _teamParticipantsRepository = teamParticipantsRepository;
             _teamRepository = teamRepository;
+            _userService = userService;
         }
 
-        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
+        public async Task<Result<Team>> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
         {
-            var team = await _teamRepository.CreateTeam(ct, name, description, currentUserProvider.UserId, tags);
+            var user = await _userService.GetUser(ct, currentUserProvider.UserId);
+            if (user is null)
+            {
+                return Result.Fail($"Пользователь с идентификатором '{currentUserProvider.UserId}' не найден");
+            }
+
+            var team = await _teamRepository.CreateTeam(ct, name, description, user, tags);
             await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
-            return team;
+            return Result.Ok(team);
         }
 
         public async Task<Team?> GetTeamById(CancellationToken ct, string teamId)
@@ -87,6 +97,12 @@ namespace Garnet.Teams.Application
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
                 return Result.Fail("Изменить владельца команды может только ее владелец");
+            }
+
+            var user = await _userService.GetUser(ct, newOwnerUserId);
+            if (user is null)
+            {
+                return Result.Fail($"Пользователь с идентификатором '{newOwnerUserId}' не найден");
             }
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);

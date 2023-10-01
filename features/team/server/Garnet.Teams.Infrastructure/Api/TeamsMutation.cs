@@ -22,7 +22,10 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
-            var team = await _teamService.CreateTeam(ct, input.Name, input.Description, input.Tags, new CurrentUserProvider(claims));
+            var result = await _teamService.CreateTeam(ct, input.Name, input.Description, input.Tags, new CurrentUserProvider(claims));
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
             return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.Tags);
         }
 
