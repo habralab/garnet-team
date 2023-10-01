@@ -59,7 +59,7 @@ namespace Garnet.Teams.Application
         public async Task<Result<Team>> EditTeamDescription(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
         {
             var team = await GetTeamById(ct, teamId);
-            
+
             if (team is null)
             {
                 return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
@@ -71,6 +71,25 @@ namespace Garnet.Teams.Application
             }
 
             team = await _teamRepository.EditTeamDescription(ct, teamId, description);
+
+            return Result.Ok(team!);
+        }
+
+        public async Task<Result<Team>> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId, ICurrentUserProvider currentUserProvider)
+        {
+            var team = await GetTeamById(ct, teamId);
+
+            if (team is null)
+            {
+                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
+            }
+
+            if (team!.OwnerUserId != currentUserProvider.UserId)
+            {
+                return Result.Fail("Команду может отредактировать только ее владелец");
+            }
+
+            team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
 
             return Result.Ok(team!);
         }

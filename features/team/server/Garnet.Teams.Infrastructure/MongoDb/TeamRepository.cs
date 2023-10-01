@@ -98,5 +98,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
             return TeamDocument.ToDomain(team);
         }
+
+        public Task<Team?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
