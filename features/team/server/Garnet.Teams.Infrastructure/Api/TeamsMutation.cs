@@ -5,6 +5,7 @@ using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
+using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -41,6 +42,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.Tags);
+        }
+
+        public Task<TeamEditOwnerPayload> TeamEditOwner(CancellationToken ct, ClaimsPrincipal claims, TeamEditOwnerInput input)
+        {
+            return null;
         }
     }
 }
