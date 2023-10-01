@@ -4,8 +4,7 @@ using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
-using Garnet.Teams.Infrastructure.Api.TeamEdit;
-using HotChocolate.Execution;
+using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api

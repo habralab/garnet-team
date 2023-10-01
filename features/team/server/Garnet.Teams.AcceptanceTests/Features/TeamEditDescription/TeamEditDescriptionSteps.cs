@@ -1,11 +1,11 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Teams.Infrastructure.Api.TeamEdit;
+using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
+namespace Garnet.Teams.AcceptanceTests.Features.TeamEditDescription
 {
     [Binding]
     public class TeamEditSteps : BaseSteps
@@ -38,7 +38,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
             }
         }
 
-        [Scope(Feature = "TeamEdit")]
+        [Scope(Feature = "TeamEditDescription")]
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
         public Task ThenОписаниеКомандыВКарточкеСостоитИз(string description)
         {

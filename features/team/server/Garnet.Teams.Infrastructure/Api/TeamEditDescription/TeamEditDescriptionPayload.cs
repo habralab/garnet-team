@@ -1,6 +1,6 @@
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 
-namespace Garnet.Teams.Infrastructure.Api.TeamEdit
+namespace Garnet.Teams.Infrastructure.Api.TeamEditDescription
 {
     public record TeamEditDescriptionPayload(
         string Id,
