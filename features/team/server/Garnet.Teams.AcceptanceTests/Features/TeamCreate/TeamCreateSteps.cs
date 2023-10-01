@@ -2,6 +2,7 @@ using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
+using Garnet.Teams.Infrastructure.MongoDb;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
@@ -18,9 +19,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         [Given(@"существует пользователь '([^']*)'")]
         public async Task GivenСуществуетПользователь(string username)
         {
-            var id = Uuid.NewMongo();
-            _currentUserProviderFake.RegisterUser(username, id);
-            await Db.Users.InsertOneAsync(id);
+            var user = UserDocument.Create(Uuid.NewMongo(), username);
+            await Db.Users.InsertOneAsync(user);
+            _currentUserProviderFake.RegisterUser(username, user.UserId);
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
