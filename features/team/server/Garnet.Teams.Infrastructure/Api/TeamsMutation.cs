@@ -35,13 +35,13 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamDeletePayload(new TeamGet.TeamPayload(team.Id, team.Name, team.Description, team.Tags));
         }
 
-        public async Task<TeamEditPayload> TeamEditDescription(CancellationToken ct, ClaimsPrincipal claims, TeamEditInput input)
+        public async Task<TeamEditDescriptionPayload> TeamEditDescription(CancellationToken ct, ClaimsPrincipal claims, TeamEditDescriptionInput input)
         {
             var result = await _teamService.EditTeamDescription(ct, input.Id, input.Description, new CurrentUserProvider(claims));
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditPayload(team.Id, team.Description);
+            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.Tags);
         }
     }
 }

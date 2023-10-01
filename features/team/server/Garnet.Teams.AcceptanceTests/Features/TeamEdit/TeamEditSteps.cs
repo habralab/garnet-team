@@ -12,7 +12,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private ErrorStepContext _errorStepContext = null!;
-        private TeamEditPayload _teamEditPayload = null!;
+        private TeamEditDescriptionPayload _teamEditPayload = null!;
 
         public TeamEditSteps(ErrorStepContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
@@ -26,7 +26,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
             var claims = _currentUserProviderFake.LoginAs(username);
 
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var input = new TeamEditInput(team.Id, description);
+            var input = new TeamEditDescriptionInput(team.Id, description);
 
             try
             {
