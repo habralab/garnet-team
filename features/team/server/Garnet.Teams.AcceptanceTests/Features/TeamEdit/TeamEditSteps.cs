@@ -1,6 +1,6 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Teams.AcceptanceTests.Contexts;
 using Garnet.Teams.Infrastructure.Api.TeamEdit;
 using HotChocolate.Execution;
 using MongoDB.Driver;
@@ -11,10 +11,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
     public class TeamEditSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private ErrorStepContext _errorStepContext = null!;
+        private QueryExceptionsContext _errorStepContext = null!;
         private TeamEditDescriptionPayload _teamEditPayload = null!;
 
-        public TeamEditSteps(ErrorStepContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamEditSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _errorStepContext = errorStepContext;
             _currentUserProviderFake = currentUserProviderFake;
@@ -34,7 +34,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
             }
             catch (QueryException ex)
             {
-                _errorStepContext.QueryException = ex;
+                _errorStepContext.QueryExceptions.Add(ex);
             }
         }
 

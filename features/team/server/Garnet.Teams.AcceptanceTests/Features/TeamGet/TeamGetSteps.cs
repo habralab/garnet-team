@@ -1,7 +1,7 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.AcceptanceTests.Contexts;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using HotChocolate.Execution;
@@ -14,10 +14,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private TeamPayload _teamGetPayload = null!;
-        private ErrorStepContext _errorStepContext;
+        private QueryExceptionsContext _errorStepContext;
         private string _id = null!;
 
-        public TeamGetSteps(ErrorStepContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamGetSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
             _errorStepContext = errorStepContext;
@@ -64,7 +64,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             }
             catch (QueryException ex)
             {
-                _errorStepContext.QueryException = ex;
+                _errorStepContext.QueryExceptions.Add(ex);
             }
         }
 
@@ -73,7 +73,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
         public Task ThenПользовательПолучаетОшибку(string error)
         {
             var errorMsg = error.Replace("ID", _id);
-            var validError = _errorStepContext.QueryException.Errors.Any(x => x.Message == errorMsg);
+            var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x => x.Message == errorMsg);
             validError.Should().BeTrue();
             return Task.CompletedTask;
         }

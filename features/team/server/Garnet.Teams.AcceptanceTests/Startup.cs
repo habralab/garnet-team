@@ -1,8 +1,8 @@
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Migrations;
-using Garnet.Teams.AcceptanceTests.Contexts;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
@@ -31,7 +31,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<TeamsMutation>();
             services.AddScoped<TeamsQuery>();
 
-            services.AddScoped<ErrorStepContext>();
+            services.AddScoped<QueryExceptionsContext>();
 
             services.AddScoped<GiveMe>();
             services.AddScoped<StepsArgs>();
