@@ -41,6 +41,8 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         public async Task ThenПользовательЯвляетсяВладельцемКоманды(string username, string team)
         {
             var newTeam = await Db.Teams.Find(x => x.Name == team).FirstOrDefaultAsync();
+
+            _currentUserProviderFake.LoginAs(username);
             newTeam.OwnerUserId.Should().Be(_currentUserProviderFake.UserId);
         }
 
