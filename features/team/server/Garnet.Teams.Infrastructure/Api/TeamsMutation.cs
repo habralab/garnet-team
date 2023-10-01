@@ -4,6 +4,8 @@ using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
+using Garnet.Teams.Infrastructure.Api.TeamEdit;
+using HotChocolate.Execution;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -33,5 +35,9 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamDeletePayload(new TeamGet.TeamPayload(team.Id, team.Name, team.Description, team.Tags));
         }
 
+        public Task<TeamEditPayload> TeamEdit(CancellationToken ct, ClaimsPrincipal claims, TeamEditInput input)
+        {
+            throw new QueryException("Команду может отредактировать только ее владелец");
+        }
     }
 }
