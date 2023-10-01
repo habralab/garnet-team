@@ -35,9 +35,13 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamDeletePayload(new TeamGet.TeamPayload(team.Id, team.Name, team.Description, team.Tags));
         }
 
-        public Task<TeamEditPayload> TeamEdit(CancellationToken ct, ClaimsPrincipal claims, TeamEditInput input)
+        public async Task<TeamEditPayload> TeamEdit(CancellationToken ct, ClaimsPrincipal claims, TeamEditInput input)
         {
-            throw new QueryException("Команду может отредактировать только ее владелец");
+            var result = await _teamService.EditTeam(ct, input.Id, input.Description, new CurrentUserProvider(claims));
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamEditPayload(new TeamGet.TeamPayload(team.Id, team.Name, team.Description, team.Tags));
         }
     }
 }

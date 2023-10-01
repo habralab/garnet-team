@@ -55,5 +55,10 @@ namespace Garnet.Teams.Application
 
             return Result.Ok(team);
         }
+
+        public Task<Result<Team>> EditTeam(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
+        {
+            return null;
+        }
     }
 }
