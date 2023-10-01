@@ -56,7 +56,7 @@ namespace Garnet.Teams.Application
             return Result.Ok(team);
         }
 
-        public async Task<Result<Team>> EditTeam(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
+        public async Task<Result<Team>> EditTeamDescription(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
         {
             var team = await GetTeamById(ct, teamId);
             
@@ -70,7 +70,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail("Команду может отредактировать только ее владелец");
             }
 
-            team = await _teamRepository.EditTeam(ct, teamId, description);
+            team = await _teamRepository.EditTeamDescription(ct, teamId, description);
 
             return Result.Ok(team!);
         }

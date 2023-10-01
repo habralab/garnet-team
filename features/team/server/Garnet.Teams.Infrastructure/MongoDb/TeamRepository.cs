@@ -82,7 +82,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamDocument.ToDomain(team);
         }
 
-        public async Task<Team?> EditTeam(CancellationToken ct, string teamId, string description)
+        public async Task<Team?> EditTeamDescription(CancellationToken ct, string teamId, string description)
         {
             var db = _dbFactory.Create();
 

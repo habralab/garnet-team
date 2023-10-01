@@ -30,7 +30,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
 
             try
             {
-                _teamEditPayload = await Mutation.TeamEdit(CancellationToken.None, claims, input);
+                _teamEditPayload = await Mutation.TeamEditDescription(CancellationToken.None, claims, input);
             }
             catch (QueryException ex)
             {
@@ -42,7 +42,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEdit
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
         public Task ThenОписаниеКомандыВКарточкеСостоитИз(string description)
         {
-            _teamEditPayload.Team.Description.Should().Be(description);
+            _teamEditPayload.Description.Should().Be(description);
             return Task.CompletedTask;
         }
 
