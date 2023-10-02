@@ -2,6 +2,7 @@ using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
+using Garnet.Teams.Infrastructure.MongoDb;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
@@ -16,11 +17,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         }
 
         [Given(@"существует пользователь '([^']*)'")]
-        public Task GivenСуществуетПользователь(string username)
+        public async Task GivenСуществуетПользователь(string username)
         {
-            var id = Uuid.NewMongo();
-            _currentUserProviderFake.RegisterUser(username, id);
-            return Task.CompletedTask;
+            var user = TeamUserDocument.Create(Uuid.NewMongo(), username);
+            await Db.TeamUsers.InsertOneAsync(user);
+            _currentUserProviderFake.RegisterUser(username, user.UserId);
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
@@ -41,7 +42,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         public async Task ThenПользовательЯвляетсяВладельцемКоманды(string username, string team)
         {
             var newTeam = await Db.Teams.Find(x => x.Name == team).FirstOrDefaultAsync();
-            newTeam.OwnerUserId.Should().Be(_currentUserProviderFake.UserId);
+            newTeam.OwnerUserId.Should().Be(_currentUserProviderFake.GetUserIdByUsername(username));
         }
 
         [Then(@"пользователь '([^']*)' является участником команды '([^']*)'")]
@@ -49,8 +50,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         {
             var newTeam = await Db.Teams.Find(x => x.Name == team).FirstOrDefaultAsync();
             var participants = await Db.TeamParticipants.Find(x => x.TeamId == newTeam.Id).ToListAsync();
-            participants.Count.Should().Be(1);
-            participants.First().UserId.Should().Be(_currentUserProviderFake.UserId);
+
+            var userId = _currentUserProviderFake.GetUserIdByUsername(username);
+            var userIsParticipant = participants.Any(x => x.UserId == userId);
+
+            userIsParticipant.Should().BeTrue();
         }
     }
 }

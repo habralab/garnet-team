@@ -17,8 +17,8 @@ public static class UserDocumentExtensions
         return new UserUpdatedEvent(doc.Id, doc.UserName, doc.Description, doc.AvatarUrl, doc.Tags);
     }
 
-    public static UserUpdatedEvent ToCreatedEvent(this User doc)
+    public static UserCreatedEvent ToCreatedEvent(this User doc)
     {
-        return new UserUpdatedEvent(doc.Id, doc.UserName, doc.Description, doc.AvatarUrl, doc.Tags);
+        return new UserCreatedEvent(doc.Id, doc.UserName);
     }
 }

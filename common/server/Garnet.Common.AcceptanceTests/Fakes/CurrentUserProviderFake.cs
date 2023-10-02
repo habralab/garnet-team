@@ -33,11 +33,16 @@ public class CurrentUserProviderFake : ICurrentUserProvider
         return new ClaimsPrincipal(identity);
     }
 
+    public string GetUserIdByUsername(string username)
+    {
+        return _users[username];
+    }
+
     public string GetUserName(string id)
     {
         var username = _users.Where(x => x.Value == id).FirstOrDefault().Key;
         return username;
     }
-    
+
     public string UserId { get; private set; } = "system";
 }
