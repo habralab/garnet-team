@@ -24,7 +24,7 @@ public class ProjectDeleteSteps : BaseSteps
     }
 
 
-    [Given(@"существует проект '(.*)' с владельцем '(.*)'")]
+    [Given(@"есть проект '(.*)' с владельцем '(.*)'")]
     public async Task ThenСуществуетПроектСНазваниемИВладельцем(string projectName, string username)
     {
         _currentUserProviderFake.LoginAs(username);
@@ -55,13 +55,6 @@ public class ProjectDeleteSteps : BaseSteps
         project.Should().BeNull();
     }
 
-    [Then(@"пользователь получает ошибку, что '(.*)'")]
-    public Task ThenПользовательПолучаетОшибку(string errorMsg)
-    {
-        var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x=> x.Message == errorMsg);
-        validError.Should().BeTrue();
-        return Task.CompletedTask;
-    }
 
     [Then(@"в системе присутствует проект '(.*)'")]
     public async Task ThenПроектСуществуетВСистеме(string projectName)
