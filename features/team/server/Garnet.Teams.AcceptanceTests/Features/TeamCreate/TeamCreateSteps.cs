@@ -52,8 +52,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         {
             var newTeam = await Db.Teams.Find(x => x.Name == team).FirstOrDefaultAsync();
             var participants = await Db.TeamParticipants.Find(x => x.TeamId == newTeam.Id).ToListAsync();
-            participants.Count.Should().Be(1);
-            participants.First().UserId.Should().Be(_currentUserProviderFake.UserId);
+
+            var userId = _currentUserProviderFake.GetUserIdByUsername(username);
+            var userIsParticipant = participants.Any(x=> x.UserId == userId);
+
+            userIsParticipant.Should().BeTrue();
         }
     }
 }

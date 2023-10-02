@@ -1,6 +1,8 @@
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
+using Garnet.Teams.Infrastructure.MongoDb;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 
@@ -15,6 +17,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
         {
             _currentUserProviderFake = currentUserProviderFake;
             _queryExceptionsContext = queryExceptionsContext;
+        }
+
+        [Given(@"пользователь '([^']*)' является участником команды '([^']*)'")]
+        public async Task ThenПользовательЯвляетсяУчастникомКоманды(string username, string teamName)
+        {
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstOrDefaultAsync();
+            var userId = _currentUserProviderFake.GetUserIdByUsername(username);
+            var participant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, team.Id);
+            await Db.TeamParticipants.InsertOneAsync(participant);
         }
 
         [When(@"'([^']*)' изменяет владельца команды '([^']*)' на пользователя '([^']*)'")]
