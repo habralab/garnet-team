@@ -109,7 +109,7 @@ namespace Garnet.Teams.Application
             var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
             if (!userTeams.Any(x => x.TeamId == teamId))
             {
-                return Result.Fail($"Пользователь с идентификатором '{newOwnerUserId}' не является участником команды");
+                return Result.Fail(new TeamOnlyParticipantCanBeOwnerError(newOwnerUserId));
             }
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
