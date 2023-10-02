@@ -20,7 +20,9 @@ public class ProjectsService
     public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
         string projectName, string? description)
     {
-        return await _repository.CreateProject(ct, currentUserProvider.UserId, projectName, description);
+        var project = await _repository.CreateProject(ct, currentUserProvider.UserId, projectName, description);
+        await _messageBus.Publish(project.ToCreatedEvent());
+        return project;
     }
 
     public async Task<Project?> GetProject(CancellationToken ct, string projectId)
