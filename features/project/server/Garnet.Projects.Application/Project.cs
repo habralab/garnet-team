@@ -16,8 +16,8 @@ public static class ProjectDocumentExtensions
         return new ProjectUpdatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description);
     }
 
-    public static ProjectUpdatedEvent ToCreatedEvent(this Project doc)
+    public static ProjectCreatedEvent ToCreatedEvent(this Project doc)
     {
-        return new ProjectUpdatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description);
+        return new ProjectCreatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description);
     }
 }
