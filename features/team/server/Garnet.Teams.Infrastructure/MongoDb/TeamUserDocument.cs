@@ -1,3 +1,5 @@
+using Garnet.Teams.Application;
+
 namespace Garnet.Teams.Infrastructure.MongoDb
 {
     public record TeamUserDocument
@@ -14,9 +16,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             };
         }
 
-        public static string ToDomain(TeamUserDocument doc)
+        public static TeamUser ToDomain(TeamUserDocument doc)
         {
-            return doc.UserId;
+            return new TeamUser(doc.UserId);
         }
     }
 }

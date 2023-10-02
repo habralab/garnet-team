@@ -9,12 +9,12 @@ namespace Garnet.Teams.Application
             _usersRepository = usersRepository;
         }
 
-        public async Task<string> AddUser(CancellationToken ct, string userId)
+        public async Task<TeamUser> AddUser(CancellationToken ct, string userId)
         {
             return await _usersRepository.AddUser(ct, userId);
         }
 
-        public async Task<string?> GetUser(CancellationToken ct, string userId)
+        public async Task<TeamUser?> GetUser(CancellationToken ct, string userId)
         {
             return await _usersRepository.GetUser(ct, userId);
         }

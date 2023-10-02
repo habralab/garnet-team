@@ -26,7 +26,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail($"Пользователь с идентификатором '{currentUserProvider.UserId}' не найден");
             }
 
-            var team = await _teamRepository.CreateTeam(ct, name, description, user, tags);
+            var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
             await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
             return Result.Ok(team);
         }

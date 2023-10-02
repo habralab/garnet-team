@@ -14,7 +14,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<string> AddUser(CancellationToken ct, string userId)
+        public async Task<TeamUser> AddUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
 
@@ -24,10 +24,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 cancellationToken: ct
             );
 
-            return userId;
+            return TeamUserDocument.ToDomain(user);
         }
 
-        public async Task<string?> GetUser(CancellationToken ct, string userId)
+        public async Task<TeamUser?> GetUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
             var user = await db.TeamUsers.Find(x => x.UserId == userId).FirstOrDefaultAsync(ct);
