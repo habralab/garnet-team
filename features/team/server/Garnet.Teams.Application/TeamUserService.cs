@@ -1,10 +1,10 @@
 namespace Garnet.Teams.Application
 {
-    public class UserService
+    public class TeamUserService
     {
-        private readonly IUserRepository _usersRepository;
+        private readonly ITeamUserRepository _usersRepository;
 
-        public UserService(IUserRepository usersRepository)
+        public TeamUserService(ITeamUserRepository usersRepository)
         {
             _usersRepository = usersRepository;
         }

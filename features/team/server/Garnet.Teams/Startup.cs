@@ -32,10 +32,10 @@ namespace Garnet.Team
                 ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
             services.AddScoped<TeamService>();
-            services.AddScoped<UserService>();
+            services.AddScoped<TeamUserService>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
-            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ITeamUserRepository, TeamUserRepository>();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {

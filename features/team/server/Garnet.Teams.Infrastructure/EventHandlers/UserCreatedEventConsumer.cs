@@ -6,8 +6,8 @@ namespace Garnet.Teams.Infrastructure.EventHandlers
 {
     public class UserCreatedEventConsumer : IMessageBusConsumer<UserCreatedEvent>
     {
-        private readonly UserService _userService;
-        public UserCreatedEventConsumer(UserService userService)
+        private readonly TeamUserService _userService;
+        public UserCreatedEventConsumer(TeamUserService userService)
         {
             _userService = userService;
         }

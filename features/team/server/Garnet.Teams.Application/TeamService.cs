@@ -8,10 +8,10 @@ namespace Garnet.Teams.Application
     {
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamParticipantRepository _teamParticipantsRepository;
-        private readonly UserService _userService;
+        private readonly TeamUserService _userService;
         public TeamService(ITeamRepository teamRepository,
                            ITeamParticipantRepository teamParticipantsRepository,
-                           UserService userService)
+                           TeamUserService userService)
         {
             _teamParticipantsRepository = teamParticipantsRepository;
             _teamRepository = teamRepository;
