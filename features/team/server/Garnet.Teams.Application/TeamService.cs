@@ -105,6 +105,12 @@ namespace Garnet.Teams.Application
                 return Result.Fail($"Пользователь с идентификатором '{newOwnerUserId}' не найден");
             }
 
+            var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
+            if (!userTeams.Any(x => x.TeamId == teamId))
+            {
+                return Result.Fail($"Пользователь с идентификатором '{newOwnerUserId}' не является участником команды");
+            }
+
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
 
             return Result.Ok(team!);
