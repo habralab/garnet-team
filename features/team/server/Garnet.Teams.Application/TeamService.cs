@@ -97,7 +97,7 @@ namespace Garnet.Teams.Application
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
+                return Result.Fail(new TeamUserNotATeamParticipantError());
             }
 
             var user = await _userService.GetUser(ct, newOwnerUserId);
