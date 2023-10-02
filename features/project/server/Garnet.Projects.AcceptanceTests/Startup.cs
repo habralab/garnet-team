@@ -1,3 +1,4 @@
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
@@ -29,6 +30,8 @@ public static class Startup
 
         services.AddScoped<ProjectsMutation>();
         services.AddScoped<ProjectsQuery>();
+
+        services.AddScoped<QueryExceptionsContext>();
 
         services.AddScoped<GiveMe>();
         services.AddScoped<StepsArgs>();
