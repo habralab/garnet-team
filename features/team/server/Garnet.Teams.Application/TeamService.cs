@@ -1,6 +1,7 @@
 
 using FluentResults;
 using Garnet.Common.Application;
+using Garnet.Teams.Application.Errors;
 
 namespace Garnet.Teams.Application
 {
@@ -52,12 +53,12 @@ namespace Garnet.Teams.Application
 
             if (team is null)
             {
-                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
+                return Result.Fail(new TeamNotFoundError(teamId));
             }
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                return Result.Fail("Команду может удалить только ее владелец");
+                return Result.Fail(new TeamOnlyOwnerCanDeleteError());
             }
 
             await _teamRepository.DeleteTeam(ct, teamId);
