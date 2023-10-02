@@ -42,9 +42,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         public async Task ThenПользовательЯвляетсяВладельцемКоманды(string username, string team)
         {
             var newTeam = await Db.Teams.Find(x => x.Name == team).FirstOrDefaultAsync();
-
-            _currentUserProviderFake.LoginAs(username);
-            newTeam.OwnerUserId.Should().Be(_currentUserProviderFake.UserId);
+            newTeam.OwnerUserId.Should().Be(_currentUserProviderFake.GetUserIdByUsername(username));
         }
 
         [Then(@"пользователь '([^']*)' является участником команды '([^']*)'")]
@@ -54,7 +52,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
             var participants = await Db.TeamParticipants.Find(x => x.TeamId == newTeam.Id).ToListAsync();
 
             var userId = _currentUserProviderFake.GetUserIdByUsername(username);
-            var userIsParticipant = participants.Any(x=> x.UserId == userId);
+            var userIsParticipant = participants.Any(x => x.UserId == userId);
 
             userIsParticipant.Should().BeTrue();
         }
