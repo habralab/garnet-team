@@ -92,12 +92,12 @@ namespace Garnet.Teams.Application
 
             if (team is null)
             {
-                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
+                return Result.Fail(new TeamNotFoundError(teamId));
             }
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                return Result.Fail("Изменить владельца команды может только ее владелец");
+                return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
             var user = await _userService.GetUser(ct, newOwnerUserId);
