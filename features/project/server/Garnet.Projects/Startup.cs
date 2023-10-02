@@ -44,7 +44,7 @@ public static class Startup
         });
     }
 
-    private static void AddRepeatableMigrations(this IServiceCollection services)
+    public static void AddRepeatableMigrations(this IServiceCollection services)
     {
         services.AddScoped<IRepeatableMigration, CreateIndexesMigration>();
     }

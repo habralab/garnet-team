@@ -1,3 +1,4 @@
+using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 
@@ -28,5 +29,27 @@ public class ProjectsService
     public async Task<Project?> GetProject(CancellationToken ct, string projectId)
     {
         return await _repository.GetProject(ct, projectId);
+    }
+
+    public async Task<Result<Project>> EditProjectDescription(CancellationToken ct,
+        ICurrentUserProvider currentUserProvider,
+        string projectId, string? description)
+    {
+        var project = await GetProject(ct, projectId);
+
+        if (project is null)
+        {
+            return Result.Fail($"Проект с идентификатором '{projectId}' не найден");
+        }
+
+        if (project.OwnerUserId != currentUserProvider.UserId)
+        {
+            return Result.Fail("Проект может отредактировать только его владелец");
+        }
+
+        project = await _repository.EditProjectDescription(ct, projectId, description);
+
+        await _messageBus.Publish(project.ToUpdatedEvent());
+        return Result.Ok(project);
     }
 }
