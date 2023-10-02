@@ -1,5 +1,7 @@
+using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Projects.Application;
+using Garnet.Projects.Events;
 using Garnet.Projects.Infrastructure.Api;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Garnet.Projects.Infrastructure.MongoDb.Migrations;
@@ -15,11 +17,13 @@ public static class Startup
         builder.AddType<ProjectsMutation>();
         builder.AddType<ProjectsQuery>();
         builder.Services.AddGarnetProjectsInternal();
+        builder.Services.AddGarnetProjectsMessageBus(nameof(Projects));
         builder.Services.AddRepeatableMigrations();
-        
+
+
         return builder;
     }
-    
+
     private static void AddGarnetProjectsInternal(this IServiceCollection services)
     {
         const string mongoConnStringEnv = "MONGO_CONNSTRING";
@@ -31,7 +35,16 @@ public static class Startup
         services.AddScoped<IProjectsRepository, ProjectsRepository>();
     }
 
-    private static void AddRepeatableMigrations(this IServiceCollection services)
+    public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
+    {
+        services.AddGarnetMessageBus(name, o =>
+        {
+            o.RegisterMessage<ProjectCreatedEvent>();
+            o.RegisterMessage<ProjectUpdatedEvent>();
+        });
+    }
+
+    public static void AddRepeatableMigrations(this IServiceCollection services)
     {
         services.AddScoped<IRepeatableMigration, CreateIndexesMigration>();
     }

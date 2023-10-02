@@ -81,6 +81,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Garnet.Common.Application",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Garnet.Users.Events", "features\user\server\Garnet.Users.Events\Garnet.Users.Events.csproj", "{42D2252F-67C1-458D-BDF3-F5828C758FF5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Garnet.Projects.Events", "features\project\server\Garnet.Projects.Events\Garnet.Projects.Events.csproj", "{73AABE84-BC31-4653-9E6F-21B6454AF673}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -113,6 +115,7 @@ Global
 		{A91BD3DA-40D2-4D9F-8273-F5A55C4323BF} = {CDF4496B-91E6-4801-A0DA-AE4467BB9561}
 		{D64B1634-E3F0-4006-B1A9-FDCDF8420D87} = {78975F5D-BE52-446D-B816-674498D0CB9A}
 		{42D2252F-67C1-458D-BDF3-F5828C758FF5} = {243FF0F5-243A-4437-9C98-5367E6E7BB53}
+		{73AABE84-BC31-4653-9E6F-21B6454AF673} = {C9BA45BE-9A8B-481F-96A1-7782C86E5B14}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CFE4CF1B-2FB2-43BA-8564-C214309ACD54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -183,5 +186,9 @@ Global
 		{42D2252F-67C1-458D-BDF3-F5828C758FF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42D2252F-67C1-458D-BDF3-F5828C758FF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42D2252F-67C1-458D-BDF3-F5828C758FF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73AABE84-BC31-4653-9E6F-21B6454AF673}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73AABE84-BC31-4653-9E6F-21B6454AF673}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73AABE84-BC31-4653-9E6F-21B6454AF673}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73AABE84-BC31-4653-9E6F-21B6454AF673}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
