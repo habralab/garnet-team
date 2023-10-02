@@ -27,14 +27,14 @@ public class ProjectsMutation
         return new ProjectCreatePayload(result.Id, result.OwnerUserId, result.ProjectName, result.Description);
     }
 
-    public async Task<ProjectDeletePayload> ProjectDelete(CancellationToken ct, ClaimsPrincipal claims,
+    public async Task<ProjectDeletePayload?> ProjectDelete(CancellationToken ct, ClaimsPrincipal claims,
         string projectId)
     {
         var result = await _projectsService.DeleteProject(ct, new CurrentUserProvider(claims), projectId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
-        return new ProjectDeletePayload(new ProjectPayload(project.Id, project.OwnerUserId, project.ProjectName,
-            project.Description));
+        return new ProjectDeletePayload(project.Id, project.OwnerUserId, project.ProjectName,
+            project.Description);
     }
 }
