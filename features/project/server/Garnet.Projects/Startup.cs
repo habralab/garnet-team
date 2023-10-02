@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Projects.Application;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.Project;
 
+[ExcludeFromCodeCoverage]
 public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetProjects(this IRequestExecutorBuilder builder)

@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Teams.Application;
 using Garnet.Common.Infrastructure.MessageBus;
@@ -11,6 +12,7 @@ using Garnet.Teams.Infrastructure.EventHandlers;
 
 namespace Garnet.Team
 {
+    [ExcludeFromCodeCoverage]
     public static class Startup
     {
         public static IRequestExecutorBuilder AddGarnetTeams(this IRequestExecutorBuilder builder)
