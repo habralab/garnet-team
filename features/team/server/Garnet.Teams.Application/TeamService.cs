@@ -78,7 +78,7 @@ namespace Garnet.Teams.Application
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                return Result.Fail("Команду может отредактировать только ее владелец");
+                return Result.Fail(new TeamOnlyOwnerCanEditError());
             }
 
             team = await _teamRepository.EditTeamDescription(ct, teamId, description);
