@@ -1,3 +1,4 @@
+using FluentResults;
 using Garnet.Common.Application;
 
 namespace Garnet.Projects.Application;
@@ -22,5 +23,25 @@ public class ProjectsService
     public async Task<Project?> GetProject(CancellationToken ct, string projectId)
     {
         return await _repository.GetProject(ct, projectId);
+    }
+
+    public async Task<Result<Project>> DeleteProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
+        string projectId)
+    {
+        var project = await _repository.GetProject(ct, projectId);
+
+        if (project is null)
+        {
+            return Result.Fail($"Проект с идентификатором '{projectId}' не найден");
+        }
+
+        if (project.OwnerUserId != currentUserProvider.UserId)
+        {
+            return Result.Fail("Проект может удалить только его владелец");
+        }
+
+        await _repository.DeleteProject(ct, projectId);
+
+        return Result.Ok(project);
     }
 }
