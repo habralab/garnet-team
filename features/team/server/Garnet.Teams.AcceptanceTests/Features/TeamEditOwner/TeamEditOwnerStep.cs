@@ -1,3 +1,4 @@
+using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
@@ -45,6 +46,16 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
             {
                 _queryExceptionsContext.QueryExceptions.Add(ex);
             }
+        }
+
+        [Then(@"пользователь получает ошибку '(.*)' с идентификатором пользователя '(.*)'")]
+        public Task ThenПользовательПолучаетОшибкуСИдентификаторомПользователя(string error, string username)
+        {
+            var userId = _currentUserProviderFake.GetUserIdByUsername(username);
+            var errorMsg = error.Replace("ID", userId);
+            var validError = _queryExceptionsContext.QueryExceptions.First().Errors.Any(x => x.Message == errorMsg);
+            validError.Should().BeTrue();
+            return Task.CompletedTask;
         }
     }
 }
