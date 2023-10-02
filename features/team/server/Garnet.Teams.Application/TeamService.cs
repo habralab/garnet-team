@@ -97,7 +97,7 @@ namespace Garnet.Teams.Application
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                return Result.Fail(new TeamUserNotATeamParticipantError());
+                return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
             var user = await _userService.GetUser(ct, newOwnerUserId);
@@ -109,7 +109,7 @@ namespace Garnet.Teams.Application
             var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
             if (!userTeams.Any(x => x.TeamId == teamId))
             {
-                return Result.Fail(new TeamOnlyParticipantCanBeOwnerError(newOwnerUserId));
+                return Result.Fail(new TeamUserNotATeamParticipantError(newOwnerUserId));
             }
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);

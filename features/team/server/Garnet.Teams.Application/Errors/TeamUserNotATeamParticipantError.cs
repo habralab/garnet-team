@@ -4,7 +4,7 @@ namespace Garnet.Teams.Application.Errors
 {
     public class TeamUserNotATeamParticipantError : ApplicationError
     {
-        public TeamUserNotATeamParticipantError() : base("Изменить владельца команды может только ее владелец")
+        public TeamUserNotATeamParticipantError(string userId) : base($"Пользователь с идентификатором '{userId}' не является участником команды")
         {
         }
 
