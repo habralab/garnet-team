@@ -21,10 +21,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
         public async Task WhenИзменяетВладельцаКомандыНаПользователя(string username, string teamName, string newOwnerUsername)
         {
             var usernameClaims = _currentUserProviderFake.LoginAs(username);
-            _currentUserProviderFake.LoginAs(newOwnerUsername);
+            var newOwnerUserId = _currentUserProviderFake.GetUserIdByUsername(newOwnerUsername);
 
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var input = new TeamEditOwnerInput(team.Id, _currentUserProviderFake.UserId);
+            var input = new TeamEditOwnerInput(team.Id, newOwnerUserId);
 
             try
             {
