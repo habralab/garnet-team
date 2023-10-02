@@ -11,9 +11,9 @@ public record Project(
 
 public static class ProjectDocumentExtensions
 {
-    public static ProjectCreatedEvent ToUpdatedEvent(this Project doc)
+    public static ProjectUpdatedEvent ToUpdatedEvent(this Project doc)
     {
-        return new ProjectCreatedEvent(doc.Id, doc.ProjectName);
+        return new ProjectUpdatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description);
     }
 
     public static ProjectUpdatedEvent ToCreatedEvent(this Project doc)
