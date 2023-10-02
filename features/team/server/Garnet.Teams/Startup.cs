@@ -7,7 +7,7 @@ using Garnet.Teams.Infrastructure.MongoDb.Migration;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
-using Garnet.Teams.Infrastructure.Consumers;
+using Garnet.Teams.Infrastructure.EventHandlers;
 
 namespace Garnet.Team
 {

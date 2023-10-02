@@ -2,7 +2,7 @@ using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application;
 using Garnet.Users.Events;
 
-namespace Garnet.Teams.Infrastructure.Consumers
+namespace Garnet.Teams.Infrastructure.EventHandlers
 {
     public class UserCreatedEventConsumer : IMessageBusConsumer<UserCreatedEvent>
     {
