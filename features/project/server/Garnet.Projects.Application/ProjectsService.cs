@@ -1,16 +1,20 @@
 using Garnet.Common.Application;
+using Garnet.Common.Application.MessageBus;
 
 namespace Garnet.Projects.Application;
 
 public class ProjectsService
 {
     private readonly IProjectsRepository _repository;
+    private readonly IMessageBus _messageBus;
 
     public ProjectsService(
-        IProjectsRepository repository
+        IProjectsRepository repository,
+        IMessageBus messageBus
     )
     {
         _repository = repository;
+        _messageBus = messageBus;
     }
 
     public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
