@@ -59,13 +59,14 @@ public class ProjectsService
     public async Task<Result<Project>> DeleteProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
         string projectId)
     {
-        var project = await _repository.GetProject(ct, projectId);
+        var result = await GetProject(ct, projectId);
 
-        if (project is null)
+        if (result.IsFailed)
         {
-            return Result.Fail(new ProjectNotFoundError(projectId));
+            return Result.Fail(result.Errors);
         }
 
+        var project = result.Value;
         if (project.OwnerUserId != currentUserProvider.UserId)
         {
             return Result.Fail(new ProjectOnlyOwnerCanDeleteError());
