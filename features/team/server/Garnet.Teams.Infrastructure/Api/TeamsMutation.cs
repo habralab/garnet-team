@@ -15,10 +15,12 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsMutation
     {
         private readonly TeamService _teamService;
+        private readonly TeamMembershipService _membershipService;
 
-        public TeamsMutation(TeamService teamService)
+        public TeamsMutation(TeamService teamService, TeamMembershipService membershipService)
         {
             _teamService = teamService;
+            _membershipService = membershipService;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -57,9 +59,13 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.Tags, team.OwnerUserId);
         }
 
-        public Task<TeamUserJoinRequestPayload> TeamUserJoinRequest(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequest(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            return null;
+            var result = await _membershipService.JoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
         }
     }
 }

@@ -35,6 +35,7 @@ namespace Garnet.Team
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();
+            services.AddScoped<TeamMembershipService>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
