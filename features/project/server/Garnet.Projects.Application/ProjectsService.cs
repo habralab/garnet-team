@@ -27,25 +27,27 @@ public class ProjectsService
         return project;
     }
 
-    public async Task<Project?> GetProject(CancellationToken ct, string projectId)
+    public async Task<Result<Project>> GetProject(CancellationToken ct, string projectId)
     {
-        return await _repository.GetProject(ct, projectId);
+        var project = await _repository.GetProject(ct, projectId);
+        return project is null ? Result.Fail(new ProjectNotFoundError(projectId)) : Result.Ok(project);
     }
 
     public async Task<Result<Project>> EditProjectDescription(CancellationToken ct,
         ICurrentUserProvider currentUserProvider,
         string projectId, string? description)
     {
-        var project = await GetProject(ct, projectId);
+        var result = await GetProject(ct, projectId);
 
-        if (project is null)
+        if (result.IsFailed)
         {
-            return Result.Fail($"Проект с идентификатором '{projectId}' не найден");
+            return Result.Fail(result.Errors);
         }
 
+        var project = result.Value;
         if (project.OwnerUserId != currentUserProvider.UserId)
         {
-            return Result.Fail("Проект может отредактировать только его владелец");
+            return Result.Fail(new ProjectOnlyOwnerCanEditError());
         }
 
         project = await _repository.EditProjectDescription(ct, projectId, description);
@@ -57,13 +59,14 @@ public class ProjectsService
     public async Task<Result<Project>> DeleteProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
         string projectId)
     {
-        var project = await _repository.GetProject(ct, projectId);
+        var result = await GetProject(ct, projectId);
 
-        if (project is null)
+        if (result.IsFailed)
         {
-            return Result.Fail(new ProjectNotFoundError(projectId));
+            return Result.Fail(result.Errors);
         }
 
+        var project = result.Value;
         if (project.OwnerUserId != currentUserProvider.UserId)
         {
             return Result.Fail(new ProjectOnlyOwnerCanDeleteError());

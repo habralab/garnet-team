@@ -11,13 +11,13 @@ using TechTalk.SpecFlow;
 namespace Garnet.Projects.AcceptanceTests.Features.ProjectEdit;
 
 [Binding]
-public class ProjectEditSteps : BaseSteps
+public class ProjectEditDescriptionSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private QueryExceptionsContext _errorStepContext = null!;
     private ProjectEditDescriptionPayload? _response;
 
-    public ProjectEditSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake,
+    public ProjectEditDescriptionSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake,
         StepsArgs args) : base(args)
     {
         _errorStepContext = errorStepContext;
@@ -60,10 +60,10 @@ public class ProjectEditSteps : BaseSteps
         project.Description.Should().Be(description);
     }
 
-    [Then(@"пользователь получает ошибку, что '(.*)'")]
+    [Then(@"пользователь получает ошибку, что '([^']*)'")]
     public Task ThenПользовательПолучаетОшибку(string errorMsg)
     {
-        var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x => x.Message == errorMsg);
+        var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x => x.Code == errorMsg);
         validError.Should().BeTrue();
         return Task.CompletedTask;
     }
