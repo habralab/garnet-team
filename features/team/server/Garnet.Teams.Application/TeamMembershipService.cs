@@ -42,7 +42,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
             }
 
-            var userRequest = await _membershipRepository.GetAllUserJoinRequestByTeam(ct, teamId);
+            var userRequest = await _membershipRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
             if (userRequest.Any(x => x.UserId == user.Id))
             {
                 return Result.Fail(new TeamPendingUserJoinRequestError(user.Id));
