@@ -4,8 +4,10 @@ using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Projects.Application;
 using Garnet.Projects.Events;
 using Garnet.Projects.Infrastructure.Api;
+using Garnet.Projects.Infrastructure.EventHandlers;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Garnet.Projects.Infrastructure.MongoDb.Migrations;
+using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -44,6 +46,8 @@ public static class Startup
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
             o.RegisterMessage<ProjectDeletedEvent>();
+
+            o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
         });
     }
 
