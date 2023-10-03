@@ -52,7 +52,7 @@ namespace Garnet.Team
             services.AddGarnetMessageBus(name, o =>
             {
                 o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
-                o.RegisterMessage<TeamUserJoinRequestEvent>();
+                o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
             });
         }
     }

@@ -1,6 +1,6 @@
 namespace Garnet.Teams.Events
 {
-    public record TeamUserJoinRequestEvent(
+    public record TeamUserJoinRequestCreatedEvent(
         string UserId,
         string TeamId
     );
