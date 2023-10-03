@@ -36,7 +36,9 @@ public static class Startup
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
         services.AddScoped<ProjectService>();
+        services.AddScoped<ProjectUserService>();
         services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
