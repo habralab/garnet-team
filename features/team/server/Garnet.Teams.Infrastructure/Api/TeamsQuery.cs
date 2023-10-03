@@ -1,6 +1,7 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
+using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
 using HotChocolate.Execution;
 using HotChocolate.Types;
@@ -37,6 +38,11 @@ namespace Garnet.Teams.Infrastructure.Api
                 input.Take);
 
             return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.Tags)).ToArray());
+        }
+
+        public Task<TeamParticipantSearchPayload> TeamParticipantSearch(CancellationToken ct, TeamParticipantSearchInput input)
+        {
+            return null;
         }
     }
 }
