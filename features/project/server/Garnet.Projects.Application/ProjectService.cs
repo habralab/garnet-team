@@ -5,14 +5,14 @@ using Garnet.Projects.Application.Errors;
 
 namespace Garnet.Projects.Application;
 
-public class ProjectsService
+public class ProjectService
 {
-    private readonly IProjectsRepository _repository;
+    private readonly IProjectRepository _repository;
     private readonly IMessageBus _messageBus;
     private readonly ProjectUserService _projectUserService;
 
-    public ProjectsService(
-        IProjectsRepository repository,
+    public ProjectService(
+        IProjectRepository repository,
         IMessageBus messageBus,
         ProjectUserService projectUserService
     )

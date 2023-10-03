@@ -4,14 +4,14 @@ using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb;
 
-public class ProjectsRepository : IProjectsRepository
+public class ProjectRepository : IProjectRepository
 {
     private readonly DbFactory _dbFactory;
     private readonly FilterDefinitionBuilder<ProjectDocument> _f = Builders<ProjectDocument>.Filter;
     private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
     private readonly IndexKeysDefinitionBuilder<ProjectDocument> _i = Builders<ProjectDocument>.IndexKeys;
 
-    public ProjectsRepository(DbFactory dbFactory)
+    public ProjectRepository(DbFactory dbFactory)
     {
         _dbFactory = dbFactory;
     }

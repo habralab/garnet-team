@@ -1,6 +1,6 @@
 namespace Garnet.Projects.Application;
 
-public interface IProjectsRepository
+public interface IProjectRepository
 {
     Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName, string? description);
     Task<Project?> GetProject(CancellationToken ct, string projectId);

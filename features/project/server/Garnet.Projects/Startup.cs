@@ -35,8 +35,8 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
-        services.AddScoped<ProjectsService>();
-        services.AddScoped<IProjectsRepository, ProjectsRepository>();
+        services.AddScoped<ProjectService>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
