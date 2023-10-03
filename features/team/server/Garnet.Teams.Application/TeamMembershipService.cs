@@ -6,12 +6,12 @@ namespace Garnet.Teams.Application
 {
     public class TeamMembershipService
     {
-        private readonly ITeamMembershipRepository _membershipRepository;
+        private readonly ITeamUserJoinRequestRepository _membershipRepository;
         private readonly ITeamParticipantRepository _teamParticipantsRepository;
         private readonly TeamUserService _userService;
 
         public TeamMembershipService(
-            ITeamMembershipRepository membershipRepository,
+            ITeamUserJoinRequestRepository membershipRepository,
             ITeamParticipantRepository teamParticipantsRepository,
             TeamUserService userService)
         {

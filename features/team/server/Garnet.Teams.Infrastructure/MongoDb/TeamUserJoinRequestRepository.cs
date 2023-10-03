@@ -4,12 +4,12 @@ using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb
 {
-    public class TeamMembershipServiceRepository : ITeamMembershipRepository
+    public class TeamUserJoinRequestRepository : ITeamUserJoinRequestRepository
     {
         private readonly DbFactory _dbFactory;
         private readonly FilterDefinitionBuilder<TeamUserJoinRequestDocument> _f = Builders<TeamUserJoinRequestDocument>.Filter;
 
-        public TeamMembershipServiceRepository(DbFactory dbFactory)
+        public TeamUserJoinRequestRepository(DbFactory dbFactory)
         {
             _dbFactory = dbFactory;
         }
