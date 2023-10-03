@@ -28,7 +28,7 @@ namespace Garnet.Teams.Application
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamUserJoinRequest>> JoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
+        public async Task<Result<TeamUserJoinRequest>> CreateJoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
             var findTeam = await _teamService.GetTeamById(ct, teamId);
             if (findTeam.IsFailed)

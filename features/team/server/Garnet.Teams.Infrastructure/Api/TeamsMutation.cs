@@ -61,7 +61,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestCreatePayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _membershipService.JoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
+            var result = await _membershipService.CreateJoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
