@@ -48,7 +48,18 @@ public class ProjectsRepository : IProjectsRepository
                 ReturnDocument = ReturnDocument.After
             },
             cancellationToken: ct
-            );
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
+    public async Task<Project?> DeleteProject(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+
+        var project = await db.Projects.FindOneAndDeleteAsync(
+            _f.Eq(x => x.Id, projectId)
+        );
 
         return ProjectDocument.ToDomain(project);
     }

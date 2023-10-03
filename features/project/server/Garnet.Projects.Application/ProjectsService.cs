@@ -1,6 +1,7 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Projects.Application.Errors;
 
 namespace Garnet.Projects.Application;
 
@@ -50,6 +51,26 @@ public class ProjectsService
         project = await _repository.EditProjectDescription(ct, projectId, description);
 
         await _messageBus.Publish(project.ToUpdatedEvent());
+        return Result.Ok(project);
+    }
+
+    public async Task<Result<Project>> DeleteProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
+        string projectId)
+    {
+        var project = await _repository.GetProject(ct, projectId);
+
+        if (project is null)
+        {
+            return Result.Fail(new ProjectNotFoundError(projectId));
+        }
+
+        if (project.OwnerUserId != currentUserProvider.UserId)
+        {
+            return Result.Fail(new ProjectOnlyOwnerCanDeleteError());
+        }
+
+        await _repository.DeleteProject(ct, projectId);
+        await _messageBus.Publish(project.ToDeletedEvent());
         return Result.Ok(project);
     }
 }
