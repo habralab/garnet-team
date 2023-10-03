@@ -76,4 +76,27 @@ public class ProjectsService
         await _messageBus.Publish(project.ToDeletedEvent());
         return Result.Ok(project);
     }
+
+    public async Task<Result<Project>> EditProjectOwner(CancellationToken ct,
+        ICurrentUserProvider currentUserProvider,
+        string projectId, string newOwnerUserId)
+    {
+        var result = await GetProject(ct, projectId);
+
+        if (result.IsFailed)
+        {
+            return Result.Fail(result.Errors);
+        }
+
+        var project = result.Value;
+        if (project.OwnerUserId != currentUserProvider.UserId)
+        {
+            return Result.Fail(new ProjectOnlyOwnerCanEditError());
+        }
+
+        project = await _repository.EditProjectOwner(ct, projectId, newOwnerUserId);
+
+        await _messageBus.Publish(project.ToUpdatedEvent());
+        return Result.Ok(project);
+    }
 }
