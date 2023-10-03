@@ -20,4 +20,9 @@ public static class ProjectDocumentExtensions
     {
         return new ProjectCreatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description);
     }
+
+    public static ProjectDeletedEvent EntityDeletedEvent(this Project doc)
+    {
+        return new ProjectDeletedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description);
+    }
 }

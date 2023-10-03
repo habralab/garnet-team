@@ -43,6 +43,7 @@ public static class Startup
         {
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
+            o.RegisterMessage<ProjectDeletedEvent>();
         });
     }
 
