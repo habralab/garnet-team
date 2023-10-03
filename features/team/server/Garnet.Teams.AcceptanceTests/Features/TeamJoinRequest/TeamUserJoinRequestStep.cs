@@ -4,10 +4,10 @@ using MongoDB.Driver;
 namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinRequest
 {
     [Binding]
-    public class TeamJoinRequestStep : BaseSteps
+    public class TeamUserJoinRequestStep : BaseSteps
     {
         private CurrentUserProviderFake _currentUserProviderFake;
-        public TeamJoinRequestStep(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamUserJoinRequestStep(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
         }
