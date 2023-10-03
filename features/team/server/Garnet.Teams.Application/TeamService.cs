@@ -104,12 +104,6 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
-            var user = await _userService.GetUser(ct, newOwnerUserId);
-            if (user is null)
-            {
-                return Result.Fail(new TeamUserNotFoundError(newOwnerUserId));
-            }
-
             var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
             if (!userTeams.Any(x => x.TeamId == teamId))
             {
