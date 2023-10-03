@@ -64,6 +64,22 @@ public class ProjectsRepository : IProjectsRepository
         return ProjectDocument.ToDomain(project);
     }
 
+    public async Task<Project> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, projectId),
+            _u.Set(x => x.OwnerUserId, newOwnerUserId),
+            options: new FindOneAndUpdateOptions<ProjectDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();
