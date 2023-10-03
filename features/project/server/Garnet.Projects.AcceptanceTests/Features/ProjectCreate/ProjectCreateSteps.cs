@@ -24,9 +24,9 @@ public class ProjectCreateSteps : BaseSteps
     [Given(@"существует пользователь '([^']*)'")]
     public async Task GivenСуществуетПользователь(string username)
     {
-        var user = ProjectUserDocument.Create(Uuid.NewMongo(), username);
+        var user = ProjectUserDocument.Create(Uuid.NewMongo());
         await Db.ProjectUsers.InsertOneAsync(user);
-        _currentUserProviderFake.RegisterUser(username, user.UserId);
+        _currentUserProviderFake.RegisterUser(username, user.Id);
     }
 
     [When(@"пользователь '(.*)' создает проект '(.*)'")]
