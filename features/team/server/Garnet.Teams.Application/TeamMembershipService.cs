@@ -9,19 +9,28 @@ namespace Garnet.Teams.Application
         private readonly ITeamUserJoinRequestRepository _membershipRepository;
         private readonly ITeamParticipantRepository _teamParticipantsRepository;
         private readonly TeamUserService _userService;
+        private readonly TeamService _teamService;
 
         public TeamMembershipService(
             ITeamUserJoinRequestRepository membershipRepository,
             ITeamParticipantRepository teamParticipantsRepository,
+            TeamService teamService,
             TeamUserService userService)
         {
             _membershipRepository = membershipRepository;
             _teamParticipantsRepository = teamParticipantsRepository;
             _userService = userService;
+            _teamService = teamService;
         }
 
         public async Task<Result<TeamUserJoinRequest>> JoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
+            var findTeam = await _teamService.GetTeamById(ct, teamId);
+            if (findTeam.IsFailed)
+            {
+                return Result.Fail(findTeam.Errors);
+            }
+
             var user = await _userService.GetUser(ct, currentUserProvider.UserId);
             if (user is null)
             {
