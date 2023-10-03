@@ -72,9 +72,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         }
 
         [Then(@"пользователь получает ошибку '([^']*)'")]
-        public Task ThenПользовательПолучаетОшибку(string errorMsg)
+        public Task ThenПользовательПолучаетОшибку(string errorCode)
         {
-            var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x=> x.Message == errorMsg);
+            var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x=> x.Code == errorCode);
             validError.Should().BeTrue();
             return Task.CompletedTask;
         }

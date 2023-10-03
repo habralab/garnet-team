@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Common.Infrastructure.S3;
@@ -11,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.User;
 
+[ExcludeFromCodeCoverage]
 public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetUsers(this IRequestExecutorBuilder builder)

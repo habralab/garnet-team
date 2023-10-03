@@ -1,11 +1,12 @@
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 
-namespace Garnet.Teams.Infrastructure.Api.TeamEdit
+namespace Garnet.Teams.Infrastructure.Api.TeamEditOwner
 {
-    public record TeamEditDescriptionPayload(
+    public record TeamEditOwnerPayload(
         string Id,
         string Name,
         string Description,
-        string[] Tags
+        string[] Tags,
+        string OwnerUserId
     ) : TeamPayload(Id, Name, Description, Tags);
 }

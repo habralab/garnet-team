@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Infrastructure.Api.TeamEdit
+namespace Garnet.Teams.Infrastructure.Api.TeamEditDescription
 {
     public record TeamEditDescriptionInput(
         string Id,

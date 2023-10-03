@@ -98,5 +98,22 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
             return TeamDocument.ToDomain(team);
         }
+
+        public async Task<Team?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await db.Teams.FindOneAndUpdateAsync(
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.OwnerUserId, newOwnerUserId),
+                options: new FindOneAndUpdateOptions<TeamDocument>
+                {
+                    ReturnDocument = ReturnDocument.After
+                },
+                cancellationToken: ct
+            );
+
+            return TeamDocument.ToDomain(team);
+        }
     }
 }

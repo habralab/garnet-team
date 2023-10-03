@@ -1,8 +1,8 @@
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 
-namespace Garnet.Teams.Infrastructure.Api.TeamDelete
+namespace Garnet.Teams.Infrastructure.Api.TeamEditDescription
 {
-    public record TeamDeletePayload(
+    public record TeamEditDescriptionPayload(
         string Id,
         string Name,
         string Description,
