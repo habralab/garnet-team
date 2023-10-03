@@ -39,6 +39,7 @@ namespace Garnet.Team
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
+            services.AddScoped<ITeamMembershipRepository, TeamMembershipServiceRepository>();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
