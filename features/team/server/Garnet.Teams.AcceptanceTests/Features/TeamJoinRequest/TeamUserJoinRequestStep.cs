@@ -18,7 +18,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinRequest
         {
             var claims = _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            await Mutation.TeamUserJoinRequest(CancellationToken.None, claims, team.Id);
+            await Mutation.TeamUserJoinRequestCreate(CancellationToken.None, claims, team.Id);
         }
 
         [Then(@"в команде '(.*)' количество заявок на вступление равно '(.*)'")]

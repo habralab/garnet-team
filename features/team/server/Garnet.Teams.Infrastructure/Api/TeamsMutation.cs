@@ -59,7 +59,7 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.Tags, team.OwnerUserId);
         }
 
-        public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequest(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
             var result = await _membershipService.JoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
             result.ThrowQueryExceptionIfHasErrors();
