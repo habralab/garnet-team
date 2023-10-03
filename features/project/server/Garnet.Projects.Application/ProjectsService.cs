@@ -70,7 +70,7 @@ public class ProjectsService
         }
 
         await _repository.DeleteProject(ct, projectId);
-        await _messageBus.Publish(project.EntityDeletedEvent());
+        await _messageBus.Publish(project.ToDeletedEvent());
         return Result.Ok(project);
     }
 }
