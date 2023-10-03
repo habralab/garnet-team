@@ -6,6 +6,7 @@ using Garnet.Projects.Infrastructure.Api.ProjectCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectDelete;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
 using Garnet.Projects.Infrastructure.Api.ProjectEdit;
+using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using HotChocolate.Types;
 
 namespace Garnet.Projects.Infrastructure.Api;
@@ -46,5 +47,14 @@ public class ProjectsMutation
         var project = result.Value;
         return new ProjectDeletePayload(project.Id, project.OwnerUserId, project.ProjectName,
             project.Description);
+    }
+
+    public async Task<ProjectEditOwnerPayload> ProjectEditOwner(CancellationToken ct, ClaimsPrincipal claims, ProjectEditOwnerInput input)
+    {
+        var result = await _projectsService.EditProjectOwner(ct, new CurrentUserProvider(claims), input.ProjectId, input.NewOwnerUserId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var project = result.Value;
+        return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
     }
 }
