@@ -12,5 +12,5 @@ public class Db
     }
 
     public IMongoCollection<ProjectDocument> Projects => _mongoDatabase.GetCollection<ProjectDocument>("Projects");
-    public IMongoCollection<ProjectUserDocument> ProjectUsers => _mongoDatabase.GetCollection<ProjectUserDocument>("ProjectsUsers");
+    public IMongoCollection<ProjectUserDocument> ProjectUsers => _mongoDatabase.GetCollection<ProjectUserDocument>("ProjectUsers");
 }
