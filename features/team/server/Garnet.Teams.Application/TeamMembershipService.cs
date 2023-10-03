@@ -1,6 +1,8 @@
 using FluentResults;
 using Garnet.Common.Application;
+using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Events;
 
 namespace Garnet.Teams.Application
 {
@@ -10,8 +12,10 @@ namespace Garnet.Teams.Application
         private readonly ITeamParticipantRepository _teamParticipantsRepository;
         private readonly TeamUserService _userService;
         private readonly TeamService _teamService;
+        private readonly IMessageBus _messageBus;
 
         public TeamMembershipService(
+            IMessageBus messageBus,
             ITeamUserJoinRequestRepository membershipRepository,
             ITeamParticipantRepository teamParticipantsRepository,
             TeamService teamService,
@@ -21,6 +25,7 @@ namespace Garnet.Teams.Application
             _teamParticipantsRepository = teamParticipantsRepository;
             _userService = userService;
             _teamService = teamService;
+            _messageBus = messageBus;
         }
 
         public async Task<Result<TeamUserJoinRequest>> JoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
@@ -50,6 +55,10 @@ namespace Garnet.Teams.Application
             }
 
             var request = await _membershipRepository.CreateJoinRequestByUser(ct, user.Id, teamId);
+
+            var @event = new TeamUserJoinRequestEvent(user.Id, teamId);
+            await _messageBus.Publish(@event);
+
             return Result.Ok(request);
         }
     }

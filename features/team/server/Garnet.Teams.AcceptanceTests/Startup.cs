@@ -3,6 +3,8 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.Support;
+using Garnet.Team;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
@@ -41,6 +43,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<StepsArgs>();
 
             AddMongoDb(services);
+            AddMessageBus(services);
 
             return services;
         }
@@ -56,6 +59,11 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
 
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
+        }
+
+        private static void AddMessageBus(IServiceCollection services)
+        {
+            services.AddGarnetTeamsMessageBus(Uuid.NewGuid());
         }
     }
 }
