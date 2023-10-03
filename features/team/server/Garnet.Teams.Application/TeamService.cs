@@ -98,6 +98,12 @@ namespace Garnet.Teams.Application
                 return Result.Fail(result.Errors);
             }
 
+            var user = await _userService.GetUser(ct, newOwnerUserId);
+            if (user is null)
+            {
+                return Result.Fail(new TeamUserNotFoundError(newOwnerUserId));
+            }
+
             var team = result.Value;
             if (team.OwnerUserId != currentUserProvider.UserId)
             {
