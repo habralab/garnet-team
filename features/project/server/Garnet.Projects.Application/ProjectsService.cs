@@ -27,9 +27,10 @@ public class ProjectsService
         return project;
     }
 
-    public async Task<Project?> GetProject(CancellationToken ct, string projectId)
+    public async Task<Result<Project>> GetProject(CancellationToken ct, string projectId)
     {
-        return await _repository.GetProject(ct, projectId);
+        var project = await _repository.GetProject(ct, projectId);
+        return project is null ? Result.Fail(new ProjectNotFoundError(projectId)) : Result.Ok(project);
     }
 
     public async Task<Result<Project>> EditProjectDescription(CancellationToken ct,

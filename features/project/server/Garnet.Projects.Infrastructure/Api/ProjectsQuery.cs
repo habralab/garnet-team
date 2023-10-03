@@ -1,4 +1,5 @@
-﻿using Garnet.Projects.Application;
+﻿using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
 using HotChocolate.Execution;
 using HotChocolate.Types;
@@ -17,8 +18,10 @@ public class ProjectsQuery
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
     {
-        var project = await _projectsService.GetProject(ct, projectId)
-                      ?? throw new QueryException($"Проект с идентификатором '{projectId}' не найден");
+        var result = await _projectsService.GetProject(ct, projectId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var project = result.Value;
         return new ProjectPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
     }
 }
