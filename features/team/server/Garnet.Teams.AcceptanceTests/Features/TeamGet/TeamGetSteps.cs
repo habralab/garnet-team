@@ -67,15 +67,5 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
                 _errorStepContext.QueryExceptions.Add(ex);
             }
         }
-
-        [Scope(Feature = "TeamGet")]
-        [Then(@"пользователь получает ошибку '(.*)'")]
-        public Task ThenПользовательПолучаетОшибку(string error)
-        {
-            var errorMsg = error.Replace("ID", _id);
-            var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x => x.Message == errorMsg);
-            validError.Should().BeTrue();
-            return Task.CompletedTask;
-        }
     }
 }

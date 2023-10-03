@@ -32,9 +32,11 @@ namespace Garnet.Teams.Application
             return Result.Ok(team);
         }
 
-        public async Task<Team?> GetTeamById(CancellationToken ct, string teamId)
+        public async Task<Result<Team>> GetTeamById(CancellationToken ct, string teamId)
         {
-            return await _teamRepository.GetTeamById(ct, teamId);
+            var team = await _teamRepository.GetTeamById(ct, teamId);
+
+            return team is null ? Result.Fail(new TeamNotFoundError(teamId)) : Result.Ok(team);
         }
 
         public async Task<TeamParticipant[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
@@ -69,13 +71,14 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<Team>> EditTeamDescription(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
         {
-            var team = await GetTeamById(ct, teamId);
+            var result = await GetTeamById(ct, teamId);
 
-            if (team is null)
+            if (result.IsFailed)
             {
-                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
+                return Result.Fail(result.Errors);
             }
 
+            var team = result.Value;
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanEditError());
@@ -88,14 +91,15 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<Team>> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId, ICurrentUserProvider currentUserProvider)
         {
-            var team = await GetTeamById(ct, teamId);
+            var result = await GetTeamById(ct, teamId);
 
-            if (team is null)
+            if (result.IsFailed)
             {
-                return Result.Fail(new TeamNotFoundError(teamId));
+                return Result.Fail(result.Errors);
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            var team = result.Value;
+            if (team.OwnerUserId != currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
