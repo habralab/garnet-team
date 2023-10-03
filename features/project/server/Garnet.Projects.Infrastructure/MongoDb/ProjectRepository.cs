@@ -4,14 +4,14 @@ using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb;
 
-public class ProjectsRepository : IProjectsRepository
+public class ProjectRepository : IProjectRepository
 {
     private readonly DbFactory _dbFactory;
     private readonly FilterDefinitionBuilder<ProjectDocument> _f = Builders<ProjectDocument>.Filter;
     private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
     private readonly IndexKeysDefinitionBuilder<ProjectDocument> _i = Builders<ProjectDocument>.IndexKeys;
 
-    public ProjectsRepository(DbFactory dbFactory)
+    public ProjectRepository(DbFactory dbFactory)
     {
         _dbFactory = dbFactory;
     }
@@ -59,6 +59,22 @@ public class ProjectsRepository : IProjectsRepository
 
         var project = await db.Projects.FindOneAndDeleteAsync(
             _f.Eq(x => x.Id, projectId)
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
+    public async Task<Project> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, projectId),
+            _u.Set(x => x.OwnerUserId, newOwnerUserId),
+            options: new FindOneAndUpdateOptions<ProjectDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
         );
 
         return ProjectDocument.ToDomain(project);

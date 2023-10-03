@@ -4,8 +4,10 @@ using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Projects.Application;
 using Garnet.Projects.Events;
 using Garnet.Projects.Infrastructure.Api;
+using Garnet.Projects.Infrastructure.EventHandlers;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Garnet.Projects.Infrastructure.MongoDb.Migrations;
+using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -33,8 +35,10 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
-        services.AddScoped<ProjectsService>();
-        services.AddScoped<IProjectsRepository, ProjectsRepository>();
+        services.AddScoped<ProjectService>();
+        services.AddScoped<ProjectUserService>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
@@ -44,6 +48,8 @@ public static class Startup
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
             o.RegisterMessage<ProjectDeletedEvent>();
+
+            o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
         });
     }
 

@@ -5,18 +5,21 @@ using Garnet.Projects.Application.Errors;
 
 namespace Garnet.Projects.Application;
 
-public class ProjectsService
+public class ProjectService
 {
-    private readonly IProjectsRepository _repository;
+    private readonly IProjectRepository _repository;
     private readonly IMessageBus _messageBus;
+    private readonly ProjectUserService _projectUserService;
 
-    public ProjectsService(
-        IProjectsRepository repository,
-        IMessageBus messageBus
+    public ProjectService(
+        IProjectRepository repository,
+        IMessageBus messageBus,
+        ProjectUserService projectUserService
     )
     {
         _repository = repository;
         _messageBus = messageBus;
+        _projectUserService = projectUserService;
     }
 
     public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
@@ -74,6 +77,35 @@ public class ProjectsService
 
         await _repository.DeleteProject(ct, projectId);
         await _messageBus.Publish(project.ToDeletedEvent());
+        return Result.Ok(project);
+    }
+
+    public async Task<Result<Project>> EditProjectOwner(CancellationToken ct,
+        ICurrentUserProvider currentUserProvider,
+        string projectId, string newOwnerUserId)
+    {
+        var result = await GetProject(ct, projectId);
+
+        if (result.IsFailed)
+        {
+            return Result.Fail(result.Errors);
+        }
+
+        var user = await _projectUserService.GetUser(ct, newOwnerUserId);
+        if (user is null)
+        {
+            return Result.Fail(new ProjectUserNotFoundError(newOwnerUserId));
+        }
+
+        var project = result.Value;
+        if (project.OwnerUserId != currentUserProvider.UserId)
+        {
+            return Result.Fail(new ProjectOnlyOwnerCanEditError());
+        }
+
+        project = await _repository.EditProjectOwner(ct, projectId, newOwnerUserId);
+
+        await _messageBus.Publish(project.ToUpdatedEvent());
         return Result.Ok(project);
     }
 }

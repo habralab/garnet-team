@@ -9,16 +9,16 @@ namespace Garnet.Projects.Infrastructure.Api;
 [ExtendObjectType("Query")]
 public class ProjectsQuery
 {
-    private readonly ProjectsService _projectsService;
+    private readonly ProjectService _projectService;
 
-    public ProjectsQuery(ProjectsService projectsService)
+    public ProjectsQuery(ProjectService projectService)
     {
-        _projectsService = projectsService;
+        _projectService = projectService;
     }
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
     {
-        var result = await _projectsService.GetProject(ct, projectId);
+        var result = await _projectService.GetProject(ct, projectId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
