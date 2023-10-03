@@ -60,10 +60,10 @@ public class ProjectEditDescriptionSteps : BaseSteps
         project.Description.Should().Be(description);
     }
 
-    [Then(@"пользователь получает ошибку, что '(.*)'")]
+    [Then(@"пользователь получает ошибку, что '([^']*)'")]
     public Task ThenПользовательПолучаетОшибку(string errorMsg)
     {
-        var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x => x.Message == errorMsg);
+        var validError = _errorStepContext.QueryExceptions.First().Errors.Any(x => x.Code == errorMsg);
         validError.Should().BeTrue();
         return Task.CompletedTask;
     }

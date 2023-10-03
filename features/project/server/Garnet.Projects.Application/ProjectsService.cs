@@ -37,16 +37,17 @@ public class ProjectsService
         ICurrentUserProvider currentUserProvider,
         string projectId, string? description)
     {
-        var project = await GetProject(ct, projectId);
+        var result = await GetProject(ct, projectId);
 
-        if (project is null)
+        if (result.IsFailed)
         {
-            return Result.Fail($"Проект с идентификатором '{projectId}' не найден");
+            return Result.Fail(result.Errors);
         }
 
+        var project = result.Value;
         if (project.OwnerUserId != currentUserProvider.UserId)
         {
-            return Result.Fail("Проект может отредактировать только его владелец");
+            return Result.Fail(new ProjectOnlyOwnerCanEditError());
         }
 
         project = await _repository.EditProjectDescription(ct, projectId, description);
