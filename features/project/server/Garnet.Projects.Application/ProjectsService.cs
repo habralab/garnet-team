@@ -1,6 +1,7 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Projects.Application.Errors;
 
 namespace Garnet.Projects.Application;
 
@@ -60,16 +61,16 @@ public class ProjectsService
 
         if (project is null)
         {
-            return Result.Fail($"Проект с идентификатором '{projectId}' не найден");
+            return Result.Fail(new ProjectNotFoundError(projectId));
         }
 
         if (project.OwnerUserId != currentUserProvider.UserId)
         {
-            return Result.Fail("Проект может удалить только его владелец");
+            return Result.Fail(new ProjectOnlyOwnerCanDeleteError());
         }
 
         await _repository.DeleteProject(ct, projectId);
-
+        await _messageBus.Publish(project.EntityDeletedEvent());
         return Result.Ok(project);
     }
 }
