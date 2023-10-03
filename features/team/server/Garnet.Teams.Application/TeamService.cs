@@ -24,7 +24,7 @@ namespace Garnet.Teams.Application
             var user = await _userService.GetUser(ct, currentUserProvider.UserId);
             if (user is null)
             {
-                return Result.Fail($"Пользователь с идентификатором '{currentUserProvider.UserId}' не найден");
+                return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
             }
 
             var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
@@ -103,7 +103,7 @@ namespace Garnet.Teams.Application
             var user = await _userService.GetUser(ct, newOwnerUserId);
             if (user is null)
             {
-                return Result.Fail($"Пользователь с идентификатором '{newOwnerUserId}' не найден");
+                return Result.Fail(new TeamUserNotFoundError(newOwnerUserId));
             }
 
             var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
