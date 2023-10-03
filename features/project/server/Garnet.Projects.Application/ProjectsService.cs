@@ -9,14 +9,17 @@ public class ProjectsService
 {
     private readonly IProjectsRepository _repository;
     private readonly IMessageBus _messageBus;
+    private readonly ProjectUserService _projectUserService;
 
     public ProjectsService(
         IProjectsRepository repository,
-        IMessageBus messageBus
+        IMessageBus messageBus,
+        ProjectUserService projectUserService
     )
     {
         _repository = repository;
         _messageBus = messageBus;
+        _projectUserService = projectUserService;
     }
 
     public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
@@ -86,6 +89,12 @@ public class ProjectsService
         if (result.IsFailed)
         {
             return Result.Fail(result.Errors);
+        }
+
+        var user = await _projectUserService.GetUser(ct, newOwnerUserId);
+        if (user is null)
+        {
+            return Result.Fail(new ProjectUserNotFoundError(newOwnerUserId));
         }
 
         var project = result.Value;
