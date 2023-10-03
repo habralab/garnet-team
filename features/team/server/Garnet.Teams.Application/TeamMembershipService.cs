@@ -29,18 +29,18 @@ namespace Garnet.Teams.Application
             }
 
             var userRequest = await _membershipRepository.GetAllUserJoinRequestByTeam(ct, teamId);
-            if (userRequest.Any(x => x.UserId == user.UserId))
+            if (userRequest.Any(x => x.UserId == user.Id))
             {
-                return Result.Fail(new TeamPendingUserJoinRequestError(user.UserId));
+                return Result.Fail(new TeamPendingUserJoinRequestError(user.Id));
             }
 
             var participant = await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
-            if (participant.Any(x => x.UserId == user.UserId))
+            if (participant.Any(x => x.UserId == user.Id))
             {
-                return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.UserId));
+                return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
             }
 
-            var request = await _membershipRepository.CreateJoinRequestByUser(ct, user.UserId, teamId);
+            var request = await _membershipRepository.CreateJoinRequestByUser(ct, user.Id, teamId);
             return Result.Ok(request);
         }
     }

@@ -27,7 +27,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
             }
 
-            var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
+            var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
             await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
             return Result.Ok(team);
         }
