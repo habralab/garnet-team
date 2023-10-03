@@ -19,9 +19,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         [Given(@"существует пользователь '([^']*)'")]
         public async Task GivenСуществуетПользователь(string username)
         {
-            var user = TeamUserDocument.Create(Uuid.NewMongo(), username);
+            var user = TeamUserDocument.Create(Uuid.NewMongo());
             await Db.TeamUsers.InsertOneAsync(user);
-            _currentUserProviderFake.RegisterUser(username, user.UserId);
+            _currentUserProviderFake.RegisterUser(username, user.Id);
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
