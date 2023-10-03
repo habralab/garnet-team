@@ -1,3 +1,4 @@
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
@@ -19,8 +20,10 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamPayload> TeamGet(CancellationToken ct, string teamId)
         {
-            var team = await _teamService.GetTeamById(ct, teamId)
-                ?? throw new QueryException($"Команда с идентификатором '{teamId}' не найдена");
+            var result = await _teamService.GetTeamById(ct, teamId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
             return new TeamPayload(team.Id, team.Name, team.Description, team.Tags);
         }
 
