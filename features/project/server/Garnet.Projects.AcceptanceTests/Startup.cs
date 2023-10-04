@@ -5,6 +5,7 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Project;
+using Garnet.Projects.AcceptanceTests.Fakes;
 using Garnet.Projects.Application;
 using Garnet.Projects.Infrastructure.Api;
 using Garnet.Projects.Infrastructure.MongoDb;
@@ -27,12 +28,15 @@ public static class Startup
 
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
+        services.AddScoped<ProjectTeamParticipantFake>();
 
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
 
         services.AddScoped<ProjectService>();
         services.AddScoped<ProjectUserService>();
+        services.AddScoped<ProjectTeamParticipantService>();
 
         services.AddScoped<ProjectsMutation>();
         services.AddScoped<ProjectsQuery>();

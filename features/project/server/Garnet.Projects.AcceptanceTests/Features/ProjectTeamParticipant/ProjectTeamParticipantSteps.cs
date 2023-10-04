@@ -36,18 +36,26 @@ public class ProjectTeamParticipantSteps : BaseSteps
     [Given(@"команда '([^']*)' является участником проекта '([^']*)'")]
     public async Task GivenКомандаЯвляетсяУчастникомПроекта(string teamName, string projectName)
     {
-
+        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
+        var teamId = _teamParticipantFake.GetTeamIdByTeamName(teamName);
+        await Db.ProjectTeamsParticipants.FindOneAndUpdateAsync(
+            _f.Eq(x => x.TeamId, teamId),
+            _u.Set(o => o.ProjectId, project.Id)
+        );
     }
 
     [When(@"происходит получение списка команд-участников проекта '([^']*)'")]
     public async Task WhenПроисходитПолученияСпискаКомандУчастниковПроекта(string projectName)
     {
-
+        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
+        _response = await Query.ProjectTeamParticipantGet(CancellationToken.None,
+            new ProjectTeamParticipantInput(project.Id));
     }
 
     [Then(@"количество команд в списке равно '([^']*)'")]
-    public async Task ThenКоличествоКомандВСписке(int teamCount)
+    public Task ThenКоличествоКомандВСписке(int teamCount)
     {
-
+        _response!.Count().Should().Be(teamCount);
+        return Task.CompletedTask;
     }
 }
