@@ -3,7 +3,6 @@ using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
-using HotChocolate.Execution;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -13,10 +12,14 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsQuery
     {
         private readonly TeamService _teamService;
+        private readonly TeamParticipantService _participantService;
 
-        public TeamsQuery(TeamService teamService)
+        public TeamsQuery(
+            TeamService teamService,
+            TeamParticipantService participantService)
         {
             _teamService = teamService;
+            _participantService = participantService;
         }
 
         public async Task<TeamPayload> TeamGet(CancellationToken ct, string teamId)
@@ -40,9 +43,12 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.Tags)).ToArray());
         }
 
-        public Task<TeamParticipantSearchPayload> TeamParticipantSearch(CancellationToken ct, TeamParticipantSearchInput input)
+        public async Task<TeamParticipantSearchPayload> TeamParticipantSearch(CancellationToken ct, TeamParticipantSearchInput input)
         {
-            return null;
+            var participants = await _participantService.FindTeamParticipantByUsername(ct, input.TeamId, input.Search, input.Take, input.Skip);
+            var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
+
+            return new TeamParticipantSearchPayload(payloadContent);
         }
     }
 }
