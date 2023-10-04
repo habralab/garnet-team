@@ -8,6 +8,7 @@ using Garnet.Teams.Infrastructure.MongoDb.Migration;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
+using Garnet.Teams.Events;
 using Garnet.Teams.Infrastructure.EventHandlers;
 
 namespace Garnet.Team
@@ -35,9 +36,11 @@ namespace Garnet.Team
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();
+            services.AddScoped<TeamMembershipService>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
+            services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
@@ -49,6 +52,7 @@ namespace Garnet.Team
             services.AddGarnetMessageBus(name, o =>
             {
                 o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+                o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
             });
         }
     }

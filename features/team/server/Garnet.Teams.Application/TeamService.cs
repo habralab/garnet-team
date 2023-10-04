@@ -27,7 +27,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
             }
 
-            var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
+            var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
             await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
             return Result.Ok(team);
         }
@@ -98,16 +98,16 @@ namespace Garnet.Teams.Application
                 return Result.Fail(result.Errors);
             }
 
-            var team = result.Value;
-            if (team.OwnerUserId != currentUserProvider.UserId)
-            {
-                return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
-            }
-
             var user = await _userService.GetUser(ct, newOwnerUserId);
             if (user is null)
             {
                 return Result.Fail(new TeamUserNotFoundError(newOwnerUserId));
+            }
+
+            var team = result.Value;
+            if (team.OwnerUserId != currentUserProvider.UserId)
+            {
+                return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
             var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
