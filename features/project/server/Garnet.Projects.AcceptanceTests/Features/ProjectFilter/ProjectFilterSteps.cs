@@ -25,7 +25,10 @@ public class ProjectFilterSteps : BaseSteps
     [Given(@"существует проект '([^']*)' с тегами '([^']*)'")]
     public async Task GivenСуществуетПроектСТегами(string projectName, string tags)
     {
-
+        var user = ProjectUserDocument.Create(Uuid.NewMongo());
+        var tagList = tags.Split(", ");
+        var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id).WithTags(tagList);
+        await Db.Projects.InsertOneAsync(project);
     }
 
     [When(@"производится поиск проектов по запросу '([^']*)'")]
