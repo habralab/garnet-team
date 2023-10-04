@@ -11,14 +11,13 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectFilter;
 [Binding]
 public class ProjectFilterSteps : BaseSteps
 {
-    private ProjectFilterPayload _response;
+    private ProjectFilterPayload? _response;
     private readonly FilterDefinitionBuilder<ProjectDocument> _f = Builders<ProjectDocument>.Filter;
     private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
 
 
-    public ProjectFilterSteps(StepsArgs args, ProjectFilterPayload response) : base(args)
+    public ProjectFilterSteps(StepsArgs args) : base(args)
     {
-        _response = response;
     }
 
 
@@ -55,7 +54,7 @@ public class ProjectFilterSteps : BaseSteps
     [Then(@"в списке отображается '([^']*)' проект")]
     public Task ThenВСпискеОтображаетсяПроект(int projectCount)
     {
-        _response.Projects.Count().Should().Be(projectCount);
+        _response!.Projects.Count().Should().Be(projectCount);
         return Task.CompletedTask;
     }
 }
