@@ -16,8 +16,9 @@ public class ProjectFilterSteps : BaseSteps
     private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
 
 
-    public ProjectFilterSteps(StepsArgs args) : base(args)
+    public ProjectFilterSteps(StepsArgs args, ProjectFilterPayload response) : base(args)
     {
+        _response = response;
     }
 
 
