@@ -38,15 +38,25 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             );
         }
 
-        public async Task<TeamUser[]> FindUser(CancellationToken ct, string query)
+        public async Task<TeamUser[]> FilterUsers(CancellationToken ct, TeamUserFilterParams filter)
         {
             var db = _dbFactory.Create();
-            query = query.ToLower();
-            var users = await db.TeamUsers.Find(
-                _f.Where(x => x.Username.ToLower().Contains(query))
-            ).ToListAsync(ct);
 
-            return users.Select(x=> TeamUserDocument.ToDomain(x)).ToArray();
+            var searchFilter = filter.Search is null
+                ? _f.Empty
+                : _f.Where(x => x.Username.ToLower().Contains(filter.Search.ToLower()));
+
+            var userIdFilter = filter.UserIds is null
+                ? _f.Empty
+                : _f.Where(x => filter.UserIds.Contains(x.UserId));
+
+            var users = await db.TeamUsers
+                .Find(searchFilter & userIdFilter)
+                .Skip(filter.Skip)
+                .Limit(filter.Take)
+                .ToListAsync(ct);
+
+            return users.Select(x => TeamUserDocument.ToDomain(x)).ToArray();
         }
 
         public async Task<TeamUser?> GetUser(CancellationToken ct, string userId)

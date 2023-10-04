@@ -55,9 +55,22 @@ namespace Garnet.Teams.Application
             return Result.Ok();
         }
 
-        public Task<TeamParticipant[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
+        public async Task<TeamParticipant[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
         {
-            return null;
+            var teamParticipants = await GetParticipantsFromTeam(ct, teamId);
+            var participantDict = teamParticipants.ToDictionary(x => x.UserId);
+
+            var filter = new TeamUserFilterParams(query, take, skip, participantDict.Keys.ToArray());
+            var users = await _userService.FindUsers(ct, filter);
+
+            var result = new List<TeamParticipant>();
+            users.ToList().ForEach(x =>
+            {
+                var user = participantDict[x.UserId];
+                result.Add(user);
+            });
+
+            return result.ToArray();
         }
     }
 }
