@@ -45,6 +45,9 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamParticipantSearchPayload> TeamParticipantSearch(CancellationToken ct, TeamParticipantSearchInput input)
         {
+            var teamExists = await _teamService.GetTeamById(ct, input.TeamId);
+            teamExists.ThrowQueryExceptionIfHasErrors();
+
             var participants = await _participantService.FindTeamParticipantByUsername(ct, input.TeamId, input.Search, input.Take, input.Skip);
             var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
 
