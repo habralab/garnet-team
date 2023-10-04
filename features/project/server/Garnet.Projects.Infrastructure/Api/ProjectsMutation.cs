@@ -25,8 +25,8 @@ public class ProjectsMutation
         ProjectCreateInput input)
     {
         var result = await _projectService.CreateProject(ct, new CurrentUserProvider(claims), input.ProjectName,
-            input.Description);
-        return new ProjectCreatePayload(result.Id, result.OwnerUserId, result.ProjectName, result.Description);
+            input.Description, input.Tags);
+        return new ProjectCreatePayload(result.Id, result.OwnerUserId, result.ProjectName, result.Description, result.Tags);
     }
 
     public async Task<ProjectEditDescriptionPayload> ProjectEditDescription(CancellationToken ct, ClaimsPrincipal claims, ProjectEditDescriptionInput input)

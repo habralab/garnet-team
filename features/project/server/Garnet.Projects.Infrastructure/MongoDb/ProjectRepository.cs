@@ -18,14 +18,15 @@ public class ProjectRepository : IProjectRepository
 
 
     public async Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName,
-        string? description)
+        string? description, string[] tags)
     {
         var db = _dbFactory.Create();
         var project = ProjectDocument.Create(
             Uuid.NewMongo(),
             ownerUserId,
             projectName,
-            description);
+            description,
+            tags);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);
     }

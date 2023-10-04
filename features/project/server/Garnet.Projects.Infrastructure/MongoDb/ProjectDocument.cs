@@ -8,20 +8,22 @@ public record ProjectDocument
     public string OwnerUserId { get; init; } = null!;
     public string ProjectName { get; init; } = null!;
     public string? Description { get; init; } = null!;
+    public string[] Tags {get;init;} = null!;
 
-    public static ProjectDocument Create(string id, string ownerUserId, string projectName, string? description)
+    public static ProjectDocument Create(string id, string ownerUserId, string projectName, string? description, string[] tags)
     {
         return new ProjectDocument
         {
             Id = id,
             OwnerUserId = ownerUserId,
             ProjectName = projectName,
-            Description = description
+            Description = description,
+            Tags = tags
         };
     }
 
     public static Project ToDomain(ProjectDocument doc)
     {
-        return new Project(doc.Id, doc.OwnerUserId, doc.ProjectName, doc.Description);
+        return new Project(doc.Id, doc.OwnerUserId, doc.ProjectName, doc.Description, doc.Tags);
     }
 }
