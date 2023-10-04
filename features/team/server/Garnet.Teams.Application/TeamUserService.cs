@@ -17,6 +17,11 @@ namespace Garnet.Teams.Application
             return await _usersRepository.AddUser(ct, userId, username);
         }
 
+        public async Task<TeamUser[]> FindUser(CancellationToken ct, string query)
+        {
+            return await _usersRepository.FindUser(ct, query);
+        }
+
         public async Task<Result<TeamUser>> GetUser(CancellationToken ct, string userId)
         {
             var user = await _usersRepository.GetUser(ct, userId);
