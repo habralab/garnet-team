@@ -60,7 +60,7 @@ namespace Garnet.Teams.Application
             var teamParticipants = await GetParticipantsFromTeam(ct, teamId);
             var participantDict = teamParticipants.ToDictionary(x => x.UserId);
 
-            var filter = new TeamUserFilterParams(query, take, skip, participantDict.Keys.ToArray());
+            var filter = new TeamUserFilterParams(query?.Trim(), take, skip, participantDict.Keys.ToArray());
             var users = await _userService.FindUsers(ct, filter);
 
             var result = new List<TeamParticipant>();

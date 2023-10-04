@@ -19,7 +19,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         {
             var db = _dbFactory.Create();
 
-            var user = TeamUserDocument.Create(Uuid.NewMongo(), userId, username);
+            var user = TeamUserDocument.Create(userId, username);
             await db.TeamUsers.InsertOneAsync(
                 user,
                 cancellationToken: ct
@@ -48,8 +48,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
             var userIdFilter = filter.UserIds is null
                 ? _f.Empty
-                : _f.Where(x => filter.UserIds.Contains(x.UserId));
-
+                : _f.Where(x =>  filter.UserIds.Contains(x.Id));
+                
             var users = await db.TeamUsers
                 .Find(searchFilter & userIdFilter)
                 .Skip(filter.Skip)
