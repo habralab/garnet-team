@@ -43,6 +43,7 @@ namespace Garnet.Team
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamUserMigration>();
         }
 
         public static void AddGarnetTeamsMessageBus(this IServiceCollection services, string name)

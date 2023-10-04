@@ -54,6 +54,7 @@ namespace Garnet.Teams.AcceptanceTests
             });
             services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
 
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamUserMigration>();
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
         }
     }

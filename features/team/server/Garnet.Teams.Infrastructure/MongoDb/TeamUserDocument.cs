@@ -6,13 +6,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb
     {
         public string Id { get; init; } = null!;
         public string UserId { get; init; } = null!;
+        public string Username { get; init; } = null!;
 
-        public static TeamUserDocument Create(string id, string userId)
+        public static TeamUserDocument Create(string id, string userId, string username)
         {
             return new TeamUserDocument
             {
                 Id = id,
-                UserId = userId
+                UserId = userId,
+                Username = username
             };
         }
 

@@ -14,7 +14,7 @@ namespace Garnet.Teams.Infrastructure.EventHandlers
 
         public async Task Consume(UserCreatedEvent message)
         {
-            await _userService.AddUser(CancellationToken.None, message.UserId);
+            await _userService.AddUser(CancellationToken.None, message.UserId, message.UserName);
         }
     }
 }
