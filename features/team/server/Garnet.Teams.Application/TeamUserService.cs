@@ -1,3 +1,6 @@
+using FluentResults;
+using Garnet.Teams.Application.Errors;
+
 namespace Garnet.Teams.Application
 {
     public class TeamUserService
@@ -14,9 +17,15 @@ namespace Garnet.Teams.Application
             return await _usersRepository.AddUser(ct, userId);
         }
 
-        public async Task<TeamUser?> GetUser(CancellationToken ct, string userId)
+        public async Task<Result<TeamUser>> GetUser(CancellationToken ct, string userId)
         {
-            return await _usersRepository.GetUser(ct, userId);
+            var user = await _usersRepository.GetUser(ct, userId);
+            if (user is null)
+            {
+                return Result.Fail(new TeamUserNotFoundError(userId));
+            }
+
+            return Result.Ok(user);
         }
     }
 }

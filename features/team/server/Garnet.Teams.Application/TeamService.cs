@@ -21,14 +21,16 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<Team>> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
         {
-            var user = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (user is null)
+            var userExists = await _userService.GetUser(ct, currentUserProvider.UserId);
+            if (userExists.IsFailed)
             {
-                return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
+                return Result.Fail(userExists.Errors);
             }
 
-            var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
-            await _participantService.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
+            var user = userExists.Value;
+            var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
+            await _participantService.CreateTeamParticipant(ct, user.UserId, team.Id);
+            
             return Result.Ok(team);
         }
 
@@ -99,10 +101,10 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
-            var user = await _userService.GetUser(ct, newOwnerUserId);
-            if (user is null)
+            var userExists = await _userService.GetUser(ct, newOwnerUserId);
+            if (userExists.IsFailed)
             {
-                return Result.Fail(new TeamUserNotFoundError(newOwnerUserId));
+                return Result.Fail(userExists.Errors);
             }
 
             var userTeams = await _participantService.GetMembershipOfUser(ct, newOwnerUserId);
