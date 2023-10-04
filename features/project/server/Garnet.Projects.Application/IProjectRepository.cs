@@ -7,5 +7,6 @@ public interface IProjectRepository
     Task<Project> EditProjectDescription(CancellationToken ct, string projectId, string? description);
     Task<Project?> DeleteProject(CancellationToken ct, string projectId);
     Task<Project> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId);
+    Task<Project[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take);
     Task CreateIndexes(CancellationToken ct);
 }

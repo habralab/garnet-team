@@ -36,6 +36,11 @@ public class ProjectService
         return project is null ? Result.Fail(new ProjectNotFoundError(projectId)) : Result.Ok(project);
     }
 
+    public async Task<Project[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take)
+    {
+        return await _repository.FilterProjects(ct, search, tags, skip, take);
+    }
+
     public async Task<Result<Project>> EditProjectDescription(CancellationToken ct,
         ICurrentUserProvider currentUserProvider,
         string projectId, string? description)
