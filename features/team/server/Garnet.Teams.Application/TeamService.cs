@@ -30,7 +30,7 @@ namespace Garnet.Teams.Application
             var user = userExists.Value;
             var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
             await _participantService.CreateTeamParticipant(ct, user.UserId, team.Id);
-            
+
             return Result.Ok(team);
         }
 
@@ -69,7 +69,6 @@ namespace Garnet.Teams.Application
         public async Task<Result<Team>> EditTeamDescription(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
         {
             var result = await GetTeamById(ct, teamId);
-
             if (result.IsFailed)
             {
                 return Result.Fail(result.Errors);
@@ -89,7 +88,6 @@ namespace Garnet.Teams.Application
         public async Task<Result<Team>> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId, ICurrentUserProvider currentUserProvider)
         {
             var result = await GetTeamById(ct, teamId);
-
             if (result.IsFailed)
             {
                 return Result.Fail(result.Errors);
@@ -107,10 +105,10 @@ namespace Garnet.Teams.Application
                 return Result.Fail(userExists.Errors);
             }
 
-            var userTeams = await _participantService.GetMembershipOfUser(ct, newOwnerUserId);
-            if (!userTeams.Any(x => x.TeamId == teamId))
+            var userIsParticipant = await _participantService.UserIsTeamParticipant(ct, newOwnerUserId, teamId);
+            if (userIsParticipant.IsFailed)
             {
-                return Result.Fail(new TeamUserNotATeamParticipantError(newOwnerUserId));
+                return Result.Fail(userIsParticipant.Errors);
             }
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
