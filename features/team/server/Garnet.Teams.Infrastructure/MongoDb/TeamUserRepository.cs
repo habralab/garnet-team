@@ -7,7 +7,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
     public class TeamUserRepository : ITeamUserRepository
     {
         private readonly DbFactory _dbFactory;
-        private readonly FilterDefinitionBuilder<string> _f = Builders<string>.Filter;
+        private readonly FilterDefinitionBuilder<TeamUserDocument> _f = Builders<TeamUserDocument>.Filter;
         private readonly IndexKeysDefinitionBuilder<TeamUserDocument> _i = Builders<TeamUserDocument>.IndexKeys;
 
         public TeamUserRepository(DbFactory dbFactory)
@@ -36,6 +36,17 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                     _i.Text(x => x.Username)
                 )
             );
+        }
+
+        public async Task<TeamUser[]> FindUser(CancellationToken ct, string query)
+        {
+            var db = _dbFactory.Create();
+            query = query.ToLower();
+            var users = await db.TeamUsers.Find(
+                _f.Where(x => x.Username.ToLower().Contains(query))
+            ).ToListAsync(ct);
+
+            return users.Select(x=> TeamUserDocument.ToDomain(x)).ToArray();
         }
 
         public async Task<TeamUser?> GetUser(CancellationToken ct, string userId)
