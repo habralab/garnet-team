@@ -1,6 +1,6 @@
 namespace Garnet.Teams.Infrastructure.Api.TeamParticipantSearch
 {
-    public record TeamParticipant(
+    public record TeamParticipantPayload(
         string Id,
         string UserId,
         string TeamId

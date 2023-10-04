@@ -54,5 +54,10 @@ namespace Garnet.Teams.Application
 
             return Result.Ok();
         }
+
+        public Task<TeamParticipant[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
+        {
+            return null;
+        }
     }
 }
