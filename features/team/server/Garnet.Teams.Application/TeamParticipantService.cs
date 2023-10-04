@@ -66,7 +66,7 @@ namespace Garnet.Teams.Application
             var result = new List<TeamParticipant>();
             users.ToList().ForEach(x =>
             {
-                var user = participantDict[x.UserId];
+                var user = participantDict[x.Id];
                 result.Add(user);
             });
 

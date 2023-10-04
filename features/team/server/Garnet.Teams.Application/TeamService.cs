@@ -28,8 +28,8 @@ namespace Garnet.Teams.Application
             }
 
             var user = userExists.Value;
-            var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
-            await _participantService.CreateTeamParticipant(ct, user.UserId, team.Id);
+            var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
+            await _participantService.CreateTeamParticipant(ct, user.Id, team.Id);
 
             return Result.Ok(team);
         }
