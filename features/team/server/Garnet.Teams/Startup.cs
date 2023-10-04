@@ -37,6 +37,7 @@ namespace Garnet.Team
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();
             services.AddScoped<TeamMembershipService>();
+            services.AddScoped<TeamParticipantService>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
