@@ -10,6 +10,7 @@ public class ProjectDocumentBuilder
     private string _ownerUserId = "OwnerUserId";
     private string _projectName = "ProjectName";
     private string? _description = "Description";
+    private string[] _tags = Array.Empty<string>();
 
     public ProjectDocumentBuilder WithId(string id)
     {
@@ -34,11 +35,17 @@ public class ProjectDocumentBuilder
         _description = description;
         return this;
     }
+
+    public ProjectDocumentBuilder WithTags(string[] tags)
+    {
+        _tags = tags;
+        return this;
+    }
     
     
     public ProjectDocument Build()
     {
-        return ProjectDocument.Create(_id, _ownerUserId, _projectName, _description);
+        return ProjectDocument.Create(_id, _ownerUserId, _projectName, _description, _tags);
     }
 
     public static implicit operator ProjectDocument(ProjectDocumentBuilder builder)

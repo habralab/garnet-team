@@ -6,7 +6,8 @@ public record Project(
     string Id,
     string OwnerUserId,
     string ProjectName,
-    string? Description
+    string? Description,
+    string[] Tags
 );
 
 public static class ProjectDocumentExtensions

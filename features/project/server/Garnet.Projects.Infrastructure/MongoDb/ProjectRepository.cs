@@ -18,14 +18,15 @@ public class ProjectRepository : IProjectRepository
 
 
     public async Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName,
-        string? description)
+        string? description, string[] tags)
     {
         var db = _dbFactory.Create();
         var project = ProjectDocument.Create(
             Uuid.NewMongo(),
             ownerUserId,
             projectName,
-            description);
+            description,
+            tags);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);
     }
@@ -35,6 +36,30 @@ public class ProjectRepository : IProjectRepository
         var db = _dbFactory.Create();
         var project = await db.Projects.Find(o => o.Id == projectId).FirstOrDefaultAsync(ct);
         return project is not null ? ProjectDocument.ToDomain(project) : null;
+    }
+
+    public async Task<Project[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take)
+    {
+        var db = _dbFactory.Create();
+
+        search = search?.ToLower();
+        var searchFilter = search is null
+            ? _f.Empty
+            : _f.Where(x =>
+                (x.Description != null && x.Description.ToLower().Contains(search)) ||
+                x.ProjectName.ToLower().Contains(search));
+
+        var tagsFilter = tags.Length > 0
+            ? _f.All(o => o.Tags, tags)
+            : _f.Empty;
+
+        var projects = await db.Projects
+            .Find(searchFilter & tagsFilter)
+            .Skip(skip)
+            .Limit(take)
+            .ToListAsync(ct);
+
+        return projects.Select(ProjectDocument.ToDomain).ToArray();
     }
 
     public async Task<Project> EditProjectDescription(CancellationToken ct, string projectId, string? description)

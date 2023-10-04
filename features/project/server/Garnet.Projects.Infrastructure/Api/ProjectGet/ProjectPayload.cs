@@ -4,5 +4,6 @@ public record ProjectPayload(
     string Id,
     string OwnerUserId,
     string ProjectName,
-    string? Description
+    string? Description,
+    string[] Tags
     );

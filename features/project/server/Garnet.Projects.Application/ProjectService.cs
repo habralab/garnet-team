@@ -23,9 +23,9 @@ public class ProjectService
     }
 
     public async Task<Project> CreateProject(CancellationToken ct, ICurrentUserProvider currentUserProvider,
-        string projectName, string? description)
+        string projectName, string? description, string[] tags)
     {
-        var project = await _repository.CreateProject(ct, currentUserProvider.UserId, projectName, description);
+        var project = await _repository.CreateProject(ct, currentUserProvider.UserId, projectName, description, tags);
         await _messageBus.Publish(project.ToCreatedEvent());
         return project;
     }
@@ -34,6 +34,11 @@ public class ProjectService
     {
         var project = await _repository.GetProject(ct, projectId);
         return project is null ? Result.Fail(new ProjectNotFoundError(projectId)) : Result.Ok(project);
+    }
+
+    public async Task<Project[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take)
+    {
+        return await _repository.FilterProjects(ct, search, tags, skip, take);
     }
 
     public async Task<Result<Project>> EditProjectDescription(CancellationToken ct,
