@@ -26,7 +26,7 @@ namespace Garnet.Teams.Application
             }
 
             var user = existingUser.Value;
-            var participant = await _teamParticipantsRepository.CreateTeamParticipant(ct, userId, user.Username,  teamId);
+            var participant = await _teamParticipantsRepository.CreateTeamParticipant(ct, userId, user.Username, teamId);
             return Result.Ok(participant);
         }
 
@@ -58,20 +58,8 @@ namespace Garnet.Teams.Application
 
         public async Task<TeamParticipant[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
         {
-            var teamParticipants = await GetParticipantsFromTeam(ct, teamId);
-            var participantDict = teamParticipants.ToDictionary(x => x.UserId);
-
-            var filter = new TeamUserFilterParams(query?.Trim(), take, skip, participantDict.Keys.ToArray());
-            var users = await _userService.FindUsers(ct, filter);
-
-            var result = new List<TeamParticipant>();
-            users.ToList().ForEach(x =>
-            {
-                var user = participantDict[x.Id];
-                result.Add(user);
-            });
-
-            return result.ToArray();
+            var filter = new TeamParticipantFilterParams(query?.Trim(), take, skip);
+            return await _teamParticipantsRepository.FilterTeamParticipants(ct, filter);
         }
     }
 }

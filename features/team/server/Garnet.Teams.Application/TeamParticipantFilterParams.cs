@@ -1,9 +1,8 @@
 namespace Garnet.Teams.Application
 {
-    public record TeamUserFilterParams(
+    public record TeamParticipantFilterParams(
         string? Search,
         int Take, 
-        int Skip,
-        string[]? UserIds  
+        int Skip
     );
 }

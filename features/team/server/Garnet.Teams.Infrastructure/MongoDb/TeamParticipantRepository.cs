@@ -51,5 +51,22 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
             return userTeams.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
+
+        public async Task<TeamParticipant[]> FilterTeamParticipants(CancellationToken ct, TeamParticipantFilterParams filter)
+        {
+            var db = _dbFactory.Create();
+
+            var searchFilter = filter.Search is null
+                ? _f.Empty
+                : _f.Where(x => x.Username.ToLower().Contains(filter.Search.ToLower()));
+
+            var participants = await db.TeamParticipants
+                .Find(searchFilter)
+                .Skip(filter.Skip)
+                .Limit(filter.Take)
+                .ToListAsync(ct);
+
+            return participants.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
+        }
     }
 }
