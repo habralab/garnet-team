@@ -4,6 +4,7 @@ namespace Garnet.Teams.Application
     {
         Task<TeamUser> AddUser(CancellationToken ct, string userId, string username);
         Task<TeamUser?> GetUser(CancellationToken ct, string userId);
+        Task<TeamUser?> UpdateUsername(CancellationToken ct, string userId, string username);
         Task CreateIndexes(CancellationToken ct);
     }
 }

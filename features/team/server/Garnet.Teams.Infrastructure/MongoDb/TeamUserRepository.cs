@@ -1,4 +1,3 @@
-using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using MongoDB.Driver;
 
@@ -8,6 +7,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
     {
         private readonly DbFactory _dbFactory;
         private readonly FilterDefinitionBuilder<TeamUserDocument> _f = Builders<TeamUserDocument>.Filter;
+        private readonly UpdateDefinitionBuilder<TeamUserDocument> __u = Builders<TeamUserDocument>.Update;
         private readonly IndexKeysDefinitionBuilder<TeamUserDocument> _i = Builders<TeamUserDocument>.IndexKeys;
 
         public TeamUserRepository(DbFactory dbFactory)
@@ -44,6 +44,23 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             var user = await db.TeamUsers.Find(x => x.Id == userId).FirstOrDefaultAsync(ct);
 
             return user is null ? null : TeamUserDocument.ToDomain(user);
+        }
+
+        public async Task<TeamUser?> UpdateUsername(CancellationToken ct, string userId, string username)
+        {
+            var db = _dbFactory.Create();
+            var updatedUser = await db.TeamUsers
+                .FindOneAndUpdateAsync(
+                    _f.Eq(x => x.Id, userId),
+                    __u.Set(x => x.Username, username),
+                    options: new FindOneAndUpdateOptions<TeamUserDocument>
+                    {
+                        ReturnDocument = ReturnDocument.After
+                    },
+                    cancellationToken: ct
+                );
+
+            return updatedUser is null ? null : TeamUserDocument.ToDomain(updatedUser);
         }
     }
 }

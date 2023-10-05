@@ -61,5 +61,10 @@ namespace Garnet.Teams.Application
             var filter = new TeamParticipantFilterParams(query?.Trim(), take, skip);
             return await _teamParticipantsRepository.FilterTeamParticipants(ct, filter);
         }
+
+        public async Task<TeamParticipant[]> UpdateTeamParticipantUsername(CancellationToken ct, string userId, string userName)
+        {
+            return await _teamParticipantsRepository.UpdateTeamParticipantUsername(ct, userId, userName);
+        }
     }
 }
