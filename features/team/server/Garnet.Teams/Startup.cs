@@ -54,6 +54,7 @@ namespace Garnet.Team
             services.AddGarnetMessageBus(name, o =>
             {
                 o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+                o.RegisterConsumer<UserUsernameUpdatedEventConsumer, UserUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
             });
         }
