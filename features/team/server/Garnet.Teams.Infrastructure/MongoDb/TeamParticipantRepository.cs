@@ -16,10 +16,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string teamId)
+        public async Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string username, string teamId)
         {
             var db = _dbFactory.Create();
-            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, teamId);
+            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, username, teamId);
             await db.TeamParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
             return TeamParticipantDocument.ToDomain(teamParticipant);
         }

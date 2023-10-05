@@ -25,7 +25,8 @@ namespace Garnet.Teams.Application
                 return Result.Fail(existingUser.Errors);
             }
 
-            var participant = await _teamParticipantsRepository.CreateTeamParticipant(ct, userId, teamId);
+            var user = existingUser.Value;
+            var participant = await _teamParticipantsRepository.CreateTeamParticipant(ct, userId, user.Username,  teamId);
             return Result.Ok(participant);
         }
 
