@@ -49,19 +49,16 @@ public class ProjectsQuery
         )).ToArray());
     }
 
-    public async Task<ProjectTeamParticipantPayload[]> ProjectTeamParticipantGet(CancellationToken ct,
+    public async Task<ProjectTeamParticipantPayload> ProjectTeamParticipantsFilter(CancellationToken ct,
         ProjectTeamParticipantInput input)
     {
-        var result = await _projectTeamParticipantService.GetProjectTeamParticipantByProjectId(ct, input.ProjectId);
-        result.ThrowQueryExceptionIfHasErrors();
+        var teams = await _projectTeamParticipantService.GetProjectTeamParticipantByProjectId(ct, input.ProjectId);
 
-        var teams = result.Value;
-
-        return teams.Select(x => new ProjectTeamParticipantPayload(
+        return new ProjectTeamParticipantPayload(teams.Select(x => new Application.ProjectTeamParticipant(
             x.Id,
             x.TeamId,
             x.TeamName,
             x.ProjectId
-        )).ToArray();
+        )).ToArray());
     }
 }

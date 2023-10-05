@@ -45,14 +45,14 @@ public class ProjectTeamParticipantSteps : BaseSteps
     public async Task WhenПроисходитПолученияСпискаКомандУчастниковПроекта(string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        _response = await Query.ProjectTeamParticipantGet(CancellationToken.None,
+        _response = await Query.ProjectTeamParticipantsFilter(CancellationToken.None,
             new ProjectTeamParticipantInput(project.Id));
     }
 
     [Then(@"количество команд в списке равно '([^']*)'")]
     public Task ThenКоличествоКомандВСписке(int teamCount)
     {
-        _response!.Count().Should().Be(teamCount);
+        _response!.projectTeamParticipant.Count().Should().Be(teamCount);
         return Task.CompletedTask;
     }
 }
