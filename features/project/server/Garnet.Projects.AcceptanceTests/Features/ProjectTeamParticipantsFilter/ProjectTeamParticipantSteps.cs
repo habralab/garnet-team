@@ -1,6 +1,5 @@
 ﻿using FluentAssertions;
-using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.AcceptanceTests.Fakes;
+using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb;
 using MongoDB.Driver;
@@ -17,19 +16,16 @@ public class ProjectTeamParticipantSteps : BaseSteps
     private readonly UpdateDefinitionBuilder<ProjectTeamParticipantDocument> _u =
         Builders<ProjectTeamParticipantDocument>.Update;
 
-    private readonly ProjectTeamParticipantFake _teamParticipantFake;
-    private ProjectTeamParticipantPayload[]? _response;
+    private ProjectTeamParticipantPayload? _response;
 
-    public ProjectTeamParticipantSteps(StepsArgs args, ProjectTeamParticipantFake teamParticipantFake) : base(args)
+    public ProjectTeamParticipantSteps(StepsArgs args) : base(args)
     {
-        _teamParticipantFake = teamParticipantFake;
     }
 
     [Given(@"существует команда '([^']*)'")]
     public async Task GivenСуществуетКоманда(string teamName)
     {
-        var teamId = _teamParticipantFake.CreateTeam(teamName, Uuid.NewMongo());
-        var team = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, Uuid.NewMongo());
+        var team = GiveMe.ProjectTeamParticipant().WithTeamName(teamName);
         await Db.ProjectTeamsParticipants.InsertOneAsync(team);
     }
 
@@ -37,9 +33,10 @@ public class ProjectTeamParticipantSteps : BaseSteps
     public async Task GivenКомандаЯвляетсяУчастникомПроекта(string teamName, string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        var teamId = _teamParticipantFake.GetTeamIdByTeamName(teamName);
+        var team = await Db.ProjectTeamsParticipants.Find(x => x.TeamName == teamName).FirstAsync();
+
         await Db.ProjectTeamsParticipants.FindOneAndUpdateAsync(
-            _f.Eq(x => x.TeamId, teamId),
+            _f.Eq(x => x.TeamId, team.TeamId),
             _u.Set(o => o.ProjectId, project.Id)
         );
     }
