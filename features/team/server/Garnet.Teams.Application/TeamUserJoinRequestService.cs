@@ -8,7 +8,7 @@ namespace Garnet.Teams.Application
 {
     public class TeamUserJoinRequestService
     {
-        private readonly ITeamUserJoinRequestRepository _membershipRepository;
+        private readonly ITeamUserJoinRequestRepository _userJoinRequestRepository;
         private readonly TeamParticipantService _participantService;
         private readonly TeamUserService _userService;
         private readonly TeamService _teamService;
@@ -16,12 +16,12 @@ namespace Garnet.Teams.Application
 
         public TeamUserJoinRequestService(
             IMessageBus messageBus,
-            ITeamUserJoinRequestRepository membershipRepository,
+            ITeamUserJoinRequestRepository userJoinRequestRepository,
             TeamParticipantService participantService,
             TeamService teamService,
             TeamUserService userService)
         {
-            _membershipRepository = membershipRepository;
+            _userJoinRequestRepository = userJoinRequestRepository;
             _participantService = participantService;
             _userService = userService;
             _teamService = teamService;
@@ -43,10 +43,10 @@ namespace Garnet.Teams.Application
             }
 
             var user = existingUser.Value;
-            var userRequest = await _membershipRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
-            if (userRequest.Any(x => x.UserId == user.Id))
+            var userHaveJoinRequest = await EnsureNoPendingUserJoinRequest(ct, user.Id, teamId);
+            if (userHaveJoinRequest.IsFailed)
             {
-                return Result.Fail(new TeamPendingUserJoinRequestError(user.Id));
+                return Result.Fail(userHaveJoinRequest.Errors);
             }
 
             var participant = await _participantService.EnsureUserIsTeamParticipant(ct, user.Id, teamId);
@@ -55,12 +55,23 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
             }
 
-            var request = await _membershipRepository.CreateJoinRequestByUser(ct, user.Id, teamId);
+            var request = await _userJoinRequestRepository.CreateJoinRequestByUser(ct, user.Id, teamId);
 
             var @event = new TeamUserJoinRequestCreatedEvent(user.Id, teamId);
             await _messageBus.Publish(@event);
 
             return Result.Ok(request);
+        }
+
+        public async Task<Result> EnsureNoPendingUserJoinRequest(CancellationToken ct, string userId, string teamId)
+        {
+            var userRequest = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
+            if (userRequest.Any(x => x.UserId == userId))
+            {
+                return Result.Fail(new TeamPendingUserJoinRequestError(userId));
+            }
+
+            return Result.Ok();
         }
 
         public async Task<Result<TeamUserJoinRequest[]>> GetAllUserJoinRequestByTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
@@ -77,7 +88,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserJoinRequestOnlyOwnerCanSeeError());
             }
 
-            var userJoinRequests = await _membershipRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
+            var userJoinRequests = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
             return Result.Ok(userJoinRequests);
         }
     }
