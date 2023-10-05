@@ -3,5 +3,6 @@
 public record ProjectTeamParticipantPayload(
     string Id,
     string TeamId,
+    string TeamName,
     string ProjectId
     );

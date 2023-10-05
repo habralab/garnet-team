@@ -12,10 +12,10 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string id, string teamId, string projectId)
+    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string id, string teamId, string teamName, string projectId)
     {
         var db = _dbFactory.Create();
-        var team = ProjectTeamParticipantDocument.Create(id, teamId, projectId);
+        var team = ProjectTeamParticipantDocument.Create(id, teamId, teamName,projectId);
         await db.ProjectTeamsParticipants.InsertOneAsync(team, cancellationToken: ct);
 
         return ProjectTeamParticipantDocument.ToDomain(team);

@@ -60,6 +60,7 @@ public class ProjectsQuery
         return teams.Select(x => new ProjectTeamParticipantPayload(
             x.Id,
             x.TeamId,
+            x.TeamName,
             x.ProjectId
         )).ToArray();
     }
