@@ -69,12 +69,16 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return participants.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task UpdateTeamParticipantUsername(CancellationToken ct, string userId, string username)
+        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, string username)
         {
             var db = _dbFactory.Create();
             await db.TeamParticipants.UpdateManyAsync(
                 _f.Eq(x => x.UserId, userId),
                 _u.Set(x => x.Username, username),
+                options: new UpdateOptions()
+                {
+                    IsUpsert = true
+                },
                 cancellationToken: ct
             );
         }

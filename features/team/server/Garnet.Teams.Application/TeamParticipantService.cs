@@ -62,9 +62,9 @@ namespace Garnet.Teams.Application
             return await _teamParticipantsRepository.FilterTeamParticipants(ct, filter);
         }
 
-        public async Task<TeamParticipant[]> UpdateTeamParticipantUsername(CancellationToken ct, string userId, string userName)
+        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, string userName)
         {
-            return await _teamParticipantsRepository.UpdateTeamParticipantUsername(ct, userId, userName);
+            await _teamParticipantsRepository.UpdateTeamParticipant(ct, userId, userName);
         }
     }
 }

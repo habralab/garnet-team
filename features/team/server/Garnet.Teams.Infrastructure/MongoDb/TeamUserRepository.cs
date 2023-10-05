@@ -46,7 +46,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return user is null ? null : TeamUserDocument.ToDomain(user);
         }
 
-        public async Task<TeamUser?> UpdateUsername(CancellationToken ct, string userId, string username)
+        public async Task<TeamUser?> UpdateUser(CancellationToken ct, string userId, string username)
         {
             var db = _dbFactory.Create();
             var updatedUser = await db.TeamUsers
@@ -55,7 +55,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                     __u.Set(x => x.Username, username),
                     options: new FindOneAndUpdateOptions<TeamUserDocument>
                     {
-                        ReturnDocument = ReturnDocument.After
+                        ReturnDocument = ReturnDocument.After,
+                        IsUpsert = true
                     },
                     cancellationToken: ct
                 );

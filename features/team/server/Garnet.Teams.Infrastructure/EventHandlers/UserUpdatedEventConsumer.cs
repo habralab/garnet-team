@@ -19,8 +19,8 @@ namespace Garnet.Teams.Infrastructure.EventHandlers
 
         public async Task Consume(UserUpdatedEvent message)
         {
-            await _userService.UpdateUsername(CancellationToken.None, message.UserId, message.UserName);
-            await _participantService.UpdateTeamParticipantUsername(CancellationToken.None, message.UserId, message.UserName);
+            await _userService.UpdateUser(CancellationToken.None, message.UserId, message.UserName);
+            await _participantService.UpdateTeamParticipant(CancellationToken.None, message.UserId, message.UserName);
         }
     }
 }
