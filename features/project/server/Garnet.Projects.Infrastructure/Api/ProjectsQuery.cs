@@ -2,7 +2,7 @@
 using Garnet.Projects.Application;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
-using HotChocolate.Execution;
+using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
 using HotChocolate.Types;
 
 namespace Garnet.Projects.Infrastructure.Api;
@@ -11,10 +11,12 @@ namespace Garnet.Projects.Infrastructure.Api;
 public class ProjectsQuery
 {
     private readonly ProjectService _projectService;
+    private readonly ProjectTeamParticipantService _projectTeamParticipantService;
 
-    public ProjectsQuery(ProjectService projectService)
+    public ProjectsQuery(ProjectService projectService, ProjectTeamParticipantService projectTeamParticipantService)
     {
         _projectService = projectService;
+        _projectTeamParticipantService = projectTeamParticipantService;
     }
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
@@ -23,7 +25,8 @@ public class ProjectsQuery
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
-        return new ProjectPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description, project.Tags);
+        return new ProjectPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
+            project.Tags);
     }
 
     public async Task<ProjectFilterPayload> ProjectsFilter(CancellationToken ct, ProjectFilterInput input)
@@ -34,7 +37,7 @@ public class ProjectsQuery
             input.Tags ?? Array.Empty<string>(),
             input.Skip,
             input.Take
-            );
+        );
 
 
         return new ProjectFilterPayload(projects.Select(x => new ProjectPayload(
@@ -43,6 +46,19 @@ public class ProjectsQuery
             x.ProjectName,
             x.Description,
             x.Tags
-            )).ToArray());
+        )).ToArray());
+    }
+
+    public async Task<ProjectTeamParticipantPayload> ProjectTeamParticipantsFilter(CancellationToken ct,
+        ProjectTeamParticipantInput input)
+    {
+        var teams = await _projectTeamParticipantService.GetProjectTeamParticipantByProjectId(ct, input.ProjectId);
+
+        return new ProjectTeamParticipantPayload(teams.Select(x => new Application.ProjectTeamParticipant(
+            x.Id,
+            x.TeamId,
+            x.TeamName,
+            x.ProjectId
+        )).ToArray());
     }
 }

@@ -37,8 +37,12 @@ public static class Startup
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
         services.AddScoped<ProjectService>();
         services.AddScoped<ProjectUserService>();
+        services.AddScoped<ProjectTeamService>();
+        services.AddScoped<ProjectTeamParticipantService>();
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+        services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
+        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
@@ -50,6 +54,8 @@ public static class Startup
             o.RegisterMessage<ProjectDeletedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+            o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEventMock>();
+            o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEventMock>();
         });
     }
 

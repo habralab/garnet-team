@@ -30,9 +30,11 @@ public static class Startup
 
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
 
         services.AddScoped<ProjectService>();
         services.AddScoped<ProjectUserService>();
+        services.AddScoped<ProjectTeamParticipantService>();
 
         services.AddScoped<ProjectsMutation>();
         services.AddScoped<ProjectsQuery>();
