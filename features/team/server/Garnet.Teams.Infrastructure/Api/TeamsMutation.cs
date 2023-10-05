@@ -15,9 +15,9 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsMutation
     {
         private readonly TeamService _teamService;
-        private readonly TeamMembershipService _membershipService;
+        private readonly TeamUserJoinRequestService _membershipService;
 
-        public TeamsMutation(TeamService teamService, TeamMembershipService membershipService)
+        public TeamsMutation(TeamService teamService, TeamUserJoinRequestService membershipService)
         {
             _teamService = teamService;
             _membershipService = membershipService;

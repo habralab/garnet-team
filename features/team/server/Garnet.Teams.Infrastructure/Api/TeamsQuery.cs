@@ -17,15 +17,15 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamParticipantService _participantService;
-        private readonly TeamMembershipService _membershipService;
+        private readonly TeamUserJoinRequestService _userJoinRequestService;
 
         public TeamsQuery(
             TeamService teamService,
-            TeamMembershipService membershipService,
+            TeamUserJoinRequestService userJoinRequestService,
             TeamParticipantService participantService)
         {
             _teamService = teamService;
-            _membershipService = membershipService;
+            _userJoinRequestService = userJoinRequestService;
             _participantService = participantService;
         }
 
@@ -60,7 +60,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _membershipService.GetAllUserJoinRequestByTeam(ct, new CurrentUserProvider(claims), teamId);
+            var result = await _userJoinRequestService.GetAllUserJoinRequestByTeam(ct, new CurrentUserProvider(claims), teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));

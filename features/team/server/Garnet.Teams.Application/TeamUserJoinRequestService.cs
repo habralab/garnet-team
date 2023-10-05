@@ -6,7 +6,7 @@ using Garnet.Teams.Events;
 
 namespace Garnet.Teams.Application
 {
-    public class TeamMembershipService
+    public class TeamUserJoinRequestService
     {
         private readonly ITeamUserJoinRequestRepository _membershipRepository;
         private readonly TeamParticipantService _participantService;
@@ -14,7 +14,7 @@ namespace Garnet.Teams.Application
         private readonly TeamService _teamService;
         private readonly IMessageBus _messageBus;
 
-        public TeamMembershipService(
+        public TeamUserJoinRequestService(
             IMessageBus messageBus,
             ITeamUserJoinRequestRepository membershipRepository,
             TeamParticipantService participantService,
