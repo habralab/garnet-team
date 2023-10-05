@@ -58,13 +58,13 @@ namespace Garnet.Teams.Application
 
         public async Task<TeamParticipant[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
         {
-            var filter = new TeamParticipantFilterParams(query?.Trim(), take, skip);
+            var filter = new TeamUserFilterArgs(query?.Trim(), take, skip);
             return await _teamParticipantsRepository.FilterTeamParticipants(ct, filter);
         }
 
-        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, string userName)
+        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, TeamParticipantUpdateArgs update)
         {
-            await _teamParticipantsRepository.UpdateTeamParticipant(ct, userId, userName);
+            await _teamParticipantsRepository.UpdateTeamParticipant(ct, userId, update);
         }
     }
 }

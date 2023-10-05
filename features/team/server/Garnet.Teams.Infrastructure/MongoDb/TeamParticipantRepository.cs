@@ -52,7 +52,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return userTeams.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task<TeamParticipant[]> FilterTeamParticipants(CancellationToken ct, TeamParticipantFilterParams filter)
+        public async Task<TeamParticipant[]> FilterTeamParticipants(CancellationToken ct, TeamUserFilterArgs filter)
         {
             var db = _dbFactory.Create();
 
@@ -69,12 +69,12 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return participants.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, string username)
+        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, TeamParticipantUpdateArgs update)
         {
             var db = _dbFactory.Create();
             await db.TeamParticipants.UpdateManyAsync(
                 _f.Eq(x => x.UserId, userId),
-                _u.Set(x => x.Username, username),
+                _u.Set(x => x.Username, update.Username),
                 options: new UpdateOptions()
                 {
                     IsUpsert = true
