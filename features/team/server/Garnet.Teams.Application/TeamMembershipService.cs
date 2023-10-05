@@ -62,5 +62,23 @@ namespace Garnet.Teams.Application
 
             return Result.Ok(request);
         }
+
+        public async Task<Result<TeamUserJoinRequest[]>> GetAllUserJoinRequestByTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
+        {
+            var findTeam = await _teamService.GetTeamById(ct, teamId);
+            if (findTeam.IsFailed)
+            {
+                return Result.Fail(findTeam.Errors);
+            }
+
+            var team = findTeam.Value;
+            if (team.OwnerUserId != currentUserProvider.UserId)
+            {
+                return Result.Fail(new TeamUserJoinRequestOnlyOwnerCanSeeError());
+            }
+
+            var userJoinRequests = await _membershipRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
+            return Result.Ok(userJoinRequests);
+        }
     }
 }
