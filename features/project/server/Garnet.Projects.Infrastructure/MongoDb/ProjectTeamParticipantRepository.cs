@@ -9,6 +9,13 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
 {
     private readonly DbFactory _dbFactory;
 
+    private readonly UpdateDefinitionBuilder<ProjectTeamParticipantDocument> _u =
+        Builders<ProjectTeamParticipantDocument>.Update;
+
+    private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _f =
+        Builders<ProjectTeamParticipantDocument>.Filter;
+
+
     public ProjectTeamParticipantRepository(DbFactory dbFactory)
     {
         _dbFactory = dbFactory;
@@ -34,17 +41,14 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         return teams.Select(ProjectTeamParticipantDocument.ToDomain).ToArray();
     }
 
-    public async Task<ProjectTeamParticipant[]> UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
+    public async Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
         string teamName)
     {
         var db = _dbFactory.Create();
-        var teams = await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId).ToListAsync(cancellationToken: ct);
-        foreach (var team in teams)
-        {
-            team.TeamName = teamName;
-            await db.ProjectTeamsParticipants.InsertOneAsync(team, cancellationToken: ct);
-        }
-
-        return teams.Select(ProjectTeamParticipantDocument.ToDomain).ToArray();
+        await db.ProjectTeamsParticipants.UpdateManyAsync(
+            _f.Eq(x => x.TeamId, teamId),
+            _u.Set(x => x.TeamName, teamName),
+            cancellationToken: ct
+        );
     }
 }

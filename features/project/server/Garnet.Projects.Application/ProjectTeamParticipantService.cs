@@ -23,9 +23,9 @@ public class ProjectTeamParticipantService
         return await _repository.GetProjectTeamParticipantsByProjectId(ct, teamId);
     }
 
-    public async Task<ProjectTeamParticipant[]> UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
+    public async Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
         string teamName)
     {
-        return await _repository.UpdateProjectTeamParticipant(ct, teamId, teamName);
+        await _repository.UpdateProjectTeamParticipant(ct, teamId, teamName);
     }
 }
