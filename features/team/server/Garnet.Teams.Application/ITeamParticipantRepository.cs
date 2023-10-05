@@ -7,6 +7,6 @@ namespace Garnet.Teams.Application
         Task<TeamParticipant[]> DeleteTeamParticipants(CancellationToken ct, string teamId);
         Task<TeamParticipant[]> GetMembershipOfUser(CancellationToken ct, string userId);
         Task<TeamParticipant[]> FilterTeamParticipants(CancellationToken ct, TeamParticipantFilterParams filter);
-        Task<TeamParticipant[]> UpdateTeamParticipantUsername(CancellationToken ct, string userId, string username);
+        Task UpdateTeamParticipantUsername(CancellationToken ct, string userId, string username);
     }
 }
