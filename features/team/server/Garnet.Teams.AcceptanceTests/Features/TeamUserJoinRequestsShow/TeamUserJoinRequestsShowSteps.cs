@@ -7,11 +7,11 @@ using TechTalk.SpecFlow.Assist;
 namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShow
 {
     [Binding]
-    public class TeamUserJoinRequestShowSteps : BaseSteps
+    public class TeamUserJoinRequestsShowSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
 
-        public TeamUserJoinRequestShowSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamUserJoinRequestsShowSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
         }
@@ -19,7 +19,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShow
         [Given(@"существуют пользователи и команда со следующими параметрами")]
         public async Task GivenСуществуютПользователиИКомандаСоСледующимиПараметрами(Table table)
         {
-            var given = table.CreateInstance<GivenTeamUserJoinRequestShow>();
+            var given = table.CreateInstance<GivenTeamUserJoinRequestsShow>();
 
             var teamOwner = TeamUserDocument.Create(Uuid.NewMongo(), given.TeamOwner);
             await Db.TeamUsers.InsertOneAsync(teamOwner);

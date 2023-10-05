@@ -1,8 +1,10 @@
+using System.Security.Claims;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -49,6 +51,11 @@ namespace Garnet.Teams.Infrastructure.Api
             var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
 
             return new TeamParticipantFilterPayload(payloadContent);
+        }
+
+        public Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        {
+            return null;
         }
     }
 }
