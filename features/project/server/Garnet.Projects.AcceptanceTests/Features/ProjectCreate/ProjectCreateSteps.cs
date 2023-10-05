@@ -20,21 +20,20 @@ public class ProjectCreateSteps : BaseSteps
     {
         _currentUserProviderFake = currentUserProviderFake;
     }
-    
+
     [Given(@"существует пользователь '([^']*)'")]
-    public Task GivenСуществуетПользователь(string username)
+    public async Task GivenСуществуетПользователь(string username)
     {
-        _currentUserProviderFake.RegisterUser(username, Uuid.NewMongo());
-        return Task.CompletedTask;
+        var user = ProjectUserDocument.Create(Uuid.NewMongo());
+        await Db.ProjectUsers.InsertOneAsync(user);
+        _currentUserProviderFake.RegisterUser(username, user.Id);
     }
 
     [When(@"пользователь '(.*)' создает проект '(.*)'")]
     public async Task WhenПользовательСоздаетПроект(string username, string projectName)
     {
-        await Mutation.ProjectCreate(
-            CancellationToken.None,
-            _currentUserProviderFake.LoginAs(username),
-            new ProjectCreateInput(projectName));
+        var input = new ProjectCreateInput(projectName, string.Empty, Array.Empty<string>());
+        await Mutation.ProjectCreate(CancellationToken.None, _currentUserProviderFake.LoginAs(username), input);
     }
 
     [Then(@"в системе существует проект '(.*)'")]
@@ -50,5 +49,4 @@ public class ProjectCreateSteps : BaseSteps
         var project = await Db.Projects.Find(o => o.ProjectName == projectName).FirstAsync();
         _currentUserProviderFake.GetUserName(project.OwnerUserId).Should().Be(username);
     }
-
 }

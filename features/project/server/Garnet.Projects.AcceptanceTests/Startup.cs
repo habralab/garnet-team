@@ -28,8 +28,13 @@ public static class Startup
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
-        services.AddScoped<IProjectsRepository, ProjectsRepository>();
-        services.AddScoped<ProjectsService>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
+
+        services.AddScoped<ProjectService>();
+        services.AddScoped<ProjectUserService>();
+        services.AddScoped<ProjectTeamParticipantService>();
 
         services.AddScoped<ProjectsMutation>();
         services.AddScoped<ProjectsQuery>();

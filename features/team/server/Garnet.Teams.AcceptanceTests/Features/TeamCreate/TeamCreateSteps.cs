@@ -21,7 +21,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         {
             var user = TeamUserDocument.Create(Uuid.NewMongo(), username);
             await Db.TeamUsers.InsertOneAsync(user);
-            _currentUserProviderFake.RegisterUser(username, user.UserId);
+            _currentUserProviderFake.RegisterUser(username, user.Id);
         }
 
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]

@@ -6,6 +6,7 @@ using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
 using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -14,10 +15,12 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsMutation
     {
         private readonly TeamService _teamService;
+        private readonly TeamMembershipService _membershipService;
 
-        public TeamsMutation(TeamService teamService)
+        public TeamsMutation(TeamService teamService, TeamMembershipService membershipService)
         {
             _teamService = teamService;
+            _membershipService = membershipService;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -54,6 +57,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.Tags, team.OwnerUserId);
+        }
+
+        public async Task<TeamUserJoinRequestCreatePayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        {
+            var result = await _membershipService.CreateJoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamUserJoinRequestCreatePayload(team.Id, team.UserId, team.TeamId);
         }
     }
 }

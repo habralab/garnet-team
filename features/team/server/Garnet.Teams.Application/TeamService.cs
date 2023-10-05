@@ -8,38 +8,37 @@ namespace Garnet.Teams.Application
     public class TeamService
     {
         private readonly ITeamRepository _teamRepository;
-        private readonly ITeamParticipantRepository _teamParticipantsRepository;
+        private readonly TeamParticipantService _participantService;
         private readonly TeamUserService _userService;
         public TeamService(ITeamRepository teamRepository,
-                           ITeamParticipantRepository teamParticipantsRepository,
+                           TeamParticipantService participantService,
                            TeamUserService userService)
         {
-            _teamParticipantsRepository = teamParticipantsRepository;
+            _participantService = participantService;
             _teamRepository = teamRepository;
             _userService = userService;
         }
 
         public async Task<Result<Team>> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
         {
-            var user = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (user is null)
+            var existingUser = await _userService.GetUser(ct, currentUserProvider.UserId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail($"Пользователь с идентификатором '{currentUserProvider.UserId}' не найден");
+                return Result.Fail(existingUser.Errors);
             }
 
-            var team = await _teamRepository.CreateTeam(ct, name, description, user.UserId, tags);
-            await _teamParticipantsRepository.CreateTeamParticipant(ct, currentUserProvider.UserId, team.Id);
+            var user = existingUser.Value;
+            var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
+            await _participantService.CreateTeamParticipant(ct, user.Id, team.Id);
+
             return Result.Ok(team);
         }
 
-        public async Task<Team?> GetTeamById(CancellationToken ct, string teamId)
+        public async Task<Result<Team>> GetTeamById(CancellationToken ct, string teamId)
         {
-            return await _teamRepository.GetTeamById(ct, teamId);
-        }
+            var team = await _teamRepository.GetTeamById(ct, teamId);
 
-        public async Task<TeamParticipant[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
-        {
-            return await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
+            return team is null ? Result.Fail(new TeamNotFoundError(teamId)) : Result.Ok(team);
         }
 
         public async Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
@@ -50,7 +49,6 @@ namespace Garnet.Teams.Application
         public async Task<Result<Team>> DeleteTeam(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
-
             if (team is null)
             {
                 return Result.Fail(new TeamNotFoundError(teamId));
@@ -62,20 +60,20 @@ namespace Garnet.Teams.Application
             }
 
             await _teamRepository.DeleteTeam(ct, teamId);
-            await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
+            await _participantService.DeleteTeamParticipants(ct, teamId);
 
             return Result.Ok(team);
         }
 
         public async Task<Result<Team>> EditTeamDescription(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
         {
-            var team = await GetTeamById(ct, teamId);
-
-            if (team is null)
+            var result = await GetTeamById(ct, teamId);
+            if (result.IsFailed)
             {
-                return Result.Fail($"Команда с идентификатором '{teamId}' не найдена");
+                return Result.Fail(result.Errors);
             }
 
+            var team = result.Value;
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanEditError());
@@ -88,28 +86,28 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<Team>> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId, ICurrentUserProvider currentUserProvider)
         {
-            var team = await GetTeamById(ct, teamId);
-
-            if (team is null)
+            var result = await GetTeamById(ct, teamId);
+            if (result.IsFailed)
             {
-                return Result.Fail(new TeamNotFoundError(teamId));
+                return Result.Fail(result.Errors);
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            var team = result.Value;
+            if (team.OwnerUserId != currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
-            var user = await _userService.GetUser(ct, newOwnerUserId);
-            if (user is null)
+            var existingUser = await _userService.GetUser(ct, newOwnerUserId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail($"Пользователь с идентификатором '{newOwnerUserId}' не найден");
+                return Result.Fail(existingUser.Errors);
             }
 
-            var userTeams = await _teamParticipantsRepository.GetMembershipOfUser(ct, newOwnerUserId);
-            if (!userTeams.Any(x => x.TeamId == teamId))
+            var userIsParticipant = await _participantService.EnsureUserIsTeamParticipant(ct, newOwnerUserId, teamId);
+            if (userIsParticipant.IsFailed)
             {
-                return Result.Fail(new TeamUserNotATeamParticipantError(newOwnerUserId));
+                return Result.Fail(userIsParticipant.Errors);
             }
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);

@@ -5,15 +5,15 @@ namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
 
 public class CreateIndexesMigration : IRepeatableMigration
 {
-    private readonly IProjectsRepository _projectsRepository;
+    private readonly IProjectRepository _projectRepository;
 
-    public CreateIndexesMigration(IProjectsRepository projectsRepository)
+    public CreateIndexesMigration(IProjectRepository projectRepository)
     {
-        _projectsRepository = projectsRepository;
+        _projectRepository = projectRepository;
     }
     
     public async Task Execute(CancellationToken ct)
     {
-        await _projectsRepository.CreateIndexes(ct);
+        await _projectRepository.CreateIndexes(ct);
     }
 }

@@ -1,15 +1,19 @@
+using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Projects.Application;
 using Garnet.Projects.Events;
 using Garnet.Projects.Infrastructure.Api;
+using Garnet.Projects.Infrastructure.EventHandlers;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Garnet.Projects.Infrastructure.MongoDb.Migrations;
+using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.Project;
 
+[ExcludeFromCodeCoverage]
 public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetProjects(this IRequestExecutorBuilder builder)
@@ -31,8 +35,14 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
-        services.AddScoped<ProjectsService>();
-        services.AddScoped<IProjectsRepository, ProjectsRepository>();
+        services.AddScoped<ProjectService>();
+        services.AddScoped<ProjectUserService>();
+        services.AddScoped<ProjectTeamService>();
+        services.AddScoped<ProjectTeamParticipantService>();
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+        services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
+        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
@@ -41,6 +51,11 @@ public static class Startup
         {
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
+            o.RegisterMessage<ProjectDeletedEvent>();
+
+            o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+            o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEventMock>();
+            o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEventMock>();
         });
     }
 

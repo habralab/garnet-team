@@ -25,7 +25,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstOrDefaultAsync();
             var userId = _currentUserProviderFake.GetUserIdByUsername(username);
-            var participant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, team.Id);
+            var participant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, username, team.Id);
             await Db.TeamParticipants.InsertOneAsync(participant);
         }
 
