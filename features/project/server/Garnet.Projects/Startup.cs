@@ -52,6 +52,7 @@ public static class Startup
             o.RegisterMessage<ProjectDeletedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+            o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEventMock>();
         });
     }
 
