@@ -25,20 +25,19 @@ public class ProjectTeamParticipantsFilterSteps : BaseSteps
     [Given(@"существует команда '([^']*)'")]
     public async Task GivenСуществуетКоманда(string teamName)
     {
-        var team = GiveMe.ProjectTeamParticipant().WithTeamName(teamName);
-        await Db.ProjectTeamsParticipants.InsertOneAsync(team);
+        var team = GiveMe.ProjectTeam().WithTeamName(teamName);
+        await Db.ProjectTeams.InsertOneAsync(team);
     }
 
     [Given(@"команда '([^']*)' является участником проекта '([^']*)'")]
     public async Task GivenКомандаЯвляетсяУчастникомПроекта(string teamName, string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        var team = await Db.ProjectTeamsParticipants.Find(x => x.TeamName == teamName).FirstAsync();
+        var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
 
-        await Db.ProjectTeamsParticipants.FindOneAndUpdateAsync(
-            _f.Eq(x => x.TeamId, team.TeamId),
-            _u.Set(o => o.ProjectId, project.Id)
-        );
+        var teamParticipant = GiveMe.ProjectTeamParticipant().WithTeamId(team.Id).WithTeamName(team.TeamName)
+            .WithProjectId(project.Id);
+        await Db.ProjectTeamsParticipants.InsertOneAsync(teamParticipant);
     }
 
     [When(@"происходит получение списка команд-участников проекта '([^']*)'")]
