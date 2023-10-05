@@ -12,7 +12,7 @@ public class ProjectTeamParticipantService
     }
 
     public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId,
-        string teamName, string? projectId)
+        string teamName, string projectId)
     {
         return await _repository.AddProjectTeamParticipant(ct, teamId, teamName, projectId);
     }

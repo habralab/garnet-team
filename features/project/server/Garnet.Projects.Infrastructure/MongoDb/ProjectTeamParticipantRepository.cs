@@ -15,7 +15,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     }
 
     public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId,
-        string teamName, string? projectId)
+        string teamName, string projectId)
     {
         var db = _dbFactory.Create();
         var team = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId);
