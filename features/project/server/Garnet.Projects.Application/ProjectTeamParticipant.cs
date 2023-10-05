@@ -4,5 +4,5 @@ public record ProjectTeamParticipant(
     string Id,
     string TeamId,
     string TeamName,
-    string? ProjectId
+    string ProjectId
 );

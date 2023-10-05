@@ -1,4 +1,5 @@
-﻿using Garnet.Common.Infrastructure.Support;
+﻿using FluentResults;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application;
 using MongoDB.Driver;
 
@@ -29,6 +30,20 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         var db = _dbFactory.Create();
         var teams = await db.ProjectTeamsParticipants.Find(x => x.ProjectId == projectId)
             .ToListAsync(cancellationToken: ct);
+
+        return teams.Select(ProjectTeamParticipantDocument.ToDomain).ToArray();
+    }
+
+    public async Task<ProjectTeamParticipant[]> UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
+        string teamName)
+    {
+        var db = _dbFactory.Create();
+        var teams = await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId).ToListAsync(cancellationToken: ct);
+        foreach (var team in teams)
+        {
+            team.TeamName = teamName;
+            await db.ProjectTeamsParticipants.InsertOneAsync(team, cancellationToken: ct);
+        }
 
         return teams.Select(ProjectTeamParticipantDocument.ToDomain).ToArray();
     }

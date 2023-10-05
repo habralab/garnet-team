@@ -6,10 +6,10 @@ namespace Garnet.Projects.Infrastructure.MongoDb
     {
         public string Id { get; init; } = null!;
         public string TeamId { get; init; } = null!;
-        public string TeamName { get; init; } = null!;
-        public string? ProjectId { get; init; } = null;
+        public string TeamName { get; set; } = null!;
+        public string ProjectId { get; init; } = null!;
 
-        public static ProjectTeamParticipantDocument Create(string id, string teamId, string teamName, string? projectId)
+        public static ProjectTeamParticipantDocument Create(string id, string teamId, string teamName, string projectId)
         {
             return new ProjectTeamParticipantDocument
             {
