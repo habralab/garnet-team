@@ -11,12 +11,12 @@ public class ProjectTeamParticipantService
         _repository = repository;
     }
 
-    public async Task<Result<ProjectTeamParticipant>> AddProjectTeamParticipant(CancellationToken ct, string id, string teamId, string teamName, string projectId)
+    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId, string teamName, string? projectId)
     {
-        return await _repository.AddProjectTeamParticipant(ct, id, teamId, teamName, projectId);
+        return await _repository.AddProjectTeamParticipant(ct, teamId, teamName, projectId);
     }
-    public async Task<Result<ProjectTeamParticipant[]>> GetProjectTeamParticipantByProjectId(CancellationToken ct, string teamId)
+    public async Task<ProjectTeamParticipant[]> GetProjectTeamParticipantByProjectId(CancellationToken ct, string teamId)
     {
-        return await _repository.GetProjectTeamParticipantByProjectId(ct, teamId);
+        return await _repository.GetProjectTeamParticipantsByProjectId(ct, teamId);
     }
 }

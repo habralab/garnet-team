@@ -1,4 +1,5 @@
-﻿using Garnet.Projects.Application;
+﻿using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
@@ -12,19 +13,22 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string id, string teamId, string teamName, string projectId)
+    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId,
+        string teamName, string? projectId)
     {
         var db = _dbFactory.Create();
-        var team = ProjectTeamParticipantDocument.Create(id, teamId, teamName,projectId);
+        var team = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId);
         await db.ProjectTeamsParticipants.InsertOneAsync(team, cancellationToken: ct);
 
         return ProjectTeamParticipantDocument.ToDomain(team);
     }
 
-    public async Task<ProjectTeamParticipant[]> GetProjectTeamParticipantByProjectId(CancellationToken ct, string projectId)
+    public async Task<ProjectTeamParticipant[]> GetProjectTeamParticipantsByProjectId(CancellationToken ct,
+        string projectId)
     {
         var db = _dbFactory.Create();
-        var teams = await db.ProjectTeamsParticipants.Find(x => x.ProjectId == projectId).ToListAsync();
+        var teams = await db.ProjectTeamsParticipants.Find(x => x.ProjectId == projectId)
+            .ToListAsync(cancellationToken: ct);
 
         return teams.Select(ProjectTeamParticipantDocument.ToDomain).ToArray();
     }
