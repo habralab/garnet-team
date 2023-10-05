@@ -19,10 +19,10 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<TeamParticipant>> CreateTeamParticipant(CancellationToken ct, string userId, string teamId)
         {
-            var userExists = await _userService.GetUser(ct, userId);
-            if (userExists.IsFailed)
+            var existingUser = await _userService.GetUser(ct, userId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail(userExists.Errors);
+                return Result.Fail(existingUser.Errors);
             }
 
             var participant = await _teamParticipantsRepository.CreateTeamParticipant(ct, userId, teamId);
@@ -44,7 +44,7 @@ namespace Garnet.Teams.Application
             return await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
         }
 
-        public async Task<Result> UserIsTeamParticipant(CancellationToken ct, string userId, string teamId)
+        public async Task<Result> EnsureUserIsTeamParticipant(CancellationToken ct, string userId, string teamId)
         {
             var userTeams = await GetMembershipOfUser(ct, userId);
             if (!userTeams.Any(x => x.TeamId == teamId))

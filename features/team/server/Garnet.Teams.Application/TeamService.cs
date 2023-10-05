@@ -21,13 +21,13 @@ namespace Garnet.Teams.Application
 
         public async Task<Result<Team>> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
         {
-            var userExists = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (userExists.IsFailed)
+            var existingUser = await _userService.GetUser(ct, currentUserProvider.UserId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail(userExists.Errors);
+                return Result.Fail(existingUser.Errors);
             }
 
-            var user = userExists.Value;
+            var user = existingUser.Value;
             var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
             await _participantService.CreateTeamParticipant(ct, user.Id, team.Id);
 
@@ -49,7 +49,6 @@ namespace Garnet.Teams.Application
         public async Task<Result<Team>> DeleteTeam(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
-
             if (team is null)
             {
                 return Result.Fail(new TeamNotFoundError(teamId));
@@ -99,13 +98,13 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamOnlyOwnerCanChangeOwnerError());
             }
 
-            var userExists = await _userService.GetUser(ct, newOwnerUserId);
-            if (userExists.IsFailed)
+            var existingUser = await _userService.GetUser(ct, newOwnerUserId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail(userExists.Errors);
+                return Result.Fail(existingUser.Errors);
             }
 
-            var userIsParticipant = await _participantService.UserIsTeamParticipant(ct, newOwnerUserId, teamId);
+            var userIsParticipant = await _participantService.EnsureUserIsTeamParticipant(ct, newOwnerUserId, teamId);
             if (userIsParticipant.IsFailed)
             {
                 return Result.Fail(userIsParticipant.Errors);

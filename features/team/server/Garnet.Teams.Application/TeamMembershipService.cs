@@ -36,20 +36,20 @@ namespace Garnet.Teams.Application
                 return Result.Fail(findTeam.Errors);
             }
 
-            var userExists = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (userExists.IsFailed)
+            var existingUser = await _userService.GetUser(ct, currentUserProvider.UserId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail(userExists.Errors);
+                return Result.Fail(existingUser.Errors);
             }
 
-            var user = userExists.Value;
+            var user = existingUser.Value;
             var userRequest = await _membershipRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
             if (userRequest.Any(x => x.UserId == user.Id))
             {
                 return Result.Fail(new TeamPendingUserJoinRequestError(user.Id));
             }
 
-            var participant = await _participantService.UserIsTeamParticipant(ct, user.Id, teamId);
+            var participant = await _participantService.EnsureUserIsTeamParticipant(ct, user.Id, teamId);
             if (participant.IsSuccess)
             {
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
