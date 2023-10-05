@@ -8,7 +8,7 @@ using TechTalk.SpecFlow;
 namespace Garnet.Projects.AcceptanceTests.Features.ProjectTeamParticipant;
 
 [Binding]
-public class ProjectTeamParticipantSteps : BaseSteps
+public class ProjectTeamParticipantsFilterSteps : BaseSteps
 {
     private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _f =
         Builders<ProjectTeamParticipantDocument>.Filter;
@@ -18,7 +18,7 @@ public class ProjectTeamParticipantSteps : BaseSteps
 
     private ProjectTeamParticipantPayload? _response;
 
-    public ProjectTeamParticipantSteps(StepsArgs args) : base(args)
+    public ProjectTeamParticipantsFilterSteps(StepsArgs args) : base(args)
     {
     }
 
