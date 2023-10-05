@@ -1,7 +1,6 @@
 namespace Garnet.Teams.Application
 {
-    public record TeamUser(
-        string Id,
+    public record TeamParticipantUpdateArgs(
         string Username
     );
 }

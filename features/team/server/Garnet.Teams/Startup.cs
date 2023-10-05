@@ -37,6 +37,7 @@ namespace Garnet.Team
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();
             services.AddScoped<TeamMembershipService>();
+            services.AddScoped<TeamParticipantService>();
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
@@ -45,6 +46,7 @@ namespace Garnet.Team
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamUserMigration>();
         }
 
         public static void AddGarnetTeamsMessageBus(this IServiceCollection services, string name)
@@ -52,6 +54,7 @@ namespace Garnet.Team
             services.AddGarnetMessageBus(name, o =>
             {
                 o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+                o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
             });
         }

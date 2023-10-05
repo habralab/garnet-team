@@ -16,10 +16,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string teamId)
+        public async Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string username, string teamId)
         {
             var db = _dbFactory.Create();
-            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, teamId);
+            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, username, teamId);
             await db.TeamParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
             return TeamParticipantDocument.ToDomain(teamParticipant);
         }
@@ -50,6 +50,37 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             ).ToListAsync();
 
             return userTeams.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
+        }
+
+        public async Task<TeamParticipant[]> FilterTeamParticipants(CancellationToken ct, TeamUserFilterArgs filter)
+        {
+            var db = _dbFactory.Create();
+
+            var searchFilter = filter.Search is null
+                ? _f.Empty
+                : _f.Where(x => x.Username.ToLower().Contains(filter.Search.ToLower()));
+
+            var participants = await db.TeamParticipants
+                .Find(searchFilter)
+                .Skip(filter.Skip)
+                .Limit(filter.Take)
+                .ToListAsync(ct);
+
+            return participants.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
+        }
+
+        public async Task UpdateTeamParticipant(CancellationToken ct, string userId, TeamParticipantUpdateArgs update)
+        {
+            var db = _dbFactory.Create();
+            await db.TeamParticipants.UpdateManyAsync(
+                _f.Eq(x => x.UserId, userId),
+                _u.Set(x => x.Username, update.Username),
+                options: new UpdateOptions()
+                {
+                    IsUpsert = true
+                },
+                cancellationToken: ct
+            );
         }
     }
 }

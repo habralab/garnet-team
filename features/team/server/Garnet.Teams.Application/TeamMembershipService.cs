@@ -9,7 +9,7 @@ namespace Garnet.Teams.Application
     public class TeamMembershipService
     {
         private readonly ITeamUserJoinRequestRepository _membershipRepository;
-        private readonly ITeamParticipantRepository _teamParticipantsRepository;
+        private readonly TeamParticipantService _participantService;
         private readonly TeamUserService _userService;
         private readonly TeamService _teamService;
         private readonly IMessageBus _messageBus;
@@ -17,12 +17,12 @@ namespace Garnet.Teams.Application
         public TeamMembershipService(
             IMessageBus messageBus,
             ITeamUserJoinRequestRepository membershipRepository,
-            ITeamParticipantRepository teamParticipantsRepository,
+            TeamParticipantService participantService,
             TeamService teamService,
             TeamUserService userService)
         {
             _membershipRepository = membershipRepository;
-            _teamParticipantsRepository = teamParticipantsRepository;
+            _participantService = participantService;
             _userService = userService;
             _teamService = teamService;
             _messageBus = messageBus;
@@ -36,20 +36,21 @@ namespace Garnet.Teams.Application
                 return Result.Fail(findTeam.Errors);
             }
 
-            var user = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (user is null)
+            var existingUser = await _userService.GetUser(ct, currentUserProvider.UserId);
+            if (existingUser.IsFailed)
             {
-                return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
+                return Result.Fail(existingUser.Errors);
             }
 
+            var user = existingUser.Value;
             var userRequest = await _membershipRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
             if (userRequest.Any(x => x.UserId == user.Id))
             {
                 return Result.Fail(new TeamPendingUserJoinRequestError(user.Id));
             }
 
-            var participant = await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
-            if (participant.Any(x => x.UserId == user.Id))
+            var participant = await _participantService.EnsureUserIsTeamParticipant(ct, user.Id, teamId);
+            if (participant.IsSuccess)
             {
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
             }

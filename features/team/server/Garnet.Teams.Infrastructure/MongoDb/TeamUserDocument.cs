@@ -5,18 +5,20 @@ namespace Garnet.Teams.Infrastructure.MongoDb
     public record TeamUserDocument
     {
         public string Id { get; init; } = null!;
+        public string Username { get; init; } = null!;
 
-        public static TeamUserDocument Create(string id)
+        public static TeamUserDocument Create(string userId, string username)
         {
             return new TeamUserDocument
             {
-                Id = id,
+                Id = userId,
+                Username = username
             };
         }
 
         public static TeamUser ToDomain(TeamUserDocument doc)
         {
-            return new TeamUser(doc.Id);
+            return new TeamUser(doc.Id, doc.Username);
         }
     }
 }
