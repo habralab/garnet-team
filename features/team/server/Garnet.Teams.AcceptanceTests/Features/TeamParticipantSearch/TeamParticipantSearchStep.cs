@@ -7,7 +7,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamParticipantSearch
     [Binding]
     public class TeamParticipantSearchStep : BaseSteps
     {
-        private TeamParticipantSearchPayload _result = null!;
+        private TeamParticipantFilterPayload _result = null!;
         public TeamParticipantSearchStep(StepsArgs args) : base(args)
         {
         }
@@ -16,9 +16,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamParticipantSearch
         public async Task WhenОсуществляетсяПоисПоУчастникамКомандыСЗапросом(string teamName, string query)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var input = new TeamParticipantSearchInput(team.Id, query, 0, 100);
+            var input = new TeamParticipantFilterInput(team.Id, query, 0, 100);
 
-            _result = await Query.TeamParticipantSearch(CancellationToken.None, input);
+            _result = await Query.TeamParticipantFilter(CancellationToken.None, input);
         }
 
         [Then(@"в результатах поиска отображается '([^']*)' участник команды")]

@@ -4,12 +4,12 @@ using Garnet.Users.Events;
 
 namespace Garnet.Teams.Infrastructure.EventHandlers
 {
-    public class UserUsernameUpdatedEventConsumer : IMessageBusConsumer<UserUpdatedEvent>
+    public class UserUpdatedEventConsumer : IMessageBusConsumer<UserUpdatedEvent>
     {
         private readonly TeamUserService _userService;
         private readonly TeamParticipantService _participantService;
 
-        public UserUsernameUpdatedEventConsumer(
+        public UserUpdatedEventConsumer(
             TeamUserService userService,
             TeamParticipantService participantService)
         {

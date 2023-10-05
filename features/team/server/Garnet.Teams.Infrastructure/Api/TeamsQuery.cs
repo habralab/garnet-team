@@ -43,12 +43,12 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.Tags)).ToArray());
         }
 
-        public async Task<TeamParticipantSearchPayload> TeamParticipantSearch(CancellationToken ct, TeamParticipantSearchInput input)
+        public async Task<TeamParticipantFilterPayload> TeamParticipantFilter(CancellationToken ct, TeamParticipantFilterInput input)
         {
             var participants = await _participantService.FindTeamParticipantByUsername(ct, input.TeamId, input.Search, input.Take, input.Skip);
             var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
 
-            return new TeamParticipantSearchPayload(payloadContent);
+            return new TeamParticipantFilterPayload(payloadContent);
         }
     }
 }

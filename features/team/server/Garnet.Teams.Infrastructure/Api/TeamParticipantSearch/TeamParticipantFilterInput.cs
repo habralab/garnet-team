@@ -1,6 +1,6 @@
 namespace Garnet.Teams.Infrastructure.Api.TeamParticipantSearch
 {
-    public record TeamParticipantSearchInput(
+    public record TeamParticipantFilterInput(
         string TeamId,
         string? Search,
         int Skip,
