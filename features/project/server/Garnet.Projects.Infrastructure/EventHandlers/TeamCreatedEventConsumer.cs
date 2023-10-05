@@ -8,15 +8,15 @@ namespace Garnet.Projects.Infrastructure.EventHandlers
 {
     public class TeamCreatedEventConsumer : IMessageBusConsumer<TeamCreatedEventMock>
     {
-        private readonly ProjectTeamParticipantService _projectTeamParticipantService;
-        public TeamCreatedEventConsumer(ProjectTeamParticipantService projectTeamParticipantService)
+        private readonly ProjectTeamService _projectTeamService;
+        public TeamCreatedEventConsumer(ProjectTeamService projectTeamService)
         {
-            _projectTeamParticipantService = projectTeamParticipantService;
+            _projectTeamService = projectTeamService;
         }
 
         public async Task Consume(TeamCreatedEventMock message)
         {
-            await _projectTeamParticipantService.AddProjectTeamParticipant(CancellationToken.None, message.Id, message.Name, null);
+            await _projectTeamService.AddProjectTeam(CancellationToken.None, message.Id, message.Name, message.OwnerUserId);
         }
     }
 
