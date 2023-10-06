@@ -1,5 +1,8 @@
-﻿using Garnet.Common.AcceptanceTests.Fakes;
+﻿using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Projects.Application;
+using Garnet.Projects.Events;
+using Garnet.Projects.Infrastructure.EventHandlers;
 using Garnet.Projects.Infrastructure.MongoDb;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
@@ -10,6 +13,8 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectTeamJoinRequest;
 public class ProjectTeamJoinRequestSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
+    private readonly ProjectTeamJoinRequestCreatedConsumer _projectTeamJoinRequestCreatedConsumer;
+
 
     private readonly FilterDefinitionBuilder<ProjectTeamDocument> _f =
         Builders<ProjectTeamDocument>.Filter;
@@ -18,10 +23,11 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         Builders<ProjectTeamDocument>.Update;
 
     private readonly IProjectTeamJoinRequestRepository _repository;
-    public ProjectTeamJoinRequestSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake, IProjectTeamJoinRequestRepository repository) : base(args)
+    public ProjectTeamJoinRequestSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake, IProjectTeamJoinRequestRepository repository, ProjectTeamJoinRequestCreatedConsumer projectTeamJoinRequestCreatedConsumer) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
         _repository = repository;
+        _projectTeamJoinRequestCreatedConsumer = projectTeamJoinRequestCreatedConsumer;
     }
 
     [Given(@"пользователь '([^']*)' является владельцем команды '([^']*)'")]
@@ -39,7 +45,7 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
-        await _repository.AddProjectTeamJoinRequest(CancellationToken.None, team.Id, team.TeamName, project.Id);
+        await _projectTeamJoinRequestCreatedConsumer.Consume(new TeamJoinRequestCreatedEventMock(team.Id, team.TeamName, project.Id));
     }
 
     [Then(@" проекте '([^']*)' существует заявка на вступление от команды '([^']*)'")]
