@@ -28,6 +28,11 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
 
+        public Task<TeamUserJoinRequest> DeleteUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<TeamUserJoinRequest[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
@@ -36,6 +41,11 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             ).ToListAsync(ct);
 
             return joinRequests.Select(x => TeamUserJoinRequestDocument.ToDomain(x)).ToArray();
+        }
+
+        public Task<TeamUserJoinRequest?> GetUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
+        {
+            throw new NotImplementedException();
         }
     }
 }
