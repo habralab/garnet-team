@@ -9,12 +9,14 @@ public class TeamUpdatedEventConsumer : IMessageBusConsumer<TeamUpdatedEventMock
 {
     private readonly ProjectTeamParticipantService _projectTeamParticipantService;
     private readonly ProjectTeamService _projectTeamService;
+    private readonly ProjectTeamJoinRequestService _projectTeamJoinRequestService;
 
     public TeamUpdatedEventConsumer(ProjectTeamParticipantService projectTeamParticipantService,
-        ProjectTeamService projectTeamService)
+        ProjectTeamService projectTeamService, ProjectTeamJoinRequestService projectTeamJoinRequestService)
     {
         _projectTeamParticipantService = projectTeamParticipantService;
         _projectTeamService = projectTeamService;
+        _projectTeamJoinRequestService = projectTeamJoinRequestService;
     }
 
     public async Task Consume(TeamUpdatedEventMock message)
@@ -23,6 +25,8 @@ public class TeamUpdatedEventConsumer : IMessageBusConsumer<TeamUpdatedEventMock
             message.OwnerUserId);
 
         await _projectTeamParticipantService.UpdateProjectTeamParticipant(CancellationToken.None, message.Id,
+            message.Name);
+        await _projectTeamJoinRequestService.UpdateProjectTeamJoinRequest(CancellationToken.None, message.Id,
             message.Name);
     }
 }
