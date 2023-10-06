@@ -33,7 +33,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();
             services.AddScoped<TeamParticipantService>();
-            services.AddScoped<TeamMembershipService>();
+            services.AddScoped<TeamUserJoinRequestService>();
 
             services.AddScoped<TeamsMutation>();
             services.AddScoped<TeamsQuery>();
