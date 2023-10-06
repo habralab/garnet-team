@@ -30,9 +30,9 @@ namespace Garnet.Teams.Application
             return Result.Ok(participant);
         }
 
-        public async Task<TeamParticipant[]> DeleteTeamParticipants(CancellationToken ct, string teamId)
+        public async Task DeleteTeamParticipants(CancellationToken ct, string teamId)
         {
-            return await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
+            await _teamParticipantsRepository.DeleteParticipantsByTeam(ct, teamId);
         }
 
         public async Task<TeamParticipant[]> GetMembershipOfUser(CancellationToken ct, string userId)

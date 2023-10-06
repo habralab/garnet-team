@@ -91,5 +91,10 @@ namespace Garnet.Teams.Application
             var userJoinRequests = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
             return Result.Ok(userJoinRequests);
         }
+
+        public async Task DeleteUserJoinRequestsByTeam(CancellationToken ct, string teamId)
+        {
+            await _userJoinRequestRepository.DeleteUserJoinRequestsByTeam(ct, teamId);
+        }
     }
 }

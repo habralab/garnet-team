@@ -4,5 +4,6 @@ namespace Garnet.Teams.Application
     {
         Task<TeamUserJoinRequest> CreateJoinRequestByUser(CancellationToken ct, string userId, string teamId);
         Task<TeamUserJoinRequest[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId);
+        Task DeleteUserJoinRequestsByTeam(CancellationToken ct, string teamId);
     }
 }
