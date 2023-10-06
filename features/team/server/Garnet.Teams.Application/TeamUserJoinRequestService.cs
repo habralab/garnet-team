@@ -122,6 +122,8 @@ namespace Garnet.Teams.Application
                 }
             }
 
+            var @event = new TeamUserJoinRequestProcessedEvent(userJoinRequest.UserId, userJoinRequest.TeamId, decision);
+            await _messageBus.Publish(@event);
             return Result.Ok(userJoinRequest);
         }
     }
