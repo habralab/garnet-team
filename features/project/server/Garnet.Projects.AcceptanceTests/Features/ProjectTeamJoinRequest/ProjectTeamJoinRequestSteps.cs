@@ -48,9 +48,11 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         await _projectTeamJoinRequestCreatedConsumer.Consume(new TeamJoinRequestCreatedEventMock(team.Id, team.TeamName, project.Id));
     }
 
-    [Then(@" проекте '([^']*)' существует заявка на вступление от команды '([^']*)'")]
-    public async Task ThenВПроектеСуществуетЗаявкаНаВступлениеОтКоманды(string teamName)
+    [Then(@"в проекте '([^']*)' существует заявка на вступление от команды '([^']*)'")]
+    public async Task ThenВПроектеСуществуетЗаявкаНаВступлениеОтКоманды(string projectName, string teamName)
     {
-        await Db.ProjectTeamJoinRequests.Find(x => x.TeamName == teamName).FirstAsync();
+        var teamJoinRequest = await Db.ProjectTeamJoinRequests.Find(x => x.TeamName == teamName).FirstAsync();
+        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
+        teamJoinRequest.ProjectId.Should().Be(project.Id);
     }
 }
