@@ -28,9 +28,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
 
-        public Task<TeamUserJoinRequest> DeleteUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
+        public async Task<TeamUserJoinRequest?> DeleteUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+            var joinRequest = await db.TeamUserJoinRequest.FindOneAndDeleteAsync(
+                _f.Eq(x => x.Id, userJoinRequestId),
+                cancellationToken: ct
+            );
+
+            return joinRequest is null ? null : TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
 
         public async Task<TeamUserJoinRequest[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
@@ -43,9 +49,14 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return joinRequests.Select(x => TeamUserJoinRequestDocument.ToDomain(x)).ToArray();
         }
 
-        public Task<TeamUserJoinRequest?> GetUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
+        public async Task<TeamUserJoinRequest?> GetUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+            var joinRequest = await db.TeamUserJoinRequest.Find(
+                _f.Eq(x => x.Id, userJoinRequestId)
+            ).FirstOrDefaultAsync(ct);
+
+            return joinRequest is null ? null : TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
     }
 }
