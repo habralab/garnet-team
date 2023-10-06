@@ -12,9 +12,9 @@ public class ProjectTeamService
     }
 
     public async Task<ProjectTeam> AddProjectTeam(CancellationToken ct, string teamId,
-        string teamName, string ownerUSerId)
+        string teamName, string ownerUserId)
     {
-        return await _repository.AddProjectTeam(ct, teamId, teamName, ownerUSerId);
+        return await _repository.AddProjectTeam(ct, teamId, teamName, ownerUserId);
     }
 
     public async Task<ProjectTeam> UpdateProjectTeam(CancellationToken ct, string teamId,

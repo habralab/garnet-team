@@ -15,4 +15,5 @@ public class Db
     public IMongoCollection<ProjectUserDocument> ProjectUsers => _mongoDatabase.GetCollection<ProjectUserDocument>("ProjectUsers");
     public IMongoCollection<ProjectTeamDocument> ProjectTeams => _mongoDatabase.GetCollection<ProjectTeamDocument>("ProjectTeams");
     public IMongoCollection<ProjectTeamParticipantDocument> ProjectTeamsParticipants => _mongoDatabase.GetCollection<ProjectTeamParticipantDocument>("ProjectTeamsParticipants");
+    public IMongoCollection<ProjectTeamJoinRequestDocument> ProjectTeamJoinRequests => _mongoDatabase.GetCollection<ProjectTeamJoinRequestDocument>("ProjectTeamJoinRequests");
 }
