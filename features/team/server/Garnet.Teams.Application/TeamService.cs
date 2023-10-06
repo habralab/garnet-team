@@ -9,17 +9,14 @@ namespace Garnet.Teams.Application
     {
         private readonly ITeamRepository _teamRepository;
         private readonly TeamParticipantService _participantService;
-        private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamUserService _userService;
         public TeamService(ITeamRepository teamRepository,
                            TeamParticipantService participantService,
-                           TeamUserJoinRequestService userJoinRequestService,
                            TeamUserService userService)
         {
             _participantService = participantService;
             _teamRepository = teamRepository;
             _userService = userService;
-            _userJoinRequestService = userJoinRequestService;
         }
 
         public async Task<Result<Team>> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)

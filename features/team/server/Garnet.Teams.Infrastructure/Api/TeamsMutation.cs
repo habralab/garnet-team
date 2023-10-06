@@ -16,11 +16,16 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamUserJoinRequestService _membershipService;
+        private readonly TeamDeleteUnitOfWork _teamDeleteUnitOfWork;
 
-        public TeamsMutation(TeamService teamService, TeamUserJoinRequestService membershipService)
+        public TeamsMutation(
+            TeamService teamService,
+            TeamUserJoinRequestService membershipService,
+            TeamDeleteUnitOfWork teamDeleteUnitOfWork)
         {
             _teamService = teamService;
             _membershipService = membershipService;
+            _teamDeleteUnitOfWork = teamDeleteUnitOfWork;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -34,7 +39,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _teamService.DeleteTeam(ct, teamId, new CurrentUserProvider(claims));
+            var result = await _teamDeleteUnitOfWork.DeleteTeam(ct, new CurrentUserProvider(claims), teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
