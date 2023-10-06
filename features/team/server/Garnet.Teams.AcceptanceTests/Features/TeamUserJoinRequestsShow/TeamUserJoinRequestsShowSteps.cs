@@ -29,7 +29,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShow
             _result = await Query.TeamUserJoinRequestsShow(CancellationToken.None, claims, team.Id);
         }
 
-        [Then(@"в списке отображается '(.*)' заявка")]
+        [Then(@"количество заявок в списке равно '(.*)'")]
         public Task ThenВСпискеОтображаетсяКоманда(int resultCount)
         {
             _result.TeamUserJoinRequests.Count().Should().Be(resultCount);
