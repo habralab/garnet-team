@@ -1,7 +1,9 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
 using Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
@@ -11,13 +13,17 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
     {
         private readonly ProjectFake _projectFake;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly QueryExceptionsContext _queryExceptionsContext;
+
         public TeamJoinProjectRequestSteps(
             ProjectFake projectFake,
             CurrentUserProviderFake currentUserProviderFake,
+            QueryExceptionsContext queryExceptionsContext,
             StepsArgs args) : base(args)
         {
             _projectFake = projectFake;
             _currentUserProviderFake = currentUserProviderFake;
+            _queryExceptionsContext = queryExceptionsContext;
         }
 
         [Given(@"существует проект '(.*)'")]
@@ -35,7 +41,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
             var claims = _currentUserProviderFake.LoginAs(username);
             var input = new TeamJoinProjectRequestPayload(team.Id, projectName);
 
-            await Mutation.TeamJoinProjectRequest(CancellationToken.None, claims, input);
+            try
+            {
+                await Mutation.TeamJoinProjectRequest(CancellationToken.None, claims, input);
+
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [Then(@"в проекте '(.*)' существует заявка на вступление от команды '(.*)'")]
