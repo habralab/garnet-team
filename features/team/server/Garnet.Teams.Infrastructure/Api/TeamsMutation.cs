@@ -17,11 +17,13 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamUserJoinRequestService _membershipService;
+        private readonly TeamJoinInviteCommand _joinInviteCommand;
 
-        public TeamsMutation(TeamService teamService, TeamUserJoinRequestService membershipService)
+        public TeamsMutation(TeamJoinInviteCommand joinInviteCommand, TeamService teamService, TeamUserJoinRequestService membershipService)
         {
             _teamService = teamService;
             _membershipService = membershipService;
+            _joinInviteCommand = joinInviteCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -69,9 +71,14 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
         }
 
-        public Task<TeamJoinInvitePayload> TeamJoinInvite(CancellationToken ct, ClaimsPrincipal claims, TeamJoinInvitePayload input)
+        public async Task<TeamJoinInvitePayload> TeamJoinInvite(CancellationToken ct, ClaimsPrincipal claims, TeamJoinInviteInput input)
         {
-            return null;
+            var inviteArgs = new TeamJoinInviteArgs(input.UserId, input.TeamId);
+            var result = await _joinInviteCommand.InviteUserToTeam(ct, new CurrentUserProvider(claims), inviteArgs);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var invitation = result.Value;
+            return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId);
         }
     }
 }

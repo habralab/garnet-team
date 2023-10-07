@@ -29,7 +29,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
             var claims = _currentUserProviderFake.LoginAs(teamOwner);
-            var input = new TeamJoinInvitePayload(userId, team.Id);
+            var input = new TeamJoinInviteInput(userId, team.Id);
 
             try
             {
