@@ -68,7 +68,7 @@ public class ProjectTeamJoinRequestGetSteps : BaseSteps
     [Then(@"в списке заявок отображается '([^']*)' команды")]
     public Task ThenВСпискеЗаявокОтображаетсяКоманд(int teamJoinRequestCount)
     {
-        _response!.projectTeamJoinRequest.Count().Should().Be(teamJoinRequestCount);
+        _response!.ProjectTeamJoinRequest.Count().Should().Be(teamJoinRequestCount);
         return Task.CompletedTask;
     }
 
