@@ -69,9 +69,9 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
         }
 
-        public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestApprove(CancellationToken ct, ClaimsPrincipal claims, TeamUserJoinRequestApproveInput input)
+        public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestDecide(CancellationToken ct, ClaimsPrincipal claims, TeamUserJoinRequestDecideInput input)
         {
-            var result = await _userJoinRequestService.ProcessUserJoinRequest(ct, new CurrentUserProvider(claims), input.UserJoinRequestId, input.IsApproved);
+            var result = await _userJoinRequestService.UserJoinRequestDecide(ct, new CurrentUserProvider(claims), input.UserJoinRequestId, input.IsApproved);
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequest = result.Value;

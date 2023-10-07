@@ -6,24 +6,24 @@ using MongoDB.Driver;
 namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
 {
     [Binding]
-    public class TeamUserJoinRequestApproveSteps : BaseSteps
+    public class TeamUserJoinRequestDecideSteps : BaseSteps
     {
         private CurrentUserProviderFake _currentUserProviderFake;
 
-        public TeamUserJoinRequestApproveSteps(
+        public TeamUserJoinRequestDecideSteps(
             CurrentUserProviderFake currentUserProviderFake,
             StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
         }
 
-        private async Task<TeamUserJoinRequestApproveInput> SetJoinRequestDecision(string teamName, string username, bool decisition)
+        private async Task<TeamUserJoinRequestDecideInput> SetJoinRequestDecision(string teamName, string username, bool decisition)
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var userJoinRequest = await Db.TeamUserJoinRequest.Find(x => x.UserId == user.Id & x.TeamId == team.Id).FirstAsync();
 
-            return new TeamUserJoinRequestApproveInput(userJoinRequest.Id, decisition);
+            return new TeamUserJoinRequestDecideInput(userJoinRequest.Id, decisition);
         }
 
         [When(@"'(.*)' принимает заявку на вступление в команду '(.*)' от пользователя '(.*)'")]
@@ -32,7 +32,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
             var input = await SetJoinRequestDecision(teamName, username, true);
             var claims = _currentUserProviderFake.LoginAs(ownerUsername);
 
-            await Mutation.TeamUserJoinRequestApprove(CancellationToken.None, claims, input);
+            await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, claims, input);
         }
 
         [When(@"'(.*)' отклоняет заявку на вступление в команду '(.*)' от пользователя '(.*)'")]
@@ -41,7 +41,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
             var input = await SetJoinRequestDecision(teamName, username, false);
             var claims = _currentUserProviderFake.LoginAs(ownerUsername);
 
-            await Mutation.TeamUserJoinRequestApprove(CancellationToken.None, claims, input);
+            await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, claims, input);
         }
 
         [Then(@"в команде '(.*)' количество участников равно '(.*)'")]

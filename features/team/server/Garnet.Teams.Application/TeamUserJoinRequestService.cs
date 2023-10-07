@@ -92,7 +92,7 @@ namespace Garnet.Teams.Application
             return Result.Ok(userJoinRequests);
         }
 
-        public async Task<Result<TeamUserJoinRequest>> ProcessUserJoinRequest(CancellationToken ct, ICurrentUserProvider currentUserProvider, string userJoinRequestId, bool decision)
+        public async Task<Result<TeamUserJoinRequest>> UserJoinRequestDecide(CancellationToken ct, ICurrentUserProvider currentUserProvider, string userJoinRequestId, bool isApproved)
         {
             var userJoinRequest = await _userJoinRequestRepository.GetUserJoinRequestById(ct, userJoinRequestId);
             if (userJoinRequest is null)
@@ -112,8 +112,7 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserJoinRequestOnlyOwnerCanDecideError());
             }
 
-            await _userJoinRequestRepository.DeleteUserJoinRequestById(ct, userJoinRequestId);
-            if (decision)
+            if (isApproved)
             {
                 var participantCreated = await _participantService.CreateTeamParticipant(ct, userJoinRequest.UserId, userJoinRequest.TeamId);
                 if (participantCreated.IsFailed)
@@ -121,8 +120,9 @@ namespace Garnet.Teams.Application
                     return Result.Fail(participantCreated.Errors);
                 }
             }
+            await _userJoinRequestRepository.DeleteUserJoinRequestById(ct, userJoinRequestId);
 
-            var @event = new TeamUserJoinRequestProcessedEvent(userJoinRequest.UserId, userJoinRequest.TeamId, decision);
+            var @event = new TeamUserJoinRequestDecidedEvent(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId, isApproved);
             await _messageBus.Publish(@event);
             return Result.Ok(userJoinRequest);
         }
