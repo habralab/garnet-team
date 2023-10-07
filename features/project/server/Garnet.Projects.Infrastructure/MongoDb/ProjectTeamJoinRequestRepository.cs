@@ -30,6 +30,16 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         return ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
     }
 
+    public async Task<ProjectTeamJoinRequest[]> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
+        string projectId)
+    {
+        var db = _dbFactory.Create();
+        var teams = await db.ProjectTeamJoinRequests.Find(x => x.ProjectId == projectId)
+            .ToListAsync(cancellationToken: ct);
+
+        return teams.Select(ProjectTeamJoinRequestDocument.ToDomain).ToArray();
+    }
+
     public async Task UpdateProjectTeamJoinRequest(CancellationToken ct, string teamId,
         string teamName)
     {

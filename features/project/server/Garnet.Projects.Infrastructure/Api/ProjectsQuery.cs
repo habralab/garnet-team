@@ -1,7 +1,11 @@
-﻿using Garnet.Common.Infrastructure.Support;
+﻿using System.Security.Claims;
+using Garnet.Common.Infrastructure.Identity;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
+using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
+using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
 using HotChocolate.Types;
 
@@ -12,11 +16,14 @@ public class ProjectsQuery
 {
     private readonly ProjectService _projectService;
     private readonly ProjectTeamParticipantService _projectTeamParticipantService;
+    private readonly ProjectTeamJoinRequestService _projectTeamJoinRequestService;
 
-    public ProjectsQuery(ProjectService projectService, ProjectTeamParticipantService projectTeamParticipantService)
+    public ProjectsQuery(ProjectService projectService, ProjectTeamParticipantService projectTeamParticipantService,
+        ProjectTeamJoinRequestService projectTeamJoinRequestService)
     {
         _projectService = projectService;
         _projectTeamParticipantService = projectTeamParticipantService;
+        _projectTeamJoinRequestService = projectTeamJoinRequestService;
     }
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
@@ -55,6 +62,23 @@ public class ProjectsQuery
         var teams = await _projectTeamParticipantService.GetProjectTeamParticipantByProjectId(ct, input.ProjectId);
 
         return new ProjectTeamParticipantPayload(teams.Select(x => new Application.ProjectTeamParticipant(
+            x.Id,
+            x.TeamId,
+            x.TeamName,
+            x.ProjectId
+        )).ToArray());
+    }
+
+    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
+        ClaimsPrincipal claims, ProjectTeamJoinRequestGetInput input)
+    {
+        var result =
+            await _projectTeamJoinRequestService.GetProjectTeamJoinRequestsByProjectId(ct,
+                new CurrentUserProvider(claims), input.ProjectId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var teamJoinRequests = result.Value;
+        return new ProjectTeamJoinRequestGetPayload(teamJoinRequests.Select(x => new ProjectTeamJoinRequestPayload(
             x.Id,
             x.TeamId,
             x.TeamName,
