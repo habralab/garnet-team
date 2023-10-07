@@ -34,7 +34,7 @@ namespace Garnet.Team
                 Environment.GetEnvironmentVariable(mongoConnStringEnv)
                 ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
-            services.AddScoped<TeamJoinProjectRequestCommand>();
+            services.AddScoped<TeamJoinProjectRequestCreateCommand>();
 
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();

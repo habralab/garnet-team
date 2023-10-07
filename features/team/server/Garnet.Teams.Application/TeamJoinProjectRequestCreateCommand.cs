@@ -6,13 +6,13 @@ using Garnet.Teams.Events;
 
 namespace Garnet.Teams.Application
 {
-    public class TeamJoinProjectRequestCommand
+    public class TeamJoinProjectRequestCreateCommand
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IMessageBus _messageBus;
         private readonly ITeamJoinProjectRequestRepository _joinProjectRequestRepository;
 
-        public TeamJoinProjectRequestCommand(
+        public TeamJoinProjectRequestCreateCommand(
             ITeamRepository teamRepository,
             ITeamJoinProjectRequestRepository joinProjectRequestRepository,
             IMessageBus messageBus)
@@ -43,7 +43,7 @@ namespace Garnet.Teams.Application
 
             var joinProjectRequest = await _joinProjectRequestRepository.CreateJoinProjectRequest(ct, teamId, projectId);
 
-            var @event = new TeamJoinProjectRequestCreatedEvent(projectId, teamId);
+            var @event = new TeamJoinProjectRequestCreatedEvent(joinProjectRequest.Id, projectId, teamId);
             await _messageBus.Publish(@event);
 
             return Result.Ok(joinProjectRequest);

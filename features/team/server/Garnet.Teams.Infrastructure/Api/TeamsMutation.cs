@@ -17,12 +17,12 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamUserJoinRequestService _membershipService;
-        private readonly TeamJoinProjectRequestCommand _joinProjectRequestCommand;
+        private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
 
         public TeamsMutation(
             TeamService teamService,
             TeamUserJoinRequestService membershipService,
-            TeamJoinProjectRequestCommand joinProjectRequestCommand)
+            TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamService = teamService;
             _membershipService = membershipService;
@@ -80,7 +80,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var joinProjectRequest = result.Value;
-            return new TeamJoinProjectRequestPayload(joinProjectRequest.TeamId, joinProjectRequest.ProjectId);
+            return new TeamJoinProjectRequestPayload(joinProjectRequest.Id, joinProjectRequest.TeamId, joinProjectRequest.ProjectId);
         }
     }
 }

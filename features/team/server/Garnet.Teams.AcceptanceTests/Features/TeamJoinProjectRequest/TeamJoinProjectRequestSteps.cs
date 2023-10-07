@@ -29,19 +29,19 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
         }
 
         [Given(@"существует проект '(.*)'")]
-        public Task GivenСуществуетПроект(string projectName)
+        public Task GivenСуществуетПроект(string projectId)
         {
-            _projectFake.CreateProject(projectName);
+            _projectFake.CreateProject(projectId);
             return Task.CompletedTask;
         }
 
         [When(@"пользователь '(.*)' отправляет заявку на вступление в проект '(.*)' от лица команды '(.*)'")]
-        public async Task WhenПользовательОтправляетЗаявкуНаВступлениеВПроектОтЛицаКоманды(string username, string projectName, string teamName)
+        public async Task WhenПользовательОтправляетЗаявкуНаВступлениеВПроектОтЛицаКоманды(string username, string projectId, string teamName)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
             var claims = _currentUserProviderFake.LoginAs(username);
-            var input = new TeamJoinProjectRequestPayload(team.Id, projectName);
+            var input = new TeamJoinProjectRequestPayload(Uuid.NewMongo(), team.Id, projectId);
 
             try
             {
@@ -55,21 +55,21 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
         }
 
         [Then(@"в проекте '(.*)' существует заявка на вступление от команды '(.*)'")]
-        public async Task ThenВПроектеСуществуетЗаявкаНаВступлениеОтКоманды(string projectName, string teamName)
+        public async Task ThenВПроектеСуществуетЗаявкаНаВступлениеОтКоманды(string projectId, string teamName)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var projectTeams = _projectFake.GetProjectTeams(projectName);
+            var projectTeams = _projectFake.GetProjectTeams(projectId);
             projectTeams.Any(x => x == team.Id).Should().Be(true);
         }
 
         [Given(@"существует заявка на вступление в проект '(.*)' от лица команды '(.*)'")]
-        public async Task GivenСуществуетЗаявкаНаВступлениеВПроектОтЛицаКоманды(string projectName, string teamName)
+        public async Task GivenСуществуетЗаявкаНаВступлениеВПроектОтЛицаКоманды(string projectId, string teamName)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var joinProjectRequest = TeamJoinProjectRequestDocument.Create(Uuid.NewMongo(), team.Id, projectName);
+            var joinProjectRequest = TeamJoinProjectRequestDocument.Create(Uuid.NewMongo(), team.Id, projectId);
 
             await Db.TeamJoinProjectRequests.InsertOneAsync(joinProjectRequest);
-            _projectFake.AddTeamToProject(team.Id, projectName);
+            _projectFake.AddTeamToProject(team.Id, projectId);
         }
     }
 }

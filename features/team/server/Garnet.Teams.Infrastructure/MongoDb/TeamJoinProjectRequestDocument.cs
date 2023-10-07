@@ -20,7 +20,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
 
         public static TeamJoinProjectRequest ToDomain(TeamJoinProjectRequestDocument doc)
         {
-            return new TeamJoinProjectRequest(doc.TeamId, doc.ProjectId);
+            return new TeamJoinProjectRequest(doc.Id, doc.TeamId, doc.ProjectId);
         }
     }
 }
