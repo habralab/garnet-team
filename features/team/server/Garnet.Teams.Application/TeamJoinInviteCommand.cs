@@ -69,7 +69,7 @@ namespace Garnet.Teams.Application
             }
 
             var invitation = await _joinInvitationRepository.CreateInvitation(ct, args.UserId, args.TeamId);
-            var @event = new TeamJoinInvitationCreatedEvent(args.UserId, args.TeamId);
+            var @event = new TeamJoinInvitationCreatedEvent(invitation.Id, args.UserId, args.TeamId);
             await _messageBus.Publish(@event);
 
             var invitationResult = new TeamJoinInvitation(invitation.Id, invitation.UserId, invitation.TeamId);

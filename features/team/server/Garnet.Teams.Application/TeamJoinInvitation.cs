@@ -4,5 +4,5 @@ namespace Garnet.Teams.Application
         string Id,
         string UserId,
         string TeamId
-    ) : TeamJoinInviteArgs(UserId, TeamId);
+    );
 }
