@@ -51,7 +51,7 @@ public class ProjectTeamParticipantsFilterSteps : BaseSteps
     [Then(@"количество команд в списке равно '([^']*)'")]
     public Task ThenКоличествоКомандВСписке(int teamCount)
     {
-        _response!.projectTeamParticipant.Count().Should().Be(teamCount);
+        _response!.ProjectTeamParticipant.Count().Should().Be(teamCount);
         return Task.CompletedTask;
     }
 }
