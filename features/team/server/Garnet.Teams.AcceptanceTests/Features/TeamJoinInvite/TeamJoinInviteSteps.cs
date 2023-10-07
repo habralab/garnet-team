@@ -1,6 +1,9 @@
+using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
+using Garnet.Teams.Infrastructure.MongoDb;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 
@@ -42,15 +45,21 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
         }
 
         [Then(@"у пользователя '(.*)' количество приглашений в команды равно '(.*)'")]
-        public Task ThenУПользователяКоличествоПриглашенийВКомандыРавно(string username, int joinInviteCount)
+        public async Task ThenУПользователяКоличествоПриглашенийВКомандыРавно(string username, int joinInviteCount)
         {
-            return Task.CompletedTask;
+            var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
+            var invitations = await Db.TeamJoinInvitations.Find(x => x.UserId == user.Id).ToListAsync();
+            invitations.Count.Should().Be(joinInviteCount);
         }
 
         [Given(@"существует приглашение пользователя '(.*)' на вступление в команду '(.*)' от владельца")]
-        public Task GivenСущесвуетПриглашениеПользователяНаВступлениеВКомандуОтВладельца(string username, string teamName)
+        public async Task GivenСущесвуетПриглашениеПользователяНаВступлениеВКомандуОтВладельца(string username, string teamName)
         {
-            return Task.CompletedTask;
+            var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+
+            var invitation = TeamJoinInvitationDocument.Create(Uuid.NewMongo(), user.Id, team.Id);
+            await Db.TeamJoinInvitations.InsertOneAsync(invitation);
         }
     }
 }

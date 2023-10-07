@@ -15,5 +15,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public IMongoCollection<TeamParticipantDocument> TeamParticipants => _mongoDatabase.GetCollection<TeamParticipantDocument>("TeamParticipants");
         public IMongoCollection<TeamUserDocument> TeamUsers => _mongoDatabase.GetCollection<TeamUserDocument>("TeamUsers");
         public IMongoCollection<TeamUserJoinRequestDocument> TeamUserJoinRequest => _mongoDatabase.GetCollection<TeamUserJoinRequestDocument>("TeamUserJoinRequest");
+        public IMongoCollection<TeamJoinInvitationDocument> TeamJoinInvitations => _mongoDatabase.GetCollection<TeamJoinInvitationDocument>("TeamJoinInviations");
     }
 }

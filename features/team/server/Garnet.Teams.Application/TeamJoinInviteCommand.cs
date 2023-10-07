@@ -56,6 +56,12 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(args.UserId));
             }
 
+            var filter = new TeamJoinInvitationFilterArgs(args.UserId, args.TeamId);
+            var invitations = await _joinInvitationRepository.FilterInvitations(ct, filter);
+            if (invitations.Count()>0) {
+                return Result.Fail(new TeamPendingJoinInvitationError(args.UserId));
+            }
+
             var invitation = await _joinInvitationRepository.CreateInvitation(ct, args.UserId, args.TeamId);
             var invitationResult = new TeamJoinInvitation(invitation.Id, invitation.UserId, invitation.TeamId);
             return Result.Ok(invitationResult);
