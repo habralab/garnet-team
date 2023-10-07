@@ -37,9 +37,6 @@ public class ProjectTeamJoinRequestGetSteps : BaseSteps
         await Db.Projects.UpdateOneAsync(
             _f.Eq(x => x.ProjectName, projectName),
             _u.Set(x => x.OwnerUserId, _currentUserProviderFake.GetUserIdByUsername(username)));
-
-        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        project.OwnerUserId.Should().Be(_currentUserProviderFake.GetUserIdByUsername(username));
     }
 
     [Given(@"существует заявка от команды '([^']*)' на участие в проекте '([^']*)'")]
