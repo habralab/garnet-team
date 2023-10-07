@@ -23,7 +23,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 teamId
             );
 
-            await db.TeamUserJoinRequest.InsertOneAsync(joinRequest, cancellationToken: ct);
+            await db.TeamUserJoinRequests.InsertOneAsync(joinRequest, cancellationToken: ct);
 
             return TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
@@ -31,7 +31,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<TeamUserJoinRequest[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
-            var joinRequests = await db.TeamUserJoinRequest.Find(
+            var joinRequests = await db.TeamUserJoinRequests.Find(
                 _f.Eq(x => x.TeamId, teamId)
             ).ToListAsync(ct);
 

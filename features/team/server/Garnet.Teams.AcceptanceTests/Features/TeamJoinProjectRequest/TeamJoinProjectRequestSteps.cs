@@ -1,8 +1,10 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
 using Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest;
+using Garnet.Teams.Infrastructure.MongoDb;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 
@@ -58,6 +60,16 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var projectTeams = _projectFake.GetProjectTeams(projectName);
             projectTeams.Any(x => x == team.Id).Should().Be(true);
+        }
+
+        [Given(@"существует заявка на вступление в проект '(.*)' от лица команды '(.*)'")]
+        public async Task GivenСуществуетЗаявкаНаВступлениеВПроектОтЛицаКоманды(string projectName, string teamName)
+        {
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+            var joinProjectRequest = TeamJoinProjectRequestDocument.Create(Uuid.NewMongo(), team.Id, projectName);
+
+            await Db.TeamJoinProjectRequests.InsertOneAsync(joinProjectRequest);
+            _projectFake.AddTeamToProject(team.Id, projectName);
         }
     }
 }
