@@ -1,6 +1,8 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
@@ -8,12 +10,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
     [Binding]
     public class TeamUserJoinRequestDecideSteps : BaseSteps
     {
-        private CurrentUserProviderFake _currentUserProviderFake;
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly QueryExceptionsContext _queryExceptionsContext;
 
         public TeamUserJoinRequestDecideSteps(
             CurrentUserProviderFake currentUserProviderFake,
+            QueryExceptionsContext queryExceptionsContext,
             StepsArgs args) : base(args)
         {
+            _queryExceptionsContext = queryExceptionsContext;
             _currentUserProviderFake = currentUserProviderFake;
         }
 
@@ -32,7 +37,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
             var input = await SetJoinRequestDecision(teamName, username, true);
             var claims = _currentUserProviderFake.LoginAs(ownerUsername);
 
-            await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, claims, input);
+            try
+            {
+                await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, claims, input);
+
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [When(@"'(.*)' отклоняет заявку на вступление в команду '(.*)' от пользователя '(.*)'")]
