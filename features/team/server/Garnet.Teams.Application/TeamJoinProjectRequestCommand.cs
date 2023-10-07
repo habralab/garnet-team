@@ -10,10 +10,15 @@ namespace Garnet.Teams.Application
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IMessageBus _messageBus;
+        private readonly ITeamJoinProjectRequestRepository _joinProjectRequestRepository;
 
-        public TeamJoinProjectRequestCommand(ITeamRepository teamRepository, IMessageBus messageBus)
+        public TeamJoinProjectRequestCommand(
+            ITeamRepository teamRepository,
+            ITeamJoinProjectRequestRepository joinProjectRequestRepository,
+            IMessageBus messageBus)
         {
             _teamRepository = teamRepository;
+            _joinProjectRequestRepository = joinProjectRequestRepository;
             _messageBus = messageBus;
         }
 
@@ -30,9 +35,16 @@ namespace Garnet.Teams.Application
                 return Result.Fail(new TeamOnlyOwnerCanRequestJoiningProjectError());
             }
 
+            var joinProjectRequests = await _joinProjectRequestRepository.GetJoinProjectRequestsByTeam(ct, teamId);
+            if (joinProjectRequests.Any(x => x.ProjectId == projectId))
+            {
+                return Result.Fail(new TeamPendingJoinProjectRequestError(teamId));
+            }
+
+            var joinProjectRequest = await _joinProjectRequestRepository.CreateJoinProjectRequest(ct, teamId, projectId);
+
             var @event = new TeamJoinProjectRequestCreatedEvent(projectId, teamId);
             await _messageBus.Publish(@event);
-            var joinProjectRequest = new TeamJoinProjectRequest(teamId, projectId);
 
             return Result.Ok(joinProjectRequest);
         }
