@@ -6,6 +6,7 @@ using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
 using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
+using Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using HotChocolate.Types;
 
@@ -66,6 +67,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
+        }
+
+        public Task<TeamJoinProjectRequestPayload> TeamJoinProjectRequest(CancellationToken ct, ClaimsPrincipal claims, TeamJoinProjectRequestPayload input)
+        {
+            return Task.FromResult(input);
         }
     }
 }
