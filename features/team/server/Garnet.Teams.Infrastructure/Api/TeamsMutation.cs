@@ -8,6 +8,7 @@ using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
 using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
 using Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -16,16 +17,16 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsMutation
     {
         private readonly TeamService _teamService;
-        private readonly TeamUserJoinRequestService _membershipService;
+        private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
 
         public TeamsMutation(
             TeamService teamService,
-            TeamUserJoinRequestService membershipService,
+            TeamUserJoinRequestService userJoinRequestService,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamService = teamService;
-            _membershipService = membershipService;
+            _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
         }
 
@@ -67,12 +68,13 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _membershipService.CreateJoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
+            var result = await _userJoinRequestService.CreateJoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
             return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
         }
+
 
         public async Task<TeamJoinProjectRequestPayload> TeamJoinProjectRequest(CancellationToken ct, ClaimsPrincipal claims, TeamJoinProjectRequestPayload input)
         {
@@ -81,6 +83,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var joinProjectRequest = result.Value;
             return new TeamJoinProjectRequestPayload(joinProjectRequest.Id, joinProjectRequest.TeamId, joinProjectRequest.ProjectId);
+        }
+
+        public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestDecide(CancellationToken ct, ClaimsPrincipal claims, TeamUserJoinRequestDecideInput input)
+        {
+            var result = await _userJoinRequestService.UserJoinRequestDecide(ct, new CurrentUserProvider(claims), input.UserJoinRequestId, input.IsApproved);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var userJoinRequest = result.Value;
+            return new TeamUserJoinRequestPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId);
         }
     }
 }
