@@ -71,9 +71,8 @@ namespace Garnet.Teams.AcceptanceTests
 
         private static void AddMessageBus(IServiceCollection services)
         {
-            var messageBusName = Uuid.NewGuid();
-            services.AddGarnetTeamsMessageBus(messageBusName);
-            services.AddGarnetMessageBus(messageBusName, o =>
+            services.AddGarnetTeamsMessageBus(Uuid.NewGuid());
+            services.AddGarnetMessageBus(Uuid.NewGuid(), o =>
             {
                 o.RegisterConsumer<ProjectTeamJoinRequestFakeConsumer, TeamJoinProjectRequestCreatedEvent>();
             });
