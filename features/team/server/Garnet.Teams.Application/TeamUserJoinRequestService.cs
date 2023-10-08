@@ -57,7 +57,7 @@ namespace Garnet.Teams.Application
 
             var request = await _userJoinRequestRepository.CreateJoinRequestByUser(ct, user.Id, teamId);
 
-            var @event = new TeamUserJoinRequestCreatedEvent(user.Id, teamId);
+            var @event = new TeamUserJoinRequestCreatedEvent(request.Id, user.Id, teamId);
             await _messageBus.Publish(@event);
 
             return Result.Ok(request);
