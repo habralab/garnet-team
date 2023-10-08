@@ -30,7 +30,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinRequest
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var request = TeamUserJoinRequestDocument.Create(Uuid.NewMongo(), userId, team.Id);
 
-            await Db.TeamUserJoinRequest.InsertOneAsync(request);
+            await Db.TeamUserJoinRequests.InsertOneAsync(request);
         }
 
         [When(@"пользователь '(.*)' подает заявку на вступление в команду '(.*)'")]
@@ -53,7 +53,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinRequest
         public async Task ThenВКомандеКоличествоЗаявокНаВступлениеРавно(string teamName, int joinRequestCount)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var requestCount = await Db.TeamUserJoinRequest.Find(x => x.TeamId == team.Id).ToListAsync();
+            var requestCount = await Db.TeamUserJoinRequests.Find(x => x.TeamId == team.Id).ToListAsync();
             requestCount.Count.Should().Be(joinRequestCount);
         }
     }

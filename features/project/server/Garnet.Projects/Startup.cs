@@ -39,10 +39,12 @@ public static class Startup
         services.AddScoped<ProjectUserService>();
         services.AddScoped<ProjectTeamService>();
         services.AddScoped<ProjectTeamParticipantService>();
+        services.AddScoped<ProjectTeamJoinRequestService>();
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
         services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
         services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
+        services.AddScoped<IProjectTeamJoinRequestRepository, ProjectTeamJoinRequestRepository>();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
@@ -52,10 +54,12 @@ public static class Startup
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
             o.RegisterMessage<ProjectDeletedEvent>();
+            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
             o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEventMock>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEventMock>();
+            o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinRequestCreatedEventMock>();
         });
     }
 

@@ -1,8 +1,12 @@
+using System.Security.Claims;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
 using HotChocolate.Types;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -13,12 +17,15 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamParticipantService _participantService;
+        private readonly TeamUserJoinRequestService _userJoinRequestService;
 
         public TeamsQuery(
             TeamService teamService,
+            TeamUserJoinRequestService userJoinRequestService,
             TeamParticipantService participantService)
         {
             _teamService = teamService;
+            _userJoinRequestService = userJoinRequestService;
             _participantService = participantService;
         }
 
@@ -49,6 +56,15 @@ namespace Garnet.Teams.Infrastructure.Api
             var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
 
             return new TeamParticipantFilterPayload(payloadContent);
+        }
+
+        public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        {
+            var result = await _userJoinRequestService.GetAllUserJoinRequestByTeam(ct, new CurrentUserProvider(claims), teamId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));
+            return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
         }
     }
 }
