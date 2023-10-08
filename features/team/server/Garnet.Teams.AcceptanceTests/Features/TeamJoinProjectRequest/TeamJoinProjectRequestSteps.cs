@@ -13,12 +13,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
     [Binding]
     public class TeamJoinProjectRequestSteps : BaseSteps
     {
-        private readonly ProjectFake _projectFake;
+        private readonly ProjectTeamJoinRequestFakeConsumer _projectFake;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private readonly QueryExceptionsContext _queryExceptionsContext;
 
         public TeamJoinProjectRequestSteps(
-            ProjectFake projectFake,
+            ProjectTeamJoinRequestFakeConsumer projectFake,
             CurrentUserProviderFake currentUserProviderFake,
             QueryExceptionsContext queryExceptionsContext,
             StepsArgs args) : base(args)

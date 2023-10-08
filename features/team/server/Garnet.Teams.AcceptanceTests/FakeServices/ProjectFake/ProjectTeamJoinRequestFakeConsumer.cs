@@ -5,16 +5,24 @@ namespace Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake
 {
     public class ProjectTeamJoinRequestFakeConsumer : IMessageBusConsumer<TeamJoinProjectRequestCreatedEvent>
     {
-        private readonly ProjectFake _projectFake;
-        public ProjectTeamJoinRequestFakeConsumer(ProjectFake projectFake)
-        {
-            _projectFake = projectFake;
-        }
+        private readonly Dictionary<string, HashSet<string>> _projectTeams = new();
 
         public Task Consume(TeamJoinProjectRequestCreatedEvent message)
         {
-            _projectFake.AddTeamToProject(message.TeamId, message.ProjectId);
+            AddTeamToProject(message.TeamId, message.ProjectId);
             return Task.CompletedTask;
         }
+
+        public void CreateProject(string projectId)
+        {
+            _projectTeams.Add(projectId, new());
+        }
+
+        public void AddTeamToProject(string teamId, string projectId)
+        {
+            _projectTeams[projectId].Add(teamId);
+        }
+
+        public List<string> GetProjectTeams(string projectId) => _projectTeams[projectId].ToList();
     }
 }

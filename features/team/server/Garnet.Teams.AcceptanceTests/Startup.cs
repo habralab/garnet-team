@@ -25,7 +25,6 @@ namespace Garnet.Teams.AcceptanceTests
         {
             var services = new ServiceCollection();
 
-            services.AddScoped<ProjectFake>();
             services.AddScoped<CurrentUserProviderFake>();
             services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
