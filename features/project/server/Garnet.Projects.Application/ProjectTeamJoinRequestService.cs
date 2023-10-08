@@ -6,13 +6,13 @@ namespace Garnet.Projects.Application;
 
 public class ProjectTeamJoinRequestService
 {
-    private readonly IProjectRepository _projectRepository;
+    private readonly ProjectService _projectService;
     private readonly IProjectTeamJoinRequestRepository _projectTeamJoinRequestRepository;
 
-    public ProjectTeamJoinRequestService(IProjectRepository projectRepository,
+    public ProjectTeamJoinRequestService(ProjectService projectService,
         IProjectTeamJoinRequestRepository projectTeamJoinRequestRepository)
     {
-        _projectRepository = projectRepository;
+        _projectService = projectService;
         _projectTeamJoinRequestRepository = projectTeamJoinRequestRepository;
     }
 
@@ -26,9 +26,14 @@ public class ProjectTeamJoinRequestService
     public async Task<Result<ProjectTeamJoinRequest[]>> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
         ICurrentUserProvider currentUserProvider, string projectId)
     {
-        var project = await _projectRepository.GetProject(ct, projectId);
+        var project = await _projectService.GetProject(ct, projectId);
+        if (project.IsFailed)
+        {
+            return Result.Fail(new ProjectNotFoundError(projectId));
+        }
 
-        if (project?.OwnerUserId != currentUserProvider.UserId)
+        var projectObj = project.Value;
+        if (projectObj?.OwnerUserId != currentUserProvider.UserId)
         {
             return Result.Fail(new ProjectOnlyOwnerCanGetTeamJoinRequestsError());
         }
