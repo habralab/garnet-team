@@ -90,6 +90,8 @@ namespace Garnet.Teams.Application
 
             team = await _teamRepository.EditTeamDescription(ct, teamId, description);
 
+            var @event = new TeamUpdatedEvent(team!.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team!);
         }
 
@@ -121,6 +123,8 @@ namespace Garnet.Teams.Application
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
 
+            var @event = new TeamUpdatedEvent(team!.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team!);
         }
     }
