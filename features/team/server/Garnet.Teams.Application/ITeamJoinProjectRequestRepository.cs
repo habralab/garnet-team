@@ -4,5 +4,6 @@ namespace Garnet.Teams.Application
     {
         Task<TeamJoinProjectRequest> CreateJoinProjectRequest(CancellationToken ct, string teamId, string projectId);
         Task<TeamJoinProjectRequest[]> GetJoinProjectRequestsByTeam(CancellationToken ct, string teamId);
+        Task<TeamJoinProjectRequest?> DeleteJoinProjectRequestById(CancellationToken ct, string joinProjectRequestId);
     }
 }

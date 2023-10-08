@@ -23,6 +23,17 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamJoinProjectRequestDocument.ToDomain(joinProjectRequest);
         }
 
+        public async Task<TeamJoinProjectRequest?> DeleteJoinProjectRequestById(CancellationToken ct, string joinProjectRequestId)
+        {
+            var db = _dbFactory.Create();
+            var joinProjectRequest = await db.TeamJoinProjectRequests.FindOneAndDeleteAsync(
+                _f.Eq(x=> x.Id, joinProjectRequestId),
+                cancellationToken: ct
+            );
+
+            return joinProjectRequest is null? null : TeamJoinProjectRequestDocument.ToDomain(joinProjectRequest);
+        }
+
         public async Task<TeamJoinProjectRequest[]> GetJoinProjectRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();

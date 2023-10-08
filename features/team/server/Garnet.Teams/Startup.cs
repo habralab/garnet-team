@@ -8,6 +8,7 @@ using Garnet.Teams.Infrastructure.MongoDb.Migration;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
+using Garnet.Projects.Events;
 using Garnet.Teams.Events;
 using Garnet.Teams.Infrastructure.EventHandlers;
 
@@ -58,6 +59,7 @@ namespace Garnet.Team
             {
                 o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
                 o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
+                o.RegisterConsumer<ProjectTeamJoinRequestDecidedEventConsumer, ProjectTeamJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamCreatedEvent>();
                 o.RegisterMessage<TeamDeletedEvent>();
                 o.RegisterMessage<TeamUpdatedEvent>();
