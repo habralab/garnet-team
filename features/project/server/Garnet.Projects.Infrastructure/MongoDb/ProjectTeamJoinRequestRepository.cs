@@ -30,6 +30,17 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         return ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
     }
 
+    public async Task<ProjectTeamJoinRequest?> DeleteProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId)
+    {
+        var db = _dbFactory.Create();
+        var teamJoinRequest = await db.ProjectTeamJoinRequests.FindOneAndDeleteAsync(
+            _f.Eq(x => x.Id, projectTeamJoinRequestId),
+            cancellationToken: ct
+        );
+
+        return teamJoinRequest is null ? null : ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
+    }
+
     public async Task<ProjectTeamJoinRequest[]> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
         string projectId)
     {
@@ -38,6 +49,16 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
             .ToListAsync(cancellationToken: ct);
 
         return teams.Select(ProjectTeamJoinRequestDocument.ToDomain).ToArray();
+    }
+
+    public async Task<ProjectTeamJoinRequest?> GetProjectTeamJoinRequestById(CancellationToken ct,
+        string projectTeamJoinRequestId)
+    {
+        var db = _dbFactory.Create();
+        var teamJoinRequest = await db.ProjectTeamJoinRequests.Find(x => x.Id == projectTeamJoinRequestId)
+            .FirstAsync(cancellationToken: ct);
+
+        return teamJoinRequest is null ? null : ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
     }
 
     public async Task UpdateProjectTeamJoinRequest(CancellationToken ct, string teamId,
