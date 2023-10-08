@@ -60,6 +60,7 @@ namespace Garnet.Team
                 o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationCreatedEvent>();
+                o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
             });
         }
     }

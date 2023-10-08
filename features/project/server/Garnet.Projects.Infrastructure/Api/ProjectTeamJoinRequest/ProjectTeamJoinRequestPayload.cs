@@ -1,3 +1,8 @@
 ﻿namespace Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 
-public record ProjectTeamJoinRequestPayload(Application.ProjectTeamJoinRequest projectTeamJoinRequest);
+public record ProjectTeamJoinRequestPayload(
+    string Id,
+    string TeamId,
+    string TeamName,
+    string ProjectId
+    );
