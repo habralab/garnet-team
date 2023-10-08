@@ -69,6 +69,8 @@ namespace Garnet.Teams.Application
             await _teamRepository.DeleteTeam(ct, teamId);
             await _participantService.DeleteTeamParticipants(ct, teamId);
 
+            var @event = new TeamDeletedEvent(team.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team);
         }
 
