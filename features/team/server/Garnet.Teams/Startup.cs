@@ -35,7 +35,9 @@ namespace Garnet.Team
                 Environment.GetEnvironmentVariable(mongoConnStringEnv)
                 ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+
             services.AddScoped<TeamJoinProjectRequestCreateCommand>();
+            services.AddScoped<TeamJoinInviteCommand>();
 
             services.AddScoped<TeamService>();
             services.AddScoped<TeamUserService>();
@@ -46,6 +48,7 @@ namespace Garnet.Team
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
             services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
             services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
+            services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
@@ -65,6 +68,7 @@ namespace Garnet.Team
                 o.RegisterMessage<TeamDeletedEvent>();
                 o.RegisterMessage<TeamUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
+                o.RegisterMessage<TeamJoinInvitationCreatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamJoinProjectRequestCreatedEvent>();
             });
