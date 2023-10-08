@@ -6,6 +6,7 @@ using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
 using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
+using Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
@@ -18,12 +19,18 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
+        private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
-
-        public TeamsMutation(TeamJoinInviteCommand joinInviteCommand, TeamService teamService, TeamUserJoinRequestService userJoinRequestService)
+      
+        public TeamsMutation(
+            TeamService teamService,
+            TeamUserJoinRequestService userJoinRequestService,
+            TeamJoinInviteCommand joinInviteCommand,
+            TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamService = teamService;
             _userJoinRequestService = userJoinRequestService;
+            _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
         }
 
@@ -70,6 +77,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
+        }
+
+        public async Task<TeamJoinProjectRequestPayload> TeamJoinProjectRequest(CancellationToken ct, ClaimsPrincipal claims, TeamJoinProjectRequestPayload input)
+        {
+            var result = await _joinProjectRequestCommand.SendJoinProjectRequest(ct, new CurrentUserProvider(claims), input.TeamId, input.ProjectId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var joinProjectRequest = result.Value;
+            return new TeamJoinProjectRequestPayload(joinProjectRequest.Id, joinProjectRequest.TeamId, joinProjectRequest.ProjectId);
         }
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvite(CancellationToken ct, ClaimsPrincipal claims, TeamJoinInviteInput input)

@@ -1,7 +1,9 @@
 
 using FluentResults;
 using Garnet.Common.Application;
+using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Events;
 
 namespace Garnet.Teams.Application
 {
@@ -10,10 +12,13 @@ namespace Garnet.Teams.Application
         private readonly ITeamRepository _teamRepository;
         private readonly TeamParticipantService _participantService;
         private readonly TeamUserService _userService;
+        private readonly IMessageBus _messageBus;
         public TeamService(ITeamRepository teamRepository,
+                            IMessageBus messageBus,
                            TeamParticipantService participantService,
                            TeamUserService userService)
         {
+            _messageBus = messageBus;
             _participantService = participantService;
             _teamRepository = teamRepository;
             _userService = userService;
@@ -31,6 +36,8 @@ namespace Garnet.Teams.Application
             var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
             await _participantService.CreateTeamParticipant(ct, user.Id, team.Id);
 
+            var @event = new TeamCreatedEvent(team.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team);
         }
 
@@ -62,6 +69,8 @@ namespace Garnet.Teams.Application
             await _teamRepository.DeleteTeam(ct, teamId);
             await _participantService.DeleteTeamParticipants(ct, teamId);
 
+            var @event = new TeamDeletedEvent(team.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team);
         }
 
@@ -81,6 +90,8 @@ namespace Garnet.Teams.Application
 
             team = await _teamRepository.EditTeamDescription(ct, teamId, description);
 
+            var @event = new TeamUpdatedEvent(team!.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team!);
         }
 
@@ -112,6 +123,8 @@ namespace Garnet.Teams.Application
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
 
+            var @event = new TeamUpdatedEvent(team!.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            await _messageBus.Publish(@event);
             return Result.Ok(team!);
         }
     }

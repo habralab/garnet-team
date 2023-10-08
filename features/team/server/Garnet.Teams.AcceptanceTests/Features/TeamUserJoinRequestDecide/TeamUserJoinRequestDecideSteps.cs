@@ -26,7 +26,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var userJoinRequest = await Db.TeamUserJoinRequest.Find(x => x.UserId == user.Id & x.TeamId == team.Id).FirstAsync();
+            var userJoinRequest = await Db.TeamUserJoinRequests.Find(x => x.UserId == user.Id & x.TeamId == team.Id).FirstAsync();
 
             return new TeamUserJoinRequestDecideInput(userJoinRequest.Id, decisition);
         }

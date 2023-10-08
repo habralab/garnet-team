@@ -9,9 +9,12 @@ using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
 using Garnet.Teams.Infrastructure.MongoDb.Migration;
+using Garnet.Common.Infrastructure.MessageBus;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
+using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
+using Garnet.Teams.Events;
 
 namespace Garnet.Teams.AcceptanceTests
 {
@@ -29,8 +32,10 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
             services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
+            services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
             services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
-
+          
+            services.AddScoped<TeamJoinProjectRequestCreateCommand>();
             services.AddScoped<TeamJoinInviteCommand>();
 
             services.AddScoped<TeamService>();
@@ -69,6 +74,10 @@ namespace Garnet.Teams.AcceptanceTests
         private static void AddMessageBus(IServiceCollection services)
         {
             services.AddGarnetTeamsMessageBus(Uuid.NewGuid());
+            services.AddGarnetMessageBus(Uuid.NewGuid(), o =>
+            {
+                o.RegisterConsumer<ProjectTeamJoinRequestFakeConsumer, TeamJoinProjectRequestCreatedEvent>();
+            });
         }
     }
 }

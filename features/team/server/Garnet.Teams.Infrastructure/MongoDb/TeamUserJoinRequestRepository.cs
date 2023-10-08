@@ -23,7 +23,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 teamId
             );
 
-            await db.TeamUserJoinRequest.InsertOneAsync(joinRequest, cancellationToken: ct);
+            await db.TeamUserJoinRequests.InsertOneAsync(joinRequest, cancellationToken: ct);
 
             return TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
@@ -31,7 +31,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<TeamUserJoinRequest?> DeleteUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
         {
             var db = _dbFactory.Create();
-            var joinRequest = await db.TeamUserJoinRequest.FindOneAndDeleteAsync(
+            var joinRequest = await db.TeamUserJoinRequests.FindOneAndDeleteAsync(
                 _f.Eq(x => x.Id, userJoinRequestId),
                 cancellationToken: ct
             );
@@ -42,7 +42,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<TeamUserJoinRequest[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
-            var joinRequests = await db.TeamUserJoinRequest.Find(
+            var joinRequests = await db.TeamUserJoinRequests.Find(
                 _f.Eq(x => x.TeamId, teamId)
             ).ToListAsync(ct);
 
@@ -52,7 +52,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         public async Task<TeamUserJoinRequest?> GetUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
         {
             var db = _dbFactory.Create();
-            var joinRequest = await db.TeamUserJoinRequest.Find(
+            var joinRequest = await db.TeamUserJoinRequests.Find(
                 _f.Eq(x => x.Id, userJoinRequestId)
             ).FirstOrDefaultAsync(ct);
 
