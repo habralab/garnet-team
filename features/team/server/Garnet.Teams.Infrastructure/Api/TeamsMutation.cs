@@ -25,7 +25,7 @@ namespace Garnet.Teams.Infrastructure.Api
         public TeamsMutation(
             TeamService teamService,
             TeamUserJoinRequestService userJoinRequestService,
-            TeamJoinInviteCommand joinInviteCommand
+            TeamJoinInviteCommand joinInviteCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamService = teamService;
