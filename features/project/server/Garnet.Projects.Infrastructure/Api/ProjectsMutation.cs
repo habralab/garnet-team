@@ -7,6 +7,8 @@ using Garnet.Projects.Infrastructure.Api.ProjectDelete;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
 using Garnet.Projects.Infrastructure.Api.ProjectEdit;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
+using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
+using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using HotChocolate.Types;
 
 namespace Garnet.Projects.Infrastructure.Api;
@@ -15,10 +17,12 @@ namespace Garnet.Projects.Infrastructure.Api;
 public class ProjectsMutation
 {
     private readonly ProjectService _projectService;
+    private readonly ProjectTeamJoinRequestService _projectTeamJoinRequestService;
 
-    public ProjectsMutation(ProjectService projectService)
+    public ProjectsMutation(ProjectService projectService, ProjectTeamJoinRequestService projectTeamJoinRequestService)
     {
         _projectService = projectService;
+        _projectTeamJoinRequestService = projectTeamJoinRequestService;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct, ClaimsPrincipal claims,
@@ -56,5 +60,14 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
+    }
+
+    public async Task<ProjectTeamJoinRequestPayload> ProjectTeamJoinRequestDecide(CancellationToken ct, ClaimsPrincipal claims, ProjectTeamJoinRequestDecideInput input)
+    {
+        var result = await _projectTeamJoinRequestService.ProjectTeamJoinRequestDecide(ct, new CurrentUserProvider(claims), input.ProjectTeamJoinRequestId, input.IsApproved);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var teamJoinRequest = result.Value;
+        return new ProjectTeamJoinRequestPayload(teamJoinRequest.Id, teamJoinRequest.TeamId, teamJoinRequest.TeamName, teamJoinRequest.ProjectId);
     }
 }
