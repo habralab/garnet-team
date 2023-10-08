@@ -27,22 +27,31 @@ namespace Garnet.Teams.Infrastructure.MongoDb
         {
             var db = _dbFactory.Create();
             var joinProjectRequest = await db.TeamJoinProjectRequests.FindOneAndDeleteAsync(
-                _f.Eq(x=> x.Id, joinProjectRequestId),
+                _f.Eq(x => x.Id, joinProjectRequestId),
                 cancellationToken: ct
             );
 
-            return joinProjectRequest is null? null : TeamJoinProjectRequestDocument.ToDomain(joinProjectRequest);
+            return joinProjectRequest is null ? null : TeamJoinProjectRequestDocument.ToDomain(joinProjectRequest);
+        }
+
+        public async Task DeleteJoinProjectRequestByProject(CancellationToken ct, string projectId)
+        {
+            var db = _dbFactory.Create();
+            await db.TeamJoinProjectRequests.DeleteManyAsync(
+                _f.Eq(x => x.ProjectId, projectId),
+                cancellationToken: ct
+            );
         }
 
         public async Task<TeamJoinProjectRequest[]> GetJoinProjectRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
-            var teamFilter = _f.Eq(x=> x.TeamId, teamId);
+            var teamFilter = _f.Eq(x => x.TeamId, teamId);
             var joinProjectRequests = await db.TeamJoinProjectRequests
                 .Find(teamFilter)
                 .ToListAsync(ct);
 
-            return joinProjectRequests.Select(x=> TeamJoinProjectRequestDocument.ToDomain(x)).ToArray();
+            return joinProjectRequests.Select(x => TeamJoinProjectRequestDocument.ToDomain(x)).ToArray();
         }
     }
 }
