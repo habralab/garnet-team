@@ -25,13 +25,13 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
     }
 
     private async Task<ProjectTeamJoinRequestDecideInput> SetJoinRequestDecision(string projectName, string teamName,
-        bool decision)
+        bool isApproved)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var userJoinRequest = await Db.ProjectTeamJoinRequests
             .Find(x => x.ProjectId == project.Id && x.TeamName == teamName).FirstAsync();
 
-        return new ProjectTeamJoinRequestDecideInput(userJoinRequest.Id, decision);
+        return new ProjectTeamJoinRequestDecideInput(userJoinRequest.Id, isApproved);
     }
 
 
