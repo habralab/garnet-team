@@ -72,7 +72,7 @@ public class ProjectTeamJoinRequestService
         var project = findProject.Value;
         if (project.OwnerUserId != currentUserProvider.UserId)
         {
-            return Result.Fail(new ProjectOnlyOwnerCanDecideError());
+            return Result.Fail(new ProjectTeamJoinRequestOnlyOwnerCanDecideError());
         }
 
         if (isApproved)

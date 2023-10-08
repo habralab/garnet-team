@@ -2,12 +2,12 @@
 
 namespace Garnet.Projects.Application.Errors;
 
-public class ProjectOnlyOwnerCanDecideError : ApplicationError
+public class ProjectTeamJoinRequestOnlyOwnerCanDecideError : ApplicationError
 {
-    public ProjectOnlyOwnerCanDecideError()
+    public ProjectTeamJoinRequestOnlyOwnerCanDecideError()
         : base("Выносить вердикт по заявкам на вступление может только владелец этого проекта")
     {
     }
 
-    public override string Code => nameof(ProjectOnlyOwnerCanDecideError);
+    public override string Code => nameof(ProjectTeamJoinRequestOnlyOwnerCanDecideError);
 }
