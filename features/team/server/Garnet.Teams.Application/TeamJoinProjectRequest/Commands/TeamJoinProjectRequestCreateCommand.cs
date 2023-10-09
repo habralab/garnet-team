@@ -46,7 +46,7 @@ namespace Garnet.Teams.Application.TeamJoinProjectRequest.Commands
 
             var joinProjectRequest = await _joinProjectRequestRepository.CreateJoinProjectRequest(ct, teamId, projectId);
 
-            var @event = new TeamJoinProjectRequestCreatedEvent(joinProjectRequest.Id, projectId, teamId);
+            var @event = joinProjectRequest.ToCreatedEvent();
             await _messageBus.Publish(@event);
 
             return Result.Ok(joinProjectRequest);
