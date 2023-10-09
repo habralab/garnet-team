@@ -28,15 +28,17 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamCreateCommand _teamCreateCommand;
         private readonly TeamDeleteCommand _teamDeleteCommand;
         private readonly TeamEditDescriptionCommand _teamEditDescriptionCommand;
+        private readonly TeamEditOwnerCommand _teamEditOwnerCommand;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
-      
+
         public TeamsMutation(
             TeamService teamService,
             TeamCreateCommand teamCreateCommand,
             TeamDeleteCommand teamDeleteCommand,
             TeamEditDescriptionCommand teamEditDescriptionCommand,
+            TeamEditOwnerCommand teamEditOwnerCommand,
             TeamUserJoinRequestService userJoinRequestService,
             TeamJoinInviteCommand joinInviteCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
@@ -45,6 +47,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamCreateCommand = teamCreateCommand;
             _teamDeleteCommand = teamDeleteCommand;
             _teamEditDescriptionCommand = teamEditDescriptionCommand;
+            _teamEditOwnerCommand = teamEditOwnerCommand;
             _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
@@ -82,7 +85,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamEditOwnerPayload> TeamEditOwner(CancellationToken ct, ClaimsPrincipal claims, TeamEditOwnerInput input)
         {
-            var result = await _teamService.EditTeamOwner(ct, input.TeamId, input.NewOwnerUserId, new CurrentUserProvider(claims));
+            var result = await _teamEditOwnerCommand.Execute(ct, new CurrentUserProvider(claims), input.TeamId, input.NewOwnerUserId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
