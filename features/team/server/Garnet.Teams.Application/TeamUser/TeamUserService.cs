@@ -24,10 +24,5 @@ namespace Garnet.Teams.Application.TeamUser
 
             return Result.Ok(user);
         }
-
-        public async Task<TeamUserEntity?> UpdateUser(CancellationToken ct, string userId, TeamUserUpdateArgs update)
-        {
-            return await _usersRepository.UpdateUser(ct, userId, update);
-        }
     }
 }

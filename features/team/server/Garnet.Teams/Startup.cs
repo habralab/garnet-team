@@ -111,6 +111,7 @@ namespace Garnet.Team
             services.AddScoped<TeamUserService>();
 
             services.AddScoped<TeamUserCreateCommand>();
+            services.AddScoped<TeamUserUpdateCommand>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)

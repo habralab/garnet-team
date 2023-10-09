@@ -1,23 +1,22 @@
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Args;
-using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Args;
+using Garnet.Teams.Application.TeamUser.Commands;
 using Garnet.Users.Events;
 
 namespace Garnet.Teams.Infrastructure.EventHandlers.User
 {
     public class UserUpdatedEventConsumer : IMessageBusConsumer<UserUpdatedEvent>
     {
-        private readonly TeamUserService _userService;
+        private readonly TeamUserUpdateCommand _teamUserUpdateCommand;
         private readonly TeamParticipantService _participantService;
 
         public UserUpdatedEventConsumer(
-            TeamUserService userService,
+            TeamUserUpdateCommand teamUserUpdateCommand,
             TeamParticipantService participantService)
         {
-            _userService = userService;
+            _teamUserUpdateCommand = teamUserUpdateCommand;
             _participantService = participantService;
         }
 
@@ -26,7 +25,7 @@ namespace Garnet.Teams.Infrastructure.EventHandlers.User
             var userUpdate = new TeamUserUpdateArgs(message.UserName);
             var participantUpdate = new TeamParticipantUpdateArgs(message.UserName);
 
-            await _userService.UpdateUser(CancellationToken.None, message.UserId, userUpdate);
+            await _teamUserUpdateCommand.Execute(CancellationToken.None, message.UserId, userUpdate);
             await _participantService.UpdateTeamParticipant(CancellationToken.None, message.UserId, participantUpdate);
         }
     }
