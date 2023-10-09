@@ -56,7 +56,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             return userTeams.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task<TeamParticipantEntity[]> FilterTeamParticipants(CancellationToken ct, TeamUserFilterArgs filter)
+        public async Task<TeamParticipantEntity[]> FilterTeamParticipants(CancellationToken ct, TeamParticipantFilterArgs filter)
         {
             var db = _dbFactory.Create();
 
@@ -64,8 +64,12 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
                 ? _f.Empty
                 : _f.Where(x => x.Username.ToLower().Contains(filter.Search.ToLower()));
 
+            var teamFilter = filter.TeamId is null
+                ? _f.Empty
+                : _f.Eq(x=> x.TeamId, filter.TeamId);
+
             var participants = await db.TeamParticipants
-                .Find(searchFilter)
+                .Find(searchFilter & teamFilter)
                 .Skip(filter.Skip)
                 .Limit(filter.Take)
                 .ToListAsync(ct);

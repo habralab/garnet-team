@@ -6,6 +6,8 @@ using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Args;
+using Garnet.Teams.Application.TeamParticipant.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
@@ -24,18 +26,18 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamGetQuery _teamGetQuery;
         private readonly TeamsFilterQuery _teamsFilterQuery;
         private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
-        private readonly TeamParticipantService _participantService;
+        private readonly TeamParticipantFilterQuery _teamParticipantFilterQuery;
 
         public TeamsQuery(
             TeamGetQuery teamGetQuery,
             TeamsFilterQuery teamsFilterQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
-            TeamParticipantService participantService)
+            TeamParticipantFilterQuery teamParticipantFilterQuery)
         {
             _teamGetQuery = teamGetQuery;
             _teamsFilterQuery = teamsFilterQuery;
             _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
-            _participantService = participantService;
+            _teamParticipantFilterQuery = teamParticipantFilterQuery;
         }
 
         public async Task<TeamPayload> TeamGet(CancellationToken ct, string teamId)
@@ -57,7 +59,8 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamParticipantFilterPayload> TeamParticipantFilter(CancellationToken ct, TeamParticipantFilterInput input)
         {
-            var participants = await _participantService.FindTeamParticipantByUsername(ct, input.TeamId, input.Search, input.Take, input.Skip);
+            var args = new TeamParticipantFilterArgs(input.Search, input.TeamId, input.Skip, input.Take);
+            var participants = await _teamParticipantFilterQuery.Query(ct, args);
             var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
 
             return new TeamParticipantFilterPayload(payloadContent);
