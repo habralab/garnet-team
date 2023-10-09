@@ -60,7 +60,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
                 return Result.Fail(new TeamUserNotFoundError(userJoinRequest.UserId));
             }
 
-            var @event = new TeamUserJoinRequestDecidedEvent(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId, isApproved);
+            var @event = userJoinRequest.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
             return Result.Ok(userJoinRequest);
         }
