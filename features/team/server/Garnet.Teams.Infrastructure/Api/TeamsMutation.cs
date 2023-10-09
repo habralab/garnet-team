@@ -24,7 +24,6 @@ namespace Garnet.Teams.Infrastructure.Api
     [ExtendObjectType("Mutation")]
     public class TeamsMutation
     {
-        private readonly TeamService _teamService;
         private readonly TeamCreateCommand _teamCreateCommand;
         private readonly TeamDeleteCommand _teamDeleteCommand;
         private readonly TeamEditDescriptionCommand _teamEditDescriptionCommand;
@@ -34,7 +33,6 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamJoinInviteCommand _joinInviteCommand;
 
         public TeamsMutation(
-            TeamService teamService,
             TeamCreateCommand teamCreateCommand,
             TeamDeleteCommand teamDeleteCommand,
             TeamEditDescriptionCommand teamEditDescriptionCommand,
@@ -43,7 +41,6 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamJoinInviteCommand joinInviteCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
-            _teamService = teamService;
             _teamCreateCommand = teamCreateCommand;
             _teamDeleteCommand = teamDeleteCommand;
             _teamEditDescriptionCommand = teamEditDescriptionCommand;

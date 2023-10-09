@@ -3,6 +3,7 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUserJoinRequest;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
@@ -19,14 +20,17 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsQuery
     {
         private readonly TeamService _teamService;
+        private readonly TeamGetQuery _teamGetQuery;
         private readonly TeamParticipantService _participantService;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
 
         public TeamsQuery(
             TeamService teamService,
+            TeamGetQuery teamGetQuery,
             TeamUserJoinRequestService userJoinRequestService,
             TeamParticipantService participantService)
         {
+            _teamGetQuery = teamGetQuery;
             _teamService = teamService;
             _userJoinRequestService = userJoinRequestService;
             _participantService = participantService;
@@ -34,7 +38,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamPayload> TeamGet(CancellationToken ct, string teamId)
         {
-            var result = await _teamService.GetTeamById(ct, teamId);
+            var result = await _teamGetQuery.Query(ct, teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
