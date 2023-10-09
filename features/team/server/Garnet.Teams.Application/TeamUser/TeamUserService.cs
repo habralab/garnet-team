@@ -14,11 +14,6 @@ namespace Garnet.Teams.Application.TeamUser
             _usersRepository = usersRepository;
         }
 
-        public async Task<TeamUserEntity> AddUser(CancellationToken ct, string userId, string username)
-        {
-            return await _usersRepository.AddUser(ct, userId, username);
-        }
-
         public async Task<Result<TeamUserEntity>> GetUser(CancellationToken ct, string userId)
         {
             var user = await _usersRepository.GetUser(ct, userId);

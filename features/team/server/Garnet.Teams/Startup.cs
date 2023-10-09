@@ -35,6 +35,7 @@ using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
+using Garnet.Teams.Application.TeamUser.Commands;
 
 namespace Garnet.Team
 {
@@ -94,7 +95,6 @@ namespace Garnet.Team
         public static void AddTeamInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamRepository, TeamRepository>();
-            services.AddScoped<TeamService>();
 
             services.AddScoped<TeamCreateCommand>();
             services.AddScoped<TeamDeleteCommand>();
@@ -109,6 +109,8 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
             services.AddScoped<TeamUserService>();
+
+            services.AddScoped<TeamUserCreateCommand>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)
