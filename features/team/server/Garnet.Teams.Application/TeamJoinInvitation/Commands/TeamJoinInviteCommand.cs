@@ -30,7 +30,7 @@ namespace Garnet.Teams.Application
             _participantRepository = participantRepository;
         }
 
-        public async Task<Result<TeamJoinInvitation>> InviteUserToTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, TeamJoinInviteArgs args)
+        public async Task<Result<TeamJoinInvitationEntity>> InviteUserToTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, TeamJoinInviteArgs args)
         {
             var team = await _teamRepository.GetTeamById(ct, args.TeamId);
             if (team is null)
@@ -72,7 +72,7 @@ namespace Garnet.Teams.Application
             var @event = new TeamJoinInvitationCreatedEvent(invitation.Id, args.UserId, args.TeamId);
             await _messageBus.Publish(@event);
 
-            var invitationResult = new TeamJoinInvitation(invitation.Id, invitation.UserId, invitation.TeamId);
+            var invitationResult = new TeamJoinInvitationEntity(invitation.Id, invitation.UserId, invitation.TeamId);
             return Result.Ok(invitationResult);
         }
     }

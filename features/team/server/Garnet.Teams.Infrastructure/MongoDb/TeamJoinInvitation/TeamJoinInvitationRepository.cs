@@ -14,7 +14,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamJoinInvitation> CreateInvitation(CancellationToken ct, string userId, string teamId)
+        public async Task<TeamJoinInvitationEntity> CreateInvitation(CancellationToken ct, string userId, string teamId)
         {
             var db = _dbFactory.Create();
             var invitation = TeamJoinInvitationDocument.Create(Uuid.NewMongo(), userId, teamId);
@@ -22,7 +22,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamJoinInvitationDocument.ToDomain(invitation);
         }
 
-        public async Task<TeamJoinInvitation[]> FilterInvitations(CancellationToken ct, TeamJoinInvitationFilterArgs filter)
+        public async Task<TeamJoinInvitationEntity[]> FilterInvitations(CancellationToken ct, TeamJoinInvitationFilterArgs filter)
         {
             var db = _dbFactory.Create();
 

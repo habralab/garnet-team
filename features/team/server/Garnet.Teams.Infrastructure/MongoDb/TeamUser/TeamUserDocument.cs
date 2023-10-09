@@ -16,9 +16,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             };
         }
 
-        public static TeamUser ToDomain(TeamUserDocument doc)
+        public static TeamUserEntity ToDomain(TeamUserDocument doc)
         {
-            return new TeamUser(doc.Id, doc.Username);
+            return new TeamUserEntity(doc.Id, doc.Username);
         }
     }
 }

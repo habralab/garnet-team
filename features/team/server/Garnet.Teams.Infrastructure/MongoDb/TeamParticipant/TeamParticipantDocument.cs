@@ -20,9 +20,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             };
         }
 
-        public static TeamParticipant ToDomain(TeamParticipantDocument doc)
+        public static TeamParticipantEntity ToDomain(TeamParticipantDocument doc)
         {
-            return new TeamParticipant(doc.Id, doc.UserId, doc.Username, doc.TeamId);
+            return new TeamParticipantEntity(doc.Id, doc.UserId, doc.Username, doc.TeamId);
         }
     }
 }

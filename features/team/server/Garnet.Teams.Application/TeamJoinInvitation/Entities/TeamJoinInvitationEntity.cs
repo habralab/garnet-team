@@ -1,6 +1,6 @@
 namespace Garnet.Teams.Application
 {
-    public record TeamJoinInvitation(
+    public record TeamJoinInvitationEntity(
         string Id,
         string UserId,
         string TeamId

@@ -12,12 +12,12 @@ namespace Garnet.Teams.Application
             _usersRepository = usersRepository;
         }
 
-        public async Task<TeamUser> AddUser(CancellationToken ct, string userId, string username)
+        public async Task<TeamUserEntity> AddUser(CancellationToken ct, string userId, string username)
         {
             return await _usersRepository.AddUser(ct, userId, username);
         }
 
-        public async Task<Result<TeamUser>> GetUser(CancellationToken ct, string userId)
+        public async Task<Result<TeamUserEntity>> GetUser(CancellationToken ct, string userId)
         {
             var user = await _usersRepository.GetUser(ct, userId);
             if (user is null)
@@ -28,7 +28,7 @@ namespace Garnet.Teams.Application
             return Result.Ok(user);
         }
 
-        public async Task<TeamUser?> UpdateUser(CancellationToken ct, string userId, TeamUserUpdateArgs update)
+        public async Task<TeamUserEntity?> UpdateUser(CancellationToken ct, string userId, TeamUserUpdateArgs update)
         {
             return await _usersRepository.UpdateUser(ct, userId, update);
         }

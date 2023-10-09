@@ -17,7 +17,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<Team> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId, string[] tags)
+        public async Task<TeamEntity> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId, string[] tags)
         {
             var db = _dbFactory.Create();
             var team = TeamDocument.Create(
@@ -31,7 +31,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamDocument.ToDomain(team);
         }
 
-        public async Task<Team?> GetTeamById(CancellationToken ct, string teamId)
+        public async Task<TeamEntity?> GetTeamById(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
             var team = await db.Teams.Find(o => o.Id == teamId).FirstOrDefaultAsync(ct);
@@ -49,7 +49,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
                 cancellationToken: ct);
         }
 
-        public async Task<Team[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        public async Task<TeamEntity[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
         {
             var db = _dbFactory.Create();
 
@@ -71,7 +71,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task<Team?> DeleteTeam(CancellationToken ct, string teamId)
+        public async Task<TeamEntity?> DeleteTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
 
@@ -82,7 +82,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamDocument.ToDomain(team);
         }
 
-        public async Task<Team?> EditTeamDescription(CancellationToken ct, string teamId, string description)
+        public async Task<TeamEntity?> EditTeamDescription(CancellationToken ct, string teamId, string description)
         {
             var db = _dbFactory.Create();
 
@@ -99,7 +99,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamDocument.ToDomain(team);
         }
 
-        public async Task<Team?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId)
+        public async Task<TeamEntity?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId)
         {
             var db = _dbFactory.Create();
 

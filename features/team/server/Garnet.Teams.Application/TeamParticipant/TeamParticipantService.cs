@@ -17,7 +17,7 @@ namespace Garnet.Teams.Application
             _userService = userService;
         }
 
-        public async Task<Result<TeamParticipant>> CreateTeamParticipant(CancellationToken ct, string userId, string teamId)
+        public async Task<Result<TeamParticipantEntity>> CreateTeamParticipant(CancellationToken ct, string userId, string teamId)
         {
             var existingUser = await _userService.GetUser(ct, userId);
             if (existingUser.IsFailed)
@@ -30,17 +30,17 @@ namespace Garnet.Teams.Application
             return Result.Ok(participant);
         }
 
-        public async Task<TeamParticipant[]> DeleteTeamParticipants(CancellationToken ct, string teamId)
+        public async Task<TeamParticipantEntity[]> DeleteTeamParticipants(CancellationToken ct, string teamId)
         {
             return await _teamParticipantsRepository.DeleteTeamParticipants(ct, teamId);
         }
 
-        public async Task<TeamParticipant[]> GetMembershipOfUser(CancellationToken ct, string userId)
+        public async Task<TeamParticipantEntity[]> GetMembershipOfUser(CancellationToken ct, string userId)
         {
             return await _teamParticipantsRepository.GetMembershipOfUser(ct, userId);
         }
 
-        public async Task<TeamParticipant[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
+        public async Task<TeamParticipantEntity[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
         {
             return await _teamParticipantsRepository.GetParticipantsFromTeam(ct, teamId);
         }
@@ -56,7 +56,7 @@ namespace Garnet.Teams.Application
             return Result.Ok();
         }
 
-        public async Task<TeamParticipant[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
+        public async Task<TeamParticipantEntity[]> FindTeamParticipantByUsername(CancellationToken ct, string teamId, string? query, int take, int skip)
         {
             var filter = new TeamUserFilterArgs(query?.Trim(), take, skip);
             return await _teamParticipantsRepository.FilterTeamParticipants(ct, filter);

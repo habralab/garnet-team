@@ -16,7 +16,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamParticipant> CreateTeamParticipant(CancellationToken ct, string userId, string username, string teamId)
+        public async Task<TeamParticipantEntity> CreateTeamParticipant(CancellationToken ct, string userId, string username, string teamId)
         {
             var db = _dbFactory.Create();
             var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, username, teamId);
@@ -24,7 +24,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamParticipantDocument.ToDomain(teamParticipant);
         }
 
-        public async Task<TeamParticipant[]> DeleteTeamParticipants(CancellationToken ct, string teamId)
+        public async Task<TeamParticipantEntity[]> DeleteTeamParticipants(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
             var participants = await GetParticipantsFromTeam(ct, teamId);
@@ -35,14 +35,14 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return participants;
         }
 
-        public async Task<TeamParticipant[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
+        public async Task<TeamParticipantEntity[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
             var teamParticipants = await db.TeamParticipants.Find(x => x.TeamId == teamId).ToListAsync();
             return teamParticipants.Select(o => TeamParticipantDocument.ToDomain(o)).ToArray();
         }
 
-        public async Task<TeamParticipant[]> GetMembershipOfUser(CancellationToken ct, string userId)
+        public async Task<TeamParticipantEntity[]> GetMembershipOfUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
             var userTeams = await db.TeamParticipants.Find(
@@ -52,7 +52,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return userTeams.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task<TeamParticipant[]> FilterTeamParticipants(CancellationToken ct, TeamUserFilterArgs filter)
+        public async Task<TeamParticipantEntity[]> FilterTeamParticipants(CancellationToken ct, TeamUserFilterArgs filter)
         {
             var db = _dbFactory.Create();
 

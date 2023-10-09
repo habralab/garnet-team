@@ -28,7 +28,7 @@ namespace Garnet.Teams.Application
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamUserJoinRequest>> CreateJoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
+        public async Task<Result<TeamUserJoinRequestEntity>> CreateJoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
         {
             var findTeam = await _teamService.GetTeamById(ct, teamId);
             if (findTeam.IsFailed)
@@ -74,7 +74,7 @@ namespace Garnet.Teams.Application
             return Result.Ok();
         }
 
-        public async Task<Result<TeamUserJoinRequest[]>> GetAllUserJoinRequestByTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
+        public async Task<Result<TeamUserJoinRequestEntity[]>> GetAllUserJoinRequestByTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
         {
             var findTeam = await _teamService.GetTeamById(ct, teamId);
             if (findTeam.IsFailed)
@@ -92,7 +92,7 @@ namespace Garnet.Teams.Application
             return Result.Ok(userJoinRequests);
         }
 
-        public async Task<Result<TeamUserJoinRequest>> UserJoinRequestDecide(CancellationToken ct, ICurrentUserProvider currentUserProvider, string userJoinRequestId, bool isApproved)
+        public async Task<Result<TeamUserJoinRequestEntity>> UserJoinRequestDecide(CancellationToken ct, ICurrentUserProvider currentUserProvider, string userJoinRequestId, bool isApproved)
         {
             var userJoinRequest = await _userJoinRequestRepository.GetUserJoinRequestById(ct, userJoinRequestId);
             if (userJoinRequest is null)

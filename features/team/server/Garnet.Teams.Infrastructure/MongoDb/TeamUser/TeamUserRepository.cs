@@ -15,7 +15,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamUser> AddUser(CancellationToken ct, string userId, string username)
+        public async Task<TeamUserEntity> AddUser(CancellationToken ct, string userId, string username)
         {
             var db = _dbFactory.Create();
 
@@ -38,7 +38,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             );
         }
 
-        public async Task<TeamUser?> GetUser(CancellationToken ct, string userId)
+        public async Task<TeamUserEntity?> GetUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
             var user = await db.TeamUsers.Find(x => x.Id == userId).FirstOrDefaultAsync(ct);
@@ -46,7 +46,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return user is null ? null : TeamUserDocument.ToDomain(user);
         }
 
-        public async Task<TeamUser?> UpdateUser(CancellationToken ct, string userId, TeamUserUpdateArgs update)
+        public async Task<TeamUserEntity?> UpdateUser(CancellationToken ct, string userId, TeamUserUpdateArgs update)
         {
             var db = _dbFactory.Create();
             var updatedUser = await db.TeamUsers

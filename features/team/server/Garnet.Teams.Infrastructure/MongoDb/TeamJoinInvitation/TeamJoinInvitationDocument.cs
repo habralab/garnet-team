@@ -18,9 +18,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             };
         }
 
-        public static TeamJoinInvitation ToDomain(TeamJoinInvitationDocument doc)
+        public static TeamJoinInvitationEntity ToDomain(TeamJoinInvitationDocument doc)
         {
-            return new TeamJoinInvitation(doc.Id, doc.UserId, doc.TeamId);
+            return new TeamJoinInvitationEntity(doc.Id, doc.UserId, doc.TeamId);
         }
     }
 }

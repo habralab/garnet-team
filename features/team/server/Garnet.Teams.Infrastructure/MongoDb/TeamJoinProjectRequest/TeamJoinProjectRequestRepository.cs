@@ -14,7 +14,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamJoinProjectRequest> CreateJoinProjectRequest(CancellationToken ct, string teamId, string projectId)
+        public async Task<TeamJoinProjectRequestEntity> CreateJoinProjectRequest(CancellationToken ct, string teamId, string projectId)
         {
             var db = _dbFactory.Create();
             var joinProjectRequest = TeamJoinProjectRequestDocument.Create(Uuid.NewMongo(), teamId, projectId);
@@ -23,7 +23,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamJoinProjectRequestDocument.ToDomain(joinProjectRequest);
         }
 
-        public async Task<TeamJoinProjectRequest?> DeleteJoinProjectRequestById(CancellationToken ct, string joinProjectRequestId)
+        public async Task<TeamJoinProjectRequestEntity?> DeleteJoinProjectRequestById(CancellationToken ct, string joinProjectRequestId)
         {
             var db = _dbFactory.Create();
             var joinProjectRequest = await db.TeamJoinProjectRequests.FindOneAndDeleteAsync(
@@ -43,7 +43,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             );
         }
 
-        public async Task<TeamJoinProjectRequest[]> GetJoinProjectRequestsByTeam(CancellationToken ct, string teamId)
+        public async Task<TeamJoinProjectRequestEntity[]> GetJoinProjectRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
             var teamFilter = _f.Eq(x => x.TeamId, teamId);

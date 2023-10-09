@@ -1,6 +1,6 @@
 namespace Garnet.Teams.Application
 {
-    public record TeamUser(
+    public record TeamUserEntity(
         string Id,
         string Username
     );

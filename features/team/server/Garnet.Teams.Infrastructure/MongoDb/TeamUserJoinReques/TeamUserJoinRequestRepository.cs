@@ -14,7 +14,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamUserJoinRequest> CreateJoinRequestByUser(CancellationToken ct, string userId, string teamId)
+        public async Task<TeamUserJoinRequestEntity> CreateJoinRequestByUser(CancellationToken ct, string userId, string teamId)
         {
             var db = _dbFactory.Create();
             var joinRequest = TeamUserJoinRequestDocument.Create(
@@ -28,7 +28,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
 
-        public async Task<TeamUserJoinRequest?> DeleteUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
+        public async Task<TeamUserJoinRequestEntity?> DeleteUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
         {
             var db = _dbFactory.Create();
             var joinRequest = await db.TeamUserJoinRequests.FindOneAndDeleteAsync(
@@ -39,7 +39,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return joinRequest is null ? null : TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
 
-        public async Task<TeamUserJoinRequest[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
+        public async Task<TeamUserJoinRequestEntity[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
             var joinRequests = await db.TeamUserJoinRequests.Find(
@@ -49,7 +49,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb
             return joinRequests.Select(x => TeamUserJoinRequestDocument.ToDomain(x)).ToArray();
         }
 
-        public async Task<TeamUserJoinRequest?> GetUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
+        public async Task<TeamUserJoinRequestEntity?> GetUserJoinRequestById(CancellationToken ct, string userJoinRequestId)
         {
             var db = _dbFactory.Create();
             var joinRequest = await db.TeamUserJoinRequests.Find(

@@ -22,7 +22,7 @@ namespace Garnet.Teams.Application
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamJoinProjectRequest>> SendJoinProjectRequest(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string projectId)
+        public async Task<Result<TeamJoinProjectRequestEntity>> SendJoinProjectRequest(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string projectId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
