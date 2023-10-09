@@ -1,3 +1,5 @@
+using Garnet.Teams.Events.Team;
+
 namespace Garnet.Teams.Application.Team
 {
     public record TeamEntity(
@@ -7,4 +9,22 @@ namespace Garnet.Teams.Application.Team
         string OwnerUserId,
         string[] Tags
     );
+
+    public static class TeamEntityExtensions
+    {
+        public static TeamCreatedEvent ToCreatedEvent(this TeamEntity entity)
+        {
+            return new TeamCreatedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description, entity.Tags);
+        }
+
+        public static TeamDeletedEvent ToDeletedEvent(this TeamEntity entity)
+        {
+            return new TeamDeletedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description, entity.Tags);
+        }
+
+        public static TeamUpdatedEvent ToUpdatedEvent(this TeamEntity entity)
+        {
+            return new TeamUpdatedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description, entity.Tags);
+        }
+    }
 }

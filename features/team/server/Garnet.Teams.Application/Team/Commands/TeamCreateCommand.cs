@@ -39,7 +39,7 @@ namespace Garnet.Teams.Application.Team.Commands
             var team = await _teamRepository.CreateTeam(ct, args);
             await _participantRepository.CreateTeamParticipant(ct, user.Id, user.Username, team.Id);
 
-            var @event = new TeamCreatedEvent(team.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            var @event = team.ToCreatedEvent();
             await _messageBus.Publish(@event);
             return Result.Ok(team);
         }

@@ -34,7 +34,7 @@ namespace Garnet.Teams.Application.Team.Commands
 
             team = await _teamRepository.EditTeamDescription(ct, teamId, description);
 
-            var @event = new TeamUpdatedEvent(team!.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
+            var @event = team.ToUpdatedEvent();
             await _messageBus.Publish(@event);
             return Result.Ok(team!);
         }
