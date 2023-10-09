@@ -56,19 +56,12 @@ namespace Garnet.Team
                 ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
 
-            services.AddScoped<TeamJoinProjectRequestCreateCommand>();
-            services.AddScoped<TeamJoinInviteCommand>();
-
-            services.AddScoped<TeamService>();
-            services.AddScoped<TeamUserService>();
-            services.AddScoped<TeamUserJoinRequestService>();
-            services.AddScoped<TeamParticipantService>();
-            services.AddScoped<ITeamRepository, TeamRepository>();
-            services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
-            services.AddScoped<ITeamUserRepository, TeamUserRepository>();
-            services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
-            services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
-            services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
+            services.AddTeamInternal();
+            services.AddTeamUserInternal();
+            services.AddTeamParticipantInternal();
+            services.AddTeamUserJoinRequestInternal();
+            services.AddTeamJoinInvitationInternal();
+            services.AddTeamJoinProjectRequestInternal();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
@@ -92,6 +85,42 @@ namespace Garnet.Team
                 o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamJoinProjectRequestCreatedEvent>();
             });
+        }
+
+        public static void AddTeamInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamRepository, TeamRepository>();
+            services.AddScoped<TeamService>();
+        }
+
+        public static void AddTeamUserInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamUserRepository, TeamUserRepository>();
+            services.AddScoped<TeamUserService>();
+        }
+
+        public static void AddTeamParticipantInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
+            services.AddScoped<TeamParticipantService>();
+        }
+
+        public static void AddTeamUserJoinRequestInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
+            services.AddScoped<TeamUserJoinRequestService>();
+        }
+
+        public static void AddTeamJoinInvitationInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
+            services.AddScoped<TeamJoinInviteCommand>();
+        }
+
+        public static void AddTeamJoinProjectRequestInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
+            services.AddScoped<TeamJoinProjectRequestCreateCommand>();
         }
     }
 }
