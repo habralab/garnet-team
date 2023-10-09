@@ -39,27 +39,6 @@ namespace Garnet.Teams.Application.Team
             return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
         }
 
-        public async Task<Result<TeamEntity>> EditTeamDescription(CancellationToken ct, string teamId, string description, ICurrentUserProvider currentUserProvider)
-        {
-            var result = await GetTeamById(ct, teamId);
-            if (result.IsFailed)
-            {
-                return Result.Fail(result.Errors);
-            }
-
-            var team = result.Value;
-            if (team!.OwnerUserId != currentUserProvider.UserId)
-            {
-                return Result.Fail(new TeamOnlyOwnerCanEditError());
-            }
-
-            team = await _teamRepository.EditTeamDescription(ct, teamId, description);
-
-            var @event = new TeamUpdatedEvent(team!.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
-            await _messageBus.Publish(@event);
-            return Result.Ok(team!);
-        }
-
         public async Task<Result<TeamEntity>> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId, ICurrentUserProvider currentUserProvider)
         {
             var result = await GetTeamById(ct, teamId);

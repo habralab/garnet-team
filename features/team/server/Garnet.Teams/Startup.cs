@@ -94,6 +94,7 @@ namespace Garnet.Team
             services.AddScoped<TeamService>();
             services.AddScoped<TeamCreateCommand>();
             services.AddScoped<TeamDeleteCommand>();
+            services.AddScoped<TeamEditDescriptionCommand>();
         }
 
         public static void AddTeamUserInternal(this IServiceCollection services)

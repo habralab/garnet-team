@@ -27,6 +27,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamService _teamService;
         private readonly TeamCreateCommand _teamCreateCommand;
         private readonly TeamDeleteCommand _teamDeleteCommand;
+        private readonly TeamEditDescriptionCommand _teamEditDescriptionCommand;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
@@ -35,6 +36,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamService teamService,
             TeamCreateCommand teamCreateCommand,
             TeamDeleteCommand teamDeleteCommand,
+            TeamEditDescriptionCommand teamEditDescriptionCommand,
             TeamUserJoinRequestService userJoinRequestService,
             TeamJoinInviteCommand joinInviteCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
@@ -42,6 +44,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamService = teamService;
             _teamCreateCommand = teamCreateCommand;
             _teamDeleteCommand = teamDeleteCommand;
+            _teamEditDescriptionCommand = teamEditDescriptionCommand;
             _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
@@ -70,7 +73,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamEditDescriptionPayload> TeamEditDescription(CancellationToken ct, ClaimsPrincipal claims, TeamEditDescriptionInput input)
         {
-            var result = await _teamService.EditTeamDescription(ct, input.Id, input.Description, new CurrentUserProvider(claims));
+            var result = await _teamEditDescriptionCommand.Execute(ct, new CurrentUserProvider(claims), input.Id, input.Description);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
