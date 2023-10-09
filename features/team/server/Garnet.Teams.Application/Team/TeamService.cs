@@ -2,7 +2,6 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application.Team.Entities;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUser;
@@ -26,23 +25,6 @@ namespace Garnet.Teams.Application.Team
             _participantService = participantService;
             _teamRepository = teamRepository;
             _userService = userService;
-        }
-
-        public async Task<Result<TeamEntity>> CreateTeam(CancellationToken ct, string name, string description, string[] tags, ICurrentUserProvider currentUserProvider)
-        {
-            var existingUser = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (existingUser.IsFailed)
-            {
-                return Result.Fail(existingUser.Errors);
-            }
-
-            var user = existingUser.Value;
-            var team = await _teamRepository.CreateTeam(ct, name, description, user.Id, tags);
-            await _participantService.CreateTeamParticipant(ct, user.Id, team.Id);
-
-            var @event = new TeamCreatedEvent(team.Id, team.Name, team.OwnerUserId, team.Description, team.Tags);
-            await _messageBus.Publish(@event);
-            return Result.Ok(team);
         }
 
         public async Task<Result<TeamEntity>> GetTeamById(CancellationToken ct, string teamId)

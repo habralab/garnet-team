@@ -31,6 +31,7 @@ using Garnet.Teams.Events.Team;
 using Garnet.Teams.Events.TeamUserJoinRequest;
 using Garnet.Teams.Events.TeamJoinInvitation;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
+using Garnet.Teams.Application.Team.Commands;
 
 namespace Garnet.Team
 {
@@ -91,6 +92,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamRepository, TeamRepository>();
             services.AddScoped<TeamService>();
+            services.AddScoped<TeamCreateCommand>();
         }
 
         public static void AddTeamUserInternal(this IServiceCollection services)

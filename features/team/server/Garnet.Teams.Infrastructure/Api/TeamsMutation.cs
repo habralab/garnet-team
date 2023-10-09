@@ -16,6 +16,8 @@ using Garnet.Teams.Application.TeamJoinInvitation.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
+using Garnet.Teams.Application.Team.Commands;
+using Garnet.Teams.Application.Team.Args;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -23,17 +25,20 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsMutation
     {
         private readonly TeamService _teamService;
+        private readonly TeamCreateCommand _teamCreateCommand;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
       
         public TeamsMutation(
             TeamService teamService,
+            TeamCreateCommand teamCreateCommand,
             TeamUserJoinRequestService userJoinRequestService,
             TeamJoinInviteCommand joinInviteCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamService = teamService;
+            _teamCreateCommand = teamCreateCommand;
             _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
@@ -41,7 +46,10 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
-            var result = await _teamService.CreateTeam(ct, input.Name, input.Description, input.Tags, new CurrentUserProvider(claims));
+            var currentUserProvider = new CurrentUserProvider(claims);
+            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, input.Tags);
+
+            var result = await _teamCreateCommand.Execute(ct, args);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;

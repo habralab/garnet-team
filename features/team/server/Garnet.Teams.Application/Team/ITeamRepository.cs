@@ -1,10 +1,10 @@
-using Garnet.Teams.Application.Team.Entities;
+using Garnet.Teams.Application.Team.Args;
 
 namespace Garnet.Teams.Application.Team
 {
     public interface ITeamRepository
     {
-        Task<TeamEntity> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId, string[] tags);
+        Task<TeamEntity> CreateTeam(CancellationToken ct, TeamCreateArgs args);
         Task<TeamEntity?> GetTeamById(CancellationToken ct, string teamId);
         Task<TeamEntity[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take);
         Task<TeamEntity?> DeleteTeam(CancellationToken ct, string teamId);

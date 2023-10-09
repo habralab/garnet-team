@@ -1,7 +1,6 @@
-namespace Garnet.Teams.Application.Team.Entities
+namespace Garnet.Teams.Application.Team.Args
 {
-    public record TeamEntity(
-        string Id,
+    public record TeamCreateArgs(
         string Name,
         string Description,
         string OwnerUserId,

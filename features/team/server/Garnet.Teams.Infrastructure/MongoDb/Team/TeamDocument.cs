@@ -1,5 +1,5 @@
 using Garnet.Teams.Application;
-using Garnet.Teams.Application.Team.Entities;
+using Garnet.Teams.Application.Team;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.Team
 {

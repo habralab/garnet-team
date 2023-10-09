@@ -2,7 +2,7 @@ using System.Reflection.Metadata.Ecma335;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Application.Team;
-using Garnet.Teams.Application.Team.Entities;
+using Garnet.Teams.Application.Team.Args;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.Team
@@ -19,15 +19,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamEntity> CreateTeam(CancellationToken ct, string name, string description, string ownerUserId, string[] tags)
+        public async Task<TeamEntity> CreateTeam(CancellationToken ct, TeamCreateArgs args)
         {
             var db = _dbFactory.Create();
             var team = TeamDocument.Create(
              Uuid.NewMongo(),
-             name,
-             description,
-             ownerUserId,
-             tags
+             args.Name,
+             args.Description,
+             args.OwnerUserId!,
+             args.Tags
             );
             await db.Teams.InsertOneAsync(team, cancellationToken: ct);
             return TeamDocument.ToDomain(team);
