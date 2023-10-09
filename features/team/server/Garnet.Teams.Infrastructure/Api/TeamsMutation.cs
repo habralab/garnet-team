@@ -26,6 +26,7 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamService _teamService;
         private readonly TeamCreateCommand _teamCreateCommand;
+        private readonly TeamDeleteCommand _teamDeleteCommand;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
@@ -33,12 +34,14 @@ namespace Garnet.Teams.Infrastructure.Api
         public TeamsMutation(
             TeamService teamService,
             TeamCreateCommand teamCreateCommand,
+            TeamDeleteCommand teamDeleteCommand,
             TeamUserJoinRequestService userJoinRequestService,
             TeamJoinInviteCommand joinInviteCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamService = teamService;
             _teamCreateCommand = teamCreateCommand;
+            _teamDeleteCommand = teamDeleteCommand;
             _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
@@ -58,7 +61,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _teamService.DeleteTeam(ct, teamId, new CurrentUserProvider(claims));
+            var result = await _teamDeleteCommand.Execute(ct, new CurrentUserProvider(claims), teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
