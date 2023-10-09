@@ -34,40 +34,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamUserJoinRequestEntity>> CreateJoinRequestByUser(CancellationToken ct, string teamId, ICurrentUserProvider currentUserProvider)
-        {
-            var findTeam = await _teamService.GetTeamById(ct, teamId);
-            if (findTeam.IsFailed)
-            {
-                return Result.Fail(findTeam.Errors);
-            }
-
-            var existingUser = await _userService.GetUser(ct, currentUserProvider.UserId);
-            if (existingUser.IsFailed)
-            {
-                return Result.Fail(existingUser.Errors);
-            }
-
-            var user = existingUser.Value;
-            var userHaveJoinRequest = await EnsureNoPendingUserJoinRequest(ct, user.Id, teamId);
-            if (userHaveJoinRequest.IsFailed)
-            {
-                return Result.Fail(userHaveJoinRequest.Errors);
-            }
-
-            var participant = await _participantService.EnsureUserIsTeamParticipant(ct, user.Id, teamId);
-            if (participant.IsSuccess)
-            {
-                return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
-            }
-
-            var request = await _userJoinRequestRepository.CreateJoinRequestByUser(ct, user.Id, teamId);
-
-            var @event = new TeamUserJoinRequestCreatedEvent(request.Id, user.Id, teamId);
-            await _messageBus.Publish(@event);
-
-            return Result.Ok(request);
-        }
+        
 
         public async Task<Result> EnsureNoPendingUserJoinRequest(CancellationToken ct, string userId, string teamId)
         {

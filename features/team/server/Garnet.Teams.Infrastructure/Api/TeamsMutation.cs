@@ -18,6 +18,7 @@ using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
 using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
+using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -31,6 +32,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
+        private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -39,6 +41,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamUserJoinRequestService userJoinRequestService,
             TeamJoinInviteCommand joinInviteCommand,
+            TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamCreateCommand = teamCreateCommand;
@@ -48,6 +51,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
+            _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -91,7 +95,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _userJoinRequestService.CreateJoinRequestByUser(ct, teamId, new CurrentUserProvider(claims));
+            var result = await _teamUserJoinRequestCreateCommand.Execute(ct, new CurrentUserProvider(claims), teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
