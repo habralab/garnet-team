@@ -29,29 +29,29 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamDeleteCommand _teamDeleteCommand;
         private readonly TeamEditDescriptionCommand _teamEditDescriptionCommand;
         private readonly TeamEditOwnerCommand _teamEditOwnerCommand;
-        private readonly TeamUserJoinRequestService _userJoinRequestService;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
+        private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
             TeamDeleteCommand teamDeleteCommand,
             TeamEditDescriptionCommand teamEditDescriptionCommand,
             TeamEditOwnerCommand teamEditOwnerCommand,
-            TeamUserJoinRequestService userJoinRequestService,
             TeamJoinInviteCommand joinInviteCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
+            TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamCreateCommand = teamCreateCommand;
             _teamDeleteCommand = teamDeleteCommand;
             _teamEditDescriptionCommand = teamEditDescriptionCommand;
             _teamEditOwnerCommand = teamEditOwnerCommand;
-            _userJoinRequestService = userJoinRequestService;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
+            _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -123,12 +123,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestDecide(CancellationToken ct, ClaimsPrincipal claims, TeamUserJoinRequestDecideInput input)
         {
-            var result = await _userJoinRequestService.UserJoinRequestDecide(ct, new CurrentUserProvider(claims), input.UserJoinRequestId, input.IsApproved);
+            var result = await _teamUserJoinRequestDecideCommand.Execute(ct, new CurrentUserProvider(claims), input.UserJoinRequestId, input.IsApproved);
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequest = result.Value;
             return new TeamUserJoinRequestPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId);
-
         }
     }
 }

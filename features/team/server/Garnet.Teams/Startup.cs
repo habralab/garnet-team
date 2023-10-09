@@ -120,9 +120,9 @@ namespace Garnet.Team
         public static void AddTeamUserJoinRequestInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
-            services.AddScoped<TeamUserJoinRequestService>();
 
             services.AddScoped<TeamUserJoinRequestCreateCommand>();
+            services.AddScoped<TeamUserJoinRequestDecideCommand>();
 
             services.AddScoped<TeamUserJoinRequestsShowQuery>();
         }

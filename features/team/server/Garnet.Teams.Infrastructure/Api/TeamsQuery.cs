@@ -30,7 +30,6 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamGetQuery teamGetQuery,
             TeamsFilterQuery teamsFilterQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
-            TeamUserJoinRequestService userJoinRequestService,
             TeamParticipantService participantService)
         {
             _teamGetQuery = teamGetQuery;
