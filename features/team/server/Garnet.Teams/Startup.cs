@@ -11,6 +11,26 @@ using Garnet.Users.Events;
 using Garnet.Projects.Events;
 using Garnet.Teams.Events;
 using Garnet.Teams.Infrastructure.EventHandlers;
+using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
+using Garnet.Teams.Application.TeamJoinInvitation.Commands;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.TeamUser;
+using Garnet.Teams.Application.TeamUserJoinRequest;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamJoinProjectRequest;
+using Garnet.Teams.Application.TeamJoinInvitation;
+using Garnet.Teams.Infrastructure.EventHandlers.User;
+using Garnet.Teams.Infrastructure.EventHandlers.Project;
+using Garnet.Teams.Infrastructure.MongoDb.Team;
+using Garnet.Teams.Infrastructure.MongoDb.TeamParticipant;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUser;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest;
+using Garnet.Teams.Infrastructure.MongoDb.TeamJoinProjectRequest;
+using Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation;
+using Garnet.Teams.Events.Team;
+using Garnet.Teams.Events.TeamUserJoinRequest;
+using Garnet.Teams.Events.TeamJoinInvitation;
+using Garnet.Teams.Events.TeamJoinProjectRequest;
 
 namespace Garnet.Team
 {

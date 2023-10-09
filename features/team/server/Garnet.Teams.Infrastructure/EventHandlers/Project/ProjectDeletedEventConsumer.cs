@@ -1,8 +1,9 @@
 using Garnet.Common.Application.MessageBus;
 using Garnet.Projects.Events;
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.TeamJoinProjectRequest;
 
-namespace Garnet.Teams.Infrastructure.EventHandlers
+namespace Garnet.Teams.Infrastructure.EventHandlers.Project
 {
     public class ProjectDeletedEventConsumer : IMessageBusConsumer<ProjectDeletedEvent>
     {

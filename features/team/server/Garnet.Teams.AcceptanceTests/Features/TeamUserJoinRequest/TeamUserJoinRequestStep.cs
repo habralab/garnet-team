@@ -3,6 +3,7 @@ using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.MongoDb;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 

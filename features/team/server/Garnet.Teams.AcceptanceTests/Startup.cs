@@ -15,6 +15,21 @@ using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
 using Garnet.Teams.Events;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.TeamUser;
+using Garnet.Teams.Application.TeamUserJoinRequest;
+using Garnet.Teams.Application.TeamJoinProjectRequest;
+using Garnet.Teams.Application.TeamJoinInvitation;
+using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
+using Garnet.Teams.Application.TeamJoinInvitation.Commands;
+using Garnet.Teams.Infrastructure.MongoDb.TeamParticipant;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest;
+using Garnet.Teams.Infrastructure.MongoDb.TeamJoinProjectRequest;
+using Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation;
+using Garnet.Teams.Infrastructure.MongoDb.Team;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUser;
+using Garnet.Teams.Events.TeamJoinProjectRequest;
 
 namespace Garnet.Teams.AcceptanceTests
 {

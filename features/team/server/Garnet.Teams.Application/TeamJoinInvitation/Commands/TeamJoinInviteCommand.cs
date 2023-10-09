@@ -1,10 +1,21 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.Team.Errors;
+using Garnet.Teams.Application.TeamJoinInvitation.Args;
+using Garnet.Teams.Application.TeamJoinInvitation.Entities;
+using Garnet.Teams.Application.TeamJoinInvitation.Errors;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Errors;
+using Garnet.Teams.Application.TeamUser;
+using Garnet.Teams.Application.TeamUser.Errors;
+using Garnet.Teams.Application.TeamUserJoinRequest;
+using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
 using Garnet.Teams.Events;
+using Garnet.Teams.Events.TeamJoinInvitation;
 
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
 {
     public class TeamJoinInviteCommand
     {

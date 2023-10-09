@@ -11,6 +11,11 @@ using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
 using HotChocolate.Types;
+using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
+using Garnet.Teams.Application.TeamJoinInvitation.Commands;
+using Garnet.Teams.Application.TeamUserJoinRequest;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.TeamJoinInvitation.Args;
 
 namespace Garnet.Teams.Infrastructure.Api
 {

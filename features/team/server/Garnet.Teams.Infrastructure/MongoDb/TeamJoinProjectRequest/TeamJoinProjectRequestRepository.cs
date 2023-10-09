@@ -1,8 +1,10 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.TeamJoinProjectRequest;
+using Garnet.Teams.Application.TeamJoinProjectRequest.Entities;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.Infrastructure.MongoDb
+namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinProjectRequest
 {
     public class TeamJoinProjectRequestRepository : ITeamJoinProjectRequestRepository
     {

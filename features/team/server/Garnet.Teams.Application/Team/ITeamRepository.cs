@@ -1,4 +1,6 @@
-namespace Garnet.Teams.Application
+using Garnet.Teams.Application.Team.Entities;
+
+namespace Garnet.Teams.Application.Team
 {
     public interface ITeamRepository
     {

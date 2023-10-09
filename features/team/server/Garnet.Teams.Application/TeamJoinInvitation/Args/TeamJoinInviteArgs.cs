@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamJoinInvitation.Args
 {
     public record TeamJoinInviteArgs(
         string UserId,

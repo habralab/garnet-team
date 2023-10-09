@@ -1,6 +1,7 @@
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.TeamUser.Entities;
 
-namespace Garnet.Teams.Infrastructure.MongoDb
+namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
 {
     public record TeamUserDocument
     {

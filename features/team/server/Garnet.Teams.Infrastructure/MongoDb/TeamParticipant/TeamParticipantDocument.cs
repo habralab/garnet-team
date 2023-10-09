@@ -1,6 +1,7 @@
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.TeamParticipant.Entities;
 
-namespace Garnet.Teams.Infrastructure.MongoDb
+namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
 {
     public record TeamParticipantDocument
     {

@@ -2,10 +2,14 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Application.Team.Entities;
+using Garnet.Teams.Application.Team.Errors;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Events;
+using Garnet.Teams.Events.Team;
 
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.Team
 {
     public class TeamService
     {

@@ -1,9 +1,11 @@
 using System.Reflection.Metadata.Ecma335;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.Team.Entities;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.Infrastructure.MongoDb
+namespace Garnet.Teams.Infrastructure.MongoDb.Team
 {
     public class TeamRepository : ITeamRepository
     {

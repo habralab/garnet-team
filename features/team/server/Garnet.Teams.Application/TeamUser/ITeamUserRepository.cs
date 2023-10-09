@@ -1,4 +1,7 @@
-namespace Garnet.Teams.Application
+using Garnet.Teams.Application.TeamUser.Args;
+using Garnet.Teams.Application.TeamUser.Entities;
+
+namespace Garnet.Teams.Application.TeamUser
 {
     public interface ITeamUserRepository
     {

@@ -1,8 +1,12 @@
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Args;
+using Garnet.Teams.Application.TeamUser;
+using Garnet.Teams.Application.TeamUser.Args;
 using Garnet.Users.Events;
 
-namespace Garnet.Teams.Infrastructure.EventHandlers
+namespace Garnet.Teams.Infrastructure.EventHandlers.User
 {
     public class UserUpdatedEventConsumer : IMessageBusConsumer<UserUpdatedEvent>
     {

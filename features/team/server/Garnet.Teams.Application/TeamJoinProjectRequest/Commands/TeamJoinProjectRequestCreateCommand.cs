@@ -1,10 +1,14 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.Team.Errors;
+using Garnet.Teams.Application.TeamJoinProjectRequest.Entities;
+using Garnet.Teams.Application.TeamJoinProjectRequest.Errors;
 using Garnet.Teams.Events;
+using Garnet.Teams.Events.TeamJoinProjectRequest;
 
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamJoinProjectRequest.Commands
 {
     public class TeamJoinProjectRequestCreateCommand
     {

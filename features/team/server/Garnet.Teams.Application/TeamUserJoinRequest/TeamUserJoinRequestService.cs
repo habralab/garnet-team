@@ -1,10 +1,16 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Errors;
+using Garnet.Teams.Application.TeamUser;
+using Garnet.Teams.Application.TeamUserJoinRequest.Entities;
+using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
 using Garnet.Teams.Events;
+using Garnet.Teams.Events.TeamUserJoinRequest;
 
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamUserJoinRequest
 {
     public class TeamUserJoinRequestService
     {

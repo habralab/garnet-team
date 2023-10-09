@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Events
+namespace Garnet.Teams.Events.Team
 {
     public record TeamUpdatedEvent(
         string Id,

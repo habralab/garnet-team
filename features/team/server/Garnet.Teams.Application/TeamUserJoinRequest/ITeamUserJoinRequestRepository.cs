@@ -1,4 +1,6 @@
-namespace Garnet.Teams.Application
+using Garnet.Teams.Application.TeamUserJoinRequest.Entities;
+
+namespace Garnet.Teams.Application.TeamUserJoinRequest
 {
     public interface ITeamUserJoinRequestRepository
     {

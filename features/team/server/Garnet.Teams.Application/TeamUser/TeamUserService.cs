@@ -1,7 +1,9 @@
 using FluentResults;
-using Garnet.Teams.Application.Errors;
+using Garnet.Teams.Application.TeamUser.Args;
+using Garnet.Teams.Application.TeamUser.Entities;
+using Garnet.Teams.Application.TeamUser.Errors;
 
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamUser
 {
     public class TeamUserService
     {

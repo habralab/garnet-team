@@ -4,6 +4,7 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.MongoDb;
+using Garnet.Teams.Infrastructure.MongoDb.Team;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 

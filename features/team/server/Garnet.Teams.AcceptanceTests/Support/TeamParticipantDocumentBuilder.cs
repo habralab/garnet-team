@@ -1,5 +1,6 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.MongoDb;
+using Garnet.Teams.Infrastructure.MongoDb.TeamParticipant;
 
 namespace Garnet.Teams.AcceptanceTests.Support
 {

@@ -1,8 +1,12 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
+using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Args;
+using Garnet.Teams.Application.TeamParticipant.Entities;
+using Garnet.Teams.Application.TeamUser.Args;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.Infrastructure.MongoDb
+namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
 {
     public class TeamParticipantRepository : ITeamParticipantRepository
     {

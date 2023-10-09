@@ -1,6 +1,6 @@
 using Garnet.Common.Application.Errors;
 
-namespace Garnet.Teams.Application.Errors
+namespace Garnet.Teams.Application.TeamUserJoinRequest.Errors
 {
     public class TeamUserJoinRequestNotFoundError : ApplicationError
     {

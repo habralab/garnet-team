@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamUser.Args
 {
     public record TeamUserFilterArgs(
         string? Search,

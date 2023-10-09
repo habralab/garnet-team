@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Application
+namespace Garnet.Teams.Application.TeamParticipant.Entities
 {
     public record TeamParticipantEntity(
         string Id,
