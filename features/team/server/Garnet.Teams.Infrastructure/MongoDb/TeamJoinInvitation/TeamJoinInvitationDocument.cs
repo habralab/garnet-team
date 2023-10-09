@@ -1,5 +1,4 @@
-using Garnet.Teams.Application;
-using Garnet.Teams.Application.TeamJoinInvitation.Entities;
+using Garnet.Teams.Application.TeamJoinInvitation;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
 {

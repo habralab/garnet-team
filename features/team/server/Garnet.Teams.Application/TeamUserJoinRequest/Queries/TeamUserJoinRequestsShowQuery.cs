@@ -2,7 +2,6 @@ using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
-using Garnet.Teams.Application.TeamUserJoinRequest.Entities;
 using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest.Queries

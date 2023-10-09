@@ -7,7 +7,6 @@ using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
-using Garnet.Teams.Application.TeamUserJoinRequest.Entities;
 using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
 using Garnet.Teams.Events.TeamUserJoinRequest;
 

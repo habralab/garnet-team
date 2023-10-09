@@ -1,4 +1,3 @@
-using Garnet.Teams.Application.TeamUserJoinRequest.Entities;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest
 {

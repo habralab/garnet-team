@@ -1,5 +1,4 @@
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
-using Garnet.Teams.Application.TeamJoinInvitation.Entities;
 
 namespace Garnet.Teams.Application.TeamJoinInvitation
 {

@@ -1,7 +1,5 @@
-using Garnet.Teams.Application;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Args;
-using Garnet.Teams.Application.TeamUser.Entities;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser

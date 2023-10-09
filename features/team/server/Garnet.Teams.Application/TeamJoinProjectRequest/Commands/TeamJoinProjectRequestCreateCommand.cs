@@ -3,7 +3,6 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
-using Garnet.Teams.Application.TeamJoinProjectRequest.Entities;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Errors;
 using Garnet.Teams.Events;
 using Garnet.Teams.Events.TeamJoinProjectRequest;

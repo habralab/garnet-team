@@ -1,5 +1,4 @@
-using Garnet.Teams.Application;
-using Garnet.Teams.Application.TeamUser.Entities;
+using Garnet.Teams.Application.TeamUser;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
 {

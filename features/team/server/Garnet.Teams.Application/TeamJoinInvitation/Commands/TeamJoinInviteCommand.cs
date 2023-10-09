@@ -4,7 +4,6 @@ using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
-using Garnet.Teams.Application.TeamJoinInvitation.Entities;
 using Garnet.Teams.Application.TeamJoinInvitation.Errors;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;

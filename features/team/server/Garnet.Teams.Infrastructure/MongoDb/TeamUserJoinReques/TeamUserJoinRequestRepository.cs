@@ -1,7 +1,5 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Application;
 using Garnet.Teams.Application.TeamUserJoinRequest;
-using Garnet.Teams.Application.TeamUserJoinRequest.Entities;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest

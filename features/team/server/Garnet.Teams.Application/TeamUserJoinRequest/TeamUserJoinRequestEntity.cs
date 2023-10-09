@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Application.TeamUserJoinRequest.Entities
+namespace Garnet.Teams.Application.TeamUserJoinRequest
 {
     public record TeamUserJoinRequestEntity(
         string Id,

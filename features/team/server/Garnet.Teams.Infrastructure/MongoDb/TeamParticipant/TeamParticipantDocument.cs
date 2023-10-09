@@ -1,5 +1,4 @@
-using Garnet.Teams.Application;
-using Garnet.Teams.Application.TeamParticipant.Entities;
+using Garnet.Teams.Application.TeamParticipant;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
 {
