@@ -1,3 +1,5 @@
+using Garnet.Teams.Events.TeamJoinInvitation;
+
 namespace Garnet.Teams.Application.TeamJoinInvitation
 {
     public record TeamJoinInvitationEntity(
@@ -5,4 +7,12 @@ namespace Garnet.Teams.Application.TeamJoinInvitation
         string UserId,
         string TeamId
     );
+
+    public static class TeamJoinInvitationEntityExtensions
+    {
+        public static TeamJoinInvitationCreatedEvent ToCreatedEvent(this TeamJoinInvitationEntity entity)
+        {
+            return new TeamJoinInvitationCreatedEvent(entity.Id, entity.UserId, entity.TeamId);
+        }
+    }
 }

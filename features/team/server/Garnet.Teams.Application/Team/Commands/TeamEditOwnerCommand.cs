@@ -56,7 +56,7 @@ namespace Garnet.Teams.Application.Team.Commands
 
             team = await _teamRepository.EditTeamOwner(ct, teamId, newOwnerUserId);
 
-            var @event = team.ToUpdatedEvent();
+            var @event = team!.ToUpdatedEvent();
             await _messageBus.Publish(@event);
             return Result.Ok(team!);
         }
