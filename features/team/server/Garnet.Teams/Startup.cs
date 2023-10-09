@@ -34,6 +34,7 @@ using Garnet.Teams.Events.TeamJoinProjectRequest;
 using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
+using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 
 namespace Garnet.Team
 {
@@ -122,6 +123,8 @@ namespace Garnet.Team
             services.AddScoped<TeamUserJoinRequestService>();
 
             services.AddScoped<TeamUserJoinRequestCreateCommand>();
+
+            services.AddScoped<TeamUserJoinRequestsShowQuery>();
         }
 
         public static void AddTeamJoinInvitationInternal(this IServiceCollection services)

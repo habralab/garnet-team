@@ -7,6 +7,7 @@ using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUserJoinRequest;
+using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
@@ -22,18 +23,19 @@ namespace Garnet.Teams.Infrastructure.Api
     {
         private readonly TeamGetQuery _teamGetQuery;
         private readonly TeamsFilterQuery _teamsFilterQuery;
+        private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
         private readonly TeamParticipantService _participantService;
-        private readonly TeamUserJoinRequestService _userJoinRequestService;
 
         public TeamsQuery(
             TeamGetQuery teamGetQuery,
             TeamsFilterQuery teamsFilterQuery,
+            TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
             TeamUserJoinRequestService userJoinRequestService,
             TeamParticipantService participantService)
         {
             _teamGetQuery = teamGetQuery;
             _teamsFilterQuery = teamsFilterQuery;
-            _userJoinRequestService = userJoinRequestService;
+            _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
             _participantService = participantService;
         }
 
@@ -64,7 +66,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _userJoinRequestService.GetAllUserJoinRequestByTeam(ct, new CurrentUserProvider(claims), teamId);
+            var result = await _teamUserJoinRequestsShowQuery.Query(ct, new CurrentUserProvider(claims), teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));

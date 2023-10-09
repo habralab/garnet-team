@@ -34,37 +34,6 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest
             _messageBus = messageBus;
         }
 
-        
-
-        public async Task<Result> EnsureNoPendingUserJoinRequest(CancellationToken ct, string userId, string teamId)
-        {
-            var userRequest = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
-            if (userRequest.Any(x => x.UserId == userId))
-            {
-                return Result.Fail(new TeamPendingUserJoinRequestError(userId));
-            }
-
-            return Result.Ok();
-        }
-
-        public async Task<Result<TeamUserJoinRequestEntity[]>> GetAllUserJoinRequestByTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
-        {
-            var findTeam = await _teamService.GetTeamById(ct, teamId);
-            if (findTeam.IsFailed)
-            {
-                return Result.Fail(findTeam.Errors);
-            }
-
-            var team = findTeam.Value;
-            if (team.OwnerUserId != currentUserProvider.UserId)
-            {
-                return Result.Fail(new TeamUserJoinRequestOnlyOwnerCanSeeError());
-            }
-
-            var userJoinRequests = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
-            return Result.Ok(userJoinRequests);
-        }
-
         public async Task<Result<TeamUserJoinRequestEntity>> UserJoinRequestDecide(CancellationToken ct, ICurrentUserProvider currentUserProvider, string userJoinRequestId, bool isApproved)
         {
             var userJoinRequest = await _userJoinRequestRepository.GetUserJoinRequestById(ct, userJoinRequestId);
