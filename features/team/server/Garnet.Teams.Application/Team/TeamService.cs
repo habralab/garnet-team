@@ -34,10 +34,5 @@ namespace Garnet.Teams.Application.Team
             return team is null ? Result.Fail(new TeamNotFoundError(teamId)) : Result.Ok(team);
         }
 
-        public async Task<TeamEntity[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
-        {
-            return await _teamRepository.FilterTeams(ct, search, tags, skip, take);
-        }
-
     }
 }

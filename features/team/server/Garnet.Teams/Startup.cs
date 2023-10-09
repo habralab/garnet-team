@@ -100,6 +100,7 @@ namespace Garnet.Team
             services.AddScoped<TeamEditOwnerCommand>();
 
             services.AddScoped<TeamGetQuery>();
+            services.AddScoped<TeamsFilterQuery>();
         }
 
         public static void AddTeamUserInternal(this IServiceCollection services)

@@ -51,23 +51,22 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 cancellationToken: ct);
         }
 
-        public async Task<TeamEntity[]> FilterTeams(CancellationToken ct, string? search, string[] tags, int skip, int take)
+        public async Task<TeamEntity[]> FilterTeams(CancellationToken ct, TeamFilterArgs args)
         {
             var db = _dbFactory.Create();
 
-            search = search?.ToLower();
-            var searchFilter = search is null
+            var searchFilter = args.Search is null
                 ? _f.Empty
-                : _f.Where(x => x.Description.ToLower().Contains(search) || x.Name.ToLower().Contains(search));
+                : _f.Where(x => x.Description.ToLower().Contains(args.Search.ToLower()) || x.Name.ToLower().Contains(args.Search.ToLower()));
 
-            var tagsFilter = tags.Length > 0
-                ? _f.All(o => o.Tags, tags)
+            var tagsFilter = args.Tags.Length > 0
+                ? _f.All(o => o.Tags, args.Tags)
                 : _f.Empty;
 
             var teams = await db.Teams
                 .Find(searchFilter & tagsFilter)
-                .Skip(skip)
-                .Limit(take)
+                .Skip(args.Skip)
+                .Limit(args.Take)
                 .ToListAsync(ct);
 
             return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();

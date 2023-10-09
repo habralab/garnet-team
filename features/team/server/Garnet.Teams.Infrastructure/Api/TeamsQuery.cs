@@ -3,6 +3,7 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application;
 using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUserJoinRequest;
@@ -19,19 +20,19 @@ namespace Garnet.Teams.Infrastructure.Api
 
     public class TeamsQuery
     {
-        private readonly TeamService _teamService;
         private readonly TeamGetQuery _teamGetQuery;
+        private readonly TeamsFilterQuery _teamsFilterQuery;
         private readonly TeamParticipantService _participantService;
         private readonly TeamUserJoinRequestService _userJoinRequestService;
 
         public TeamsQuery(
-            TeamService teamService,
             TeamGetQuery teamGetQuery,
+            TeamsFilterQuery teamsFilterQuery,
             TeamUserJoinRequestService userJoinRequestService,
             TeamParticipantService participantService)
         {
             _teamGetQuery = teamGetQuery;
-            _teamService = teamService;
+            _teamsFilterQuery = teamsFilterQuery;
             _userJoinRequestService = userJoinRequestService;
             _participantService = participantService;
         }
@@ -47,12 +48,8 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamsFilterPayload> TeamsFilter(CancellationToken ct, TeamsFilterInput input)
         {
-            var teams = await _teamService.FilterTeams(
-                ct,
-                input.Search,
-                input.Tags ?? Array.Empty<string>(),
-                input.Skip,
-                input.Take);
+            var args = new TeamFilterArgs(input.Search, input.Tags ?? Array.Empty<string>(), input.Skip, input.Take);
+            var teams = await _teamsFilterQuery.Query(ct, args);
 
             return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.Tags)).ToArray());
         }
