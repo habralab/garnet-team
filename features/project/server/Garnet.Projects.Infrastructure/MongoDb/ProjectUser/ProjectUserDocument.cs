@@ -1,6 +1,6 @@
 using Garnet.Projects.Application.ProjectUser;
 
-namespace Garnet.Projects.Infrastructure.MongoDb;
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 
 public record ProjectUserDocument
 {

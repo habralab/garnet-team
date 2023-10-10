@@ -2,6 +2,7 @@
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
@@ -61,7 +62,7 @@ public class ProjectsQuery
     {
         var teams = await _projectTeamParticipantService.GetProjectTeamParticipantByProjectId(ct, input.ProjectId);
 
-        return new ProjectTeamParticipantPayload(teams.Select(x => new Application.ProjectTeamParticipant(
+        return new ProjectTeamParticipantPayload(teams.Select(x => new ProjectTeamParticipantEntity(
             x.Id,
             x.TeamId,
             x.TeamName,

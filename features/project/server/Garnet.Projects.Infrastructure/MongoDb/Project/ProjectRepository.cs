@@ -1,5 +1,5 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.Args;
 using Garnet.Projects.Application.Project;
 using MongoDB.Driver;
 
@@ -18,16 +18,15 @@ public class ProjectRepository : IProjectRepository
     }
 
 
-    public async Task<ProjectEntity> CreateProject(CancellationToken ct, string ownerUserId, string projectName,
-        string? description, string[] tags)
+    public async Task<ProjectEntity> CreateProject(CancellationToken ct, ProjectCreateArgs args)
     {
         var db = _dbFactory.Create();
         var project = ProjectDocument.Create(
             Uuid.NewMongo(),
-            ownerUserId,
-            projectName,
-            description,
-            tags);
+            args.OwnerUserId,
+            args.ProjectName,
+            args.Description,
+            args.Tags);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);
     }
@@ -39,25 +38,25 @@ public class ProjectRepository : IProjectRepository
         return project is not null ? ProjectDocument.ToDomain(project) : null;
     }
 
-    public async Task<ProjectEntity[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take)
+    public async Task<ProjectEntity[]> FilterProjects(CancellationToken ct, ProjectFilterArgs args)
     {
         var db = _dbFactory.Create();
 
-        search = search?.ToLower();
+        var search = args.Search?.ToLower();
         var searchFilter = search is null
             ? _f.Empty
             : _f.Where(x =>
                 (x.Description != null && x.Description.ToLower().Contains(search)) ||
                 x.ProjectName.ToLower().Contains(search));
 
-        var tagsFilter = tags.Length > 0
-            ? _f.All(o => o.Tags, tags)
+        var tagsFilter = args.Tags.Length > 0
+            ? _f.All(o => o.Tags, args.Tags)
             : _f.Empty;
 
         var projects = await db.Projects
             .Find(searchFilter & tagsFilter)
-            .Skip(skip)
-            .Limit(take)
+            .Skip(args.Skip)
+            .Limit(args.Take)
             .ToListAsync(ct);
 
         return projects.Select(ProjectDocument.ToDomain).ToArray();

@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
-using Garnet.Projects.Infrastructure.MongoDb;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 

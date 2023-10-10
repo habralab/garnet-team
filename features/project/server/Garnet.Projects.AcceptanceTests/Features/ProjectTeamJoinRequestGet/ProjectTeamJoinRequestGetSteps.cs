@@ -4,7 +4,7 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestGet;
-using Garnet.Projects.Infrastructure.MongoDb;
+using Garnet.Projects.Infrastructure.MongoDb.Project;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;

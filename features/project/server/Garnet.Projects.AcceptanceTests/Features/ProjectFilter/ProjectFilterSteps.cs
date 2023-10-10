@@ -2,7 +2,8 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
-using Garnet.Projects.Infrastructure.MongoDb;
+using Garnet.Projects.Infrastructure.MongoDb.Project;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 

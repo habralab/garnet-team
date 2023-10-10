@@ -1,7 +1,7 @@
 ﻿using Garnet.Projects.Application.ProjectUser;
 using MongoDB.Driver;
 
-namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 
 public class ProjectUserRepository : IProjectUserRepository
 {

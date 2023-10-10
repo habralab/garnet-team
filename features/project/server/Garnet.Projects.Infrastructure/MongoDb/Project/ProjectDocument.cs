@@ -1,4 +1,3 @@
-using Garnet.Projects.Application;
 using Garnet.Projects.Application.Project;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Project;

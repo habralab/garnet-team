@@ -2,7 +2,7 @@
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using MongoDB.Driver;
 
-namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 
 public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepository
 {

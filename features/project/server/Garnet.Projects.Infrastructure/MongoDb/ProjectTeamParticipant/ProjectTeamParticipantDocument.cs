@@ -1,6 +1,6 @@
 using Garnet.Projects.Application.ProjectTeamParticipant;
 
-namespace Garnet.Projects.Infrastructure.MongoDb
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant
 {
     public record ProjectTeamParticipantDocument
     {

@@ -1,6 +1,6 @@
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Infrastructure.MongoDb;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 
 namespace Garnet.Projects.AcceptanceTests.Support;
 

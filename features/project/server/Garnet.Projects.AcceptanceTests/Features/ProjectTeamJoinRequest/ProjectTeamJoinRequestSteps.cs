@@ -1,9 +1,9 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectTeamJoinRequest;
 using Garnet.Projects.Events;
 using Garnet.Projects.Infrastructure.EventHandlers;
-using Garnet.Projects.Infrastructure.MongoDb;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 

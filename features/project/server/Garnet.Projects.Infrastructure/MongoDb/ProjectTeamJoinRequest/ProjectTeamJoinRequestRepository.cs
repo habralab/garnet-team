@@ -1,11 +1,8 @@
-﻿using FluentResults;
-using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application;
+﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.ProjectTeamJoinRequest;
-using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 using MongoDB.Driver;
 
-namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 
 public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepository
 {
