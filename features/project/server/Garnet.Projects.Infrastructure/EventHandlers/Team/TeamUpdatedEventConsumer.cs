@@ -1,11 +1,10 @@
 ﻿using Garnet.Common.Application.MessageBus;
 using Garnet.Projects.Application;
-using Garnet.Projects.Events;
 using Garnet.Teams.Events;
 
-namespace Garnet.Projects.Infrastructure.EventHandlers;
+namespace Garnet.Projects.Infrastructure.EventHandlers.Team;
 
-public class TeamUpdatedEventConsumer : IMessageBusConsumer<TeamUpdatedEventMock>
+public class TeamUpdatedEventConsumer : IMessageBusConsumer<TeamUpdatedEvent>
 {
     private readonly ProjectTeamParticipantService _projectTeamParticipantService;
     private readonly ProjectTeamService _projectTeamService;
@@ -19,7 +18,7 @@ public class TeamUpdatedEventConsumer : IMessageBusConsumer<TeamUpdatedEventMock
         _projectTeamJoinRequestService = projectTeamJoinRequestService;
     }
 
-    public async Task Consume(TeamUpdatedEventMock message)
+    public async Task Consume(TeamUpdatedEvent message)
     {
         await _projectTeamService.UpdateProjectTeam(CancellationToken.None, message.Id, message.Name,
             message.OwnerUserId);
