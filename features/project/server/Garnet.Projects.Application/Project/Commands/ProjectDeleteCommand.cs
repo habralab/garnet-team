@@ -37,7 +37,7 @@ public class ProjectDeleteCommand
         }
 
         await _projectRepository.DeleteProject(ct, projectId);
-
+        await _projectTeamParticipantRepository.DeleteProjectTeamParticipantsByProjectId(ct, projectId);
         await _messageBus.Publish(project.ToDeletedEvent());
         return Result.Ok(project);
     }

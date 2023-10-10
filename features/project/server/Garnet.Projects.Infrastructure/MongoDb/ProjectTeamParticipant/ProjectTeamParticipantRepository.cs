@@ -50,4 +50,13 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
             cancellationToken: ct
         );
     }
+
+    public async Task DeleteProjectTeamParticipantsByProjectId(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        await db.ProjectTeamsParticipants.DeleteManyAsync(
+            _f.Eq(x => x.ProjectId, projectId),
+            cancellationToken: ct
+        );
+    }
 }
