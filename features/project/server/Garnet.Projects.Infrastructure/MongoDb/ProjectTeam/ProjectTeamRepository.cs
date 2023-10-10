@@ -25,6 +25,14 @@ public class ProjectTeamRepository : IProjectTeamRepository
         return ProjectTeamDocument.ToDomain(team);
     }
 
+    public async Task<ProjectTeamEntity> GetProjectTeamById(CancellationToken ct, string teamId)
+    {
+        var db = _dbFactory.Create();
+        var team = await db.ProjectTeams.Find(x => x.Id == teamId).FirstAsync(cancellationToken: ct);
+
+        return ProjectTeamDocument.ToDomain(team);
+    }
+
 
     public async Task<ProjectTeamEntity> UpdateProjectTeam(CancellationToken ct, string teamId,
         string teamName, string ownerUserId)
