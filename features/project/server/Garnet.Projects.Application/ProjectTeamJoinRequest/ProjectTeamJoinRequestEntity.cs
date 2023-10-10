@@ -1,6 +1,4 @@
-﻿using Garnet.Projects.Events;
-
-namespace Garnet.Projects.Application;
+﻿namespace Garnet.Projects.Application.ProjectTeamJoinRequest;
 
 public record ProjectTeamJoinRequestEntity(
     string Id,
