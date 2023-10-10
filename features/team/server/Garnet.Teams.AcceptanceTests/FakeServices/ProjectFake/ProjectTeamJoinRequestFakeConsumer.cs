@@ -1,5 +1,4 @@
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Events;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
 
 namespace Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake

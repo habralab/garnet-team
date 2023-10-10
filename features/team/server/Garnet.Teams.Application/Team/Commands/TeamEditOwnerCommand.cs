@@ -6,7 +6,6 @@ using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
-using Garnet.Teams.Events.Team;
 
 namespace Garnet.Teams.Application.Team.Commands
 {

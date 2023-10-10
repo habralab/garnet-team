@@ -1,14 +1,10 @@
 using System.Security.Claims;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Application;
-using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Queries;
-using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamParticipant.Queries;
-using Garnet.Teams.Application.TeamUserJoinRequest;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;

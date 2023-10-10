@@ -1,11 +1,9 @@
 using FluentResults;
-using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
-using Garnet.Teams.Events.Team;
 
 namespace Garnet.Teams.Application.Team.Commands
 {

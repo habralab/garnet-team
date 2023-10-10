@@ -1,5 +1,4 @@
 using Garnet.Common.Infrastructure.Migrations;
-using Garnet.Teams.Application;
 using Garnet.Teams.Application.TeamUser;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.Migration

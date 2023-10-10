@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api.TeamCreate;
 using Garnet.Teams.Infrastructure.Api.TeamDelete;
 using Garnet.Teams.Infrastructure.Api.TeamEditDescription;
@@ -13,8 +12,6 @@ using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
 using HotChocolate.Types;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
 using Garnet.Teams.Application.TeamJoinInvitation.Commands;
-using Garnet.Teams.Application.TeamUserJoinRequest;
-using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
 using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;

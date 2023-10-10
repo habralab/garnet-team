@@ -3,7 +3,6 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamParticipant;
-using Garnet.Teams.Events.Team;
 
 namespace Garnet.Teams.Application.Team.Commands
 {

@@ -16,8 +16,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         private readonly FilterDefinitionBuilder<TeamDocument> _f = Builders<TeamDocument>.Filter;
         private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private TeamDeletePayload _result = null!;
-        private QueryExceptionsContext _errorStepContext;
+        private readonly QueryExceptionsContext _errorStepContext;
 
         public TeamDeleteSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
@@ -49,7 +48,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
 
             try
             {
-                _result = await Mutation.TeamDelete(CancellationToken.None, claims, team.Id);
+                await Mutation.TeamDelete(CancellationToken.None, claims, team.Id);
             }
             catch (QueryException ex)
             {

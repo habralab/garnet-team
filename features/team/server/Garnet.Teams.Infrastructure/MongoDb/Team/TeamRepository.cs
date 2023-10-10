@@ -1,6 +1,4 @@
-using System.Reflection.Metadata.Ecma335;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Application;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Args;
 using MongoDB.Driver;

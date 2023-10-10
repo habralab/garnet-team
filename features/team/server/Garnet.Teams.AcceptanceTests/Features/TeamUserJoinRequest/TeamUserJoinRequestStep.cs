@@ -12,8 +12,8 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinRequest
     [Binding]
     public class TeamUserJoinRequestStep : BaseSteps
     {
-        private CurrentUserProviderFake _currentUserProviderFake;
-        private QueryExceptionsContext _errorStepContext;
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly QueryExceptionsContext _errorStepContext;
 
         public TeamUserJoinRequestStep(
             CurrentUserProviderFake currentUserProviderFake,

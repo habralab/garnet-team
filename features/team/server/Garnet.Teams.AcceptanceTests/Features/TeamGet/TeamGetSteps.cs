@@ -14,7 +14,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private TeamPayload _teamGetPayload = null!;
-        private QueryExceptionsContext _errorStepContext;
+        private readonly QueryExceptionsContext _errorStepContext;
         private string _id = null!;
 
         public TeamGetSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
