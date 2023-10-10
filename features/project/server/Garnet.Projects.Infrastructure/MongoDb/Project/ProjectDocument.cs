@@ -1,6 +1,7 @@
 using Garnet.Projects.Application;
+using Garnet.Projects.Application.Project;
 
-namespace Garnet.Projects.Infrastructure.MongoDb;
+namespace Garnet.Projects.Infrastructure.MongoDb.Project;
 
 public record ProjectDocument
 {
@@ -22,8 +23,8 @@ public record ProjectDocument
         };
     }
 
-    public static Project ToDomain(ProjectDocument doc)
+    public static ProjectEntity ToDomain(ProjectDocument doc)
     {
-        return new Project(doc.Id, doc.OwnerUserId, doc.ProjectName, doc.Description, doc.Tags);
+        return new ProjectEntity(doc.Id, doc.OwnerUserId, doc.ProjectName, doc.Description, doc.Tags);
     }
 }

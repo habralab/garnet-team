@@ -1,8 +1,9 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application;
+using Garnet.Projects.Application.Project;
 using MongoDB.Driver;
 
-namespace Garnet.Projects.Infrastructure.MongoDb;
+namespace Garnet.Projects.Infrastructure.MongoDb.Project;
 
 public class ProjectRepository : IProjectRepository
 {
@@ -17,7 +18,7 @@ public class ProjectRepository : IProjectRepository
     }
 
 
-    public async Task<Project> CreateProject(CancellationToken ct, string ownerUserId, string projectName,
+    public async Task<ProjectEntity> CreateProject(CancellationToken ct, string ownerUserId, string projectName,
         string? description, string[] tags)
     {
         var db = _dbFactory.Create();
@@ -31,14 +32,14 @@ public class ProjectRepository : IProjectRepository
         return ProjectDocument.ToDomain(project);
     }
 
-    public async Task<Project?> GetProject(CancellationToken ct, string projectId)
+    public async Task<ProjectEntity?> GetProject(CancellationToken ct, string projectId)
     {
         var db = _dbFactory.Create();
         var project = await db.Projects.Find(o => o.Id == projectId).FirstOrDefaultAsync(ct);
         return project is not null ? ProjectDocument.ToDomain(project) : null;
     }
 
-    public async Task<Project[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take)
+    public async Task<ProjectEntity[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take)
     {
         var db = _dbFactory.Create();
 
@@ -62,7 +63,7 @@ public class ProjectRepository : IProjectRepository
         return projects.Select(ProjectDocument.ToDomain).ToArray();
     }
 
-    public async Task<Project> EditProjectDescription(CancellationToken ct, string projectId, string? description)
+    public async Task<ProjectEntity> EditProjectDescription(CancellationToken ct, string projectId, string? description)
     {
         var db = _dbFactory.Create();
         var project = await db.Projects.FindOneAndUpdateAsync(
@@ -78,7 +79,7 @@ public class ProjectRepository : IProjectRepository
         return ProjectDocument.ToDomain(project);
     }
 
-    public async Task<Project?> DeleteProject(CancellationToken ct, string projectId)
+    public async Task<ProjectEntity?> DeleteProject(CancellationToken ct, string projectId)
     {
         var db = _dbFactory.Create();
 
@@ -89,7 +90,7 @@ public class ProjectRepository : IProjectRepository
         return ProjectDocument.ToDomain(project);
     }
 
-    public async Task<Project> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId)
+    public async Task<ProjectEntity> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId)
     {
         var db = _dbFactory.Create();
         var project = await db.Projects.FindOneAndUpdateAsync(

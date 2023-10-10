@@ -11,4 +11,23 @@
         <ProjectReference Include="..\Garnet.Projects.Events\Garnet.Projects.Events.csproj"/>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="ProjectTeamJoinRequest\Args\" />
+      <Folder Include="ProjectTeamJoinRequest\Commands\" />
+      <Folder Include="ProjectTeamJoinRequest\Queries\" />
+      <Folder Include="ProjectTeamParticipant\Args\" />
+      <Folder Include="ProjectTeamParticipant\Commands\" />
+      <Folder Include="ProjectTeamParticipant\Errors\" />
+      <Folder Include="ProjectTeamParticipant\Queries\" />
+      <Folder Include="ProjectTeam\Args\" />
+      <Folder Include="ProjectTeam\Commands\" />
+      <Folder Include="ProjectTeam\Errors\" />
+      <Folder Include="ProjectTeam\Queries\" />
+      <Folder Include="ProjectUser\Args\" />
+      <Folder Include="ProjectUser\Commands\" />
+      <Folder Include="ProjectUser\Errors\" />
+      <Folder Include="ProjectUser\Queries\" />
+      <Folder Include="Project\Queries\" />
+    </ItemGroup>
+
 </Project>
