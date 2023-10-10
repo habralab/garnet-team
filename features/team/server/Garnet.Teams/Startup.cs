@@ -67,6 +67,7 @@ namespace Garnet.Team
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamParticipantMigration>();
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
         }
 

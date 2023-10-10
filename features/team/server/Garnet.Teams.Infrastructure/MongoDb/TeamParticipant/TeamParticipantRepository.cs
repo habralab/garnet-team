@@ -87,5 +87,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
                 cancellationToken: ct
             );
         }
+
+        public async Task CreateIndexes(CancellationToken ct)
+        {
+             var db = _dbFactory.Create();
+            await db.TeamParticipants.Indexes.CreateOneAsync(
+                new CreateIndexModel<TeamParticipantDocument>(
+                    _i.Text(o => o.Username)
+                ),
+                cancellationToken: ct);
+        }
     }
 }

@@ -59,6 +59,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
 
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamParticipantMigration>();
         }
 
         private static void AddMessageBus(IServiceCollection services)
