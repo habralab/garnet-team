@@ -2,7 +2,11 @@
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application;
+using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Queries;
+using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
 using Garnet.Projects.Application.ProjectTeamParticipant;
+using Garnet.Projects.Application.ProjectTeamParticipant.Queries;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
@@ -15,21 +19,27 @@ namespace Garnet.Projects.Infrastructure.Api;
 [ExtendObjectType("Query")]
 public class ProjectsQuery
 {
-    private readonly ProjectService _projectService;
-    private readonly ProjectTeamParticipantService _projectTeamParticipantService;
-    private readonly ProjectTeamJoinRequestService _projectTeamJoinRequestService;
+    private readonly ProjectGetQuery _projectGetQuery;
+    private readonly ProjectsFilterQuery _projectsFilterQuery;
+    private readonly ProjectTeamParticipantFilterQuery _projectTeamParticipantFilterQuery;
+    private readonly ProjectTeamJoinRequestFilterQuery _projectTeamJoinRequestFilterQuery;
 
-    public ProjectsQuery(ProjectService projectService, ProjectTeamParticipantService projectTeamParticipantService,
-        ProjectTeamJoinRequestService projectTeamJoinRequestService)
+    public ProjectsQuery(
+        ProjectGetQuery projectGetQuery,
+        ProjectsFilterQuery projectsFilterQuery,
+        ProjectTeamParticipantFilterQuery projectTeamParticipantFilterQuery,
+        ProjectTeamJoinRequestFilterQuery projectTeamJoinRequestFilterQuery
+        )
     {
-        _projectService = projectService;
-        _projectTeamParticipantService = projectTeamParticipantService;
-        _projectTeamJoinRequestService = projectTeamJoinRequestService;
+        _projectGetQuery = projectGetQuery;
+        _projectsFilterQuery = projectsFilterQuery;
+        _projectTeamParticipantFilterQuery = projectTeamParticipantFilterQuery;
+        _projectTeamJoinRequestFilterQuery = projectTeamJoinRequestFilterQuery;
     }
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
     {
-        var result = await _projectService.GetProject(ct, projectId);
+        var result = await _projectGetQuery.Query(ct, projectId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
@@ -39,15 +49,16 @@ public class ProjectsQuery
 
     public async Task<ProjectFilterPayload> ProjectsFilter(CancellationToken ct, ProjectFilterInput input)
     {
-        var projects = await _projectService.FilterProjects(
-            ct,
+        var args = new ProjectFilterArgs(
             input.Search,
             input.Tags ?? Array.Empty<string>(),
             input.Skip,
-            input.Take
-        );
+            input.Take);
 
+        var result = await _projectsFilterQuery.Query(ct, args);
+        result.ThrowQueryExceptionIfHasErrors();
 
+        var projects = result.Value;
         return new ProjectFilterPayload(projects.Select(x => new ProjectPayload(
             x.Id,
             x.OwnerUserId,
@@ -60,7 +71,7 @@ public class ProjectsQuery
     public async Task<ProjectTeamParticipantPayload> ProjectTeamParticipantsFilter(CancellationToken ct,
         ProjectTeamParticipantInput input)
     {
-        var teams = await _projectTeamParticipantService.GetProjectTeamParticipantByProjectId(ct, input.ProjectId);
+        var teams = await _projectTeamParticipantFilterQuery.Query(ct, input.ProjectId);
 
         return new ProjectTeamParticipantPayload(teams.Select(x => new ProjectTeamParticipantEntity(
             x.Id,
@@ -74,7 +85,7 @@ public class ProjectsQuery
         ClaimsPrincipal claims, ProjectTeamJoinRequestGetInput input)
     {
         var result =
-            await _projectTeamJoinRequestService.GetProjectTeamJoinRequestsByProjectId(ct,
+            await _projectTeamJoinRequestFilterQuery.Query(ct,
                 new CurrentUserProvider(claims), input.ProjectId);
         result.ThrowQueryExceptionIfHasErrors();
 
