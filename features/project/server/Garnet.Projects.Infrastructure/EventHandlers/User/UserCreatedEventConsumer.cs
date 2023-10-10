@@ -1,20 +1,20 @@
 using Garnet.Common.Application.MessageBus;
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectUser.Commands;
 using Garnet.Users.Events;
 
-namespace Garnet.Projects.Infrastructure.EventHandlers
+namespace Garnet.Projects.Infrastructure.EventHandlers.User
 {
     public class UserCreatedEventConsumer : IMessageBusConsumer<UserCreatedEvent>
     {
-        private readonly ProjectUserService _projectUserService;
-        public UserCreatedEventConsumer(ProjectUserService projectUserService)
+        private readonly ProjectUserCreateCommand _projectUserCreateCommand;
+        public UserCreatedEventConsumer(ProjectUserCreateCommand projectUserCreateCommand)
         {
-            _projectUserService = projectUserService;
+            _projectUserCreateCommand = projectUserCreateCommand;
         }
 
         public async Task Consume(UserCreatedEvent message)
         {
-            await _projectUserService.AddUser(CancellationToken.None, message.UserId);
+            await _projectUserCreateCommand.Execute(CancellationToken.None, message.UserId);
         }
     }
 }

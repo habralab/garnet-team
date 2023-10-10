@@ -1,21 +1,23 @@
 using Garnet.Common.Application.MessageBus;
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectTeam.Args;
+using Garnet.Projects.Application.ProjectTeam.Commands;
 using Garnet.Teams.Events;
 
 namespace Garnet.Projects.Infrastructure.EventHandlers.Team
 {
     public class TeamCreatedEventConsumer : IMessageBusConsumer<TeamCreatedEvent>
     {
-        private readonly ProjectTeamService _projectTeamService;
-        public TeamCreatedEventConsumer(ProjectTeamService projectTeamService)
+        private readonly ProjectTeamCreateCommand _projectTeamCreateCommand;
+
+        public TeamCreatedEventConsumer(ProjectTeamCreateCommand projectTeamCreateCommand)
         {
-            _projectTeamService = projectTeamService;
+            _projectTeamCreateCommand = projectTeamCreateCommand;
         }
 
         public async Task Consume(TeamCreatedEvent message)
         {
-            await _projectTeamService.AddProjectTeam(CancellationToken.None, message.Id, message.Name, message.OwnerUserId);
+            var args = new ProjectTeamCreateArgs(message.Id, message.Name, message.OwnerUserId);
+            await _projectTeamCreateCommand.Execute(CancellationToken.None, args);
         }
     }
-
 }
