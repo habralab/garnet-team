@@ -29,16 +29,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
             return TeamUserDocument.ToDomain(user);
         }
 
-        public async Task CreateIndexes(CancellationToken ct)
-        {
-            var db = _dbFactory.Create();
-            await db.TeamUsers.Indexes.CreateOneAsync(
-                new CreateIndexModel<TeamUserDocument>(
-                    _i.Text(x => x.Username)
-                )
-            );
-        }
-
         public async Task<TeamUserEntity?> GetUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
