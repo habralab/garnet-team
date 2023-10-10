@@ -1,6 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.Migrations;
-using Garnet.Teams.Application;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
@@ -9,8 +8,6 @@ using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
 using Garnet.Projects.Events;
-using Garnet.Teams.Events;
-using Garnet.Teams.Infrastructure.EventHandlers;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
 using Garnet.Teams.Application.TeamJoinInvitation.Commands;
 using Garnet.Teams.Application.Team;
@@ -35,8 +32,6 @@ using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
-using Garnet.Teams.Application.TeamUser.Commands;
-using Garnet.Teams.Application.TeamParticipant.Commands;
 using Garnet.Teams.Application.TeamParticipant.Queries;
 
 namespace Garnet.Team
@@ -110,9 +105,6 @@ namespace Garnet.Team
         public static void AddTeamUserInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
-
-            services.AddScoped<TeamUserCreateCommand>();
-            services.AddScoped<TeamUserUpdateCommand>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)
@@ -120,8 +112,6 @@ namespace Garnet.Team
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
             
             services.AddScoped<TeamParticipantFilterQuery>();
-
-            services.AddScoped<TeamParticipantUpdateCommand>();
         }
 
         public static void AddTeamUserJoinRequestInternal(this IServiceCollection services)
