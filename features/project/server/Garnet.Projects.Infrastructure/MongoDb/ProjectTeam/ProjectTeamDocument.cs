@@ -1,6 +1,6 @@
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectTeam;
 
-namespace Garnet.Projects.Infrastructure.MongoDb
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam
 {
     public record ProjectTeamDocument
     {
@@ -18,9 +18,9 @@ namespace Garnet.Projects.Infrastructure.MongoDb
             };
         }
 
-        public static ProjectTeam ToDomain(ProjectTeamDocument doc)
+        public static ProjectTeamEntity ToDomain(ProjectTeamDocument doc)
         {
-            return new ProjectTeam(doc.Id, doc.TeamName, doc.OwnerUserId);
+            return new ProjectTeamEntity(doc.Id, doc.TeamName, doc.OwnerUserId);
         }
     }
 }

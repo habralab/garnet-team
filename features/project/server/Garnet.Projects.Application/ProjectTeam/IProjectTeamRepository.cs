@@ -1,10 +1,10 @@
-﻿namespace Garnet.Projects.Application;
+﻿namespace Garnet.Projects.Application.ProjectTeam;
 
 public interface IProjectTeamRepository
 {
-    Task<ProjectTeam> AddProjectTeam(CancellationToken ct, string teamId, string teamName,
+    Task<ProjectTeamEntity> AddProjectTeam(CancellationToken ct, string teamId, string teamName,
         string ownerUserId);
 
-    Task<ProjectTeam> UpdateProjectTeam(CancellationToken ct, string teamId, string teamName,
+    Task<ProjectTeamEntity> UpdateProjectTeam(CancellationToken ct, string teamId, string teamName,
         string ownerUserId);
 }

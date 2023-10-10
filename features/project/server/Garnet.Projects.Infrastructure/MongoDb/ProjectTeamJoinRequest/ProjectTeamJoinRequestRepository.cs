@@ -1,6 +1,8 @@
 ﻿using FluentResults;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectTeamJoinRequest;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
@@ -20,7 +22,7 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTeamJoinRequest> AddProjectTeamJoinRequest(CancellationToken ct, string teamId,
+    public async Task<ProjectTeamJoinRequestEntity> AddProjectTeamJoinRequest(CancellationToken ct, string teamId,
         string teamName, string projectId)
     {
         var db = _dbFactory.Create();
@@ -30,7 +32,7 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         return ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
     }
 
-    public async Task<ProjectTeamJoinRequest?> DeleteProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId)
+    public async Task<ProjectTeamJoinRequestEntity?> DeleteProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId)
     {
         var db = _dbFactory.Create();
         var teamJoinRequest = await db.ProjectTeamJoinRequests.FindOneAndDeleteAsync(
@@ -41,7 +43,7 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         return teamJoinRequest is null ? null : ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
     }
 
-    public async Task<ProjectTeamJoinRequest[]> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
+    public async Task<ProjectTeamJoinRequestEntity[]> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
         string projectId)
     {
         var db = _dbFactory.Create();
@@ -51,7 +53,7 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         return teams.Select(ProjectTeamJoinRequestDocument.ToDomain).ToArray();
     }
 
-    public async Task<ProjectTeamJoinRequest?> GetProjectTeamJoinRequestById(CancellationToken ct,
+    public async Task<ProjectTeamJoinRequestEntity?> GetProjectTeamJoinRequestById(CancellationToken ct,
         string projectTeamJoinRequestId)
     {
         var db = _dbFactory.Create();

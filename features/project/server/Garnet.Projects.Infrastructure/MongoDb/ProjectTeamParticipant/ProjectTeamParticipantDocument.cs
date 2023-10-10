@@ -1,4 +1,4 @@
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectTeamParticipant;
 
 namespace Garnet.Projects.Infrastructure.MongoDb
 {
@@ -20,9 +20,9 @@ namespace Garnet.Projects.Infrastructure.MongoDb
             };
         }
 
-        public static ProjectTeamParticipant ToDomain(ProjectTeamParticipantDocument doc)
+        public static ProjectTeamParticipantEntity ToDomain(ProjectTeamParticipantDocument doc)
         {
-            return new ProjectTeamParticipant(doc.Id, doc.TeamId, doc.TeamName, doc.ProjectId);
+            return new ProjectTeamParticipantEntity(doc.Id, doc.TeamId, doc.TeamName, doc.ProjectId);
         }
     }
 }

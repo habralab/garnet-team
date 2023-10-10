@@ -1,6 +1,5 @@
-﻿using FluentResults;
-using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application;
+﻿using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application.ProjectTeamParticipant;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
@@ -21,7 +20,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId,
+    public async Task<ProjectTeamParticipantEntity> AddProjectTeamParticipant(CancellationToken ct, string teamId,
         string teamName, string projectId)
     {
         var db = _dbFactory.Create();
@@ -31,7 +30,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         return ProjectTeamParticipantDocument.ToDomain(team);
     }
 
-    public async Task<ProjectTeamParticipant[]> GetProjectTeamParticipantsByProjectId(CancellationToken ct,
+    public async Task<ProjectTeamParticipantEntity[]> GetProjectTeamParticipantsByProjectId(CancellationToken ct,
         string projectId)
     {
         var db = _dbFactory.Create();

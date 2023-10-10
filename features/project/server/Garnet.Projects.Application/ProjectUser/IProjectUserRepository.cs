@@ -1,7 +1,7 @@
-﻿namespace Garnet.Projects.Application;
+﻿namespace Garnet.Projects.Application.ProjectUser;
 
 public interface IProjectUserRepository
 {
-    Task<ProjectUser> AddUser(CancellationToken ct, string userId);
-    Task<ProjectUser?> GetUser(CancellationToken ct, string userId);
+    Task<ProjectUserEntity> AddUser(CancellationToken ct, string userId);
+    Task<ProjectUserEntity?> GetUser(CancellationToken ct, string userId);
 }

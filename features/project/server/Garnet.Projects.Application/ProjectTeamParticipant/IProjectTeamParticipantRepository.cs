@@ -1,8 +1,8 @@
-﻿namespace Garnet.Projects.Application;
+﻿namespace Garnet.Projects.Application.ProjectTeamParticipant;
 
 public interface IProjectTeamParticipantRepository
 {
-    Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId, string teamName, string projectId);
-    Task<ProjectTeamParticipant[]> GetProjectTeamParticipantsByProjectId(CancellationToken ct, string projectId);
+    Task<ProjectTeamParticipantEntity> AddProjectTeamParticipant(CancellationToken ct, string teamId, string teamName, string projectId);
+    Task<ProjectTeamParticipantEntity[]> GetProjectTeamParticipantsByProjectId(CancellationToken ct, string projectId);
     Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId, string teamName);
 }

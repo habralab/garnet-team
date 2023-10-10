@@ -1,6 +1,6 @@
 using Garnet.Projects.Application;
 
-namespace Garnet.Projects.Infrastructure.MongoDb
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest
 {
     public record ProjectTeamJoinRequestDocument
     {
@@ -20,9 +20,9 @@ namespace Garnet.Projects.Infrastructure.MongoDb
             };
         }
 
-        public static ProjectTeamJoinRequest ToDomain(ProjectTeamJoinRequestDocument doc)
+        public static ProjectTeamJoinRequestEntity ToDomain(ProjectTeamJoinRequestDocument doc)
         {
-            return new ProjectTeamJoinRequest(doc.Id, doc.TeamId, doc.TeamName, doc.ProjectId);
+            return new ProjectTeamJoinRequestEntity(doc.Id, doc.TeamId, doc.TeamName, doc.ProjectId);
         }
     }
 }

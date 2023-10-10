@@ -1,4 +1,4 @@
-﻿using FluentResults;
+﻿using Garnet.Projects.Application.ProjectTeamParticipant;
 
 namespace Garnet.Projects.Application;
 
@@ -11,13 +11,13 @@ public class ProjectTeamParticipantService
         _repository = repository;
     }
 
-    public async Task<ProjectTeamParticipant> AddProjectTeamParticipant(CancellationToken ct, string teamId,
+    public async Task<ProjectTeamParticipantEntity> AddProjectTeamParticipant(CancellationToken ct, string teamId,
         string teamName, string projectId)
     {
         return await _repository.AddProjectTeamParticipant(ct, teamId, teamName, projectId);
     }
 
-    public async Task<ProjectTeamParticipant[]> GetProjectTeamParticipantByProjectId(CancellationToken ct,
+    public async Task<ProjectTeamParticipantEntity[]> GetProjectTeamParticipantByProjectId(CancellationToken ct,
         string teamId)
     {
         return await _repository.GetProjectTeamParticipantsByProjectId(ct, teamId);

@@ -2,7 +2,7 @@
 
 namespace Garnet.Projects.Application;
 
-public record ProjectTeamJoinRequest(
+public record ProjectTeamJoinRequestEntity(
     string Id,
     string TeamId,
     string TeamName,

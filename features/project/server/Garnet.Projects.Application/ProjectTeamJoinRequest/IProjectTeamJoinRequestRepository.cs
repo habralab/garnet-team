@@ -1,10 +1,10 @@
-﻿namespace Garnet.Projects.Application;
+﻿namespace Garnet.Projects.Application.ProjectTeamJoinRequest;
 
 public interface IProjectTeamJoinRequestRepository
 {
-    Task<ProjectTeamJoinRequest> AddProjectTeamJoinRequest(CancellationToken ct, string teamId, string teamName, string projectId);
-    Task<ProjectTeamJoinRequest[]> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct, string projectId);
-    Task<ProjectTeamJoinRequest?> GetProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId);
-    Task<ProjectTeamJoinRequest?> DeleteProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId);
+    Task<ProjectTeamJoinRequestEntity> AddProjectTeamJoinRequest(CancellationToken ct, string teamId, string teamName, string projectId);
+    Task<ProjectTeamJoinRequestEntity[]> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct, string projectId);
+    Task<ProjectTeamJoinRequestEntity?> GetProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId);
+    Task<ProjectTeamJoinRequestEntity?> DeleteProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId);
     Task UpdateProjectTeamJoinRequest(CancellationToken ct,string teamId, string teamName);
 }

@@ -1,8 +1,7 @@
-﻿using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application;
+﻿using Garnet.Projects.Application.ProjectTeam;
 using MongoDB.Driver;
 
-namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
+namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
 
 public class ProjectTeamRepository : IProjectTeamRepository
 {
@@ -16,7 +15,7 @@ public class ProjectTeamRepository : IProjectTeamRepository
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTeam> AddProjectTeam(CancellationToken ct, string teamId,
+    public async Task<ProjectTeamEntity> AddProjectTeam(CancellationToken ct, string teamId,
         string teamName, string ownerUserId)
     {
         var db = _dbFactory.Create();
@@ -27,7 +26,7 @@ public class ProjectTeamRepository : IProjectTeamRepository
     }
 
 
-    public async Task<ProjectTeam> UpdateProjectTeam(CancellationToken ct, string teamId,
+    public async Task<ProjectTeamEntity> UpdateProjectTeam(CancellationToken ct, string teamId,
         string teamName, string ownerUserId)
     {
         var db = _dbFactory.Create();

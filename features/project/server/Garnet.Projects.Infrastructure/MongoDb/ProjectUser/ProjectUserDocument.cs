@@ -1,4 +1,4 @@
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.ProjectUser;
 
 namespace Garnet.Projects.Infrastructure.MongoDb;
 
@@ -14,8 +14,8 @@ public record ProjectUserDocument
         };
     }
 
-    public static ProjectUser ToDomain(ProjectUserDocument doc)
+    public static ProjectUserEntity ToDomain(ProjectUserDocument doc)
     {
-        return new ProjectUser(doc.Id);
+        return new ProjectUserEntity(doc.Id);
     }
 }

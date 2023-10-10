@@ -1,5 +1,4 @@
-﻿using FluentResults;
-using Garnet.Projects.Application.Errors;
+﻿using Garnet.Projects.Application.ProjectUser;
 
 namespace Garnet.Projects.Application;
 
@@ -12,11 +11,11 @@ public class ProjectUserService
         _repository = repository;
     }
 
-    public async Task<ProjectUser> AddUser(CancellationToken ct, string userId)
+    public async Task<ProjectUserEntity> AddUser(CancellationToken ct, string userId)
     {
         return await _repository.AddUser(ct, userId);
     }
-    public async Task<ProjectUser?> GetUser(CancellationToken ct, string userId)
+    public async Task<ProjectUserEntity?> GetUser(CancellationToken ct, string userId)
     {
         return await _repository.GetUser(ct, userId);
     }

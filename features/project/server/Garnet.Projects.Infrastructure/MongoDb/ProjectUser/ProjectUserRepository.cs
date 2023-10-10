@@ -1,5 +1,4 @@
-﻿using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application;
+﻿using Garnet.Projects.Application.ProjectUser;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
@@ -13,7 +12,7 @@ public class ProjectUserRepository : IProjectUserRepository
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectUser> AddUser(CancellationToken ct, string userId)
+    public async Task<ProjectUserEntity> AddUser(CancellationToken ct, string userId)
     {
         var db = _dbFactory.Create();
         var user = ProjectUserDocument.Create(userId);
@@ -22,7 +21,7 @@ public class ProjectUserRepository : IProjectUserRepository
         return ProjectUserDocument.ToDomain(user);
     }
 
-    public async Task<ProjectUser?> GetUser(CancellationToken ct, string userId)
+    public async Task<ProjectUserEntity?> GetUser(CancellationToken ct, string userId)
     {
         var db = _dbFactory.Create();
         var user = await db.ProjectUsers.Find(x => x.Id == userId).FirstOrDefaultAsync(ct);
