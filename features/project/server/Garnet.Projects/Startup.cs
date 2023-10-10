@@ -7,6 +7,7 @@ using Garnet.Projects.Infrastructure.Api;
 using Garnet.Projects.Infrastructure.EventHandlers;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Garnet.Projects.Infrastructure.MongoDb.Migrations;
+using Garnet.Teams.Events;
 using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -59,7 +60,7 @@ public static class Startup
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
             o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEventMock>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEventMock>();
-            o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinRequestCreatedEventMock>();
+            o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
         });
     }
 

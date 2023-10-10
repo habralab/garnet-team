@@ -1,19 +1,27 @@
 ﻿using Garnet.Common.Application.MessageBus;
-using Garnet.Projects.Application;
-using Garnet.Projects.Events;
+using Garnet.Projects.Application.ProjectTeam.Queries;
+using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
+using Garnet.Teams.Events;
 
-namespace Garnet.Projects.Infrastructure.EventHandlers;
+namespace Garnet.Projects.Infrastructure.EventHandlers.ProjectTeamJoinRequest;
 
-public class ProjectTeamJoinRequestCreatedConsumer : IMessageBusConsumer<TeamJoinRequestCreatedEventMock>
+public class ProjectTeamJoinRequestCreatedConsumer : IMessageBusConsumer<TeamJoinProjectRequestCreatedEvent>
 {
-    private readonly ProjectTeamJoinRequestService _projectTeamJoinRequestService;
-    public ProjectTeamJoinRequestCreatedConsumer(ProjectTeamJoinRequestService projectTeamJoinRequestService)
+    private readonly ProjectTeamGetQuery _projectTeamGetQuery;
+    private readonly ProjectTeamJoinRequestCreateCommand _projectTeamJoinRequestCreateCommand;
+
+    public ProjectTeamJoinRequestCreatedConsumer(
+        ProjectTeamJoinRequestCreateCommand projectTeamJoinRequestCreateCommand,
+        ProjectTeamGetQuery projectTeamGetQuery)
     {
-        _projectTeamJoinRequestService = projectTeamJoinRequestService;
+        _projectTeamJoinRequestCreateCommand = projectTeamJoinRequestCreateCommand;
+        _projectTeamGetQuery = projectTeamGetQuery;
     }
 
-    public async Task Consume(TeamJoinRequestCreatedEventMock message)
+    public async Task Consume(TeamJoinProjectRequestCreatedEvent message)
     {
-        await _projectTeamJoinRequestService.AddProjectTeamJoinRequest(CancellationToken.None, message.TeamId, message.TeamName, message.ProjectId);
+        var team = await _projectTeamGetQuery.Query(CancellationToken.None, message.TeamId);
+        await _projectTeamJoinRequestCreateCommand.Execute(CancellationToken.None, message.TeamId, team.TeamName,
+            message.ProjectId);
     }
 }
