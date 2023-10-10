@@ -1,7 +1,6 @@
 using Garnet.Projects.Application.Args;
-using Garnet.Projects.Application.Project;
 
-namespace Garnet.Projects.Application;
+namespace Garnet.Projects.Application.Project;
 
 public interface IProjectRepository
 {
@@ -10,6 +9,6 @@ public interface IProjectRepository
     Task<ProjectEntity> EditProjectDescription(CancellationToken ct, string projectId, string? description);
     Task<ProjectEntity?> DeleteProject(CancellationToken ct, string projectId);
     Task<ProjectEntity> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId);
-    Task<ProjectEntity[]> FilterProjects(CancellationToken ct, string? search, string[] tags, int skip, int take);
+    Task<ProjectEntity[]> FilterProjects(CancellationToken ct, ProjectFilterArgs args);
     Task CreateIndexes(CancellationToken ct);
 }
