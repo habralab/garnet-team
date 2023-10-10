@@ -25,17 +25,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             return TeamParticipantDocument.ToDomain(teamParticipant);
         }
 
-        public async Task<TeamParticipantEntity[]> DeleteTeamParticipants(CancellationToken ct, string teamId)
-        {
-            var db = _dbFactory.Create();
-            var participants = await GetParticipantsFromTeam(ct, teamId);
-            await db.TeamParticipants.DeleteManyAsync(
-                _f.Eq(x => x.TeamId, teamId)
-            );
-
-            return participants;
-        }
-
         public async Task<TeamParticipantEntity[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
@@ -63,7 +52,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
 
             var teamFilter = filter.TeamId is null
                 ? _f.Empty
-                : _f.Eq(x=> x.TeamId, filter.TeamId);
+                : _f.Eq(x => x.TeamId, filter.TeamId);
 
             var participants = await db.TeamParticipants
                 .Find(searchFilter & teamFilter)
@@ -90,12 +79,21 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
 
         public async Task CreateIndexes(CancellationToken ct)
         {
-             var db = _dbFactory.Create();
+            var db = _dbFactory.Create();
             await db.TeamParticipants.Indexes.CreateOneAsync(
                 new CreateIndexModel<TeamParticipantDocument>(
                     _i.Text(o => o.Username)
                 ),
                 cancellationToken: ct);
+        }
+
+        public async Task DeleteParticipantsByTeam(CancellationToken ct, string teamId)
+        {
+            var db = _dbFactory.Create();
+            await db.TeamParticipants.DeleteManyAsync(
+                _f.Eq(x => x.TeamId, teamId),
+                cancellationToken: ct
+            );
         }
     }
 }

@@ -39,6 +39,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
             return joinRequest is null ? null : TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
 
+        public async Task DeleteUserJoinRequestsByTeam(CancellationToken ct, string teamId)
+        {
+            var db = _dbFactory.Create();
+            await db.TeamUserJoinRequests.DeleteManyAsync(
+                _f.Eq(x => x.TeamId, teamId),
+                cancellationToken: ct
+            );
+        }
+
         public async Task<TeamUserJoinRequestEntity[]> GetAllUserJoinRequestsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
