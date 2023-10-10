@@ -1,12 +1,10 @@
 using Garnet.Common.Application.MessageBus;
 using Garnet.Projects.Application;
-using Garnet.Projects.Events;
 using Garnet.Teams.Events;
 
-
-namespace Garnet.Projects.Infrastructure.EventHandlers
+namespace Garnet.Projects.Infrastructure.EventHandlers.Team
 {
-    public class TeamCreatedEventConsumer : IMessageBusConsumer<TeamCreatedEventMock>
+    public class TeamCreatedEventConsumer : IMessageBusConsumer<TeamCreatedEvent>
     {
         private readonly ProjectTeamService _projectTeamService;
         public TeamCreatedEventConsumer(ProjectTeamService projectTeamService)
@@ -14,7 +12,7 @@ namespace Garnet.Projects.Infrastructure.EventHandlers
             _projectTeamService = projectTeamService;
         }
 
-        public async Task Consume(TeamCreatedEventMock message)
+        public async Task Consume(TeamCreatedEvent message)
         {
             await _projectTeamService.AddProjectTeam(CancellationToken.None, message.Id, message.Name, message.OwnerUserId);
         }

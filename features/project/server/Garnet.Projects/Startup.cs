@@ -58,7 +58,7 @@ public static class Startup
             o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
-            o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEventMock>();
+            o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEvent>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEventMock>();
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
         });
