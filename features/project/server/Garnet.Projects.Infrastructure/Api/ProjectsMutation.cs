@@ -3,10 +3,7 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Args;
 using Garnet.Projects.Application.Project.Commands;
-using Garnet.Projects.Application.ProjectTeam.Commands;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
-using Garnet.Projects.Application.ProjectTeamParticipant.Commands;
-using Garnet.Projects.Application.ProjectUser.Commands;
 using Garnet.Projects.Infrastructure.Api.ProjectCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectDelete;
 using Garnet.Projects.Infrastructure.Api.ProjectEdit;
@@ -24,37 +21,22 @@ public class ProjectsMutation
     private readonly ProjectDeleteCommand _projectDeleteCommand;
     private readonly ProjectEditDescriptionCommand _projectEditDescriptionCommand;
     private readonly ProjectEditOwnerCommand _projectEditOwnerCommand;
-    private readonly ProjectTeamCreateCommand _projectTeamCreateCommand;
-    private readonly ProjectUserCreateCommand _projectUserCreateCommand;
-    private readonly ProjectTeamParticipantCreateCommand _projectTeamParticipantCreateCommand;
-    private readonly ProjectTeamParticipantUpdateCommand _projectTeamParticipantUpdateCommand;
-    private readonly ProjectTeamJoinRequestCreateCommand _projectTeamJoinRequestCreateCommand;
     private readonly ProjectTeamJoinRequestDecideCommand _projectTeamJoinRequestDecideCommand;
-    private readonly ProjectTeamJoinRequestUpdateCommand _projectTeamJoinRequestUpdateCommand;
 
 
     public ProjectsMutation(
-        ProjectCreateCommand projectCreateCommand, ProjectDeleteCommand projectDeleteCommand,
-        ProjectEditDescriptionCommand projectEditDescriptionCommand, ProjectEditOwnerCommand projectEditOwnerCommand,
-        ProjectTeamCreateCommand projectTeamCreateCommand, ProjectUserCreateCommand projectUserCreateCommand,
-        ProjectTeamParticipantCreateCommand projectTeamParticipantCreateCommand,
-        ProjectTeamParticipantUpdateCommand projectTeamParticipantUpdateCommand,
-        ProjectTeamJoinRequestCreateCommand projectTeamJoinRequestCreateCommand,
-        ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand,
-        ProjectTeamJoinRequestUpdateCommand projectTeamJoinRequestUpdateCommand
-        )
+        ProjectCreateCommand projectCreateCommand,
+        ProjectDeleteCommand projectDeleteCommand,
+        ProjectEditDescriptionCommand projectEditDescriptionCommand,
+        ProjectEditOwnerCommand projectEditOwnerCommand,
+        ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand
+    )
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
         _projectEditDescriptionCommand = projectEditDescriptionCommand;
         _projectEditOwnerCommand = projectEditOwnerCommand;
-        _projectTeamCreateCommand = projectTeamCreateCommand;
-        _projectUserCreateCommand = projectUserCreateCommand;
-        _projectTeamParticipantCreateCommand = projectTeamParticipantCreateCommand;
-        _projectTeamParticipantUpdateCommand = projectTeamParticipantUpdateCommand;
-        _projectTeamJoinRequestCreateCommand = projectTeamJoinRequestCreateCommand;
         _projectTeamJoinRequestDecideCommand = projectTeamJoinRequestDecideCommand;
-        _projectTeamJoinRequestUpdateCommand = projectTeamJoinRequestUpdateCommand;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct, ClaimsPrincipal claims,
