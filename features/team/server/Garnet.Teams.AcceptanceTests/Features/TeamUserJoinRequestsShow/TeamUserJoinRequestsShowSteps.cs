@@ -1,11 +1,8 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
 using Garnet.Teams.Infrastructure.MongoDb;
 using MongoDB.Driver;
-using TechTalk.SpecFlow.Assist;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShow
 {

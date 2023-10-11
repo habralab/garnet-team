@@ -5,7 +5,6 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Team;
-using Garnet.Teams.Application;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
 using Garnet.Teams.Infrastructure.MongoDb.Migration;
@@ -14,7 +13,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
-using Garnet.Teams.Events;
+using Garnet.Teams.Events.TeamJoinProjectRequest;
 
 namespace Garnet.Teams.AcceptanceTests
 {
@@ -28,20 +27,12 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<CurrentUserProviderFake>();
             services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
-            services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
-            services.AddScoped<ITeamRepository, TeamRepository>();
-            services.AddScoped<ITeamUserRepository, TeamUserRepository>();
-            services.AddScoped<ITeamUserJoinRequestRepository, TeamUserJoinRequestRepository>();
-            services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
-            services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
-          
-            services.AddScoped<TeamJoinProjectRequestCreateCommand>();
-            services.AddScoped<TeamJoinInviteCommand>();
-
-            services.AddScoped<TeamService>();
-            services.AddScoped<TeamUserService>();
-            services.AddScoped<TeamParticipantService>();
-            services.AddScoped<TeamUserJoinRequestService>();
+            services.AddTeamInternal();
+            services.AddTeamUserInternal();
+            services.AddTeamParticipantInternal();
+            services.AddTeamUserJoinRequestInternal();
+            services.AddTeamJoinInvitationInternal();
+            services.AddTeamJoinProjectRequestInternal();
 
             services.AddScoped<TeamsMutation>();
             services.AddScoped<TeamsQuery>();
@@ -67,8 +58,8 @@ namespace Garnet.Teams.AcceptanceTests
             });
             services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
 
-            services.AddScoped<IRepeatableMigration, CreateIndexesTeamUserMigration>();
             services.AddScoped<IRepeatableMigration, CreateIndexesTeamMigration>();
+            services.AddScoped<IRepeatableMigration, CreateIndexesTeamParticipantMigration>();
         }
 
         private static void AddMessageBus(IServiceCollection services)

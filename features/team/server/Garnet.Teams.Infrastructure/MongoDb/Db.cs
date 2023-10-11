@@ -1,3 +1,9 @@
+using Garnet.Teams.Infrastructure.MongoDb.Team;
+using Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation;
+using Garnet.Teams.Infrastructure.MongoDb.TeamJoinProjectRequest;
+using Garnet.Teams.Infrastructure.MongoDb.TeamParticipant;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUser;
+using Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb

@@ -2,10 +2,9 @@
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.ProjectTeamJoinRequest;
-using Garnet.Projects.Events;
 using Garnet.Projects.Infrastructure.EventHandlers.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
-using Garnet.Teams.Events;
+using Garnet.Teams.Events.TeamJoinProjectRequest;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 

@@ -1,11 +1,11 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Infrastructure.MongoDb;
+using Garnet.Teams.Infrastructure.MongoDb.TeamParticipant;
 
 namespace Garnet.Teams.AcceptanceTests.Support
 {
     public class TeamParticipantDocumentBuilder
     {
-        private string _id = Uuid.NewMongo();
+        private readonly string _id = Uuid.NewMongo();
         private string _userId = Uuid.NewMongo();
         private string _username = "Username";
         private string _teamId = Uuid.NewMongo();

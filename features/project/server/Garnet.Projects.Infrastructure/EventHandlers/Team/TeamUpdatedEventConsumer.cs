@@ -5,7 +5,7 @@ using Garnet.Projects.Application.ProjectTeamJoinRequest.Args;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
 using Garnet.Projects.Application.ProjectTeamParticipant.Args;
 using Garnet.Projects.Application.ProjectTeamParticipant.Commands;
-using Garnet.Teams.Events;
+using Garnet.Teams.Events.Team;
 
 namespace Garnet.Projects.Infrastructure.EventHandlers.Team;
 
