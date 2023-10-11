@@ -1,13 +1,12 @@
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 
-namespace Garnet.Teams.Infrastructure.Api.TeamEditOwner
+namespace Garnet.Teams.Infrastructure.Api.TeamUploadAvatar
 {
-    public record TeamEditOwnerPayload(
+    public record TeamUploadAvatarPayload(
         string Id,
         string Name,
         string Description,
         string AvatarUrl,
-        string[] Tags,
-        string OwnerUserId
+        string[] Tags
     ) : TeamPayload(Id, Name, Description, AvatarUrl, Tags);
 }

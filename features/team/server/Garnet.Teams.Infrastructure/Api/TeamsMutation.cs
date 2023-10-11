@@ -16,6 +16,7 @@ using Garnet.Teams.Application.TeamJoinInvitation.Args;
 using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
+using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -69,7 +70,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamDeletePayload(team.Id, team.Name, team.Description, team.Tags);
+            return new TeamDeletePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
 
         public async Task<TeamEditDescriptionPayload> TeamEditDescription(CancellationToken ct, ClaimsPrincipal claims, TeamEditDescriptionInput input)
@@ -78,7 +79,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.Tags);
+            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
 
         public async Task<TeamEditOwnerPayload> TeamEditOwner(CancellationToken ct, ClaimsPrincipal claims, TeamEditOwnerInput input)
@@ -87,7 +88,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.Tags, team.OwnerUserId);
+            return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
@@ -125,6 +126,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var userJoinRequest = result.Value;
             return new TeamUserJoinRequestPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId);
+        }
+
+        public async Task<TeamUploadAvatarPayload> TeamUploadAvatar(CancellationToken ct, ClaimsPrincipal claims, TeamUploadAvatarInput input)
+        {
+            return null;
         }
     }
 }
