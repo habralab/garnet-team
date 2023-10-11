@@ -37,6 +37,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
                 GiveMe.TeamParticipant()
                     .WithTeamId(team.Id)
                     .WithUserId(_currentUserProviderFake.UserId)
+                    .WithUsername(username)
             );
         }
 

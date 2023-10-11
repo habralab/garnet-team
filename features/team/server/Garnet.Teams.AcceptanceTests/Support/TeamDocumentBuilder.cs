@@ -9,7 +9,7 @@ namespace Garnet.Teams.AcceptanceTests.Support
         private string _name  = "TeamName";
         private string _description  = "TeamDescription";
         private string _ownerUserId  = Uuid.NewMongo();
-        private string[] _tags = Array.Empty<string>();
+        private readonly string[] _tags = Array.Empty<string>();
 
         public TeamDocumentBuilder WithId(string id)
         {
