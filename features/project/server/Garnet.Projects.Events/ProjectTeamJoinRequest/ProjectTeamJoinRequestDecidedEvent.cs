@@ -1,4 +1,4 @@
-﻿namespace Garnet.Projects.Events;
+﻿namespace Garnet.Projects.Events.ProjectTeamJoinRequest;
 
 public record ProjectTeamJoinRequestDecidedEvent(
     string Id,

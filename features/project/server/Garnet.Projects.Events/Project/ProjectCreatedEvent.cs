@@ -1,4 +1,4 @@
-﻿namespace Garnet.Projects.Events;
+﻿namespace Garnet.Projects.Events.Project;
 
 public record ProjectCreatedEvent(
     string ProjectId,
