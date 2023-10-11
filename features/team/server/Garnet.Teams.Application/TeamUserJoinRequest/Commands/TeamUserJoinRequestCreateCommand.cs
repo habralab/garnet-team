@@ -8,7 +8,6 @@ using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
 using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
-using Garnet.Teams.Events.TeamUserJoinRequest;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 {
