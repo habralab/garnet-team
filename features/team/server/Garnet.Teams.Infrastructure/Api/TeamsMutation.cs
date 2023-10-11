@@ -17,6 +17,7 @@ using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
+using Microsoft.VisualBasic;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -31,6 +32,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamJoinInviteCommand _joinInviteCommand;
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
+        private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -40,6 +42,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamJoinInviteCommand joinInviteCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
+            TeamUploadAvatarCommand teamUploadAvatarCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamCreateCommand = teamCreateCommand;
@@ -48,6 +51,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamEditOwnerCommand = teamEditOwnerCommand;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
+            _teamUploadAvatarCommand = teamUploadAvatarCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
         }
@@ -130,7 +134,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUploadAvatarPayload> TeamUploadAvatar(CancellationToken ct, ClaimsPrincipal claims, TeamUploadAvatarInput input)
         {
-            return null;
+            var result = await _teamUploadAvatarCommand.Execute(ct, new CurrentUserProvider(claims), input.TeamId, input.File.ContentType, input.File.OpenReadStream());
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
     }
 }

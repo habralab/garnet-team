@@ -114,5 +114,22 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             return TeamDocument.ToDomain(team);
         }
+
+        public async Task<TeamEntity?> EditTeamAvatar(CancellationToken ct, string teamId, string avatarUrl)
+        {
+          var db = _dbFactory.Create();
+
+            var team = await db.Teams.FindOneAndUpdateAsync(
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.AvatarUrl, avatarUrl),
+                options: new FindOneAndUpdateOptions<TeamDocument>
+                {
+                    ReturnDocument = ReturnDocument.After
+                },
+                cancellationToken: ct
+            );
+
+            return TeamDocument.ToDomain(team);
+        }
     }
 }
