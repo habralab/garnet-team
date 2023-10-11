@@ -36,7 +36,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUploadAvatar
             );
         }
 
-        [When(@"'(.*)' редактирует аватарку проекта '(.*)' на '(.*)'")]
+        [When(@"'(.*)' редактирует аватарку команды '(.*)' на '(.*)'")]
         public async Task WhenРедактируетАватаркуПроектаНа(string username, string teamName, string avatar)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
