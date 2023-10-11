@@ -54,7 +54,7 @@ namespace Garnet.Teams.Infrastructure.Api
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
             var currentUserProvider = new CurrentUserProvider(claims);
-            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, input.Tags);
+            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, input.AvatarUrl, input.Tags);
 
             var result = await _teamCreateCommand.Execute(ct, args);
             result.ThrowQueryExceptionIfHasErrors();
