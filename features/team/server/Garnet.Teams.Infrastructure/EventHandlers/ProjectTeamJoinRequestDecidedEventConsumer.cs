@@ -1,5 +1,5 @@
 using Garnet.Common.Application.MessageBus;
-using Garnet.Projects.Events;
+using Garnet.Projects.Events.ProjectTeamJoinRequest;
 using Garnet.Teams.Application;
 
 namespace Garnet.Teams.Infrastructure.EventHandlers

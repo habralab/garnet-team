@@ -1,4 +1,4 @@
-using Garnet.Projects.Events;
+using Garnet.Projects.Events.Project;
 
 namespace Garnet.Projects.Application.Project;
 

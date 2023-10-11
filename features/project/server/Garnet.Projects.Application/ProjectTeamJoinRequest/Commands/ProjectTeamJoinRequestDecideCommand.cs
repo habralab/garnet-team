@@ -5,7 +5,7 @@ using Garnet.Projects.Application.Errors;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Errors;
 using Garnet.Projects.Application.ProjectTeamParticipant;
-using Garnet.Projects.Events;
+using Garnet.Projects.Events.ProjectTeamJoinRequest;
 
 namespace Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
 
