@@ -1,3 +1,5 @@
-﻿namespace Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
+﻿using Garnet.Projects.Application.ProjectTeamParticipant;
 
-public record ProjectTeamParticipantPayload(Application.ProjectTeamParticipant[] ProjectTeamParticipant);
+namespace Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
+
+public record ProjectTeamParticipantPayload(ProjectTeamParticipantEntity[] ProjectTeamParticipant);

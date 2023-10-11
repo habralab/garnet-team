@@ -10,5 +10,5 @@
         <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Application\Garnet.Common.Application.csproj"/>
         <ProjectReference Include="..\Garnet.Projects.Events\Garnet.Projects.Events.csproj"/>
     </ItemGroup>
-
+    
 </Project>

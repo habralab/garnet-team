@@ -8,6 +8,8 @@ using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
 using Garnet.Projects.Events;
+using Garnet.Projects.Events.Project;
+using Garnet.Projects.Events.ProjectTeamJoinRequest;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
 using Garnet.Teams.Application.TeamJoinInvitation.Commands;
 using Garnet.Teams.Application.Team;
