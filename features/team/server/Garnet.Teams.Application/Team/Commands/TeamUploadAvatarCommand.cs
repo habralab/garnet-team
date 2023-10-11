@@ -35,7 +35,7 @@ namespace Garnet.Teams.Application.Team.Commands
                 return Result.Fail(new TeamOnlyOwnerCanChangeAvatarError());
             }
 
-            var avatarUrl = await _fileStorage.UploadFile($"avatars/{currentUserProvider.UserId}", contentType, imageStream);
+            var avatarUrl = await _fileStorage.UploadFile($"avatars/team/{teamId}", contentType, imageStream);
             team = await _teamRepository.EditTeamAvatar(ct, teamId, avatarUrl);
 
             var @event = team!.ToUpdatedEvent();
