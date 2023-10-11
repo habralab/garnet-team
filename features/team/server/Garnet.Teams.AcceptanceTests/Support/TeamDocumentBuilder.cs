@@ -5,33 +5,15 @@ namespace Garnet.Teams.AcceptanceTests.Support
 {
     public class TeamDocumentBuilder
     {
-        private string _id  = Uuid.NewMongo();
+        private readonly string _id  = Uuid.NewMongo();
         private string _name  = "TeamName";
-        private string _description  = "TeamDescription";
-        private string _ownerUserId  = Uuid.NewMongo();
+        private readonly string _description  = "TeamDescription";
+        private readonly string _ownerUserId  = Uuid.NewMongo();
         private readonly string[] _tags = Array.Empty<string>();
-
-        public TeamDocumentBuilder WithId(string id)
-        {
-            _id = id;
-            return this;
-        }
 
         public TeamDocumentBuilder WithName(string name)
         {
             _name = name;
-            return this;
-        }
-
-        public TeamDocumentBuilder WithDescription(string description)
-        {
-            _description = description;
-            return this;
-        }
-
-        public TeamDocumentBuilder WithOwnerUserId(string ownerUserId)
-        {
-            _ownerUserId = ownerUserId;
             return this;
         }
 
