@@ -1,7 +1,11 @@
 using System.Security.Claims;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Application;
+using Garnet.Teams.Application.Team.Args;
+using Garnet.Teams.Application.Team.Queries;
+using Garnet.Teams.Application.TeamParticipant.Args;
+using Garnet.Teams.Application.TeamParticipant.Queries;
+using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
@@ -15,23 +19,26 @@ namespace Garnet.Teams.Infrastructure.Api
 
     public class TeamsQuery
     {
-        private readonly TeamService _teamService;
-        private readonly TeamParticipantService _participantService;
-        private readonly TeamUserJoinRequestService _userJoinRequestService;
+        private readonly TeamGetQuery _teamGetQuery;
+        private readonly TeamsFilterQuery _teamsFilterQuery;
+        private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
+        private readonly TeamParticipantFilterQuery _teamParticipantFilterQuery;
 
         public TeamsQuery(
-            TeamService teamService,
-            TeamUserJoinRequestService userJoinRequestService,
-            TeamParticipantService participantService)
+            TeamGetQuery teamGetQuery,
+            TeamsFilterQuery teamsFilterQuery,
+            TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
+            TeamParticipantFilterQuery teamParticipantFilterQuery)
         {
-            _teamService = teamService;
-            _userJoinRequestService = userJoinRequestService;
-            _participantService = participantService;
+            _teamGetQuery = teamGetQuery;
+            _teamsFilterQuery = teamsFilterQuery;
+            _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
+            _teamParticipantFilterQuery = teamParticipantFilterQuery;
         }
 
         public async Task<TeamPayload> TeamGet(CancellationToken ct, string teamId)
         {
-            var result = await _teamService.GetTeamById(ct, teamId);
+            var result = await _teamGetQuery.Query(ct, teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
@@ -40,19 +47,16 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamsFilterPayload> TeamsFilter(CancellationToken ct, TeamsFilterInput input)
         {
-            var teams = await _teamService.FilterTeams(
-                ct,
-                input.Search,
-                input.Tags ?? Array.Empty<string>(),
-                input.Skip,
-                input.Take);
+            var args = new TeamFilterArgs(input.Search, input.Tags ?? Array.Empty<string>(), input.Skip, input.Take);
+            var teams = await _teamsFilterQuery.Query(ct, args);
 
             return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.Tags)).ToArray());
         }
 
         public async Task<TeamParticipantFilterPayload> TeamParticipantFilter(CancellationToken ct, TeamParticipantFilterInput input)
         {
-            var participants = await _participantService.FindTeamParticipantByUsername(ct, input.TeamId, input.Search, input.Take, input.Skip);
+            var args = new TeamParticipantFilterArgs(input.Search, input.TeamId, input.Skip, input.Take);
+            var participants = await _teamParticipantFilterQuery.Query(ct, args);
             var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
 
             return new TeamParticipantFilterPayload(payloadContent);
@@ -60,7 +64,7 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, ClaimsPrincipal claims, string teamId)
         {
-            var result = await _userJoinRequestService.GetAllUserJoinRequestByTeam(ct, new CurrentUserProvider(claims), teamId);
+            var result = await _teamUserJoinRequestsShowQuery.Query(ct, new CurrentUserProvider(claims), teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));

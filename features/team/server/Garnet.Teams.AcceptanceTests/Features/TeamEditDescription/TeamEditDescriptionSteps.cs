@@ -11,7 +11,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditDescription
     public class TeamEditSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private QueryExceptionsContext _errorStepContext = null!;
+        private readonly QueryExceptionsContext _errorStepContext = null!;
         private TeamEditDescriptionPayload _teamEditPayload = null!;
 
         public TeamEditSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)

@@ -1,3 +1,8 @@
+using Garnet.Projects.Infrastructure.MongoDb.Project;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb;

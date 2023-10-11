@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Projects.Application;
-using Garnet.Projects.Events;
-using Garnet.Projects.Infrastructure.EventHandlers;
-using Garnet.Projects.Infrastructure.MongoDb;
+using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application.ProjectTeamJoinRequest;
+using Garnet.Projects.Infrastructure.EventHandlers.ProjectTeamJoinRequest;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
+using Garnet.Teams.Events.TeamJoinProjectRequest;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
@@ -45,7 +46,7 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
-        await _projectTeamJoinRequestCreatedConsumer.Consume(new TeamJoinRequestCreatedEventMock(team.Id, team.TeamName, project.Id));
+        await _projectTeamJoinRequestCreatedConsumer.Consume(new TeamJoinProjectRequestCreatedEvent(Uuid.NewMongo(), project.Id, team.Id));
     }
 
     [Then(@"в проекте '([^']*)' существует заявка на вступление от команды '([^']*)'")]

@@ -1,5 +1,5 @@
 using Garnet.Common.Infrastructure.Migrations;
-using Garnet.Projects.Application;
+using Garnet.Projects.Application.Project;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
 
