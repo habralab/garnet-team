@@ -6,7 +6,7 @@ namespace Garnet.Teams.Infrastructure.Api.TeamDelete
         string Id,
         string Name,
         string Description,
-        string AvatarUrl,
+        string? AvatarUrl,
         string[] Tags
     ) : TeamPayload(Id, Name, Description, AvatarUrl, Tags);
 }

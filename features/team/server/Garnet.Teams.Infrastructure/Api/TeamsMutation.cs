@@ -59,7 +59,7 @@ namespace Garnet.Teams.Infrastructure.Api
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
             var currentUserProvider = new CurrentUserProvider(claims);
-            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, input.AvatarUrl, input.Tags);
+            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, null, input.Tags);
 
             var result = await _teamCreateCommand.Execute(ct, args);
             result.ThrowQueryExceptionIfHasErrors();
@@ -138,7 +138,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags);
         }
     }
 }

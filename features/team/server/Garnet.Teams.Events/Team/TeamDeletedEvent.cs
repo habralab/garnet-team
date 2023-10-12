@@ -5,7 +5,7 @@ namespace Garnet.Teams.Events.Team
         string Name,
         string OwnerUserId,
         string Description,
-        string AvatarUrl,
+        string? AvatarUrl,
         string[] Tags
     );
 }
