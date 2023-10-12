@@ -16,6 +16,7 @@ public class ProjectUploadAvatarSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private QueryExceptionsContext _errorStepContext = null!;
+    private readonly RemoteFileStorageFake _fileStorageFake;
 
     private readonly FilterDefinitionBuilder<ProjectDocument> _f = Builders<ProjectDocument>.Filter;
     private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
@@ -23,16 +24,18 @@ public class ProjectUploadAvatarSteps : BaseSteps
     public ProjectUploadAvatarSteps(
         QueryExceptionsContext errorStepContext,
         CurrentUserProviderFake currentUserProviderFake,
-        StepsArgs args
-    ) : base(args)
+        StepsArgs args, RemoteFileStorageFake fileStorageFake) : base(args)
     {
         _errorStepContext = errorStepContext;
         _currentUserProviderFake = currentUserProviderFake;
+        _fileStorageFake = fileStorageFake;
     }
 
     [Given(@"аватаркой проекта '(.*)' является ссылка '(.*)'")]
-    public async Task GivenАватаркойПроектаЯвляетсяСсылка(string projectName, string avatarUrl)
+    public async Task GivenАватаркойПроектаЯвляетсяСсылка(string projectName, string avatar)
     {
+        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
+        var avatarUrl = avatar.Replace("ID", project.Id);
         await Db.Projects.UpdateOneAsync(
             _f.Eq(x => x.ProjectName, projectName),
             _u.Set(x => x.AvatarUrl, avatarUrl)
@@ -68,8 +71,10 @@ public class ProjectUploadAvatarSteps : BaseSteps
     }
 
     [Then(@"в удаленном хранилище для проекта '(.*)' есть файл '(.*)'")]
-    public async Task ThenВУдаленномХранилищеДляПроектаЕстьФайл(string projectName, string avatarUrl)
+    public async Task ThenВУдаленномХранилищеДляПроектаЕстьФайл(string projectName, string avatar)
     {
-        await ThenАватаркойПроектаЯвляетсяСсылка(projectName, avatarUrl);
+        var user = await Db.Projects.Find(o => o.ProjectName == projectName).FirstAsync();
+        var avatarUrl = avatar.Replace("ID", user.Id);
+        _fileStorageFake.FilesInStorage.Should().ContainKey(avatarUrl);
     }
 }

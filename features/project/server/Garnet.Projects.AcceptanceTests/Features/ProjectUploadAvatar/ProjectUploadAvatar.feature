@@ -15,7 +15,7 @@
 
     Сценарий: Редактирование аватарки проекта запрещено не владельцу проекта
         Допустим существует пользователь 'Маша'
-        И аватаркой проекта 'FooBar' является ссылка 'avatars/project/FooBar.jpg'
+        И аватаркой проекта 'FooBar' является ссылка 'avatars/project/ID'
         Когда 'Маша' редактирует аватарку проекта 'FooBar' на 'ProjectAvatar.jpg'
         Тогда пользователь получает ошибку, что 'ProjectOnlyOwnerCanEditAvatarError'
-        И аватаркой проекта 'FooBar' является ссылка 'avatars/project/FooBar.jpg'
+        И аватаркой проекта 'FooBar' является ссылка 'avatars/project/ID'
