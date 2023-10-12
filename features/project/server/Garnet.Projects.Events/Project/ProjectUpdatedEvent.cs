@@ -4,5 +4,7 @@ public record ProjectUpdatedEvent(
     string ProjectId,
     string ProjectName,
     string OwnerUserId,
-    string? Description
+    string? Description,
+    string? AvatarUrl,
+    string[] Tags
 );

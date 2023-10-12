@@ -43,13 +43,15 @@ public class ProjectsMutation
         ProjectCreateInput input)
     {
         var currentUserProvider = new CurrentUserProvider(claims);
-        var args = new ProjectCreateArgs(input.ProjectName, currentUserProvider.UserId, input.Description, input.Tags);
+        var args = new ProjectCreateArgs(input.ProjectName, currentUserProvider.UserId, input.Description,
+            input.AvatarUrl, input.Tags);
 
         var result = await _projectCreateCommand.Execute(ct, args);
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
         return new ProjectCreatePayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
+            project.AvatarUrl,
             project.Tags);
     }
 

@@ -1,3 +1,9 @@
 namespace Garnet.Projects.Infrastructure.Api.ProjectCreate;
 
-public record ProjectCreatePayload(string Id, string OwnerUserId, string ProjectName, string? Description, string[] Tags);
+public record ProjectCreatePayload(
+    string Id,
+    string OwnerUserId,
+    string ProjectName,
+    string? Description,
+    string? AvatarUrl,
+    string[] Tags);
