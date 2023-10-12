@@ -10,7 +10,7 @@
 
     Сценарий: Редактирование аватарки проекта
         Когда 'Вася' редактирует аватарку проекта 'FooBar' на 'ProjectAvatar.jpg'
-        Тогда аватарка проекта 'FooBar' является 'avatars/project/ID'
+        Тогда аватаркой проекта 'FooBar' является ссылка 'avatars/project/ID'
         И в удаленном хранилище для проекта 'FooBar' есть файл 'avatars/project/ID'
 
     Сценарий: Редактирование аватарки проекта запрещено не владельцу проекта
@@ -18,4 +18,4 @@
         И аватаркой проекта 'FooBar' является ссылка 'avatars/project/FooBar.jpg'
         Когда 'Маша' редактирует аватарку проекта 'FooBar' на 'ProjectAvatar.jpg'
         Тогда пользователь получает ошибку, что 'ProjectOnlyOwnerCanEditAvatarError'
-        И в системе аватарка проекта 'FooBar' содержит ссылку 'avatars/project/FooBar.jpg'
+        И аватаркой проекта 'FooBar' является ссылка 'avatars/project/FooBar.jpg'
