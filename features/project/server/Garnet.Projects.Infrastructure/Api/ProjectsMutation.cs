@@ -10,6 +10,7 @@ using Garnet.Projects.Infrastructure.Api.ProjectEdit;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
+using Garnet.Projects.Infrastructure.Api.ProjectUploadAvatar;
 using HotChocolate.Types;
 
 namespace Garnet.Projects.Infrastructure.Api;
@@ -22,6 +23,7 @@ public class ProjectsMutation
     private readonly ProjectEditDescriptionCommand _projectEditDescriptionCommand;
     private readonly ProjectEditOwnerCommand _projectEditOwnerCommand;
     private readonly ProjectTeamJoinRequestDecideCommand _projectTeamJoinRequestDecideCommand;
+    private readonly ProjectUploadAvatarCommand _projectUploadAvatarCommand;
 
 
     public ProjectsMutation(
@@ -29,14 +31,15 @@ public class ProjectsMutation
         ProjectDeleteCommand projectDeleteCommand,
         ProjectEditDescriptionCommand projectEditDescriptionCommand,
         ProjectEditOwnerCommand projectEditOwnerCommand,
-        ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand
-    )
+        ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand,
+        ProjectUploadAvatarCommand projectUploadAvatarCommand)
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
         _projectEditDescriptionCommand = projectEditDescriptionCommand;
         _projectEditOwnerCommand = projectEditOwnerCommand;
         _projectTeamJoinRequestDecideCommand = projectTeamJoinRequestDecideCommand;
+        _projectUploadAvatarCommand = projectUploadAvatarCommand;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct, ClaimsPrincipal claims,
@@ -65,6 +68,18 @@ public class ProjectsMutation
         var project = result.Value;
         return new ProjectEditDescriptionPayload(project.Id, project.OwnerUserId, project.ProjectName,
             project.Description);
+    }
+
+    public async Task<ProjectUploadAvatarPayload> ProjectUploadAvatar(CancellationToken ct,
+        ClaimsPrincipal claims, ProjectUploadAvatarInput input)
+    {
+        var result = await _projectUploadAvatarCommand.Execute(ct, new CurrentUserProvider(claims), input.ProjectId,
+            input.File.ContentType, input.File.OpenReadStream());
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var project = result.Value;
+        return new ProjectUploadAvatarPayload(project.Id, project.OwnerUserId, project.ProjectName,
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectDeletePayload?> ProjectDelete(CancellationToken ct, ClaimsPrincipal claims,
