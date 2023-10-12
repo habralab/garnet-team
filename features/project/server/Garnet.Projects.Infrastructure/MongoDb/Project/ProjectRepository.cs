@@ -79,6 +79,22 @@ public class ProjectRepository : IProjectRepository
         return ProjectDocument.ToDomain(project);
     }
 
+    public async Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, projectId),
+            _u.Set(x => x.AvatarUrl, avatarUrl),
+            options: new FindOneAndUpdateOptions<ProjectDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
     public async Task<ProjectEntity?> DeleteProject(CancellationToken ct, string projectId)
     {
         var db = _dbFactory.Create();
