@@ -59,13 +59,17 @@ namespace Garnet.Teams.Infrastructure.Api
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
             var currentUserProvider = new CurrentUserProvider(claims);
-            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, null, input.Tags);
+            var avatarFile = input.File is null ? null : new AvatarFileArgs(
+                input.File.Name,
+                input.File.ContentType,
+                input.File.OpenReadStream());
+            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, avatarFile, input.Tags);
 
             var result = await _teamCreateCommand.Execute(ct, args);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.Tags);
+            return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, ClaimsPrincipal claims, string teamId)

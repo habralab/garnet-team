@@ -25,6 +25,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
              args.Name,
              args.Description,
              args.OwnerUserId!,
+             null,
              args.Tags
             );
             await db.Teams.InsertOneAsync(team, cancellationToken: ct);
