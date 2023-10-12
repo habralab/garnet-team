@@ -17,14 +17,17 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUploadAvatar
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private readonly FilterDefinitionBuilder<TeamDocument> _f = Builders<TeamDocument>.Filter;
         private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
+        private readonly RemoteFileStorageFake _fileStorageFake;
 
         public TeamUploadAvatarSteps(
             CurrentUserProviderFake currentUserProviderFake,
             QueryExceptionsContext queryExceptionsContext,
+            RemoteFileStorageFake fileStorageFake,
             StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
             _queryExceptionsContext = queryExceptionsContext;
+            _fileStorageFake = fileStorageFake;
         }
 
         [Given(@"аватаркой команды '(.*)' является ссылка '(.*)'")]
@@ -70,7 +73,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUploadAvatar
         [Then(@"в удаленном хранилище для команды '(.*)' есть файл '(.*)'")]
         public async Task ThenВУдаленномХранилищеДляКоманлыЕстьФайл(string teamName, string avatar)
         {
-            await ThenАватаркойПроектаЯвляетсяСсылка(teamName, avatar);
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+            avatar = avatar.Replace("ID", team.Id);
+            _fileStorageFake.FilesInStorage.Should().ContainKey(avatar);
         }
     }
 }
