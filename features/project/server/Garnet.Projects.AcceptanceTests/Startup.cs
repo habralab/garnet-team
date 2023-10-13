@@ -2,6 +2,7 @@ using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
+using Garnet.Common.Application.S3;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Project;
 using Garnet.Projects.Application.Project;
@@ -44,6 +45,9 @@ public static class Startup
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
+        services.AddScoped<RemoteFileStorageFake>();
+        services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
+
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
         services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
@@ -54,6 +58,7 @@ public static class Startup
         services.AddScoped<ProjectDeleteCommand>();
         services.AddScoped<ProjectEditDescriptionCommand>();
         services.AddScoped<ProjectEditOwnerCommand>();
+        services.AddScoped<ProjectUploadAvatarCommand>();
         services.AddScoped<ProjectTeamCreateCommand>();
         services.AddScoped<ProjectUserCreateCommand>();
         services.AddScoped<ProjectTeamParticipantCreateCommand>();

@@ -26,6 +26,7 @@ public class ProjectRepository : IProjectRepository
             args.OwnerUserId,
             args.ProjectName,
             args.Description,
+            args.AvatarUrl,
             args.Tags);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);
@@ -68,6 +69,22 @@ public class ProjectRepository : IProjectRepository
         var project = await db.Projects.FindOneAndUpdateAsync(
             _f.Eq(x => x.Id, projectId),
             _u.Set(x => x.Description, description),
+            options: new FindOneAndUpdateOptions<ProjectDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
+    public async Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, projectId),
+            _u.Set(x => x.AvatarUrl, avatarUrl),
             options: new FindOneAndUpdateOptions<ProjectDocument>
             {
                 ReturnDocument = ReturnDocument.After
