@@ -1,6 +1,6 @@
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
-using Garnet.Common.Infrastructure.Migrations;
 
 namespace Garnet.Teams.AcceptanceTests
 {

@@ -2,7 +2,6 @@ using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
-using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Team;
 using Garnet.Teams.Infrastructure.Api;
@@ -15,6 +14,7 @@ using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
 using Garnet.Common.Application.S3;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 
 namespace Garnet.Teams.AcceptanceTests
 {

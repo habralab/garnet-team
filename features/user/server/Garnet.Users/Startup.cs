@@ -1,6 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
+using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.MessageBus;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
 using Garnet.Users.Application;
 using Garnet.Users.Events;
@@ -34,6 +35,7 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+        services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
     }

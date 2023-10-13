@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Garnet.Common.Infrastructure.Migrations;
+namespace Garnet.Common.Infrastructure.MongoDb.Migrations;
 
 public static class Startup
 {
