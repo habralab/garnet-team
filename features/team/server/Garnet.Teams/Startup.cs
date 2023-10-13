@@ -99,6 +99,7 @@ namespace Garnet.Team
             services.AddScoped<TeamEditDescriptionCommand>();
             services.AddScoped<TeamEditOwnerCommand>();
             services.AddScoped<TeamUploadAvatarCommand>();
+            services.AddScoped<TeamEditNameCommand>();
 
             services.AddScoped<TeamGetQuery>();
             services.AddScoped<TeamsFilterQuery>();

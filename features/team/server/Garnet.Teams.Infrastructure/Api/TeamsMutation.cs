@@ -34,6 +34,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
+        private readonly TeamEditNameCommand _teamEditNameCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -41,6 +42,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamEditDescriptionCommand teamEditDescriptionCommand,
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamJoinInviteCommand joinInviteCommand,
+            TeamEditNameCommand teamEditNameCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
@@ -55,6 +57,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUploadAvatarCommand = teamUploadAvatarCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
+            _teamEditNameCommand = teamEditNameCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
@@ -148,7 +151,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, ClaimsPrincipal claims, TeamEditNameInput input)
         {
-            return null;
+            var result = await _teamEditNameCommand.Execute(ct, new CurrentUserProvider(claims), input.Id, input.Name);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
     }
 }
