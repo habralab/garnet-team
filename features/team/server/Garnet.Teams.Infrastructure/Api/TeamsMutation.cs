@@ -16,6 +16,8 @@ using Garnet.Teams.Application.TeamJoinInvitation.Args;
 using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
+using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
+using Microsoft.VisualBasic;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -30,6 +32,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamJoinInviteCommand _joinInviteCommand;
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
+        private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -39,6 +42,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamJoinInviteCommand joinInviteCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
+            TeamUploadAvatarCommand teamUploadAvatarCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamCreateCommand = teamCreateCommand;
@@ -47,6 +51,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamEditOwnerCommand = teamEditOwnerCommand;
             _joinProjectRequestCommand = joinProjectRequestCommand;
             _joinInviteCommand = joinInviteCommand;
+            _teamUploadAvatarCommand = teamUploadAvatarCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
         }
@@ -54,13 +59,17 @@ namespace Garnet.Teams.Infrastructure.Api
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, ClaimsPrincipal claims, TeamCreateInput input)
         {
             var currentUserProvider = new CurrentUserProvider(claims);
-            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, input.Tags);
+            var avatarFile = input.File is null ? null : new AvatarFileArgs(
+                input.File.Name,
+                input.File.ContentType,
+                input.File.OpenReadStream());
+            var args = new TeamCreateArgs(input.Name, input.Description, currentUserProvider.UserId, avatarFile, input.Tags);
 
             var result = await _teamCreateCommand.Execute(ct, args);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.Tags);
+            return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, ClaimsPrincipal claims, string teamId)
@@ -69,7 +78,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamDeletePayload(team.Id, team.Name, team.Description, team.Tags);
+            return new TeamDeletePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
 
         public async Task<TeamEditDescriptionPayload> TeamEditDescription(CancellationToken ct, ClaimsPrincipal claims, TeamEditDescriptionInput input)
@@ -78,7 +87,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.Tags);
+            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
 
         public async Task<TeamEditOwnerPayload> TeamEditOwner(CancellationToken ct, ClaimsPrincipal claims, TeamEditOwnerInput input)
@@ -87,7 +96,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.Tags, team.OwnerUserId);
+            return new TeamEditOwnerPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestCreate(CancellationToken ct, ClaimsPrincipal claims, string teamId)
@@ -125,6 +134,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var userJoinRequest = result.Value;
             return new TeamUserJoinRequestPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId);
+        }
+
+        public async Task<TeamUploadAvatarPayload> TeamUploadAvatar(CancellationToken ct, ClaimsPrincipal claims, TeamUploadAvatarInput input)
+        {
+            var result = await _teamUploadAvatarCommand.Execute(ct, new CurrentUserProvider(claims), input.TeamId, input.File.ContentType, input.File.OpenReadStream());
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags);
         }
     }
 }

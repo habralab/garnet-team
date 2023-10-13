@@ -25,6 +25,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
              args.Name,
              args.Description,
              args.OwnerUserId!,
+             null,
              args.Tags
             );
             await db.Teams.InsertOneAsync(team, cancellationToken: ct);
@@ -78,7 +79,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 _f.Eq(x => x.Id, teamId)
             );
 
-            return TeamDocument.ToDomain(team);
+            return team is null ? null : TeamDocument.ToDomain(team);
         }
 
         public async Task<TeamEntity?> EditTeamDescription(CancellationToken ct, string teamId, string description)
@@ -95,7 +96,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 cancellationToken: ct
             );
 
-            return TeamDocument.ToDomain(team);
+            return team is null ? null : TeamDocument.ToDomain(team);
         }
 
         public async Task<TeamEntity?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId)
@@ -112,7 +113,24 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 cancellationToken: ct
             );
 
-            return TeamDocument.ToDomain(team);
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> EditTeamAvatar(CancellationToken ct, string teamId, string avatarUrl)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await db.Teams.FindOneAndUpdateAsync(
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.AvatarUrl, avatarUrl),
+                options: new FindOneAndUpdateOptions<TeamDocument>
+                {
+                    ReturnDocument = ReturnDocument.After
+                },
+                cancellationToken: ct
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
         }
     }
 }

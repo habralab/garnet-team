@@ -4,6 +4,7 @@ namespace Garnet.Teams.Infrastructure.Api.TeamGet
         string Id,
         string Name,
         string Description,
+        string? AvatarUrl,
         string[] Tags
     );
 }

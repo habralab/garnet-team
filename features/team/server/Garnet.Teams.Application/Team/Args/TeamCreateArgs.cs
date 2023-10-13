@@ -4,6 +4,7 @@ namespace Garnet.Teams.Application.Team.Args
         string Name,
         string Description,
         string OwnerUserId,
+        AvatarFileArgs? Avatar,
         string[] Tags
     );
 }

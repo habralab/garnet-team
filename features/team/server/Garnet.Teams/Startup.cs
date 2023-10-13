@@ -7,7 +7,6 @@ using Garnet.Teams.Infrastructure.MongoDb.Migration;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
-using Garnet.Projects.Events;
 using Garnet.Projects.Events.Project;
 using Garnet.Projects.Events.ProjectTeamJoinRequest;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
@@ -99,6 +98,7 @@ namespace Garnet.Team
             services.AddScoped<TeamDeleteCommand>();
             services.AddScoped<TeamEditDescriptionCommand>();
             services.AddScoped<TeamEditOwnerCommand>();
+            services.AddScoped<TeamUploadAvatarCommand>();
 
             services.AddScoped<TeamGetQuery>();
             services.AddScoped<TeamsFilterQuery>();
