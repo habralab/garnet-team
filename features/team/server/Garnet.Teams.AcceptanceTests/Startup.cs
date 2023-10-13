@@ -43,6 +43,8 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<RemoteFileStorageFake>();
             services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
 
+            services.AddScoped<DateTimeServiceFake>();
+            services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());
 
             services.AddScoped<GiveMe>();
             services.AddScoped<StepsArgs>();

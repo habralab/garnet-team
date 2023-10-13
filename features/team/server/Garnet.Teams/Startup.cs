@@ -34,6 +34,7 @@ using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Application.TeamParticipant.Queries;
+using Garnet.Common.Application;
 
 namespace Garnet.Team
 {
@@ -59,6 +60,7 @@ namespace Garnet.Team
                 ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
 
+            services.AddScoped<IDateTimeService, DateTimeService>();
             services.AddTeamInternal();
             services.AddTeamUserInternal();
             services.AddTeamParticipantInternal();
@@ -113,7 +115,7 @@ namespace Garnet.Team
         public static void AddTeamParticipantInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
-            
+
             services.AddScoped<TeamParticipantFilterQuery>();
         }
 
