@@ -22,7 +22,7 @@ public abstract class RepositoryBase
     {
         var creationDate = _dateTimeService.UtcNow;
         var createdUser = _currentUserProvider.UserId;
-        var auditInfo = new AuditInfo(creationDate, createdUser, creationDate, createdUser);
+        var auditInfo = AuditInfo.Create(creationDate, createdUser);
         var createdDocument = document with { AuditInfo = auditInfo };
         await collection.InsertOneAsync(createdDocument, cancellationToken: ct);
         return createdDocument;
@@ -40,7 +40,8 @@ public abstract class RepositoryBase
         var updateDefinitionWithAuditInfo =
             updateDefinition
                 .Set(o => o.AuditInfo.UpdatedAt, updatedDate)
-                .Set(o => o.AuditInfo.UpdatedBy, updatedUser);
+                .Set(o => o.AuditInfo.UpdatedBy, updatedUser)
+                .Inc(o => o.AuditInfo.Version, 1);
         return await collection.FindOneAndUpdateAsync(
             filterDefinition, 
             updateDefinitionWithAuditInfo,
