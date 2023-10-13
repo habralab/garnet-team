@@ -1,4 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Teams.Infrastructure.Api;
@@ -34,6 +38,7 @@ using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Application.TeamParticipant.Queries;
+using Microsoft.AspNetCore.Http;
 
 namespace Garnet.Team
 {
@@ -42,8 +47,9 @@ namespace Garnet.Team
     {
         public static IRequestExecutorBuilder AddGarnetTeams(this IRequestExecutorBuilder builder)
         {
-            builder.AddType<TeamsMutation>();
-            builder.AddType<TeamsQuery>();
+            builder.AddApiType<TeamsMutation>();
+            builder.AddApiType<TeamsQuery>();
+            builder.Services.AddCurrentUserProvider();
             builder.Services.AddGarnetTeamsInternal();
             builder.Services.AddRepeatableMigrations();
             builder.Services.AddGarnetTeamsMessageBus(nameof(Teams));

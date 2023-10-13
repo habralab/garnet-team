@@ -20,10 +20,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShow
         [When(@"'(.*)' просматривает заявки на вступление в команду '(.*)'")]
         public async Task WhenПросматриваетЗаявкиНаВступлениеВКоманду(string username, string teamName)
         {
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
-            _result = await Query.TeamUserJoinRequestsShow(CancellationToken.None, claims, team.Id);
+            _result = await Query.TeamUserJoinRequestsShow(CancellationToken.None, team.Id);
         }
 
         [Then(@"количество заявок в списке равно '(.*)'")]

@@ -40,11 +40,11 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
         string projectName)
     {
         var input = await SetJoinRequestDecision(projectName, teamName, true);
-        var claims = _currentUserProviderFake.LoginAs(username);
+        _currentUserProviderFake.LoginAs(username);
 
         try
         {
-            await Mutation.ProjectTeamJoinRequestDecide(CancellationToken.None, claims, input);
+            await Mutation.ProjectTeamJoinRequestDecide(CancellationToken.None, input);
         }
         catch (QueryException ex)
         {
@@ -74,11 +74,11 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
         string projectName)
     {
         var input = await SetJoinRequestDecision(projectName, teamName, false);
-        var claims = _currentUserProviderFake.LoginAs(username);
+        _currentUserProviderFake.LoginAs(username);
 
         try
         {
-            await Mutation.ProjectTeamJoinRequestDecide(CancellationToken.None, claims, input);
+            await Mutation.ProjectTeamJoinRequestDecide(CancellationToken.None, input);
         }
         catch (QueryException ex)
         {

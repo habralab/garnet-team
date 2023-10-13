@@ -80,12 +80,10 @@ public class ProjectsQuery
         )).ToArray());
     }
 
-    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
-        ClaimsPrincipal claims, ProjectTeamJoinRequestGetInput input)
+    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct, ProjectTeamJoinRequestGetInput input)
     {
         var result =
-            await _projectTeamJoinRequestFilterQuery.Query(ct,
-                new CurrentUserProvider(claims), input.ProjectId);
+            await _projectTeamJoinRequestFilterQuery.Query(ct, input.ProjectId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var teamJoinRequests = result.Value;

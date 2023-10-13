@@ -14,18 +14,21 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
     public class TeamUserJoinRequestCreateCommand
     {
         private readonly ITeamUserJoinRequestRepository _userJoinRequestRepository;
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamParticipantRepository _participantRepository;
         private readonly ITeamUserRepository _userRepository;
         private readonly IMessageBus _messageBus;
 
         public TeamUserJoinRequestCreateCommand(
+            ICurrentUserProvider currentUserProvider,
             ITeamRepository teamRepository,
             ITeamUserJoinRequestRepository userJoinRequestRepository,
             ITeamParticipantRepository participantRepository,
             ITeamUserRepository userRepository,
             IMessageBus messageBus)
         {
+            _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
             _userRepository = userRepository;
             _participantRepository = participantRepository;
@@ -33,7 +36,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamUserJoinRequestEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
+        public async Task<Result<TeamUserJoinRequestEntity>> Execute(CancellationToken ct, string teamId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -41,16 +44,16 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            var user = await _userRepository.GetUser(ct, currentUserProvider.UserId);
+            var user = await _userRepository.GetUser(ct, _currentUserProvider.UserId);
             if (user is null)
             {
-                return Result.Fail(new TeamUserNotFoundError(currentUserProvider.UserId));
+                return Result.Fail(new TeamUserNotFoundError(_currentUserProvider.UserId));
             }
 
             var teamUserJoinRequests = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
-            if (teamUserJoinRequests.Any(x => x.UserId == currentUserProvider.UserId))
+            if (teamUserJoinRequests.Any(x => x.UserId == _currentUserProvider.UserId))
             {
-                return Result.Fail(new TeamPendingUserJoinRequestError(currentUserProvider.UserId));
+                return Result.Fail(new TeamPendingUserJoinRequestError(_currentUserProvider.UserId));
             }
 
             var userTeams = await _participantRepository.GetMembershipOfUser(ct, user.Id);

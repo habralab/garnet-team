@@ -50,12 +50,12 @@ public class ProjectTeamJoinRequestGetSteps : BaseSteps
     [When(@"пользователь '([^']*)' просматривает заявки проекта '([^']*)'")]
     public async Task WhenПользовательПросматриваетЗаявкиНаВступлениеВПроект(string username, string projectName)
     {
-        var claims = _currentUserProviderFake.LoginAs(username);
+        _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
 
         try
         {
-            _response = await Query.GetProjectTeamJoinRequestsByProjectId(CancellationToken.None, claims,
+            _response = await Query.GetProjectTeamJoinRequestsByProjectId(CancellationToken.None,
                 new ProjectTeamJoinRequestGetInput(project.Id));
         }
         catch (QueryException ex)

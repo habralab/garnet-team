@@ -1,5 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Application;
+using Garnet.Common.Infrastructure;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
@@ -9,6 +12,7 @@ using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
 using Garnet.Users.Infrastructure.MongoDb.Migrations;
 using HotChocolate.Execution.Configuration;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.User;
@@ -18,8 +22,9 @@ public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetUsers(this IRequestExecutorBuilder builder)
     {
-        builder.AddType<UsersQuery>();
-        builder.AddType<UsersMutation>();
+        builder.AddApiType<UsersQuery>();
+        builder.AddApiType<UsersMutation>();
+        builder.Services.AddCurrentUserProvider();
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddGarnetUsersMessageBus(nameof(Users));
         builder.Services.AddRepeatableMigrations();

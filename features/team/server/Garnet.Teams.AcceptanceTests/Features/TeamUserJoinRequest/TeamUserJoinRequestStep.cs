@@ -37,12 +37,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinRequest
         [When(@"пользователь '(.*)' подает заявку на вступление в команду '(.*)'")]
         public async Task WhenПользовательПодаетЗаявкуНаВступлениеВКоманду(string username, string teamName)
         {
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
             try
             {
-                await Mutation.TeamUserJoinRequestCreate(CancellationToken.None, claims, team.Id);
+                await Mutation.TeamUserJoinRequestCreate(CancellationToken.None, team.Id);
             }
             catch (QueryException ex)
             {

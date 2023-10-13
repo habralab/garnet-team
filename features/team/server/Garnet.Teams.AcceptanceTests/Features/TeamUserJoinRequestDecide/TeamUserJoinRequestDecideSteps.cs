@@ -35,11 +35,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
         public async Task WhenПринимаетЗаявкуНаВступлениеВКомандуОтПользоваьтеля(string ownerUsername, string teamName, string username)
         {
             var input = await SetJoinRequestDecision(teamName, username, true);
-            var claims = _currentUserProviderFake.LoginAs(ownerUsername);
+            _currentUserProviderFake.LoginAs(ownerUsername);
 
             try
             {
-                await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, claims, input);
+                await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, input);
 
             }
             catch (QueryException ex)
@@ -52,9 +52,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
         public async Task WhenОтклоняетЗаявкуНаВступлениеВКомандуОтПользоваьтеля(string ownerUsername, string teamName, string username)
         {
             var input = await SetJoinRequestDecision(teamName, username, false);
-            var claims = _currentUserProviderFake.LoginAs(ownerUsername);
+            _currentUserProviderFake.LoginAs(ownerUsername);
 
-            await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, claims, input);
+            await Mutation.TeamUserJoinRequestDecide(CancellationToken.None, input);
         }
 
         [Then(@"в команде '(.*)' количество участников равно '(.*)'")]

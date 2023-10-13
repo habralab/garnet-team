@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Users.Application;
 using Garnet.Users.Infrastructure.Api.UserCreate;
@@ -24,18 +25,17 @@ public class UsersMutation
         return new UserCreatePayload(result.Id, result.UserName, result.Description, result.AvatarUrl, result.Tags);
     }
     
-    public async Task<UserEditDescriptionPayload> UserEditDescription(CancellationToken ct, ClaimsPrincipal claims, UserEditDescriptionInput input)
+    public async Task<UserEditDescriptionPayload> UserEditDescription(CancellationToken ct, UserEditDescriptionInput input)
     {
-        var result = await _usersService.EditCurrentUserDescription(ct, new CurrentUserProvider(claims), input.Description);
+        var result = await _usersService.EditCurrentUserDescription(ct, input.Description);
         return new UserEditDescriptionPayload(result.Id, result.UserName, result.Description, result.AvatarUrl, result.Tags);
     }
     
-    public async Task<UserUploadAvatarPayload> UserUploadAvatar(CancellationToken ct, ClaimsPrincipal claims, UserUploadAvatarInput input)
+    public async Task<UserUploadAvatarPayload> UserUploadAvatar(CancellationToken ct, UserUploadAvatarInput input)
     {
         var result =
             await _usersService.EditCurrentUserAvatar(
                 ct,
-                new CurrentUserProvider(claims),
                 input.File.Name,
                 input.File.ContentType,
                 input.File.OpenReadStream()

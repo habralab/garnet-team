@@ -18,12 +18,12 @@ public class ProjectRepository : IProjectRepository
     }
 
 
-    public async Task<ProjectEntity> CreateProject(CancellationToken ct, ProjectCreateArgs args)
+    public async Task<ProjectEntity> CreateProject(CancellationToken ct, string ownerUserId, ProjectCreateArgs args)
     {
         var db = _dbFactory.Create();
         var project = ProjectDocument.Create(
             Uuid.NewMongo(),
-            args.OwnerUserId,
+            ownerUserId,
             args.ProjectName,
             args.Description,
             args.AvatarUrl,

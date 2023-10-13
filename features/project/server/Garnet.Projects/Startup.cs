@@ -1,4 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Projects.Application.Project;
@@ -41,8 +43,9 @@ public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetProjects(this IRequestExecutorBuilder builder)
     {
-        builder.AddType<ProjectsMutation>();
-        builder.AddType<ProjectsQuery>();
+        builder.AddApiType<ProjectsMutation>();
+        builder.AddApiType<ProjectsQuery>();
+        builder.Services.AddCurrentUserProvider();
         builder.Services.AddGarnetProjectsInternal();
         builder.Services.AddGarnetProjectsMessageBus(nameof(Projects));
         builder.Services.AddRepeatableMigrations();

@@ -8,22 +8,25 @@ namespace Garnet.Projects.Application.Project.Commands;
 
 public class ProjectDeleteCommand
 {
+    private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IProjectRepository _projectRepository;
     private readonly IProjectTeamParticipantRepository _projectTeamParticipantRepository;
     private readonly IMessageBus _messageBus;
 
     public ProjectDeleteCommand(
+        ICurrentUserProvider currentUserProvider,
         IProjectRepository projectRepository,
         IProjectTeamParticipantRepository projectTeamParticipantRepository,
         IMessageBus messageBus
     )
     {
+        _currentUserProvider = currentUserProvider;
         _projectRepository = projectRepository;
         _projectTeamParticipantRepository = projectTeamParticipantRepository;
         _messageBus = messageBus;
     }
 
-    public async Task<Result<ProjectEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string projectId)
+    public async Task<Result<ProjectEntity>> Execute(CancellationToken ct, string projectId)
     {
         var project = await _projectRepository.GetProject(ct, projectId);
         if (project is null)
@@ -31,7 +34,7 @@ public class ProjectDeleteCommand
             return Result.Fail(new ProjectNotFoundError(projectId));
         }
 
-        if (project.OwnerUserId != currentUserProvider.UserId)
+        if (project.OwnerUserId != _currentUserProvider.UserId)
         {
             return Result.Fail(new ProjectOnlyOwnerCanDeleteError());
         }

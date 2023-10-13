@@ -39,13 +39,13 @@ public class ProjectEditDescriptionSteps : BaseSteps
     public async Task WhenПользовательРедактируетОписаниеПроекта(string username, string projectName,
         string projectDescription)
     {
-        var claims = _currentUserProviderFake.LoginAs(username);
+        _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(o => o.ProjectName == projectName).FirstAsync();
         var input = new ProjectEditDescriptionInput(project.Id, projectDescription);
 
         try
         {
-            _response = await Mutation.ProjectEditDescription(CancellationToken.None, claims, input);
+            _response = await Mutation.ProjectEditDescription(CancellationToken.None, input);
         }
         catch (QueryException ex)
         {
