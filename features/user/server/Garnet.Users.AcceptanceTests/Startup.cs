@@ -26,6 +26,9 @@ public static class Startup
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
+        services.AddScoped<DateTimeServiceFake>();
+        services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());
+
         services.AddScoped<RemoteFileStorageFake>();
         services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
     

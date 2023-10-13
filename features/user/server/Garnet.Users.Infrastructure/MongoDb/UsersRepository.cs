@@ -1,21 +1,24 @@
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application;
 using MongoDB.Driver;
 
 namespace Garnet.Users.Infrastructure.MongoDb;
 
-public class UsersRepository : IUsersRepository
+public class UsersRepository : RepositoryBase, IUsersRepository
 {
     private readonly DbFactory _dbFactory;
     private readonly FilterDefinitionBuilder<UserDocument> _f = Builders<UserDocument>.Filter;
     private readonly UpdateDefinitionBuilder<UserDocument> _u = Builders<UserDocument>.Update;
     private readonly IndexKeysDefinitionBuilder<UserDocument> _i = Builders<UserDocument>.IndexKeys;
 
-    public UsersRepository(DbFactory dbFactory)
+    public UsersRepository(DbFactory dbFactory, ICurrentUserProvider currentUserProvider, IDateTimeService dateTimeService)
+        : base(currentUserProvider, dateTimeService)
     {
         _dbFactory = dbFactory;
     }
-    
+
     public async Task<User?> GetUser(CancellationToken ct, string id)
     {
         var db = _dbFactory.Create();
@@ -26,30 +29,24 @@ public class UsersRepository : IUsersRepository
     public async Task<User> EditUserDescription(CancellationToken ct, string userId, string description)
     {
         var db = _dbFactory.Create();
-        var user =
-            await db.Users.FindOneAndUpdateAsync(
-                _f.Eq(o => o.Id, userId),
-                _u.Set(o => o.Description, description),
-                options: new FindOneAndUpdateOptions<UserDocument>
-                {
-                    ReturnDocument = ReturnDocument.After
-                },
-                cancellationToken: ct);
+        var user = await FindOneAndUpdateDocument(
+            ct,
+            db.Users, 
+            _f.Eq(o => o.Id, userId), 
+            _u.Set(o => o.Description, description)
+        );
         return UserDocument.ToDomain(user);
     }
 
     public async Task<User> EditUserAvatar(CancellationToken ct, string userId, string avatarUrl)
     {
         var db = _dbFactory.Create();
-        var user =
-            await db.Users.FindOneAndUpdateAsync(
-                _f.Eq(o => o.Id, userId),
-                _u.Set(o => o.AvatarUrl, avatarUrl),
-                options: new FindOneAndUpdateOptions<UserDocument>
-                {
-                    ReturnDocument = ReturnDocument.After
-                },
-                cancellationToken: ct);
+        var user = await FindOneAndUpdateDocument(
+            ct,
+            db.Users, 
+            _f.Eq(o => o.Id, userId), 
+            _u.Set(o => o.AvatarUrl, avatarUrl)
+        );
         return UserDocument.ToDomain(user);
     }
 
@@ -57,14 +54,17 @@ public class UsersRepository : IUsersRepository
     {
         var db = _dbFactory.Create();
         var user = UserDocument.Create(
-            Uuid.NewMongo(),
-            identityId,
-            username,
-            string.Empty,
-            string.Empty,
-            Array.Empty<string>());
-        await db.Users.InsertOneAsync(user, cancellationToken: ct);
-        return UserDocument.ToDomain(user);
+            new UserDocumentCreateArgs(
+               Uuid.NewMongo(),
+               identityId,
+               username,
+               string.Empty,
+               string.Empty,
+               Array.Empty<string>()
+            )
+        );
+        var userDocument = await InsertOneDocument(ct, db.Users, user);
+        return UserDocument.ToDomain(userDocument);
     }
 
     public async Task<User[]> FilterUsers(CancellationToken ct, string? search, string[] tags, int skip, int take)

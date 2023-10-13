@@ -1,6 +1,6 @@
 using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.MessageBus;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Commands;
 using Garnet.Projects.Application.Project.Queries;

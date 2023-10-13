@@ -1,9 +1,9 @@
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Users.Application;
-using Garnet.Users.Events;
 
 namespace Garnet.Users.Infrastructure.MongoDb;
 
-public record UserDocument
+public record UserDocument : DocumentBase
 {
     public string Id { get; init; } = null!;
     public string IdentityId { get; init; } = null!;
@@ -12,23 +12,16 @@ public record UserDocument
     public string AvatarUrl { get; init; } = null!;
     public string[] Tags { get; init; } = Array.Empty<string>();
 
-    public static UserDocument Create(
-        string id, 
-        string identityId, 
-        string userName, 
-        string description, 
-        string avatarUrl, 
-        string[] tags
-    )
+    public static UserDocument Create(UserDocumentCreateArgs args)
     {
         return new UserDocument
         {
-            Id = id,
-            IdentityId = identityId,
-            UserName = userName,
-            Description = description,
-            AvatarUrl = avatarUrl,
-            Tags = tags
+            Id = args.Id,
+            IdentityId = args.IdentityId,
+            UserName = args.UserName,
+            Description = args.Description,
+            AvatarUrl = args.AvatarUrl,
+            Tags = args.Tags
         };
     }
     

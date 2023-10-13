@@ -1,6 +1,6 @@
 using DotNetEnv.Configuration;
 using Garnet.Common.Infrastructure.Identity.SecretKey;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Team;
 using Garnet.User;
 using Garnet.Project;
