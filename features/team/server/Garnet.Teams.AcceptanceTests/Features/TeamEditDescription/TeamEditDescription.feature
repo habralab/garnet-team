@@ -18,5 +18,5 @@
             И владельцем команды 'FooBar' является 'Вася'
             И описание команды 'FooBar' состоит из 'DreamTeam'
             Когда 'Маша' редактирует описание карточки команды 'FooBar' на 'NewDreamTeam'
-            Тогда пользователь получает ошибку 'TeamOnlyOwnerCanEditError'
+            Тогда пользователь получает ошибку 'TeamOnlyOwnerCanChangeDescriptionError'
             И описание команды 'FooBar' состоит из 'DreamTeam'
