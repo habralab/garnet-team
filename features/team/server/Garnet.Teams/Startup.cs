@@ -1,9 +1,8 @@
 using System.Diagnostics.CodeAnalysis;
-using Garnet.Common.Application;
-using Garnet.Common.Infrastructure;
 using Garnet.Common.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
@@ -64,6 +63,7 @@ namespace Garnet.Team
                 Environment.GetEnvironmentVariable(mongoConnStringEnv)
                 ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
             services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+            services.AddGarnetMongoSerializers();
 
             services.AddTeamInternal();
             services.AddTeamUserInternal();

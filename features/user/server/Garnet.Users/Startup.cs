@@ -1,9 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Application;
-using Garnet.Common.Infrastructure;
 using Garnet.Common.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
 using Garnet.Users.Application;
@@ -12,7 +12,6 @@ using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
 using Garnet.Users.Infrastructure.MongoDb.Migrations;
 using HotChocolate.Execution.Configuration;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.User;
@@ -40,6 +39,8 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+        services.AddGarnetMongoSerializers();
+        
         services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();

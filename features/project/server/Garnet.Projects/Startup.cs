@@ -2,6 +2,7 @@ using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Commands;
@@ -50,7 +51,6 @@ public static class Startup
         builder.Services.AddGarnetProjectsMessageBus(nameof(Projects));
         builder.Services.AddRepeatableMigrations();
 
-
         return builder;
     }
 
@@ -61,6 +61,7 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+        services.AddGarnetMongoSerializers();
 
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
