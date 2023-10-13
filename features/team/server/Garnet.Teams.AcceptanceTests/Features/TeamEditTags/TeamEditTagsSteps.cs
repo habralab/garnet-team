@@ -46,7 +46,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditTags
         {
             var expectedTags = tags.Split(',', StringSplitOptions.TrimEntries);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            team.Tags.Should().BeEquivalentTo(tags);
+            team.Tags.Should().BeEquivalentTo(expectedTags);
         }
     }
 }
