@@ -1,4 +1,5 @@
 using Garnet.Common.AcceptanceTests.Support;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Infrastructure.MongoDb;
 
@@ -7,6 +8,7 @@ namespace Garnet.Users.AcceptanceTests.Support;
 public class UserDocumentBuilder
 {
     private string _id = Uuid.NewMongo();
+    private AuditInfo _auditInfo = new(DateTimeOffset.UtcNow, "system", DateTimeOffset.UtcNow, "system");
     private string _identityId = Uuid.NewGuid();
     private string _userName = "Username";
     private string _description = "Description";
@@ -45,7 +47,10 @@ public class UserDocumentBuilder
     
     public UserDocument Build()
     {
-        return UserDocument.Create(_id, _identityId, _userName, _description, _avatarUrl, _tags.ToArray());
+        var document = UserDocument.Create(
+            new UserDocumentCreateArgs(_id, _identityId, _userName, _description, _avatarUrl, _tags.ToArray())
+        );
+        return document with { AuditInfo = _auditInfo };
     }
 
     public static implicit operator UserDocument(UserDocumentBuilder builder)

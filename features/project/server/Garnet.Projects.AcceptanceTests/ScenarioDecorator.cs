@@ -1,4 +1,4 @@
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using TechTalk.SpecFlow;
