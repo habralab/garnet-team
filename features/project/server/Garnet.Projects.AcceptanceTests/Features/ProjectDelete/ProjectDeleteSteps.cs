@@ -35,12 +35,12 @@ public class ProjectDeleteSteps : BaseSteps
     [When(@"'(.*)' удаляет проект '(.*)'")]
     public async Task WhenПользовательУдаляетПроект(string username, string projectName)
     {
-        var claims = _currentUserProviderFake.LoginAs(username);
+        _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
 
         try
         {
-            _response = await Mutation.ProjectDelete(CancellationToken.None, claims, project.Id);
+            _response = await Mutation.ProjectDelete(CancellationToken.None, project.Id);
         }
         catch (QueryException ex)
         {

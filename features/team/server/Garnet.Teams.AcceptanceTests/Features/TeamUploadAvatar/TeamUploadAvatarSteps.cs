@@ -44,7 +44,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUploadAvatar
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var input = new TeamUploadAvatarInput(
                 team.Id,
                 new StreamFile(avatar,
@@ -54,7 +54,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUploadAvatar
 
             try
             {
-                await Mutation.TeamUploadAvatar(CancellationToken.None, claims, input);
+                await Mutation.TeamUploadAvatar(CancellationToken.None, input);
             }
             catch (QueryException ex)
             {

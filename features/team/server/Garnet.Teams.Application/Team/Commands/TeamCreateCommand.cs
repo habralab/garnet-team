@@ -1,4 +1,5 @@
 using FluentResults;
+using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Common.Application.S3;
 using Garnet.Teams.Application.Team.Args;
@@ -11,18 +12,21 @@ namespace Garnet.Teams.Application.Team.Commands
     public class TeamCreateCommand
     {
         private readonly ITeamRepository _teamRepository;
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly ITeamUserRepository _usersRepository;
         private readonly ITeamParticipantRepository _participantRepository;
         private readonly IMessageBus _messageBus;
         private readonly IRemoteFileStorage _fileStorage;
 
         public TeamCreateCommand(
+            ICurrentUserProvider currentUserProvider,
             ITeamRepository teamRepository,
             ITeamUserRepository usersRepository,
             ITeamParticipantRepository participantRepository,
             IRemoteFileStorage fileStorage,
             IMessageBus messageBus)
         {
+            _currentUserProvider = currentUserProvider;
             _usersRepository = usersRepository;
             _teamRepository = teamRepository;
             _participantRepository = participantRepository;
@@ -32,13 +36,15 @@ namespace Garnet.Teams.Application.Team.Commands
 
         public async Task<Result<TeamEntity>> Execute(CancellationToken ct, TeamCreateArgs args)
         {
-            var user = await _usersRepository.GetUser(ct, args.OwnerUserId);
+            var currentUserId = _currentUserProvider.UserId;
+            
+            var user = await _usersRepository.GetUser(ct, currentUserId);
             if (user is null)
             {
-                return Result.Fail(new TeamUserNotFoundError(args.OwnerUserId));
+                return Result.Fail(new TeamUserNotFoundError(currentUserId));
             }
 
-            var team = await _teamRepository.CreateTeam(ct, args);
+            var team = await _teamRepository.CreateTeam(ct, currentUserId, args);
             await _participantRepository.CreateTeamParticipant(ct, user.Id, user.Username, team.Id);
 
             if (args.Avatar is not null)

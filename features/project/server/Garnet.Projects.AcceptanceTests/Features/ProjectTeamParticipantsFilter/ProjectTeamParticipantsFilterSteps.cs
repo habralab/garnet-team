@@ -5,7 +5,7 @@ using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
-namespace Garnet.Projects.AcceptanceTests.Features.ProjectTeamParticipant;
+namespace Garnet.Projects.AcceptanceTests.Features.ProjectTeamParticipantsFilter;
 
 [Binding]
 public class ProjectTeamParticipantsFilterSteps : BaseSteps

@@ -62,9 +62,9 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamParticipantFilterPayload(payloadContent);
         }
 
-        public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, ClaimsPrincipal claims, string teamId)
+        public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, string teamId)
         {
-            var result = await _teamUserJoinRequestsShowQuery.Query(ct, new CurrentUserProvider(claims), teamId);
+            var result = await _teamUserJoinRequestsShowQuery.Query(ct, teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));

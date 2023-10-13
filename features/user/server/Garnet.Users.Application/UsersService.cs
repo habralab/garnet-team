@@ -6,16 +6,19 @@ namespace Garnet.Users.Application;
 
 public class UsersService
 {
+    private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IUsersRepository _repository;
     private readonly IMessageBus _messageBus;
     private readonly IRemoteFileStorage _fileStorage;
 
     public UsersService(
+        ICurrentUserProvider currentUserProvider,
         IUsersRepository repository,
         IMessageBus messageBus,
         IRemoteFileStorage fileStorage
     )
     {
+        _currentUserProvider = currentUserProvider;
         _repository = repository;
         _messageBus = messageBus;
         _fileStorage = fileStorage;
@@ -38,22 +41,21 @@ public class UsersService
         return await _repository.FilterUsers(ct, search, tags, skip, take);
     }
     
-    public async Task<User> EditCurrentUserDescription(CancellationToken ct, ICurrentUserProvider currentUserProvider, string description)
+    public async Task<User> EditCurrentUserDescription(CancellationToken ct, string description)
     {
-        var user = await _repository.EditUserDescription(ct, currentUserProvider.UserId, description);
+        var user = await _repository.EditUserDescription(ct, _currentUserProvider.UserId, description);
         await _messageBus.Publish(user.ToUpdatedEvent());
         return user;
     }
 
     public async Task<User> EditCurrentUserAvatar(
         CancellationToken ct,
-        ICurrentUserProvider currentUserProvider,
         string fileName,
         string? contentType,
         Stream imageStream)
     {
-        var avatarLink = await _fileStorage.UploadFile($"avatars/{currentUserProvider.UserId}", contentType, imageStream);
-        var user = await _repository.EditUserAvatar(ct, currentUserProvider.UserId, avatarLink);
+        var avatarLink = await _fileStorage.UploadFile($"avatars/{_currentUserProvider.UserId}", contentType, imageStream);
+        var user = await _repository.EditUserAvatar(ct, _currentUserProvider.UserId, avatarLink);
         await _messageBus.Publish(user.ToUpdatedEvent());
         return user;
     }

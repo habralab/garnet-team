@@ -28,8 +28,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamCreate
         [When(@"пользователь '([^']*)' создает команду '([^']*)'")]
         public async Task WhenПользовательСоздаетКоманду(string username, string team)
         {
+            _currentUserProviderFake.LoginAs(username);
             var input = new TeamCreateInput(team, string.Empty, null, Array.Empty<string>());
-            await Mutation.TeamCreate(CancellationToken.None, _currentUserProviderFake.LoginAs(username), input);
+            await Mutation.TeamCreate(CancellationToken.None, input);
         }
 
         [Then(@"в системе присутствует команда '([^']*)'")]

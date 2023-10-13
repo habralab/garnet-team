@@ -27,6 +27,7 @@ public static class Program
             .AddScheme<SecretKeyAuthenticationSchemeOptions, SecretKeyAuthenticationHandler>("SecretKey", null);
         
         builder.Services
+            .AddHttpContextAccessor()
             .AddGraphQLServer()
             .AddAuthorization()
             .AddQueryType(o => o.Name("Query"))
