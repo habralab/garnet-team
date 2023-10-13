@@ -1,4 +1,4 @@
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 
 namespace Garnet.Projects.Application.Project;
 

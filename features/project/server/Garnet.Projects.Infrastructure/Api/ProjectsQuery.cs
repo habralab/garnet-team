@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Queries;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
 using Garnet.Projects.Application.ProjectTeamParticipant;

@@ -2,13 +2,12 @@
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Projects.AcceptanceTests.Support;
-using Garnet.Projects.Infrastructure.Api.ProjectEdit;
+using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
-
-namespace Garnet.Projects.AcceptanceTests.Features.ProjectEdit;
+namespace Garnet.Projects.AcceptanceTests.Features.ProjectEditDescription;
 
 [Binding]
 public class ProjectEditDescriptionSteps : BaseSteps

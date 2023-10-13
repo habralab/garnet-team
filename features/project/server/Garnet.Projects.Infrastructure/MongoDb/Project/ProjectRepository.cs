@@ -1,6 +1,6 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Args;
 using Garnet.Projects.Application.Project;
+using Garnet.Projects.Application.Project.Args;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Project;

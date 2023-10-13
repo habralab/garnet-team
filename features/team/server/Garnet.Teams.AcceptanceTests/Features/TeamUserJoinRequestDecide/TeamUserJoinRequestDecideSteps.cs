@@ -1,11 +1,11 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestApprove
+namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestDecide
 {
     [Binding]
     public class TeamUserJoinRequestDecideSteps : BaseSteps

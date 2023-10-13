@@ -1,10 +1,9 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
-using Garnet.Teams.Infrastructure.MongoDb;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShow
+namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestsShow
 {
     [Binding]
     public class TeamUserJoinRequestsShowSteps : BaseSteps

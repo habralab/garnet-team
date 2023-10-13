@@ -1,9 +1,9 @@
 ﻿using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Projects.Application.Errors;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Errors;
+using Garnet.Projects.Application.ProjectTeamJoinRequest.Errors;
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Events.ProjectTeamJoinRequest;
 

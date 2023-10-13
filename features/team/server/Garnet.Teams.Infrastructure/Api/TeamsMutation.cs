@@ -6,7 +6,6 @@ using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
 using Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
-using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove;
 using HotChocolate.Types;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
 using Garnet.Teams.Application.TeamJoinInvitation.Commands;
@@ -15,6 +14,7 @@ using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 
 namespace Garnet.Teams.Infrastructure.Api
 {

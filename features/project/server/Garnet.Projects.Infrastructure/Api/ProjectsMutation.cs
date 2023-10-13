@@ -1,10 +1,10 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Commands;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
 using Garnet.Projects.Infrastructure.Api.ProjectCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectDelete;
-using Garnet.Projects.Infrastructure.Api.ProjectEdit;
+using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;

@@ -1,7 +1,7 @@
 ﻿using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Errors;
 using Garnet.Projects.Application.ProjectUser;
 
