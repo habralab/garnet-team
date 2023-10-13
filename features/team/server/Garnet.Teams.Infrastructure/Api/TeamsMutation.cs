@@ -18,6 +18,7 @@ using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
 using Microsoft.VisualBasic;
+using Garnet.Teams.Infrastructure.Api.TeamEditName;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -143,6 +144,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags);
+        }
+
+        public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, ClaimsPrincipal claims, TeamEditNameInput input)
+        {
+            return null;
         }
     }
 }

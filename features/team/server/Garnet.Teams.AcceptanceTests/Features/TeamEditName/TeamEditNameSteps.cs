@@ -1,6 +1,8 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Teams.Infrastructure.Api.TeamEditName;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamEditName
@@ -21,19 +23,31 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditName
         }
 
         [When(@"'(.*)' редактирует название команды '(.*)' на '(.*)'")]
-        public Task WhenРедактируетНазваниеКоманды(string username, string teamName, string newName)
+        public async Task WhenРедактируетНазваниеКоманды(string username, string teamName, string newName)
         {
-            return Task.CompletedTask;
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+
+            var claims = _currentUserProviderFake.LoginAs(username);
+            var input = new TeamEditNameInput(team.Id, newName);
+
+            try
+            {
+                await Mutation.TeamEditName(CancellationToken.None, claims, input);
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [Then(@"в списке команд пользователя '(.*)' есть команда '(.*)'")]
         public async Task ThenВСпискеКомандПользователяЕстьКоманда(string username, string teamName)
         {
-            var userTeams = await Db.Teams.Find(x => 
+            var userTeams = await Db.Teams.Find(x =>
                 x.OwnerUserId == _currentUserProviderFake.GetUserIdByUsername(username)
             ).ToListAsync();
 
-            userTeams.Any(x=> x.Name == teamName).Should().BeTrue();
+            userTeams.Any(x => x.Name == teamName).Should().BeTrue();
         }
     }
 }
