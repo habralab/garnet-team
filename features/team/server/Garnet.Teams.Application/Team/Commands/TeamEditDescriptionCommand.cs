@@ -27,7 +27,7 @@ namespace Garnet.Teams.Application.Team.Commands
 
             if (team!.OwnerUserId != currentUserProvider.UserId)
             {
-                return Result.Fail(new TeamOnlyOwnerCanEditError());
+                return Result.Fail(new TeamOnlyOwnerCanChangeDescriptionError());
             }
 
             team = await _teamRepository.EditTeamDescription(ct, teamId, description);
