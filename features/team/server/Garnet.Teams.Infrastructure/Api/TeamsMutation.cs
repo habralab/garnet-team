@@ -145,9 +145,9 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags);
         }
 
-        public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, ClaimsPrincipal claims, TeamEditNameInput input)
+        public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, TeamEditNameInput input)
         {
-            var result = await _teamEditNameCommand.Execute(ct, new CurrentUserProvider(claims), input.Id, input.Name);
+            var result = await _teamEditNameCommand.Execute(ct, input.Id, input.Name);
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;

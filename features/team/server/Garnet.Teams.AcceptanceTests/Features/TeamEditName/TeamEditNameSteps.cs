@@ -27,12 +27,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditName
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var input = new TeamEditNameInput(team.Id, newName);
 
             try
             {
-                await Mutation.TeamEditName(CancellationToken.None, claims, input);
+                await Mutation.TeamEditName(CancellationToken.None, input);
             }
             catch (QueryException ex)
             {

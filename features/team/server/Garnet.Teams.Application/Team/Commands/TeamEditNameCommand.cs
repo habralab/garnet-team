@@ -20,8 +20,10 @@ namespace Garnet.Teams.Application.Team.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string name)
+        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, string teamId, string name)
         {
+            var userId = _currentUserProvider.UserId;
+            
             name = name.Trim();
             if (string.IsNullOrEmpty(name)) {
                 return Result.Fail(new TeamNameCanNotBeEmptyError());
@@ -33,7 +35,7 @@ namespace Garnet.Teams.Application.Team.Commands
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            if (team!.OwnerUserId != userId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanChangeName());
             }
