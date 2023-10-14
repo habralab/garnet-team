@@ -148,14 +148,11 @@ public async Task<TeamEntity?> EditTeamTags(CancellationToken ct, string teamId,
         {
             var db = _dbFactory.Create();
 
-            var team = await db.Teams.FindOneAndUpdateAsync(
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u.Set(x => x.Tags, tags),
-                options: new FindOneAndUpdateOptions<TeamDocument>
-                {
-                    ReturnDocument = ReturnDocument.After
-                },
-                cancellationToken: ct
+                _u.Set(x => x.Tags, tags)
             );
 
             return team is null ? null : TeamDocument.ToDomain(team);
