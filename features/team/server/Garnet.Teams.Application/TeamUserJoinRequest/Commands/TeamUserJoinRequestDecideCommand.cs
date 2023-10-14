@@ -17,10 +17,18 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
         private readonly ITeamParticipantRepository _participantRepository;
         private readonly ITeamUserRepository _userRepository;
         private readonly ITeamRepository _teamRepository;
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IMessageBus _messageBus;
 
-        public TeamUserJoinRequestDecideCommand(ITeamUserJoinRequestRepository userJoinRequestRepository, ITeamParticipantRepository participantRepository, ITeamUserRepository userRepository, ITeamRepository teamRepository, IMessageBus messageBus)
+        public TeamUserJoinRequestDecideCommand(
+            ICurrentUserProvider currentUserProvider,
+            ITeamUserJoinRequestRepository userJoinRequestRepository, 
+            ITeamParticipantRepository participantRepository, 
+            ITeamUserRepository userRepository, 
+            ITeamRepository teamRepository, 
+            IMessageBus messageBus)
         {
+            _currentUserProvider = currentUserProvider;
             _messageBus = messageBus;
             _teamRepository = teamRepository;
             _participantRepository = participantRepository;
@@ -28,7 +36,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             _userJoinRequestRepository = userJoinRequestRepository;
         }
 
-        public async Task<Result<TeamUserJoinRequestEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string userJoinRequestId, bool isApproved)
+        public async Task<Result<TeamUserJoinRequestEntity>> Execute(CancellationToken ct, string userJoinRequestId, bool isApproved)
         {
             var userJoinRequest = await _userJoinRequestRepository.GetUserJoinRequestById(ct, userJoinRequestId);
             if (userJoinRequest is null)
@@ -42,7 +50,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
                 return Result.Fail(new TeamNotFoundError(userJoinRequest.TeamId));
             }
 
-            if (team.OwnerUserId != currentUserProvider.UserId)
+            if (team.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamUserJoinRequestOnlyOwnerCanDecideError());
             }

@@ -41,12 +41,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var input = new TeamJoinProjectRequestPayload(Uuid.NewMongo(), team.Id, projectId);
 
             try
             {
-                await Mutation.TeamJoinProjectRequest(CancellationToken.None, claims, input);
+                await Mutation.TeamJoinProjectRequest(CancellationToken.None, input);
 
             }
             catch (QueryException ex)

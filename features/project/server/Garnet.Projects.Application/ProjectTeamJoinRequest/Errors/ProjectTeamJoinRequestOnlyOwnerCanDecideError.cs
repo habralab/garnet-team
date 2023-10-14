@@ -1,6 +1,6 @@
 ﻿using Garnet.Common.Application.Errors;
 
-namespace Garnet.Projects.Application.Errors;
+namespace Garnet.Projects.Application.ProjectTeamJoinRequest.Errors;
 
 public class ProjectTeamJoinRequestOnlyOwnerCanDecideError : ApplicationError
 {

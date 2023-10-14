@@ -44,12 +44,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
         [When(@"'([^']*)' удаляет команду '([^']*)'")]
         public async Task WhenУдаляетКоманду(string username, string teamName)
         {
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
             try
             {
-                await Mutation.TeamDelete(CancellationToken.None, claims, team.Id);
+                await Mutation.TeamDelete(CancellationToken.None, team.Id);
             }
             catch (QueryException ex)
             {

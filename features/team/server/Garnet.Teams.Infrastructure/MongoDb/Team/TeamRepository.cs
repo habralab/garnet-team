@@ -22,14 +22,14 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamEntity> CreateTeam(CancellationToken ct, TeamCreateArgs args)
+        public async Task<TeamEntity> CreateTeam(CancellationToken ct, string ownerUserId, TeamCreateArgs args)
         {
             var db = _dbFactory.Create();
             var team = TeamDocument.Create(
              Uuid.NewMongo(),
              args.Name,
              args.Description,
-             args.OwnerUserId!,
+             ownerUserId!,
              null,
              args.Tags
             );

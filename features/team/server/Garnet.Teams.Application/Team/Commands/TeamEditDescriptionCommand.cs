@@ -7,17 +7,19 @@ namespace Garnet.Teams.Application.Team.Commands
 {
     public class TeamEditDescriptionCommand
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly ITeamRepository _teamRepository;
         private readonly IMessageBus _messageBus;
 
 
-        public TeamEditDescriptionCommand(ITeamRepository teamRepository, IMessageBus messageBus)
+        public TeamEditDescriptionCommand(ICurrentUserProvider currentUserProvider, ITeamRepository teamRepository, IMessageBus messageBus)
         {
+            _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
             _messageBus = messageBus;
         }
 
-         public async Task<Result<TeamEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string description)
+         public async Task<Result<TeamEntity>> Execute(CancellationToken ct, string teamId, string description)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -25,7 +27,7 @@ namespace Garnet.Teams.Application.Team.Commands
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            if (team!.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanChangeDescriptionError());
             }

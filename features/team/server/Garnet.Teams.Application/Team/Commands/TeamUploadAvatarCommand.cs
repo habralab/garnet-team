@@ -10,19 +10,22 @@ namespace Garnet.Teams.Application.Team.Commands
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IRemoteFileStorage _fileStorage;
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IMessageBus _messageBus;
 
         public TeamUploadAvatarCommand(
+            ICurrentUserProvider currentUserProvider,
             IMessageBus messageBus,
             ITeamRepository teamRepository,
             IRemoteFileStorage fileStorage)
         {
+            _currentUserProvider = currentUserProvider;
             _messageBus = messageBus;
             _teamRepository = teamRepository;
             _fileStorage = fileStorage;
         }
 
-        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string? contentType, Stream imageStream)
+        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, string teamId, string? contentType, Stream imageStream)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -30,7 +33,7 @@ namespace Garnet.Teams.Application.Team.Commands
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team.OwnerUserId != currentUserProvider.UserId)
+            if (team.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanChangeAvatarError());
             }

@@ -37,9 +37,9 @@ public class UserEditSteps : BaseSteps
     [When(@"пользователь '(.*)' меняет в своем профиле о себе на '(.*)'")]
     public async Task WhenПользовательМеняетВСвоемПрофилеОСебеНа(string username, string description)
     {
+        _currentUserProviderFake.LoginAs(username);
         await Mutation.UserEditDescription(
             CancellationToken.None,
-            _currentUserProviderFake.LoginAs(username),
             new UserEditDescriptionInput(description));
     }
 
@@ -53,9 +53,9 @@ public class UserEditSteps : BaseSteps
     [When(@"пользователь '(.*)' меняет в своем профиле аватарку на '(.*)'")]
     public async Task WhenПользовательМеняетВСвоемПрофилеАватаркуНа(string username, string avatar)
     {
+        _currentUserProviderFake.LoginAs(username);
         await Mutation.UserUploadAvatar(
             CancellationToken.None,
-            _currentUserProviderFake.LoginAs(username),
             new UserUploadAvatarInput(
                 new StreamFile(
                     avatar, 

@@ -1,10 +1,10 @@
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 
 namespace Garnet.Projects.Application.Project;
 
 public interface IProjectRepository
 {
-    Task<ProjectEntity> CreateProject(CancellationToken ct, ProjectCreateArgs args);
+    Task<ProjectEntity> CreateProject(CancellationToken ct, string ownerUserId, ProjectCreateArgs args);
     Task<ProjectEntity?> GetProject(CancellationToken ct, string projectId);
     Task<ProjectEntity> EditProjectDescription(CancellationToken ct, string projectId, string? description);
     Task<ProjectEntity?> DeleteProject(CancellationToken ct, string projectId);

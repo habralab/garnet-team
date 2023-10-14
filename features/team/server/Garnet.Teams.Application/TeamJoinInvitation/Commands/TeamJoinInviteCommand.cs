@@ -23,8 +23,10 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
         private readonly ITeamParticipantRepository _participantRepository;
         private readonly ITeamUserJoinRequestRepository _userJoinRequestRepository;
         private readonly ITeamJoinInvitationRepository _joinInvitationRepository;
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly IMessageBus _messageBus;
         public TeamJoinInviteCommand(
+            ICurrentUserProvider currentUserProvider,
             ITeamJoinInvitationRepository joinInvitationRepository,
             ITeamParticipantRepository participantRepository,
             ITeamUserJoinRequestRepository userJoinRequestRepository,
@@ -32,6 +34,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             IMessageBus messageBus,
             ITeamRepository teamRepository)
         {
+            _currentUserProvider = currentUserProvider;
             _messageBus = messageBus;
             _teamRepository = teamRepository;
             _userRepository = userRepository;
@@ -40,7 +43,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             _participantRepository = participantRepository;
         }
 
-        public async Task<Result<TeamJoinInvitationEntity>> InviteUserToTeam(CancellationToken ct, ICurrentUserProvider currentUserProvider, TeamJoinInviteArgs args)
+        public async Task<Result<TeamJoinInvitationEntity>> Execute(CancellationToken ct, TeamJoinInviteArgs args)
         {
             var team = await _teamRepository.GetTeamById(ct, args.TeamId);
             if (team is null)
@@ -48,7 +51,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
                 return Result.Fail(new TeamNotFoundError(args.TeamId));
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            if (team!.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanInviteError());
             }
