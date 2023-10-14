@@ -25,7 +25,7 @@ namespace Garnet.Teams.Application.Team.Commands
             var userId = _currentUserProvider.UserId;
             
             name = name.Trim();
-            if (string.IsNullOrEmpty(name)) {
+            if (string.IsNullOrWhiteSpace(name)) {
                 return Result.Fail(new TeamNameCanNotBeEmptyError());
             }
 

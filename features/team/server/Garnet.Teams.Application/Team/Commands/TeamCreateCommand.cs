@@ -46,7 +46,7 @@ namespace Garnet.Teams.Application.Team.Commands
             }
 
             args = args with { Name = args.Name.Trim() };
-            if (string.IsNullOrEmpty(args.Name))
+            if (string.IsNullOrWhiteSpace(args.Name))
             {
                 return Result.Fail(new TeamNameCanNotBeEmptyError());
             }
