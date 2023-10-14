@@ -9,6 +9,7 @@ using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
+using Garnet.Teams.Infrastructure.Api.TeamsList;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
 using HotChocolate.Types;
@@ -69,6 +70,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));
             return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
+        }
+
+        public Task<TeamsListPayload> TeamsList(CancellationToken ct, string userId)
+        {
+            return null;
         }
     }
 }
