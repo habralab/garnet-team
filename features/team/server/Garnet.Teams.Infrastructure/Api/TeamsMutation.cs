@@ -14,6 +14,7 @@ using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
+using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 
 namespace Garnet.Teams.Infrastructure.Api
@@ -30,6 +31,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
+        private readonly TeamEditNameCommand _teamEditNameCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -37,6 +39,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamEditDescriptionCommand teamEditDescriptionCommand,
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamJoinInviteCommand joinInviteCommand,
+            TeamEditNameCommand teamEditNameCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
@@ -51,6 +54,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUploadAvatarCommand = teamUploadAvatarCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
+            _teamEditNameCommand = teamEditNameCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, TeamCreateInput input)
@@ -139,6 +143,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags);
+        }
+
+        public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, TeamEditNameInput input)
+        {
+            var result = await _teamEditNameCommand.Execute(ct, input.Id, input.Name);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
         }
     }
 }

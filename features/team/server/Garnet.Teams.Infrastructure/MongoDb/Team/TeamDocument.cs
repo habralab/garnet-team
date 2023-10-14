@@ -1,8 +1,9 @@
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Teams.Application.Team;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.Team
 {
-    public record TeamDocument
+    public record TeamDocument : DocumentBase
     {
         public string Id { get; init; } = null!;
         public string Name { get; init; } = null!;

@@ -3,6 +3,7 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Common.Application.S3;
 using Garnet.Teams.Application.Team.Args;
+using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
@@ -42,6 +43,12 @@ namespace Garnet.Teams.Application.Team.Commands
             if (user is null)
             {
                 return Result.Fail(new TeamUserNotFoundError(currentUserId));
+            }
+
+            args = args with { Name = args.Name.Trim() };
+            if (string.IsNullOrWhiteSpace(args.Name))
+            {
+                return Result.Fail(new TeamNameCanNotBeEmptyError());
             }
 
             var team = await _teamRepository.CreateTeam(ct, currentUserId, args);
