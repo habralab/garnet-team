@@ -5,6 +5,7 @@ namespace Garnet.Teams.Infrastructure.Api.TeamGet
         string Name,
         string Description,
         string? AvatarUrl,
-        string[] Tags
+        string[] Tags,
+        string OwnerUserId
     );
 }

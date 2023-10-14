@@ -46,15 +46,16 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamsFilterPayload> TeamsFilter(CancellationToken ct, TeamsFilterInput input)
         {
             var args = new TeamFilterArgs(input.Search, input.Tags ?? Array.Empty<string>(), input.Skip, input.Take);
-            var teams = await _teamsFilterQuery.Query(ct, args);
+            var result = await _teamsFilterQuery.Query(ct, args);
+            var teams = result.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId));
 
-            return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags)).ToArray());
+            return new TeamsFilterPayload(teams.ToArray());
         }
 
         public async Task<TeamParticipantFilterPayload> TeamParticipantFilter(CancellationToken ct, TeamParticipantFilterInput input)
@@ -79,7 +80,7 @@ namespace Garnet.Teams.Infrastructure.Api
         {
             var args = new TeamsListArgs(input.Skip, input.Take);
             var result = await _teamsListQuery.Query(ct, input.UserId, args);
-            var teams = result.Select(x=> new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags));
+            var teams = result.Select(x=> new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId));
 
             return new TeamsListPayload(teams.ToArray());
         }
