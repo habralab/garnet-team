@@ -25,13 +25,7 @@ public class SecretKeyAuthenticationHandler : AuthenticationHandler<SecretKeyAut
             var expected = Environment.GetEnvironmentVariable("GARNET_API_KEY");
             if (actual == expected)
             {
-                var claims = new List<Claim>
-                {
-                    new (ClaimTypes.NameIdentifier, "system"),
-                    new (ClaimTypes.Name, "Система")
-                };
-                var identity = new ClaimsIdentity(claims, Scheme.Name);
-                var principal = new ClaimsPrincipal(identity);
+                var principal = ClaimsFactory.System(Scheme.Name);
                 var ticket = new AuthenticationTicket(principal, Scheme.Name);
                 return Task.FromResult(AuthenticateResult.Success(ticket));
             }

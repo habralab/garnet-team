@@ -1,6 +1,9 @@
 using System.Diagnostics.CodeAnalysis;
 using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
 using Garnet.Users.Application;
@@ -18,8 +21,9 @@ public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetUsers(this IRequestExecutorBuilder builder)
     {
-        builder.AddType<UsersQuery>();
-        builder.AddType<UsersMutation>();
+        builder.AddApiType<UsersQuery>();
+        builder.AddApiType<UsersMutation>();
+        builder.Services.AddCurrentUserProvider();
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddGarnetUsersMessageBus(nameof(Users));
         builder.Services.AddRepeatableMigrations();
@@ -35,6 +39,8 @@ public static class Startup
             Environment.GetEnvironmentVariable(mongoConnStringEnv)
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+        services.AddGarnetMongoSerializers();
+        
         services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();

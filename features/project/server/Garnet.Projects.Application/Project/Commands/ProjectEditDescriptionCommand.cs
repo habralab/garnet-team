@@ -7,20 +7,22 @@ namespace Garnet.Projects.Application.Project.Commands;
 
 public class ProjectEditDescriptionCommand
 {
+    private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IProjectRepository _projectRepository;
     private readonly IMessageBus _messageBus;
 
     public ProjectEditDescriptionCommand(
+        ICurrentUserProvider currentUserProvider,
         IProjectRepository projectRepository,
         IMessageBus messageBus
     )
     {
+        _currentUserProvider = currentUserProvider;
         _projectRepository = projectRepository;
         _messageBus = messageBus;
     }
 
     public async Task<Result<ProjectEntity>> Execute(CancellationToken ct,
-        ICurrentUserProvider currentUserProvider,
         string projectId, string? description)
     {
         var project = await _projectRepository.GetProject(ct, projectId);
@@ -30,7 +32,7 @@ public class ProjectEditDescriptionCommand
             return Result.Fail(new ProjectNotFoundError(projectId));
         }
 
-        if (project.OwnerUserId != currentUserProvider.UserId)
+        if (project.OwnerUserId != _currentUserProvider.UserId)
         {
             return Result.Fail(new ProjectOnlyOwnerCanEditError());
         }

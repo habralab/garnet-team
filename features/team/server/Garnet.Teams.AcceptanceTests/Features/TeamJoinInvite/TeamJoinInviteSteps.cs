@@ -32,12 +32,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
             var userId = _currentUserProviderFake.GetUserIdByUsername(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
-            var claims = _currentUserProviderFake.LoginAs(teamOwner);
+            _currentUserProviderFake.LoginAs(teamOwner);
             var input = new TeamJoinInviteInput(userId, team.Id);
 
             try
             {
-                await Mutation.TeamJoinInvite(CancellationToken.None, claims, input);
+                await Mutation.TeamJoinInvite(CancellationToken.None, input);
             }
             catch (QueryException ex)
             {

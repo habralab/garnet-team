@@ -1,12 +1,10 @@
-using System.Security.Claims;
-using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Commands;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
 using Garnet.Projects.Infrastructure.Api.ProjectCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectDelete;
-using Garnet.Projects.Infrastructure.Api.ProjectEdit;
+using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
@@ -42,11 +40,10 @@ public class ProjectsMutation
         _projectUploadAvatarCommand = projectUploadAvatarCommand;
     }
 
-    public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct, ClaimsPrincipal claims,
+    public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct,
         ProjectCreateInput input)
     {
-        var currentUserProvider = new CurrentUserProvider(claims);
-        var args = new ProjectCreateArgs(input.ProjectName, currentUserProvider.UserId, input.Description,
+        var args = new ProjectCreateArgs(input.ProjectName, input.Description,
             input.AvatarUrl, input.Tags);
 
         var result = await _projectCreateCommand.Execute(ct, args);
@@ -58,10 +55,9 @@ public class ProjectsMutation
             project.Tags);
     }
 
-    public async Task<ProjectEditDescriptionPayload> ProjectEditDescription(CancellationToken ct,
-        ClaimsPrincipal claims, ProjectEditDescriptionInput input)
+    public async Task<ProjectEditDescriptionPayload> ProjectEditDescription(CancellationToken ct, ProjectEditDescriptionInput input)
     {
-        var result = await _projectEditDescriptionCommand.Execute(ct, new CurrentUserProvider(claims), input.ProjectId,
+        var result = await _projectEditDescriptionCommand.Execute(ct, input.ProjectId,
             input.Description);
         result.ThrowQueryExceptionIfHasErrors();
 
@@ -70,10 +66,9 @@ public class ProjectsMutation
             project.Description);
     }
 
-    public async Task<ProjectUploadAvatarPayload> ProjectUploadAvatar(CancellationToken ct,
-        ClaimsPrincipal claims, ProjectUploadAvatarInput input)
+    public async Task<ProjectUploadAvatarPayload> ProjectUploadAvatar(CancellationToken ct, ProjectUploadAvatarInput input)
     {
-        var result = await _projectUploadAvatarCommand.Execute(ct, new CurrentUserProvider(claims), input.ProjectId,
+        var result = await _projectUploadAvatarCommand.Execute(ct, input.ProjectId,
             input.File.ContentType, input.File.OpenReadStream());
         result.ThrowQueryExceptionIfHasErrors();
 
@@ -82,10 +77,10 @@ public class ProjectsMutation
             project.Description, project.AvatarUrl, project.Tags);
     }
 
-    public async Task<ProjectDeletePayload?> ProjectDelete(CancellationToken ct, ClaimsPrincipal claims,
+    public async Task<ProjectDeletePayload?> ProjectDelete(CancellationToken ct,
         string projectId)
     {
-        var result = await _projectDeleteCommand.Execute(ct, new CurrentUserProvider(claims), projectId);
+        var result = await _projectDeleteCommand.Execute(ct, projectId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
@@ -93,10 +88,10 @@ public class ProjectsMutation
             project.Description);
     }
 
-    public async Task<ProjectEditOwnerPayload> ProjectEditOwner(CancellationToken ct, ClaimsPrincipal claims,
+    public async Task<ProjectEditOwnerPayload> ProjectEditOwner(CancellationToken ct,
         ProjectEditOwnerInput input)
     {
-        var result = await _projectEditOwnerCommand.Execute(ct, new CurrentUserProvider(claims), input.ProjectId,
+        var result = await _projectEditOwnerCommand.Execute(ct, input.ProjectId,
             input.NewOwnerUserId);
         result.ThrowQueryExceptionIfHasErrors();
 
@@ -104,10 +99,9 @@ public class ProjectsMutation
         return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
     }
 
-    public async Task<ProjectTeamJoinRequestPayload> ProjectTeamJoinRequestDecide(CancellationToken ct,
-        ClaimsPrincipal claims, ProjectTeamJoinRequestDecideInput input)
+    public async Task<ProjectTeamJoinRequestPayload> ProjectTeamJoinRequestDecide(CancellationToken ct, ProjectTeamJoinRequestDecideInput input)
     {
-        var result = await _projectTeamJoinRequestDecideCommand.Execute(ct, new CurrentUserProvider(claims),
+        var result = await _projectTeamJoinRequestDecideCommand.Execute(ct,
             input.ProjectTeamJoinRequestId, input.IsApproved);
         result.ThrowQueryExceptionIfHasErrors();
 

@@ -46,7 +46,7 @@ public class ProjectUploadAvatarSteps : BaseSteps
     public async Task WhenПользовательРедактируетАватаркуПроекта(string username, string projectName,
         string avatarFile)
     {
-        var claims = _currentUserProviderFake.LoginAs(username);
+        _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(o => o.ProjectName == projectName).FirstAsync();
         var input = new ProjectUploadAvatarInput(project.Id, new StreamFile(avatarFile,
             () => new MemoryStream(Encoding.Default.GetBytes(avatarFile))
@@ -54,7 +54,7 @@ public class ProjectUploadAvatarSteps : BaseSteps
 
         try
         {
-            await Mutation.ProjectUploadAvatar(CancellationToken.None, claims, input);
+            await Mutation.ProjectUploadAvatar(CancellationToken.None, input);
         }
         catch (QueryException ex)
         {

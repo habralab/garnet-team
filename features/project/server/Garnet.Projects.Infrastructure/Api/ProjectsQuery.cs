@@ -1,7 +1,7 @@
 ﻿using System.Security.Claims;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Args;
+using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Queries;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
 using Garnet.Projects.Application.ProjectTeamParticipant;
@@ -80,12 +80,10 @@ public class ProjectsQuery
         )).ToArray());
     }
 
-    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
-        ClaimsPrincipal claims, ProjectTeamJoinRequestGetInput input)
+    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct, ProjectTeamJoinRequestGetInput input)
     {
         var result =
-            await _projectTeamJoinRequestFilterQuery.Query(ct,
-                new CurrentUserProvider(claims), input.ProjectId);
+            await _projectTeamJoinRequestFilterQuery.Query(ct, input.ProjectId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var teamJoinRequests = result.Value;

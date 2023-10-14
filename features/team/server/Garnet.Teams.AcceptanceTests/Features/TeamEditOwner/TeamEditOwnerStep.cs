@@ -32,7 +32,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
         [When(@"'([^']*)' изменяет владельца команды '([^']*)' на пользователя '([^']*)'")]
         public async Task WhenИзменяетВладельцаКомандыНаПользователя(string username, string teamName, string newOwnerUsername)
         {
-            var usernameClaims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var newOwnerUserId = _currentUserProviderFake.GetUserIdByUsername(newOwnerUsername);
 
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
@@ -40,7 +40,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
 
             try
             {
-                await Mutation.TeamEditOwner(CancellationToken.None, usernameClaims, input);
+                await Mutation.TeamEditOwner(CancellationToken.None, input);
             }
             catch (QueryException ex)
             {

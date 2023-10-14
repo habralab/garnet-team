@@ -1,4 +1,4 @@
-﻿namespace Garnet.Projects.Infrastructure.Api.ProjectEdit;
+﻿namespace Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 
 public record ProjectEditDescriptionPayload(
     string Id,

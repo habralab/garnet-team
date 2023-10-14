@@ -8,15 +8,18 @@ namespace Garnet.Projects.Application.Project.Commands;
 
 public class ProjectUploadAvatarCommand
 {
+    private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IProjectRepository _projectRepository;
     private readonly IMessageBus _messageBus;
     private readonly IRemoteFileStorage _fileStorage;
 
 
     public ProjectUploadAvatarCommand(
+        ICurrentUserProvider currentUserProvider,
         IProjectRepository projectRepository,
         IMessageBus messageBus, IRemoteFileStorage fileStorage)
     {
+        _currentUserProvider = currentUserProvider;
         _projectRepository = projectRepository;
         _messageBus = messageBus;
         _fileStorage = fileStorage;
@@ -24,7 +27,6 @@ public class ProjectUploadAvatarCommand
 
     public async Task<Result<ProjectEntity>> Execute(
         CancellationToken ct,
-        ICurrentUserProvider currentUserProvider,
         string projectId,
         string? contentType,
         Stream imageStream)
@@ -36,7 +38,7 @@ public class ProjectUploadAvatarCommand
             return Result.Fail(new ProjectNotFoundError(projectId));
         }
 
-        if (project.OwnerUserId != currentUserProvider.UserId)
+        if (project.OwnerUserId != _currentUserProvider.UserId)
         {
             return Result.Fail(new ProjectOnlyOwnerCanEditAvatarError());
         }

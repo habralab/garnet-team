@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestApprove
+namespace Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide
 {
     public record TeamUserJoinRequestDecideInput(
         string UserJoinRequestId,
