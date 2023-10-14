@@ -144,9 +144,19 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
             return team is null ? null : TeamDocument.ToDomain(team);
         }
 
-        public Task<TeamEntity[]> GetTeamsById(CancellationToken ct, string[] teamIds, TeamsListArgs args)
+        public async Task<TeamEntity[]> GetTeamsById(CancellationToken ct, string[] teamIds, TeamsListArgs args)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var teams = await db.Teams
+                .Find(
+                    _f.In(x => x.Id, teamIds)
+                )
+                .Skip(args.Skip)
+                .Limit(args.Take)
+                .ToListAsync(ct);
+
+            return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
     }
 }
