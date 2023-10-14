@@ -9,22 +9,29 @@ namespace Garnet.Teams.Application.Team.Commands
     {
         private readonly ITeamRepository _teamRepository;
         private readonly IMessageBus _messageBus;
+        private readonly ICurrentUserProvider _currentUserProvider;
 
-        public TeamEditTagsCommand(ITeamRepository teamRepository, IMessageBus messageBus)
+        public TeamEditTagsCommand(
+            ITeamRepository teamRepository,
+            ICurrentUserProvider currentUserProvider,
+            IMessageBus messageBus)
         {
             _teamRepository = teamRepository;
             _messageBus = messageBus;
+            _currentUserProvider = currentUserProvider;
         }
 
-        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string[] tags)
+        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, string teamId, string[] tags)
         {
+            var userId = _currentUserProvider.UserId;
+
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
             {
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            if (team!.OwnerUserId != userId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanChangeTagsError());
             }

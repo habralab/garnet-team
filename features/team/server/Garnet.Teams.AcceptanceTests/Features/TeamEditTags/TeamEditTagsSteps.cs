@@ -28,12 +28,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditTags
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var teamTags = tags.Split(',', StringSplitOptions.TrimEntries);
 
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
             var input = new TeamEditTagsInput(team.Id, teamTags);
 
             try
             {
-                await Mutation.TeamEditTags(CancellationToken.None, claims, input);
+                await Mutation.TeamEditTags(CancellationToken.None, input);
             }
             catch (QueryException ex)
             {
