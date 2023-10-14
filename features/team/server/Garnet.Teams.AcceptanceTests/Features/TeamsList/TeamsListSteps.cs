@@ -17,7 +17,8 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsList
         {
             var user = await Db.TeamUsers.Find(x=> x.Username == username).FirstAsync();
 
-            _result = await Query.TeamsList(CancellationToken.None, user.Id);
+            var input = new TeamsListInput(user.Id, 0, 10);
+            _result = await Query.TeamsList(CancellationToken.None, input);
         }
 
         [Then(@"количество результатов списка команд пользователя равно '(.*)'")]

@@ -72,7 +72,7 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
         }
 
-        public Task<TeamsListPayload> TeamsList(CancellationToken ct, string userId)
+        public Task<TeamsListPayload> TeamsList(CancellationToken ct, TeamsListInput input)
         {
             return null;
         }
