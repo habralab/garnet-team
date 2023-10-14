@@ -143,5 +143,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             return team is null ? null : TeamDocument.ToDomain(team);
         }
+
+        public Task<TeamEntity[]> GetTeamsById(CancellationToken ct, string[] teamIds, TeamsListArgs args)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

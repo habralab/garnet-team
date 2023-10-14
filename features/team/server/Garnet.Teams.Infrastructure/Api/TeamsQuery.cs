@@ -21,6 +21,7 @@ namespace Garnet.Teams.Infrastructure.Api
     public class TeamsQuery
     {
         private readonly TeamGetQuery _teamGetQuery;
+        private readonly TeamsListQuery _teamsListQuery;
         private readonly TeamsFilterQuery _teamsFilterQuery;
         private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
         private readonly TeamParticipantFilterQuery _teamParticipantFilterQuery;
@@ -28,9 +29,11 @@ namespace Garnet.Teams.Infrastructure.Api
         public TeamsQuery(
             TeamGetQuery teamGetQuery,
             TeamsFilterQuery teamsFilterQuery,
+            TeamsListQuery teamsListQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
             TeamParticipantFilterQuery teamParticipantFilterQuery)
         {
+            _teamsListQuery = teamsListQuery;
             _teamGetQuery = teamGetQuery;
             _teamsFilterQuery = teamsFilterQuery;
             _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
@@ -72,9 +75,13 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
         }
 
-        public Task<TeamsListPayload> TeamsList(CancellationToken ct, TeamsListInput input)
+        public async Task<TeamsListPayload> TeamsList(CancellationToken ct, TeamsListInput input)
         {
-            return null;
+            var args = new TeamsListArgs(input.Skip, input.Take);
+            var result = await _teamsListQuery.Query(ct, input.UserId, args);
+            var teams = result.Select(x=> new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags));
+
+            return new TeamsListPayload(teams.ToArray());
         }
     }
 }
