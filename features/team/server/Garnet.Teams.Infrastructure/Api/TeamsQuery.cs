@@ -42,7 +42,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamsFilterPayload> TeamsFilter(CancellationToken ct, TeamsFilterInput input)
@@ -50,7 +50,7 @@ namespace Garnet.Teams.Infrastructure.Api
             var args = new TeamFilterArgs(input.Search, input.Tags ?? Array.Empty<string>(), input.Skip, input.Take);
             var teams = await _teamsFilterQuery.Query(ct, args);
 
-            return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags)).ToArray());
+            return new TeamsFilterPayload(teams.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId)).ToArray());
         }
 
         public async Task<TeamParticipantFilterPayload> TeamParticipantFilter(CancellationToken ct, TeamParticipantFilterInput input)

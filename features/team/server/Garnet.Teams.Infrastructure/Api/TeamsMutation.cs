@@ -14,6 +14,7 @@ using Garnet.Teams.Application.Team.Commands;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
+using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 
@@ -31,6 +32,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
+        private readonly TeamEditTagsCommand _teamEditTagsCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
 
         public TeamsMutation(
@@ -43,6 +45,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
+            TeamEditTagsCommand teamEditTagsCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamCreateCommand = teamCreateCommand;
@@ -54,6 +57,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUploadAvatarCommand = teamUploadAvatarCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
+            _teamEditTagsCommand = teamEditTagsCommand;
             _teamEditNameCommand = teamEditNameCommand;
         }
 
@@ -69,7 +73,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamCreatePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.OwnerUserId, team.Tags);
         }
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, string teamId)
@@ -78,7 +82,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamDeletePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamDeletePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamEditDescriptionPayload> TeamEditDescription(CancellationToken ct, TeamEditDescriptionInput input)
@@ -87,7 +91,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamEditDescriptionPayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamEditOwnerPayload> TeamEditOwner(CancellationToken ct, TeamEditOwnerInput input)
@@ -142,7 +146,16 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags);
+            return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags, team.OwnerUserId);
+        }
+
+        public async Task<TeamEditTagsPayload> TeamEditTags(CancellationToken ct, TeamEditTagsInput input)
+        {
+            var result = await _teamEditTagsCommand.Execute(ct, input.Id, input.Tags);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamEditTagsPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags, team.OwnerUserId);
         }
 
         public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, TeamEditNameInput input)
@@ -151,7 +164,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
     }
 }

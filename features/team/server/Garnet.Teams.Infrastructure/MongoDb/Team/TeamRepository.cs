@@ -143,5 +143,19 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             return team is null ? null : TeamDocument.ToDomain(team);
         }
+
+        public async Task<TeamEntity?> EditTeamTags(CancellationToken ct, string teamId, string[] tags)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.Tags, tags)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
     }
 }

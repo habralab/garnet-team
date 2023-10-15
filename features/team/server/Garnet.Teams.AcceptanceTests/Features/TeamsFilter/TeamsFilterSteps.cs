@@ -29,7 +29,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsFilter
         [Given(@"теги команды '([^']*)' состоят из '([^']*)'")]
         public async Task GivenТегиКомандыСостоятИз(string teamName, string tags)
         {
-            var teamTags = tags.Split(',').Select(x=> x.Trim());
+            var teamTags = tags.Split(',', StringSplitOptions.TrimEntries);
             await Db.Teams.FindOneAndUpdateAsync(
                 _f.Eq(x => x.Name, teamName),
                 _u.Set(o => o.Tags, teamTags)

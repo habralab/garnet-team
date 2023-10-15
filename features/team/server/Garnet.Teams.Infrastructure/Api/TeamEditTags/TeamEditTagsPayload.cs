@@ -1,8 +1,8 @@
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 
-namespace Garnet.Teams.Infrastructure.Api.TeamEditName
+namespace Garnet.Teams.Infrastructure.Api.TeamEditTags
 {
-    public record TeamEditNamePayload(
+    public record TeamEditTagsPayload(
         string Id,
         string Name,
         string Description,
