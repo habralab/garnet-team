@@ -73,20 +73,29 @@ public static class Startup
         services.AddScoped<ProjectDeleteCommand>();
         services.AddScoped<ProjectEditDescriptionCommand>();
         services.AddScoped<ProjectEditOwnerCommand>();
+        services.AddScoped<ProjectEditNameCommand>();
         services.AddScoped<ProjectUploadAvatarCommand>();
+
         services.AddScoped<ProjectTeamCreateCommand>();
         services.AddScoped<ProjectTeamUpdateCommand>();
+
         services.AddScoped<ProjectUserCreateCommand>();
+
         services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
+
         services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
         services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
         services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
 
+
         services.AddScoped<ProjectGetQuery>();
         services.AddScoped<ProjectsFilterQuery>();
+
         services.AddScoped<ProjectTeamParticipantFilterQuery>();
+
         services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
+
         services.AddScoped<ProjectTeamGetQuery>();
     }
 
@@ -97,12 +106,14 @@ public static class Startup
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
             o.RegisterMessage<ProjectDeletedEvent>();
-            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+
             o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEvent>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEvent>();
+
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
+            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
         });
     }
 
