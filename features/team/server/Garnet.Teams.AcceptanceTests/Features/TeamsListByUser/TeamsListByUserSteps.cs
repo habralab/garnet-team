@@ -21,8 +21,8 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsListByUserQuery
             _result = await Query.TeamsListByUser(CancellationToken.None, input);
         }
 
-        [Then(@"количество результатов списка команд пользователя равно '(.*)'")]
-        public Task ThenКоличествоРезультатовСпискаКомандПользователяРавно(int teamsCount)
+        [Then(@"количество команд пользователя в результате равно '(.*)'")]
+        public Task ThenКоличествоКомандКомандПользователяРавно(int teamsCount)
         {
             _result.Teams.Length.Should().Be(teamsCount);
             return Task.CompletedTask;
