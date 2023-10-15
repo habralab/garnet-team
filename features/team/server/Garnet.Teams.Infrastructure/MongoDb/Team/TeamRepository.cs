@@ -158,5 +158,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
+
+        public Task<TeamEntity?> EditTeamTags(CancellationToken ct, string teamId, string[] tags)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

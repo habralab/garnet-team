@@ -33,6 +33,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
+        private readonly TeamEditTagsCommand _teamEditTagsCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -44,6 +45,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
+            TeamEditTagsCommand teamEditTagsCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
         {
             _teamCreateCommand = teamCreateCommand;
@@ -56,6 +58,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
             _teamEditNameCommand = teamEditNameCommand;
+            _teamEditTagsCommand = teamEditTagsCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, TeamCreateInput input)
@@ -155,9 +158,13 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
         }
 
-        public Task<TeamEditTagsPayload> TeamEditTags(CancellationToken ct, ClaimsPrincipal claims, TeamEditTagsInput input)
+        public async Task<TeamEditTagsPayload> TeamEditTags(CancellationToken ct, ClaimsPrincipal claims, TeamEditTagsInput input)
         {
-            return null;
+            var result = await _teamEditTagsCommand.Execute(ct, new CurrentUserProvider(claims), input.Id, input.Tags);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamEditTagsPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags, team.OwnerUserId);
         }
     }
 }
