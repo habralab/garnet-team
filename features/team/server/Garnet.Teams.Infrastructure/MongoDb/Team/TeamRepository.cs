@@ -144,7 +144,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
             return team is null ? null : TeamDocument.ToDomain(team);
         }
 
-public async Task<TeamEntity?> EditTeamTags(CancellationToken ct, string teamId, string[] tags)
+        public async Task<TeamEntity?> EditTeamTags(CancellationToken ct, string teamId, string[] tags)
         {
             var db = _dbFactory.Create();
 
