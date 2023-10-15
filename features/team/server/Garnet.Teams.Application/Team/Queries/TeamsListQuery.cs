@@ -1,16 +1,14 @@
-using FluentResults;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.TeamParticipant;
-using Garnet.Teams.Application.TeamUser;
 
 namespace Garnet.Teams.Application.Team.Queries
 {
-    public class TeamsListQuery
+    public class TeamsListByUserQuery
     {
         private readonly ITeamParticipantRepository _teamParticipantRepository;
         private readonly ITeamRepository _teamRepository;
 
-        public TeamsListQuery(
+        public TeamsListByUserQuery(
             ITeamRepository teamRepository,
             ITeamParticipantRepository teamParticipantRepository)
         {

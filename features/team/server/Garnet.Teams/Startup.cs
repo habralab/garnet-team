@@ -111,7 +111,7 @@ namespace Garnet.Team
 
             services.AddScoped<TeamGetQuery>();
             services.AddScoped<TeamsFilterQuery>();
-            services.AddScoped<TeamsListQuery>();
+            services.AddScoped<TeamsListByUserQuery>();
         }
 
         public static void AddTeamUserInternal(this IServiceCollection services)

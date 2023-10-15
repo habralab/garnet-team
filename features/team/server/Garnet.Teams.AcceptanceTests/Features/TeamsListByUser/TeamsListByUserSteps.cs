@@ -2,13 +2,13 @@ using FluentAssertions;
 using Garnet.Teams.Infrastructure.Api.TeamsList;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.AcceptanceTests.Features.TeamsList
+namespace Garnet.Teams.AcceptanceTests.Features.TeamsListByUserQuery
 {
     [Binding]
-    public class TeamsListSteps : BaseSteps
+    public class TeamsListByUserSteps : BaseSteps
     {
-        private TeamsListPayload _result;
-        public TeamsListSteps(StepsArgs args) : base(args)
+        private TeamsListPayload _result = null!;
+        public TeamsListByUserSteps(StepsArgs args) : base(args)
         {
         }
 
@@ -18,7 +18,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamsList
             var user = await Db.TeamUsers.Find(x=> x.Username == username).FirstAsync();
 
             var input = new TeamsListInput(user.Id, 0, 10);
-            _result = await Query.TeamsList(CancellationToken.None, input);
+            _result = await Query.TeamsListByUser(CancellationToken.None, input);
         }
 
         [Then(@"количество результатов списка команд пользователя равно '(.*)'")]
