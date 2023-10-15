@@ -149,6 +149,15 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUploadAvatarPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags, team.OwnerUserId);
         }
 
+        public async Task<TeamEditTagsPayload> TeamEditTags(CancellationToken ct, TeamEditTagsInput input)
+        {
+            var result = await _teamEditTagsCommand.Execute(ct, input.Id, input.Tags);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var team = result.Value;
+            return new TeamEditTagsPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags, team.OwnerUserId);
+        }
+
         public async Task<TeamEditNamePayload> TeamEditName(CancellationToken ct, TeamEditNameInput input)
         {
             var result = await _teamEditNameCommand.Execute(ct, input.Id, input.Name);
@@ -156,15 +165,6 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
-        }
-
-        public async Task<TeamEditTagsPayload> TeamEditTags(CancellationToken ct, ClaimsPrincipal claims, TeamEditTagsInput input)
-        {
-            var result = await _teamEditTagsCommand.Execute(ct, new CurrentUserProvider(claims), input.Id, input.Tags);
-            result.ThrowQueryExceptionIfHasErrors();
-
-            var team = result.Value;
-            return new TeamEditTagsPayload(team.Id, team.Name, team.Description, team.AvatarUrl!, team.Tags, team.OwnerUserId);
         }
     }
 }
