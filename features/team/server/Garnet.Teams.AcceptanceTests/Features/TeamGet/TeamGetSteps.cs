@@ -38,7 +38,6 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamGet
             _teamGetPayload = await Query.TeamGet(CancellationToken.None, team.Id);
         }
 
-        [Scope(Feature = "TeamGet")]
         [Then(@"описание команды в карточке состоит из '([^']*)'")]
         public Task ThenОписаниеКомандыВКарточкеСостоитИз(string description)
         {
