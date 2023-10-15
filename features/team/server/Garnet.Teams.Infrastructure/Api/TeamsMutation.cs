@@ -35,7 +35,6 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
         private readonly TeamEditTagsCommand _teamEditTagsCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
-        private readonly TeamEditTagsCommand _teamEditTagsCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
