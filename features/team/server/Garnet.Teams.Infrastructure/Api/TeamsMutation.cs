@@ -73,7 +73,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamCreatePayload(team.Id, team.OwnerUserId, team.Name, team.Description, team.AvatarUrl, team.Tags);
+            return new TeamCreatePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.OwnerUserId, team.Tags);
         }
 
         public async Task<TeamDeletePayload> TeamDelete(CancellationToken ct, string teamId)
