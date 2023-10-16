@@ -68,6 +68,29 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(userDocument);
     }
 
+    public async Task<User[]> FilterUsers(CancellationToken ct, string? search, string[] tags, int skip, int take)
+    {
+        var db = _dbFactory.Create();
+
+        var searchFilter =
+            search is null
+                ? _f.Empty
+                : _f.Text(search);
+
+        var tagsFilter =
+            tags.Length > 0
+                ? _f.All(o => o.Tags, tags)
+                : _f.Empty;
+
+        var users =
+            await db.Users
+                .Find(searchFilter & tagsFilter)
+                .Skip(skip)
+                .Limit(take)
+                .ToListAsync(cancellationToken: ct);
+        return users.Select(UserDocument.ToDomain).ToArray();
+    }
+
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();
@@ -101,8 +124,15 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return users.Select(UserDocument.ToDomain).ToArray();
     }
 
-    public Task<User> EditUserTags(CancellationToken ct, string userId, string[] tags)
+    public async Task<User> EditUserTags(CancellationToken ct, string userId, string[] tags)
     {
-        throw new NotImplementedException();
+        var db = _dbFactory.Create();
+        var user = await FindOneAndUpdateDocument(
+            ct,
+            db.Users,
+            _f.Eq(o => o.Id, userId),
+            _u.Set(o => o.Tags, tags)
+        );
+        return UserDocument.ToDomain(user);
     }
 }
