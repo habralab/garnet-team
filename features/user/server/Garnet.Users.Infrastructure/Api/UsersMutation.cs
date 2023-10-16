@@ -1,7 +1,5 @@
-using System.Security.Claims;
-using Garnet.Common.Application;
-using Garnet.Common.Infrastructure.Identity;
 using Garnet.Users.Application;
+using Garnet.Users.Application.Commands;
 using Garnet.Users.Infrastructure.Api.UserCreate;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditDescription;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserUploadAvatar;
@@ -13,15 +11,19 @@ namespace Garnet.Users.Infrastructure.Api;
 public class UsersMutation
 {
     private readonly UsersService _usersService;
+    private readonly UserCreateCommand _userCreateCommand;
 
-    public UsersMutation(UsersService usersService)
+    public UsersMutation(
+        UsersService usersService,
+        UserCreateCommand userCreateCommand)
     {
         _usersService = usersService;
+        _userCreateCommand = userCreateCommand;
     }
 
     public async Task<UserCreatePayload> UserCreate(CancellationToken ct, UserCreateInput input)
     {
-        var result = await _usersService.CreateUser(ct, input.IdentityId, input.UserName);
+        var result = await _userCreateCommand.Execute(ct, input.IdentityId, input.UserName);
         return new UserCreatePayload(result.Id, result.UserName, result.Description, result.AvatarUrl, result.Tags);
     }
     

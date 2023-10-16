@@ -7,6 +7,7 @@ using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
 using Garnet.Users.Application;
+using Garnet.Users.Application.Commands;
 using Garnet.Users.Events;
 using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
@@ -44,6 +45,7 @@ public static class Startup
         services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        services.AddScoped<UserCreateCommand>();
     }
 
     public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)
