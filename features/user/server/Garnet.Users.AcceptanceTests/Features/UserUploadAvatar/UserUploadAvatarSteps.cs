@@ -38,7 +38,7 @@ public class UserUploadAvatarSteps : BaseSteps
         );
     }
 
-    [Then(@"автарка пользователя '(.*)' является '(.*)'")]
+    [Then(@"аватарка пользователя '(.*)' является '(.*)'")]
     public async Task ThenАавтаркаПользователяЯвляется(string username, string avatar)
     {
         var user = await Db.Users.Find(o => o.UserName == username).FirstAsync();

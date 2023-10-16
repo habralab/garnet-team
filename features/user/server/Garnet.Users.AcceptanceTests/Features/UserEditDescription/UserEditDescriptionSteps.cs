@@ -11,18 +11,15 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEditDescription;
 public class UserEditDescriptionSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
-    private readonly RemoteFileStorageFake _fileStorageFake;
 
     public UserEditDescriptionSteps(
-        CurrentUserProviderFake currentUserProviderFake, 
-        RemoteFileStorageFake fileStorageFake, 
+        CurrentUserProviderFake currentUserProviderFake,
         StepsArgs args
     ) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
-        _fileStorageFake = fileStorageFake;
     }
-    
+
     [Given(@"существует пользователь '([^']*)'")]
     public async Task GivenСуществуетПользователь(string username)
     {
