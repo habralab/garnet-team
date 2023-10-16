@@ -17,7 +17,6 @@ using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
 using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
-using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
