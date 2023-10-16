@@ -26,12 +26,14 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEditTags
         }
 
         [When(@"'(.*)' редактирует свои теги на '(.*)'")]
-        public void WhenРедактируетСвоиТегиНа(string username, string tags)
+        public async Task WhenРедактируетСвоиТегиНа(string username, string tags)
         {
+            var userTags = tags.Split(',', StringSplitOptions.RemoveEmptyEntries);
+            await Mutation.UserEditTags(CancellationToken.None, userTags);
         }
 
         [Then(@"теги пользователя '(.*)' состоят из '(.*)'")]
-        public async void ThenТегиПользователяСостоятИз(string username, string tags)
+        public async Task ThenТегиПользователяСостоятИз(string username, string tags)
         {
             var user = await Db.Users.Find(x => x.UserName == username).FirstAsync();
             var userTags = tags.Split(',', StringSplitOptions.RemoveEmptyEntries);

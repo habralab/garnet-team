@@ -2,6 +2,7 @@ using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application.Commands;
 using Garnet.Users.Infrastructure.Api.UserCreate;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditDescription;
+using Garnet.Users.Infrastructure.Api.UserEdit.UserEditTags;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserUploadAvatar;
 using HotChocolate.Types;
 
@@ -52,5 +53,10 @@ public class UsersMutation
 
         var user = result.Value;
         return new UserUploadAvatarPayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
+    }
+
+    public async Task<UserEditTagsPayload> UserEditTags(CancellationToken ct, string[] tags)
+    {
+        return null;
     }
 }
