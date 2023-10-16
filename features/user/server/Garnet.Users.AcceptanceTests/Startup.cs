@@ -1,3 +1,4 @@
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
@@ -5,6 +6,8 @@ using Garnet.Common.Application.S3;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.User;
 using Garnet.Users.Application;
+using Garnet.Users.Application.Commands;
+using Garnet.Users.Application.Queries;
 using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,7 +22,7 @@ public static class Startup
     public static IServiceCollection CreateServices()
     {
         var services = new ServiceCollection();
-        
+
         AddMongoDb(services);
         AddMessageBus(services);
 
@@ -31,9 +34,17 @@ public static class Startup
 
         services.AddScoped<RemoteFileStorageFake>();
         services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
-    
+
+        services.AddScoped<QueryExceptionsContext>();
+
         services.AddScoped<IUsersRepository, UsersRepository>();
-        services.AddScoped<UsersService>();
+
+        services.AddScoped<UserCreateCommand>();
+        services.AddScoped<UserEditDescriptionCommand>();
+        services.AddScoped<UserUploadAvatarCommand>();
+
+        services.AddScoped<UserGetQuery>();
+        services.AddScoped<UsersFilterQuery>();
 
         services.AddScoped<UsersQuery>();
         services.AddScoped<UsersMutation>();

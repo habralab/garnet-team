@@ -45,6 +45,7 @@ public static class Startup
 
         services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        
         services.AddScoped<UserCreateCommand>();
         services.AddScoped<UserEditDescriptionCommand>();
         services.AddScoped<UserUploadAvatarCommand>();
