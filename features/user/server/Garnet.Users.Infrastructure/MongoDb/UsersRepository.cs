@@ -100,4 +100,9 @@ public class UsersRepository : RepositoryBase, IUsersRepository
                 .ToListAsync(cancellationToken: ct);
         return users.Select(UserDocument.ToDomain).ToArray();
     }
+
+    public Task<User> EditUserTags(CancellationToken ct, string userId, string[] tags)
+    {
+        throw new NotImplementedException();
+    }
 }

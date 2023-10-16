@@ -46,6 +46,8 @@ public static class Startup
         services.AddScoped<UserGetQuery>();
         services.AddScoped<UsersFilterQuery>();
 
+        services.AddScoped<UserEditTagsCommand>();
+
         services.AddScoped<UsersQuery>();
         services.AddScoped<UsersMutation>();
 
