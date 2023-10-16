@@ -59,6 +59,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
             _teamEditNameCommand = teamEditNameCommand;
+            _teamEditTagsCommand = teamEditTagsCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, TeamCreateInput input)
