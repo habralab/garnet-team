@@ -44,13 +44,13 @@ public static class Startup
         services.AddGarnetMongoSerializers();
 
         services.AddScoped<IDateTimeService, DateTimeService>();
-        services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<UserCreateCommand>();
         services.AddScoped<UserEditDescriptionCommand>();
         services.AddScoped<UserUploadAvatarCommand>();
 
         services.AddScoped<UserGetQuery>();
+        services.AddScoped<UsersFilterQuery>();
     }
 
     public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)

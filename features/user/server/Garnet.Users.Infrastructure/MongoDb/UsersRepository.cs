@@ -2,6 +2,7 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application;
+using Garnet.Users.Application.Args;
 using MongoDB.Driver;
 
 namespace Garnet.Users.Infrastructure.MongoDb;
@@ -31,8 +32,8 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         var db = _dbFactory.Create();
         var user = await FindOneAndUpdateDocument(
             ct,
-            db.Users, 
-            _f.Eq(o => o.Id, userId), 
+            db.Users,
+            _f.Eq(o => o.Id, userId),
             _u.Set(o => o.Description, description)
         );
         return UserDocument.ToDomain(user);
@@ -43,8 +44,8 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         var db = _dbFactory.Create();
         var user = await FindOneAndUpdateDocument(
             ct,
-            db.Users, 
-            _f.Eq(o => o.Id, userId), 
+            db.Users,
+            _f.Eq(o => o.Id, userId),
             _u.Set(o => o.AvatarUrl, avatarUrl)
         );
         return UserDocument.ToDomain(user);
@@ -67,29 +68,6 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(userDocument);
     }
 
-    public async Task<User[]> FilterUsers(CancellationToken ct, string? search, string[] tags, int skip, int take)
-    {
-        var db = _dbFactory.Create();
-
-        var searchFilter =
-            search is null
-                ? _f.Empty
-                : _f.Text(search);
-
-        var tagsFilter =
-            tags.Length > 0
-                ? _f.All(o => o.Tags, tags)
-                : _f.Empty;
-        
-        var users =
-            await db.Users
-                .Find(searchFilter & tagsFilter)
-                .Skip(skip)
-                .Limit(take)
-                .ToListAsync(cancellationToken: ct);
-        return users.Select(UserDocument.ToDomain).ToArray();
-    }
-
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();
@@ -100,5 +78,26 @@ public class UsersRepository : RepositoryBase, IUsersRepository
                     .Text(o => o.Tags)
             ),
             cancellationToken: ct);
+    }
+
+    public async Task<User[]> FilterUsers(CancellationToken ct, UserFilterArgs args)
+    {
+        var db = _dbFactory.Create();
+
+        var searchFilter = args.Search is null
+                ? _f.Empty
+                : _f.Where(x => x.UserName.ToLower().Contains(args.Search.ToLower()));
+
+        var tagsFilter = args.Tags.Length > 0
+            ? _f.All(o => o.Tags, args.Tags)
+            : _f.Empty;
+
+        var users =
+            await db.Users
+                .Find(searchFilter & tagsFilter)
+                .Skip(args.Skip)
+                .Limit(args.Take)
+                .ToListAsync(cancellationToken: ct);
+        return users.Select(UserDocument.ToDomain).ToArray();
     }
 }
