@@ -58,19 +58,27 @@ public static class Startup
         services.AddScoped<ProjectDeleteCommand>();
         services.AddScoped<ProjectEditDescriptionCommand>();
         services.AddScoped<ProjectEditOwnerCommand>();
+        services.AddScoped<ProjectEditNameCommand>();
         services.AddScoped<ProjectUploadAvatarCommand>();
+
         services.AddScoped<ProjectTeamCreateCommand>();
+
         services.AddScoped<ProjectUserCreateCommand>();
+
         services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
+
         services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
         services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
         services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
 
         services.AddScoped<ProjectGetQuery>();
         services.AddScoped<ProjectsFilterQuery>();
+
         services.AddScoped<ProjectTeamParticipantFilterQuery>();
+
         services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
+
         services.AddScoped<ProjectTeamGetQuery>();
 
         services.AddScoped<ProjectsMutation>();
