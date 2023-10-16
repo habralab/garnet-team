@@ -46,6 +46,7 @@ public static class Startup
         services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
         services.AddScoped<UserCreateCommand>();
+        services.AddScoped<UserEditDescriptionCommand>();
     }
 
     public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)
