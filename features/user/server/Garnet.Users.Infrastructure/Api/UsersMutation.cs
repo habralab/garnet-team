@@ -1,5 +1,4 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Users.Application;
 using Garnet.Users.Application.Commands;
 using Garnet.Users.Infrastructure.Api.UserCreate;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditDescription;
@@ -11,18 +10,15 @@ namespace Garnet.Users.Infrastructure.Api;
 [ExtendObjectType("Mutation")]
 public class UsersMutation
 {
-    private readonly UsersService _usersService;
     private readonly UserCreateCommand _userCreateCommand;
     private readonly UserEditDescriptionCommand _userEditDescriptionCommand;
     private readonly UserUploadAvatarCommand _userEditAvatarCommand;
 
     public UsersMutation(
-        UsersService usersService,
         UserEditDescriptionCommand userEditDescriptionCommand,
         UserUploadAvatarCommand userEditAvatarCommand,
         UserCreateCommand userCreateCommand)
     {
-        _usersService = usersService;
         _userCreateCommand = userCreateCommand;
         _userEditAvatarCommand = userEditAvatarCommand;
         _userEditDescriptionCommand = userEditDescriptionCommand;
