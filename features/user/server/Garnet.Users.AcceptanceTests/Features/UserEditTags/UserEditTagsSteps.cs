@@ -1,4 +1,5 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Users.Infrastructure.MongoDb;
 using MongoDB.Driver;
 
@@ -9,9 +10,11 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEditTags
     {
         private readonly FilterDefinitionBuilder<UserDocument> _f = Builders<UserDocument>.Filter;
         private readonly UpdateDefinitionBuilder<UserDocument> _u = Builders<UserDocument>.Update;
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
 
-        public UserEditTagsSteps(StepsArgs args) : base(args)
+        public UserEditTagsSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
+            _currentUserProviderFake = currentUserProviderFake;
         }
 
         [Given(@"теги пользователя '(.*)' состоят из '(.*)'")]
@@ -28,6 +31,7 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEditTags
         [When(@"'(.*)' редактирует свои теги на '(.*)'")]
         public async Task WhenРедактируетСвоиТегиНа(string username, string tags)
         {
+            _currentUserProviderFake.LoginAs(username);
             var userTags = tags.Split(',', StringSplitOptions.RemoveEmptyEntries);
             await Mutation.UserEditTags(CancellationToken.None, userTags);
         }
