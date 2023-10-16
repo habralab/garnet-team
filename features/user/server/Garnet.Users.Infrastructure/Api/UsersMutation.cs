@@ -14,14 +14,17 @@ public class UsersMutation
     private readonly UsersService _usersService;
     private readonly UserCreateCommand _userCreateCommand;
     private readonly UserEditDescriptionCommand _userEditDescriptionCommand;
+    private readonly UserUploadAvatarCommand _userEditAvatarCommand;
 
     public UsersMutation(
         UsersService usersService,
         UserEditDescriptionCommand userEditDescriptionCommand,
+        UserUploadAvatarCommand userEditAvatarCommand,
         UserCreateCommand userCreateCommand)
     {
         _usersService = usersService;
         _userCreateCommand = userCreateCommand;
+        _userEditAvatarCommand = userEditAvatarCommand;
         _userEditDescriptionCommand = userEditDescriptionCommand;
     }
 
@@ -43,12 +46,15 @@ public class UsersMutation
     public async Task<UserUploadAvatarPayload> UserUploadAvatar(CancellationToken ct, UserUploadAvatarInput input)
     {
         var result =
-            await _usersService.EditCurrentUserAvatar(
+            await _userEditAvatarCommand.Execute(
                 ct,
                 input.File.Name,
                 input.File.ContentType,
                 input.File.OpenReadStream()
             );
-        return new UserUploadAvatarPayload(result.Id, result.UserName, result.Description, result.AvatarUrl, result.Tags);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var user = result.Value;
+        return new UserUploadAvatarPayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
     }
 }
