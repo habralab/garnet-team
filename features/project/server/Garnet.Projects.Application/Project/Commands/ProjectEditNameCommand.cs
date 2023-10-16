@@ -34,7 +34,7 @@ public class ProjectEditNameCommand
 
         if (project.OwnerUserId != _currentUserProvider.UserId)
         {
-            return Result.Fail(new ProjectOnlyNameCanEditError());
+            return Result.Fail(new ProjectOnlyOwnerNameCanEditError());
         }
 
         project = await _projectRepository.EditProjectName(ct, projectId, newName);
