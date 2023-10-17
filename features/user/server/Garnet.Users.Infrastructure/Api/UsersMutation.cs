@@ -1,7 +1,9 @@
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Users.Application;
 using Garnet.Users.Application.Commands;
 using Garnet.Users.Infrastructure.Api.UserCreate;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditDescription;
+using Garnet.Users.Infrastructure.Api.UserEdit.UserEditTags;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserUploadAvatar;
 using HotChocolate.Types;
 
@@ -13,15 +15,18 @@ public class UsersMutation
     private readonly UserCreateCommand _userCreateCommand;
     private readonly UserEditDescriptionCommand _userEditDescriptionCommand;
     private readonly UserUploadAvatarCommand _userEditAvatarCommand;
+    private readonly UserEditTagsCommand _userEditTagsCommand;
 
     public UsersMutation(
         UserEditDescriptionCommand userEditDescriptionCommand,
         UserUploadAvatarCommand userEditAvatarCommand,
-        UserCreateCommand userCreateCommand)
+        UserCreateCommand userCreateCommand,
+        UserEditTagsCommand userEditTagsCommand)
     {
         _userCreateCommand = userCreateCommand;
         _userEditAvatarCommand = userEditAvatarCommand;
         _userEditDescriptionCommand = userEditDescriptionCommand;
+        _userEditTagsCommand = userEditTagsCommand;
     }
 
     public async Task<UserCreatePayload> UserCreate(CancellationToken ct, UserCreateInput input)
@@ -52,5 +57,14 @@ public class UsersMutation
 
         var user = result.Value;
         return new UserUploadAvatarPayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
+    }
+
+    public async Task<UserEditTagsPayload> UserEditTags(CancellationToken ct, string[] tags)
+    {
+        var result = await _userEditTagsCommand.Execute(ct, tags);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var user = result.Value;
+        return new UserEditTagsPayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
     }
 }

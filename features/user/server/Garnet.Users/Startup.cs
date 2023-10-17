@@ -42,13 +42,8 @@ public static class Startup
 
         services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
-        
-        services.AddScoped<UserCreateCommand>();
-        services.AddScoped<UserEditDescriptionCommand>();
-        services.AddScoped<UserUploadAvatarCommand>();
 
-        services.AddScoped<UserGetQuery>();
-        services.AddScoped<UsersFilterQuery>();
+        services.AddGarnetUsersDomain();
     }
 
     public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)
@@ -63,5 +58,16 @@ public static class Startup
     public static void AddRepeatableMigrations(this IServiceCollection services)
     {
         services.AddScoped<IRepeatableMigration, CreateIndexesMigration>();
+    }
+
+    public static void AddGarnetUsersDomain(this IServiceCollection services)
+    {
+        services.AddScoped<UserEditTagsCommand>();
+        services.AddScoped<UserCreateCommand>();
+        services.AddScoped<UserEditDescriptionCommand>();
+        services.AddScoped<UserUploadAvatarCommand>();
+
+        services.AddScoped<UserGetQuery>();
+        services.AddScoped<UsersFilterQuery>();
     }
 }
