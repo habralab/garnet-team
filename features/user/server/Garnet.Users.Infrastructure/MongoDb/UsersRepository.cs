@@ -136,8 +136,15 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(user);
     }
 
-    public Task<User> EditUsername(CancellationToken ct, string userId, string username)
+    public async Task<User> EditUsername(CancellationToken ct, string userId, string username)
     {
-        throw new NotImplementedException();
+        var db = _dbFactory.Create();
+        var user = await FindOneAndUpdateDocument(
+            ct,
+            db.Users,
+            _f.Eq(o => o.Id, userId),
+            _u.Set(o => o.UserName, username)
+        );
+        return UserDocument.ToDomain(user);
     }
 }
