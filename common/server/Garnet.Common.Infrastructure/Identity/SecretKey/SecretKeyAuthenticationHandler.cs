@@ -1,5 +1,5 @@
-using System.Security.Claims;
 using System.Text.Encodings.Web;
+using Garnet.Common.Infrastructure.Support;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
@@ -22,7 +22,7 @@ public class SecretKeyAuthenticationHandler : AuthenticationHandler<SecretKeyAut
     {
         if (Request.Headers.TryGetValue(HeaderNames.Authorization, out var actual))
         {
-            var expected = Environment.GetEnvironmentVariable("GARNET_API_KEY");
+            var expected = EnvironmentEx.GetRequiredEnvironmentVariable("GARNET_API_KEY");
             if (actual == expected)
             {
                 var principal = ClaimsFactory.System(Scheme.Name);

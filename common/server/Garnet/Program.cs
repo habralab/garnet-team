@@ -1,5 +1,5 @@
 using DotNetEnv.Configuration;
-using Garnet.Common.Infrastructure.Identity.SecretKey;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Team;
 using Garnet.User;
@@ -22,9 +22,8 @@ public static class Program
 
         builder.WebHost.UseUrls("http://*:3000");
 
-        builder.Services
-            .AddAuthentication("SecretKey")
-            .AddScheme<SecretKeyAuthenticationSchemeOptions, SecretKeyAuthenticationHandler>("SecretKey", null);
+        builder.Services.AddSecretKeyAuth();
+        // builder.Services.AddKratosAuth(); // Uncomment when Kratos will be ready to handle authorization
         
         builder.Services
             .AddHttpContextAccessor()
@@ -53,7 +52,8 @@ public static class Program
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        app.MapGraphQL("/api/graphql");
+        app.MapGraphQLHttp("/api/graphql").RequireAuthorization();
+        app.MapGraphQL("/api/sandbox");
 
         using (var scope = app.Services.CreateScope())
         {

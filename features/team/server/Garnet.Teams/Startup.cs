@@ -38,7 +38,7 @@ using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Application.TeamParticipant.Queries;
 using Garnet.Common.Application;
-using Microsoft.AspNetCore.Http;
+using Garnet.Common.Infrastructure.Support;
 
 namespace Garnet.Team
 {
@@ -49,21 +49,17 @@ namespace Garnet.Team
         {
             builder.AddApiType<TeamsMutation>();
             builder.AddApiType<TeamsQuery>();
-            builder.Services.AddCurrentUserProvider();
+            builder.Services.AddGarnetAuthorization();
             builder.Services.AddGarnetTeamsInternal();
-            builder.Services.AddRepeatableMigrations();
             builder.Services.AddGarnetTeamsMessageBus(nameof(Teams));
+            builder.Services.AddRepeatableMigrations();
 
             return builder;
         }
 
         private static void AddGarnetTeamsInternal(this IServiceCollection services)
         {
-            const string mongoConnStringEnv = "MONGO_CONNSTRING";
-            var mongoDbConnString =
-                Environment.GetEnvironmentVariable(mongoConnStringEnv)
-                ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
-            services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+            services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
             services.AddGarnetMongoSerializers();
 
             services.AddScoped<IDateTimeService, DateTimeService>();
