@@ -7,6 +7,8 @@ using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
 using Garnet.Users.Application;
+using Garnet.Users.Application.Commands;
+using Garnet.Users.Application.Queries;
 using Garnet.Users.Events;
 using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
@@ -31,7 +33,7 @@ public static class Startup
 
         return builder;
     }
-    
+
     private static void AddGarnetUsersInternal(this IServiceCollection services)
     {
         const string mongoConnStringEnv = "MONGO_CONNSTRING";
@@ -40,10 +42,16 @@ public static class Startup
             ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
         services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
         services.AddGarnetMongoSerializers();
-        
+
         services.AddScoped<IDateTimeService, DateTimeService>();
-        services.AddScoped<UsersService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        
+        services.AddScoped<UserCreateCommand>();
+        services.AddScoped<UserEditDescriptionCommand>();
+        services.AddScoped<UserUploadAvatarCommand>();
+
+        services.AddScoped<UserGetQuery>();
+        services.AddScoped<UsersFilterQuery>();
     }
 
     public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)
