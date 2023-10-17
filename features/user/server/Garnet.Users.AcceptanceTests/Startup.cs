@@ -39,14 +39,7 @@ public static class Startup
 
         services.AddScoped<IUsersRepository, UsersRepository>();
 
-        services.AddScoped<UserCreateCommand>();
-        services.AddScoped<UserEditDescriptionCommand>();
-        services.AddScoped<UserUploadAvatarCommand>();
-
-        services.AddScoped<UserGetQuery>();
-        services.AddScoped<UsersFilterQuery>();
-
-        services.AddScoped<UserEditTagsCommand>();
+        services.AddGarnetUsersDomain();
 
         services.AddScoped<UsersQuery>();
         services.AddScoped<UsersMutation>();
