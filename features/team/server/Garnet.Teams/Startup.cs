@@ -1,13 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
+using Garnet.Common.Infrastructure.MongoDb;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Teams.Infrastructure.Api;
 using Garnet.Teams.Infrastructure.MongoDb;
 using Garnet.Teams.Infrastructure.MongoDb.Migration;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Users.Events;
-using Garnet.Projects.Events;
 using Garnet.Projects.Events.Project;
 using Garnet.Projects.Events.ProjectTeamJoinRequest;
 using Garnet.Teams.Application.TeamJoinProjectRequest.Commands;
@@ -35,6 +37,8 @@ using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Commands;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Application.TeamParticipant.Queries;
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.Support;
 
 namespace Garnet.Team
 {
@@ -43,23 +47,22 @@ namespace Garnet.Team
     {
         public static IRequestExecutorBuilder AddGarnetTeams(this IRequestExecutorBuilder builder)
         {
-            builder.AddType<TeamsMutation>();
-            builder.AddType<TeamsQuery>();
+            builder.AddApiType<TeamsMutation>();
+            builder.AddApiType<TeamsQuery>();
+            builder.Services.AddGarnetAuthorization();
             builder.Services.AddGarnetTeamsInternal();
-            builder.Services.AddRepeatableMigrations();
             builder.Services.AddGarnetTeamsMessageBus(nameof(Teams));
+            builder.Services.AddRepeatableMigrations();
 
             return builder;
         }
 
         private static void AddGarnetTeamsInternal(this IServiceCollection services)
         {
-            const string mongoConnStringEnv = "MONGO_CONNSTRING";
-            var mongoDbConnString =
-                Environment.GetEnvironmentVariable(mongoConnStringEnv)
-                ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
-            services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+            services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
+            services.AddGarnetMongoSerializers();
 
+            services.AddScoped<IDateTimeService, DateTimeService>();
             services.AddTeamInternal();
             services.AddTeamUserInternal();
             services.AddTeamParticipantInternal();
@@ -97,11 +100,15 @@ namespace Garnet.Team
 
             services.AddScoped<TeamCreateCommand>();
             services.AddScoped<TeamDeleteCommand>();
+            services.AddScoped<TeamEditTagsCommand>();
             services.AddScoped<TeamEditDescriptionCommand>();
             services.AddScoped<TeamEditOwnerCommand>();
+            services.AddScoped<TeamUploadAvatarCommand>();
+            services.AddScoped<TeamEditNameCommand>();
 
             services.AddScoped<TeamGetQuery>();
             services.AddScoped<TeamsFilterQuery>();
+            services.AddScoped<TeamsListByUserQuery>();
         }
 
         public static void AddTeamUserInternal(this IServiceCollection services)
@@ -112,7 +119,7 @@ namespace Garnet.Team
         public static void AddTeamParticipantInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
-            
+
             services.AddScoped<TeamParticipantFilterQuery>();
         }
 

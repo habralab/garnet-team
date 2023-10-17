@@ -34,7 +34,7 @@ public class ProjectTeamRepository : IProjectTeamRepository
     }
 
 
-    public async Task<ProjectTeamEntity> UpdateProjectTeam(CancellationToken ct, string teamId,
+    public async Task<ProjectTeamEntity?> UpdateProjectTeam(CancellationToken ct, string teamId,
         string teamName, string ownerUserId)
     {
         var db = _dbFactory.Create();
@@ -50,6 +50,6 @@ public class ProjectTeamRepository : IProjectTeamRepository
         );
 
 
-        return ProjectTeamDocument.ToDomain(team);
+        return team is null ? null : ProjectTeamDocument.ToDomain(team);
     }
 }

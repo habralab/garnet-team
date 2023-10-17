@@ -1,9 +1,9 @@
 using FluentAssertions;
-using Garnet.Common.Infrastructure.Support;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Users.AcceptanceTests.Support;
-using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.Api.UserGet;
 using Garnet.Users.Infrastructure.MongoDb;
+using HotChocolate.Execution;
 using MongoDB.Bson;
 using MongoDB.Driver;
 
@@ -13,13 +13,13 @@ namespace Garnet.Users.AcceptanceTests.Features.UserGet;
 public class UserGetSteps : BaseSteps
 {
     private UserPayload? _response;
-    private string? _id;
-    private Exception? _exception;
+    private readonly QueryExceptionsContext _queryExceptionsContext;
 
-    public UserGetSteps(StepsArgs args) : base(args)
+    public UserGetSteps(QueryExceptionsContext queryExceptionsContext, StepsArgs args) : base(args)
     {
+        _queryExceptionsContext = queryExceptionsContext;
     }
-    
+
     [Given(@"существует пользователь '(.*)' с описанием о себе '(.*)'")]
     public async Task GivenСуществуетЗарегистрированныйПользовательСОписаниемОСебе(string username, string description)
     {
@@ -45,19 +45,20 @@ public class UserGetSteps : BaseSteps
     {
         try
         {
-            _id = ObjectId.GenerateNewId().ToString();
-            await Query.UserGet(CancellationToken.None, _id!);
+            var id = ObjectId.GenerateNewId().ToString();
+            await Query.UserGet(CancellationToken.None, id!);
         }
-        catch (Exception e)
+        catch (QueryException ex)
         {
-            _exception = e;
+            _queryExceptionsContext.QueryExceptions.Add(ex);
         }
     }
 
-    [Then(@"происходит ошибка '(.*)'")]
-    public void ThenПроисходитОшибка(string error)
+    [Then(@"пользователь получает ошибку '([^']*)'")]
+    public Task ThenПользовательПолучаетОшибку(string errorCode)
     {
-        var errorMsg = error.Replace("ID", _id);
-        _exception!.Message.Should().Be(errorMsg);
+        var validError = _queryExceptionsContext.QueryExceptions.First().Errors.Any(x => x.Code == errorCode);
+        validError.Should().BeTrue();
+        return Task.CompletedTask;
     }
 }

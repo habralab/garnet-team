@@ -1,6 +1,10 @@
 using System.Diagnostics.CodeAnalysis;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.MongoDb;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Commands;
 using Garnet.Projects.Application.Project.Queries;
@@ -41,23 +45,20 @@ public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetProjects(this IRequestExecutorBuilder builder)
     {
-        builder.AddType<ProjectsMutation>();
-        builder.AddType<ProjectsQuery>();
+        builder.AddApiType<ProjectsMutation>();
+        builder.AddApiType<ProjectsQuery>();
+        builder.Services.AddGarnetAuthorization();
         builder.Services.AddGarnetProjectsInternal();
         builder.Services.AddGarnetProjectsMessageBus(nameof(Projects));
         builder.Services.AddRepeatableMigrations();
-
 
         return builder;
     }
 
     private static void AddGarnetProjectsInternal(this IServiceCollection services)
     {
-        const string mongoConnStringEnv = "MONGO_CONNSTRING";
-        var mongoDbConnString =
-            Environment.GetEnvironmentVariable(mongoConnStringEnv)
-            ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
-        services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+        services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
+        services.AddGarnetMongoSerializers();
 
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
@@ -69,19 +70,29 @@ public static class Startup
         services.AddScoped<ProjectDeleteCommand>();
         services.AddScoped<ProjectEditDescriptionCommand>();
         services.AddScoped<ProjectEditOwnerCommand>();
+        services.AddScoped<ProjectEditNameCommand>();
+        services.AddScoped<ProjectUploadAvatarCommand>();
+
         services.AddScoped<ProjectTeamCreateCommand>();
         services.AddScoped<ProjectTeamUpdateCommand>();
+
         services.AddScoped<ProjectUserCreateCommand>();
+
         services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
+
         services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
         services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
         services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
 
+
         services.AddScoped<ProjectGetQuery>();
         services.AddScoped<ProjectsFilterQuery>();
+
         services.AddScoped<ProjectTeamParticipantFilterQuery>();
+
         services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
+
         services.AddScoped<ProjectTeamGetQuery>();
     }
 
@@ -92,12 +103,14 @@ public static class Startup
             o.RegisterMessage<ProjectCreatedEvent>();
             o.RegisterMessage<ProjectUpdatedEvent>();
             o.RegisterMessage<ProjectDeletedEvent>();
-            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+
             o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEvent>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEvent>();
+
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
+            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
         });
     }
 

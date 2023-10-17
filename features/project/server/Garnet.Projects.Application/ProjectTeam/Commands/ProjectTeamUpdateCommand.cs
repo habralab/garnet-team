@@ -11,7 +11,7 @@ public class ProjectTeamUpdateCommand
         _projectTeamRepository = projectTeamRepository;
     }
 
-    public async Task<ProjectTeamEntity> Execute(CancellationToken ct, ProjectTeamUpdateArgs args)
+    public async Task<ProjectTeamEntity?> Execute(CancellationToken ct, ProjectTeamUpdateArgs args)
     {
         return await _projectTeamRepository.UpdateProjectTeam(ct, args.TeamId, args.TeamName, args.OwnerUserId);
     }

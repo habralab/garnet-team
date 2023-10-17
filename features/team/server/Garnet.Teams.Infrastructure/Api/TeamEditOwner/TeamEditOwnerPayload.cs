@@ -6,7 +6,8 @@ namespace Garnet.Teams.Infrastructure.Api.TeamEditOwner
         string Id,
         string Name,
         string Description,
+        string? AvatarUrl,
         string[] Tags,
         string OwnerUserId
-    ) : TeamPayload(Id, Name, Description, Tags);
+    ) : TeamPayload(Id, Name, Description, AvatarUrl, Tags, OwnerUserId);
 }

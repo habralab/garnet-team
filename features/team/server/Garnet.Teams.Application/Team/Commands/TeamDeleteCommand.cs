@@ -11,6 +11,7 @@ namespace Garnet.Teams.Application.Team.Commands
 {
     public class TeamDeleteCommand
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamParticipantRepository _participantRepository;
         private readonly ITeamJoinInvitationRepository _joinInvitationRepository;
@@ -19,6 +20,7 @@ namespace Garnet.Teams.Application.Team.Commands
         private readonly IMessageBus _messageBus;
 
         public TeamDeleteCommand(
+            ICurrentUserProvider currentUserProvider,
             ITeamRepository teamRepository,
             ITeamParticipantRepository participantRepository,
             ITeamJoinInvitationRepository joinInvitationRepository,
@@ -26,6 +28,7 @@ namespace Garnet.Teams.Application.Team.Commands
             ITeamUserJoinRequestRepository userJoinRequestRepository,
             IMessageBus messageBus)
         {
+            _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
             _participantRepository = participantRepository;
             _joinInvitationRepository = joinInvitationRepository;
@@ -34,7 +37,7 @@ namespace Garnet.Teams.Application.Team.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
+        public async Task<Result<TeamEntity>> Execute(CancellationToken ct, string teamId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -42,7 +45,7 @@ namespace Garnet.Teams.Application.Team.Commands
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team!.OwnerUserId != currentUserProvider.UserId)
+            if (team!.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanDeleteError());
             }

@@ -1,8 +1,15 @@
 using System.Diagnostics.CodeAnalysis;
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
-using Garnet.Common.Infrastructure.Migrations;
+using Garnet.Common.Infrastructure.MongoDb;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application;
+using Garnet.Users.Application.Commands;
+using Garnet.Users.Application.Queries;
 using Garnet.Users.Events;
 using Garnet.Users.Infrastructure.Api;
 using Garnet.Users.Infrastructure.MongoDb;
@@ -17,25 +24,31 @@ public static class Startup
 {
     public static IRequestExecutorBuilder AddGarnetUsers(this IRequestExecutorBuilder builder)
     {
-        builder.AddType<UsersQuery>();
-        builder.AddType<UsersMutation>();
+        builder.AddApiType<UsersQuery>();
+        builder.AddApiType<UsersMutation>();
+        builder.Services.AddGarnetAuthorization();
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddGarnetUsersMessageBus(nameof(Users));
-        builder.Services.AddRepeatableMigrations();
         builder.Services.AddGarnetPublicStorage();
+        builder.Services.AddRepeatableMigrations();
 
         return builder;
     }
-    
+
     private static void AddGarnetUsersInternal(this IServiceCollection services)
     {
-        const string mongoConnStringEnv = "MONGO_CONNSTRING";
-        var mongoDbConnString =
-            Environment.GetEnvironmentVariable(mongoConnStringEnv)
-            ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
-        services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
-        services.AddScoped<UsersService>();
+        services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
+        services.AddGarnetMongoSerializers();
+
+        services.AddScoped<IDateTimeService, DateTimeService>();
         services.AddScoped<IUsersRepository, UsersRepository>();
+        
+        services.AddScoped<UserCreateCommand>();
+        services.AddScoped<UserEditDescriptionCommand>();
+        services.AddScoped<UserUploadAvatarCommand>();
+
+        services.AddScoped<UserGetQuery>();
+        services.AddScoped<UsersFilterQuery>();
     }
 
     public static void AddGarnetUsersMessageBus(this IServiceCollection services, string name)

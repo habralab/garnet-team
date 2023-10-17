@@ -1,8 +1,8 @@
-﻿namespace Garnet.Projects.Application.Args;
+﻿namespace Garnet.Projects.Application.Project.Args;
 
 public record ProjectCreateArgs(
     string ProjectName,
-    string OwnerUserId,
     string? Description,
+    string? AvatarUrl,
     string[] Tags
     );

@@ -8,16 +8,22 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Queries
 {
     public class TeamUserJoinRequestsShowQuery
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly ITeamRepository _teamRepository;
         private readonly ITeamUserJoinRequestRepository _userJoinRequestRepository;
 
-        public TeamUserJoinRequestsShowQuery(ITeamRepository teamRepository, ITeamUserJoinRequestRepository userJoinRequestRepository)
+        public TeamUserJoinRequestsShowQuery(
+            ICurrentUserProvider currentUserProvider,
+            ITeamRepository teamRepository, 
+            ITeamUserJoinRequestRepository userJoinRequestRepository
+        )
         {
+            _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
             _userJoinRequestRepository = userJoinRequestRepository;
         }
 
-        public async Task<Result<TeamUserJoinRequestEntity[]>> Query(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId)
+        public async Task<Result<TeamUserJoinRequestEntity[]>> Query(CancellationToken ct, string teamId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -25,7 +31,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Queries
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team.OwnerUserId != currentUserProvider.UserId)
+            if (team.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamUserJoinRequestOnlyOwnerCanSeeError());
             }

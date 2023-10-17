@@ -1,3 +1,5 @@
+using Garnet.Users.Application.Args;
+
 namespace Garnet.Users.Application;
 
 public interface IUsersRepository
@@ -6,6 +8,6 @@ public interface IUsersRepository
     Task<User> EditUserDescription(CancellationToken ct, string userId, string description);
     Task<User> EditUserAvatar(CancellationToken ct, string userId, string avatarUrl);
     Task<User> CreateUser(CancellationToken ct, string identityId, string username);
-    Task<User[]> FilterUsers(CancellationToken ct, string? search, string[] tags, int skip, int take);
+    Task<User[]> FilterUsers(CancellationToken ct, UserFilterArgs args);
     Task CreateIndexes(CancellationToken ct);
 }

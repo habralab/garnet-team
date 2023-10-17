@@ -1,4 +1,4 @@
-namespace Garnet.Common.Infrastructure.Migrations;
+namespace Garnet.Common.Infrastructure.MongoDb.Migrations;
 
 public interface IRepeatableMigration
 {

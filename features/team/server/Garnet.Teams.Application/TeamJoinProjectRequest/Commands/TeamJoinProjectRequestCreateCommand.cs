@@ -9,21 +9,24 @@ namespace Garnet.Teams.Application.TeamJoinProjectRequest.Commands
 {
     public class TeamJoinProjectRequestCreateCommand
     {
+        private readonly ICurrentUserProvider _currentUserProvider;
         private readonly ITeamRepository _teamRepository;
         private readonly IMessageBus _messageBus;
         private readonly ITeamJoinProjectRequestRepository _joinProjectRequestRepository;
 
         public TeamJoinProjectRequestCreateCommand(
+            ICurrentUserProvider currentUserProvider,
             ITeamRepository teamRepository,
             ITeamJoinProjectRequestRepository joinProjectRequestRepository,
             IMessageBus messageBus)
         {
+            _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
             _joinProjectRequestRepository = joinProjectRequestRepository;
             _messageBus = messageBus;
         }
 
-        public async Task<Result<TeamJoinProjectRequestEntity>> SendJoinProjectRequest(CancellationToken ct, ICurrentUserProvider currentUserProvider, string teamId, string projectId)
+        public async Task<Result<TeamJoinProjectRequestEntity>> Execute(CancellationToken ct, string teamId, string projectId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -31,7 +34,7 @@ namespace Garnet.Teams.Application.TeamJoinProjectRequest.Commands
                 return Result.Fail(new TeamNotFoundError(teamId));
             }
 
-            if (team.OwnerUserId != currentUserProvider.UserId)
+            if (team.OwnerUserId != _currentUserProvider.UserId)
             {
                 return Result.Fail(new TeamOnlyOwnerCanRequestJoiningProjectError());
             }

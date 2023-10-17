@@ -5,9 +5,11 @@ image: picolino/garnet-backend
 env:
   secret:
     - MONGO_CONNSTRING
+    - GARNET_API_KEY
+    - KRATOS_URL
+    - KRATOS_API_KEY
     - S3_ACCESS_KEY
     - S3_SECRET_KEY
-    - GARNET_API_KEY
     - S3_BUCKET
     - S3_ENDPOINT
 

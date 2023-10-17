@@ -2,7 +2,6 @@ using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
-using Garnet.Common.Infrastructure.Migrations;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Team;
 using Garnet.Teams.Infrastructure.Api;
@@ -14,6 +13,8 @@ using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
+using Garnet.Common.Application.S3;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
 
 namespace Garnet.Teams.AcceptanceTests
 {
@@ -38,6 +39,12 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddScoped<TeamsQuery>();
 
             services.AddScoped<QueryExceptionsContext>();
+
+            services.AddScoped<RemoteFileStorageFake>();
+            services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
+
+            services.AddScoped<DateTimeServiceFake>();
+            services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());
 
             services.AddScoped<GiveMe>();
             services.AddScoped<StepsArgs>();

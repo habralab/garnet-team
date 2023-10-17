@@ -5,7 +5,7 @@
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
-      "launchUrl": "http://localhost:3000/api/graphql",
+      "launchUrl": "http://localhost:3000/api/sandbox",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

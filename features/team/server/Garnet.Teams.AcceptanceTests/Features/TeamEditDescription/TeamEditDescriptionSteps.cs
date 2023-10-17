@@ -12,7 +12,6 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditDescription
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private readonly QueryExceptionsContext _errorStepContext = null!;
-        private TeamEditDescriptionPayload _teamEditPayload = null!;
 
         public TeamEditSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
@@ -23,27 +22,19 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditDescription
         [When(@"'([^']*)' редактирует описание карточки команды '([^']*)' на '([^']*)'")]
         public async Task WhenРедактируетОписаниеКарточкиКоманды(string username, string teamName, string description)
         {
-            var claims = _currentUserProviderFake.LoginAs(username);
+            _currentUserProviderFake.LoginAs(username);
 
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var input = new TeamEditDescriptionInput(team.Id, description);
 
             try
             {
-                _teamEditPayload = await Mutation.TeamEditDescription(CancellationToken.None, claims, input);
+                await Mutation.TeamEditDescription(CancellationToken.None, input);
             }
             catch (QueryException ex)
             {
                 _errorStepContext.QueryExceptions.Add(ex);
             }
-        }
-
-        [Scope(Feature = "TeamEditDescription")]
-        [Then(@"описание команды в карточке состоит из '([^']*)'")]
-        public Task ThenОписаниеКомандыВКарточкеСостоитИз(string description)
-        {
-            _teamEditPayload.Description.Should().Be(description);
-            return Task.CompletedTask;
         }
 
         [Then(@"описание команды '([^']*)' состоит из '([^']*)'")]

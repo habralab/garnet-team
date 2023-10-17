@@ -27,13 +27,13 @@ public class ProjectEditOwnerSteps : BaseSteps
     public async Task WhenПользовательМеняетВладельцаПроекта(string userName, string projectName,
         string newOwnerName)
     {
-        var claims = _currentUserProviderFake.LoginAs(userName);
+        _currentUserProviderFake.LoginAs(userName);
         var project = await Db.Projects.Find(o => o.ProjectName == projectName).FirstAsync();
         var input = new ProjectEditOwnerInput(project.Id, _currentUserProviderFake.GetUserIdByUsername(newOwnerName));
 
         try
         {
-            _response = await Mutation.ProjectEditOwner(CancellationToken.None, claims, input);
+            _response = await Mutation.ProjectEditOwner(CancellationToken.None, input);
         }
         catch (QueryException ex)
         {

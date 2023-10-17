@@ -1,3 +1,5 @@
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Args;
@@ -5,29 +7,34 @@ using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.Team
 {
-    public class TeamRepository : ITeamRepository
+    public class TeamRepository : RepositoryBase, ITeamRepository
     {
         private readonly DbFactory _dbFactory;
         private readonly FilterDefinitionBuilder<TeamDocument> _f = Builders<TeamDocument>.Filter;
         private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
         private readonly IndexKeysDefinitionBuilder<TeamDocument> _i = Builders<TeamDocument>.IndexKeys;
 
-        public TeamRepository(DbFactory dbFactory)
+        public TeamRepository(
+            DbFactory dbFactory,
+            ICurrentUserProvider currentUserProvider,
+            IDateTimeService dateTimeService) : base(currentUserProvider, dateTimeService)
         {
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamEntity> CreateTeam(CancellationToken ct, TeamCreateArgs args)
+        public async Task<TeamEntity> CreateTeam(CancellationToken ct, string ownerUserId, TeamCreateArgs args)
         {
             var db = _dbFactory.Create();
             var team = TeamDocument.Create(
              Uuid.NewMongo(),
              args.Name,
              args.Description,
-             args.OwnerUserId!,
+             ownerUserId!,
+             null,
              args.Tags
             );
-            await db.Teams.InsertOneAsync(team, cancellationToken: ct);
+
+            team = await InsertOneDocument(ct, db.Teams, team);
             return TeamDocument.ToDomain(team);
         }
 
@@ -78,41 +85,92 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 _f.Eq(x => x.Id, teamId)
             );
 
-            return TeamDocument.ToDomain(team);
+            return team is null ? null : TeamDocument.ToDomain(team);
         }
 
         public async Task<TeamEntity?> EditTeamDescription(CancellationToken ct, string teamId, string description)
         {
             var db = _dbFactory.Create();
 
-            var team = await db.Teams.FindOneAndUpdateAsync(
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u.Set(x => x.Description, description),
-                options: new FindOneAndUpdateOptions<TeamDocument>
-                {
-                    ReturnDocument = ReturnDocument.After
-                },
-                cancellationToken: ct
+                _u.Set(x => x.Description, description)
             );
 
-            return TeamDocument.ToDomain(team);
+            return team is null ? null : TeamDocument.ToDomain(team);
         }
 
         public async Task<TeamEntity?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId)
         {
             var db = _dbFactory.Create();
 
-            var team = await db.Teams.FindOneAndUpdateAsync(
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u.Set(x => x.OwnerUserId, newOwnerUserId),
-                options: new FindOneAndUpdateOptions<TeamDocument>
-                {
-                    ReturnDocument = ReturnDocument.After
-                },
-                cancellationToken: ct
+                _u.Set(x => x.OwnerUserId, newOwnerUserId)
             );
 
-            return TeamDocument.ToDomain(team);
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> EditTeamAvatar(CancellationToken ct, string teamId, string avatarUrl)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.AvatarUrl, avatarUrl)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> EditTeamName(CancellationToken ct, string teamId, string name)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.Name, name)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> EditTeamTags(CancellationToken ct, string teamId, string[] tags)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u.Set(x => x.Tags, tags)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity[]> GetTeamsById(CancellationToken ct, string[] teamIds, TeamsListArgs args)
+        {
+            var db = _dbFactory.Create();
+
+            var teams = await db.Teams
+                .Find(
+                    _f.In(x => x.Id, teamIds)
+                )
+                .Skip(args.Skip)
+                .Limit(args.Take)
+                .ToListAsync(ct);
+
+            return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
     }
 }

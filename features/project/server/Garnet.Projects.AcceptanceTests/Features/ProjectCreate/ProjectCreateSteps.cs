@@ -29,8 +29,9 @@ public class ProjectCreateSteps : BaseSteps
     [When(@"пользователь '(.*)' создает проект '(.*)'")]
     public async Task WhenПользовательСоздаетПроект(string username, string projectName)
     {
-        var input = new ProjectCreateInput(projectName, string.Empty, Array.Empty<string>());
-        await Mutation.ProjectCreate(CancellationToken.None, _currentUserProviderFake.LoginAs(username), input);
+        _currentUserProviderFake.LoginAs(username);
+        var input = new ProjectCreateInput(projectName, string.Empty, string.Empty, Array.Empty<string>());
+        await Mutation.ProjectCreate(CancellationToken.None, input);
     }
 
     [Then(@"в системе существует проект '(.*)'")]

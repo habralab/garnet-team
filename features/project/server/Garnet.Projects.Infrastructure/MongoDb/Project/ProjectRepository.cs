@@ -1,6 +1,6 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Args;
 using Garnet.Projects.Application.Project;
+using Garnet.Projects.Application.Project.Args;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Project;
@@ -18,14 +18,15 @@ public class ProjectRepository : IProjectRepository
     }
 
 
-    public async Task<ProjectEntity> CreateProject(CancellationToken ct, ProjectCreateArgs args)
+    public async Task<ProjectEntity> CreateProject(CancellationToken ct, string ownerUserId, ProjectCreateArgs args)
     {
         var db = _dbFactory.Create();
         var project = ProjectDocument.Create(
             Uuid.NewMongo(),
-            args.OwnerUserId,
+            ownerUserId,
             args.ProjectName,
             args.Description,
+            args.AvatarUrl,
             args.Tags);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);
@@ -68,6 +69,38 @@ public class ProjectRepository : IProjectRepository
         var project = await db.Projects.FindOneAndUpdateAsync(
             _f.Eq(x => x.Id, projectId),
             _u.Set(x => x.Description, description),
+            options: new FindOneAndUpdateOptions<ProjectDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
+    public async Task<ProjectEntity> EditProjectName(CancellationToken ct, string projectId, string newName)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, projectId),
+            _u.Set(x => x.ProjectName, newName),
+            options: new FindOneAndUpdateOptions<ProjectDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
+    public async Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, projectId),
+            _u.Set(x => x.AvatarUrl, avatarUrl),
             options: new FindOneAndUpdateOptions<ProjectDocument>
             {
                 ReturnDocument = ReturnDocument.After
