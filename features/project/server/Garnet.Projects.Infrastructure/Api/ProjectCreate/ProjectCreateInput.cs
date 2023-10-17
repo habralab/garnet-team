@@ -1,7 +1,9 @@
+using HotChocolate.Types;
+
 namespace Garnet.Projects.Infrastructure.Api.ProjectCreate;
 
 public record ProjectCreateInput(
     string ProjectName,
     string Description,
-    string AvatarUrl,
+    IFile? File,
     string[] Tags);
