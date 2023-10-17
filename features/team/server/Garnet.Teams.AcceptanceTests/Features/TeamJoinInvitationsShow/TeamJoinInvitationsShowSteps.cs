@@ -1,21 +1,48 @@
+using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
+using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationsShow;
+using HotChocolate.Execution;
+using MongoDB.Driver;
+
 namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShow
 {
     [Binding]
     public class TeamJoinInvitationsShowSteps : BaseSteps
     {
-        public TeamJoinInvitationsShowSteps(StepsArgs args) : base(args)
+        private TeamJoinInvitationShowPayload _result = null!;
+        private readonly QueryExceptionsContext _queryExceptionsContext;
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
+
+        public TeamJoinInvitationsShowSteps(
+            CurrentUserProviderFake currentUserProviderFake,
+            QueryExceptionsContext queryExceptionsContext,
+            StepsArgs args) : base(args)
         {
+            _currentUserProviderFake = currentUserProviderFake;
+            _queryExceptionsContext = queryExceptionsContext;
         }
 
         [When(@"'(.*)' просматривает список приглашений команды '(.*)'")]
-        public Task ThenПросматриваетСписокПриглашенийКоманды(string username, string teamName)
+        public async Task ThenПросматриваетСписокПриглашенийКоманды(string username, string teamName)
         {
-            return Task.CompletedTask;
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+            _currentUserProviderFake.LoginAs(username);
+
+            try
+            {
+                _result = await Query.TeamJoinInvitationsShow(CancellationToken.None, team.Id);
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [Then(@"количество приглашений в списке равно '(.*)'")]
         public Task ThenКоличествоПриглашенийВСпискеРавно(int joinTeamCount)
         {
+            _result.TeamJoinInvites.Count().Should().Be(joinTeamCount);
             return Task.CompletedTask;
         }
     }

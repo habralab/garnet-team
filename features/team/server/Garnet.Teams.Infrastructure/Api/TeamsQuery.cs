@@ -7,6 +7,7 @@ using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamParticipant.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
+using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationsShow;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
 using Garnet.Teams.Infrastructure.Api.TeamsList;
@@ -80,9 +81,14 @@ namespace Garnet.Teams.Infrastructure.Api
         {
             var args = new TeamsListArgs(input.Skip, input.Take);
             var result = await _teamsListQuery.Query(ct, input.UserId, args);
-            var teams = result.Select(x=> new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId));
+            var teams = result.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId));
 
             return new TeamsListPayload(teams.ToArray());
+        }
+
+        public Task<TeamJoinInvitationShowPayload> TeamJoinInvitationsShow(CancellationToken ct, string teamId)
+        {
+            return null;
         }
     }
 }
