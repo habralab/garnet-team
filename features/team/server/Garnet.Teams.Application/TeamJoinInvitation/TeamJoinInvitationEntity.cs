@@ -5,7 +5,8 @@ namespace Garnet.Teams.Application.TeamJoinInvitation
     public record TeamJoinInvitationEntity(
         string Id,
         string UserId,
-        string TeamId
+        string TeamId,
+        TeamJoinInvitationAuditInfo AuditInfo
     );
 
     public static class TeamJoinInvitationEntityExtensions

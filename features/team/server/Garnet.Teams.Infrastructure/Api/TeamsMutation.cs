@@ -129,7 +129,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var invitation = result.Value;
-            return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId);
+            return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt, invitation.AuditInfo.CreatedBy);
         }
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestDecide(CancellationToken ct, TeamUserJoinRequestDecideInput input)
