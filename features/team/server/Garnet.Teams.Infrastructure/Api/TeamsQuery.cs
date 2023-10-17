@@ -94,7 +94,7 @@ namespace Garnet.Teams.Infrastructure.Api
             var result = await _teamJoinInvitationsShowQuery.Query(ct, teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
-            var joinInvitations = result.Value.Select(x => new TeamJoinInvitePayload(x.Id, x.UserId, x.TeamId));
+            var joinInvitations = result.Value.Select(x => new TeamJoinInvitePayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt, x.AuditInfo.CreatedBy));
             return new TeamJoinInvitationShowPayload(joinInvitations.ToArray());
         }
     }
