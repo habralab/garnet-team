@@ -1,4 +1,5 @@
 using Garnet.Common.Application.S3;
+using Garnet.Common.Infrastructure.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Minio;
 
@@ -10,16 +11,11 @@ public static class Startup
         this IServiceCollection services
     )
     {
-        const string s3EndpointEnv = "S3_ENDPOINT";
-        const string s3BucketEnv = "S3_BUCKET";
-        const string s3AccessKeyEnv = "S3_ACCESS_KEY";
-        const string s3SecretKeyEnv = "S3_SECRET_KEY";
-
         services.AddMinio(o =>
             {
-                o.WithEndpoint(Environment.GetEnvironmentVariable(s3EndpointEnv));
-                o.WithCredentials(Environment.GetEnvironmentVariable(s3AccessKeyEnv),
-                    Environment.GetEnvironmentVariable(s3SecretKeyEnv));
+                o.WithEndpoint(EnvironmentEx.GetRequiredEnvironmentVariable("S3_ENDPOINT"));
+                o.WithCredentials(EnvironmentEx.GetRequiredEnvironmentVariable("S3_ACCESS_KEY"),
+                    EnvironmentEx.GetRequiredEnvironmentVariable("S3_SECRET_KEY"));
                 o.Build();
             },
             ServiceLifetime.Scoped
@@ -27,8 +23,7 @@ public static class Startup
 
         services.AddScoped<IRemoteFileStorage>(o =>
             new TimewebS3Storage(
-                Environment.GetEnvironmentVariable(s3BucketEnv)
-                ?? throw new Exception($"No {s3BucketEnv} environment variable was provided."),
+                EnvironmentEx.GetRequiredEnvironmentVariable("S3_BUCKET"),
                 o.GetRequiredService<IMinioClient>()
             )
         );

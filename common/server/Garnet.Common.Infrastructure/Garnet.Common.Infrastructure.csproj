@@ -11,6 +11,7 @@
       <PackageReference Include="HotChocolate.AspNetCore.Authorization" Version="13.5.1" />
       <PackageReference Include="Minio" Version="6.0.0" />
       <PackageReference Include="MongoDB.Driver" Version="2.21.0" />
+      <PackageReference Include="Ory.Kratos.Client" Version="1.0.0" />
       <PackageReference Include="SlimMessageBus.Host.Memory" Version="2.1.10" />
     </ItemGroup>
 

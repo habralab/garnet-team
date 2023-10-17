@@ -6,6 +6,7 @@ using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application;
 using Garnet.Users.Application.Commands;
 using Garnet.Users.Application.Queries;
@@ -25,22 +26,18 @@ public static class Startup
     {
         builder.AddApiType<UsersQuery>();
         builder.AddApiType<UsersMutation>();
-        builder.Services.AddCurrentUserProvider();
+        builder.Services.AddGarnetAuthorization();
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddGarnetUsersMessageBus(nameof(Users));
-        builder.Services.AddRepeatableMigrations();
         builder.Services.AddGarnetPublicStorage();
+        builder.Services.AddRepeatableMigrations();
 
         return builder;
     }
 
     private static void AddGarnetUsersInternal(this IServiceCollection services)
     {
-        const string mongoConnStringEnv = "MONGO_CONNSTRING";
-        var mongoDbConnString =
-            Environment.GetEnvironmentVariable(mongoConnStringEnv)
-            ?? throw new Exception($"No {mongoConnStringEnv} environment variable was provided.");
-        services.AddScoped<DbFactory>(o => new DbFactory(mongoDbConnString));
+        services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
         services.AddGarnetMongoSerializers();
 
         services.AddScoped<IDateTimeService, DateTimeService>();
