@@ -135,4 +135,9 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         );
         return UserDocument.ToDomain(user);
     }
+
+    public Task<User> EditUsername(CancellationToken ct, string userId, string username)
+    {
+        throw new NotImplementedException();
+    }
 }
