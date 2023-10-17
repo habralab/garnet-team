@@ -1,8 +1,9 @@
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Teams.Application.TeamJoinInvitation;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
 {
-    public class TeamJoinInvitationDocument
+    public record TeamJoinInvitationDocument : DocumentBase
     {
         public string Id { get; init; } = null!;
         public string UserId { get; init; } = null!;
@@ -20,7 +21,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
 
         public static TeamJoinInvitationEntity ToDomain(TeamJoinInvitationDocument doc)
         {
-            return new TeamJoinInvitationEntity(doc.Id, doc.UserId, doc.TeamId);
+            var auditInfo = new TeamJoinInvitationAuditInfo(doc.AuditInfo.CreatedAt, doc.AuditInfo.CreatedBy);
+            return new TeamJoinInvitationEntity(doc.Id, doc.UserId, doc.TeamId, auditInfo);
         }
     }
 }
