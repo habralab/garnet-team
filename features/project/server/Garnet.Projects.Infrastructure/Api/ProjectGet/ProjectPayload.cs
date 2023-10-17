@@ -5,5 +5,6 @@ public record ProjectPayload(
     string OwnerUserId,
     string ProjectName,
     string? Description,
+    string? AvatarUrl,
     string[] Tags
     );
