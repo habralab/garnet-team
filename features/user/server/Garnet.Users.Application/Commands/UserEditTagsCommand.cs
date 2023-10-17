@@ -1,6 +1,7 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Users.Application.Errors;
 
 namespace Garnet.Users.Application.Commands
 {
@@ -25,7 +26,7 @@ namespace Garnet.Users.Application.Commands
             var user = await _usersRepository.GetUser(ct, _currentUserProvider.UserId);
             if (user is null)
             {
-                
+                return Result.Fail(new UserNotFoundError(_currentUserProvider.UserId));
             }
 
             user = await _usersRepository.EditUserTags(ct, user.Id, tags);
