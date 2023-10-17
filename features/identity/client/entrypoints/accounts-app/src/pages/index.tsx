@@ -1,1 +1,5 @@
-export { default } from '@identity/index-page'
+const Index = () => (
+  <h1>Index</h1>
+)
+
+export default Index
