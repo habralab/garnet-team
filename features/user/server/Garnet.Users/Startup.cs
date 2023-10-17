@@ -66,6 +66,7 @@ public static class Startup
         services.AddScoped<UserCreateCommand>();
         services.AddScoped<UserEditDescriptionCommand>();
         services.AddScoped<UserUploadAvatarCommand>();
+        services.AddScoped<UserEditUsernameCommand>();
 
         services.AddScoped<UserGetQuery>();
         services.AddScoped<UsersFilterQuery>();

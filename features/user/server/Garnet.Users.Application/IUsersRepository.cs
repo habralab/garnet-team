@@ -6,6 +6,7 @@ public interface IUsersRepository
 {
     Task<User?> GetUser(CancellationToken ct, string id);
     Task<User> EditUserDescription(CancellationToken ct, string userId, string description);
+    Task<User> EditUsername(CancellationToken ct, string userId, string username);
     Task<User> EditUserTags(CancellationToken ct, string userId, string[] tags);
     Task<User> EditUserAvatar(CancellationToken ct, string userId, string avatarUrl);
     Task<User> CreateUser(CancellationToken ct, string identityId, string username);
