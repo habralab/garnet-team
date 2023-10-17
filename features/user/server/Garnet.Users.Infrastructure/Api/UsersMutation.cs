@@ -4,6 +4,7 @@ using Garnet.Users.Application.Commands;
 using Garnet.Users.Infrastructure.Api.UserCreate;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditDescription;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditTags;
+using Garnet.Users.Infrastructure.Api.UserEdit.UserEditUsername;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserUploadAvatar;
 using HotChocolate.Types;
 
@@ -66,5 +67,10 @@ public class UsersMutation
 
         var user = result.Value;
         return new UserEditTagsPayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
+    }
+
+    public Task<UserEditUsernamePayload> UserEditUsername(CancellationToken ct, UserEditUsernameInput input)
+    {
+        return null;
     }
 }
