@@ -20,5 +20,5 @@
   "typecheckIgnorePatterns": [
     "shared/keto/src/namespaces/*"
   ],
-  "packageManager": "yarn@3.6.1"
+  "packageManager": "yarn@3.6.4"
 }
