@@ -4,7 +4,7 @@ namespace Garnet.Teams.Infrastructure.Api.TeamJoinInvite
         string Id,
         string UserId,
         string TeamId,
-        DateTime Created,
+        DateTimeOffset Created,
         string CreatedBy
     );
 }
