@@ -37,6 +37,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Queries
 
             var filter = new TeamJoinInvitationFilterArgs(null, teamId);
             var joinInvitations = await _teamJoinInvitationRepository.FilterInvitations(ct, filter);
+            joinInvitations = joinInvitations.OrderByDescending(x=> x.AuditInfo.CreatedAt).ToArray();
             return Result.Ok(joinInvitations);
         }
     }
