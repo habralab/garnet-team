@@ -196,17 +196,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@atls/next-identity-integration@npm:0.0.12":
-  version: 0.0.12
-  resolution: "@atls/next-identity-integration@npm:0.0.12"
+"@atls/next-identity-integration@npm:0.0.14":
+  version: 0.0.14
+  resolution: "@atls/next-identity-integration@npm:0.0.14"
   dependencies:
-    "@ory/integrations": "npm:^1.1.0"
-    "@ory/kratos-client": "npm:^0.11.0"
-    tldjs: "npm:^2.3.1"
+    "@ory/client": "npm:1.2.11"
+    "@ory/integrations": "npm:1.1.5"
+    "@ory/kratos-client": "npm:1.0.0"
+    tldjs: "npm:2.3.1"
   peerDependencies:
-    next: ^12.0.9
-    react: ^17.0.1
-  checksum: 1180db6fc6178c469b9ad75b4510439af4b7819e7185d58f65a006b72a4e9c1cfe82bde3c72db6d1545fdc85a032969df7b2aa2b02327c00f803d79fff994211
+    next: 12.3.4
+    react: 18.2.0
+  checksum: 773b9e688ade5501dbdeebeccc64717f017d4af60616e5d70ad9c5902a536a722b0c89880b129969140eff86851ad536d512b2603c7cccedc2805fccbed26a43
   languageName: node
   linkType: hard
 
@@ -1185,7 +1186,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/renderer-entrypoint@workspace:features/identity/client/entrypoints/accounts-app"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.12"
+    "@atls/next-identity-integration": "npm:0.0.14"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@formatjs/cli": "npm:4.8.4"
@@ -1585,6 +1586,7 @@ __metadata:
 "@next/swc-darwin-arm64@npm:12.3.4":
   version: 12.3.4
   resolution: "@next/swc-darwin-arm64@npm:12.3.4"
+  checksum: 69e34266c7d697b6994443ba90860698bd5f5c712fc33d65aec666ee99006cbcb8784f3d283390c7833ca87261fdef5c2430b18f1c82346145cafbfa9e096284
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
@@ -1599,6 +1601,7 @@ __metadata:
 "@next/swc-darwin-x64@npm:12.3.4":
   version: 12.3.4
   resolution: "@next/swc-darwin-x64@npm:12.3.4"
+  checksum: 7c7a0d9cb5aae0d191c2ae242bc6526425a34a28a2c914ee5d62651f28617027fd77457e5fe21a9f49f5bb96fd2d9205643b555f72b807cfca568330f2f546c0
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -1627,6 +1630,7 @@ __metadata:
 "@next/swc-linux-arm64-gnu@npm:12.3.4":
   version: 12.3.4
   resolution: "@next/swc-linux-arm64-gnu@npm:12.3.4"
+  checksum: 518b62f0bc0b635c4d84bd21752ee28f556e3d13d2d9d08deb41d3894e917daffb3a2237a38d1679cb7e0f7969c0934b279ef637ef24a2233b2618f609a15dee
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
@@ -1655,6 +1659,7 @@ __metadata:
 "@next/swc-linux-x64-gnu@npm:12.3.4":
   version: 12.3.4
   resolution: "@next/swc-linux-x64-gnu@npm:12.3.4"
+  checksum: 80b1d67a0a3abe57bd01349166cf87536326824a7eafe68532e07fc68a3209ad2e5419618d466f4b3c3c1eed22ac80d3d3dc6624b673983f1fcea21b68800d9b
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -1769,7 +1774,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ory/integrations@npm:^1.1.0":
+"@ory/client@npm:1.2.11":
+  version: 1.2.11
+  resolution: "@ory/client@npm:1.2.11"
+  dependencies:
+    axios: "npm:^0.21.4"
+  checksum: d6cee64840d6fdf2f66f52855d2b7ceaa4f6784c799665f7e8b406e21e784734dc31b50e04de39ee6b1ae208ef7dff9342272bf91d99018cd1e2502f13950091
+  languageName: node
+  linkType: hard
+
+"@ory/integrations@npm:1.1.5":
   version: 1.1.5
   resolution: "@ory/integrations@npm:1.1.5"
   dependencies:
@@ -1805,12 +1819,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ory/kratos-client@npm:^0.11.0":
-  version: 0.11.1
-  resolution: "@ory/kratos-client@npm:0.11.1"
+"@ory/kratos-client@npm:1.0.0":
+  version: 1.0.0
+  resolution: "@ory/kratos-client@npm:1.0.0"
   dependencies:
     axios: "npm:^0.21.4"
-  checksum: eac74b5904456647b0700d6f52970efd88c1f701c19b87ee7da48d81d2f6bdd93cb1739392dfd0cb71ed99664a69dd289b534a25293fea16b47d2e48011fa319
+  checksum: 53451104e20737932022c3bacf44fd201060d45bd4f051c4e7f75afdac2430f7dab2cc8889c2f0c00ab4f1d456aaa3980927d27716f2f60bf7d1e0e624c1b2fd
   languageName: node
   linkType: hard
 
@@ -4887,12 +4901,25 @@ __metadata:
     "@atls/code-service": "npm:0.0.23"
     "@atls/config-jest": "npm:0.0.6"
     "@jest/core": "npm:28.1.3"
+    "@next/swc-darwin-arm64": "npm:12.3.4"
+    "@next/swc-darwin-x64": "npm:12.3.4"
+    "@next/swc-linux-arm64-gnu": "npm:12.3.4"
+    "@next/swc-linux-x64-gnu": "npm:12.3.4"
     "@types/eslint": "npm:8"
     "@types/jest": "npm:28.1.8"
     "@types/node": "npm:17.0.45"
     eslint: "npm:8.17.0"
     husky: "npm:8.0.3"
     typescript: "npm:4.6.4"
+  dependenciesMeta:
+    "@next/swc-darwin-arm64@12.3.4":
+      unplugged: true
+    "@next/swc-darwin-x64@12.3.4":
+      unplugged: true
+    "@next/swc-linux-arm64-gnu@12.3.4":
+      unplugged: true
+    "@next/swc-linux-x64-gnu@12.3.4":
+      unplugged: true
   languageName: unknown
   linkType: soft
 
@@ -8020,7 +8047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tldjs@npm:2.3.1, tldjs@npm:^2.3.1":
+"tldjs@npm:2.3.1":
   version: 2.3.1
   resolution: "tldjs@npm:2.3.1"
   dependencies:

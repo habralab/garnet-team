@@ -39,6 +39,10 @@ const RAW_RUNTIME_STATE =
           ["@atls/code-service", "npm:0.0.23"],\
           ["@atls/config-jest", "npm:0.0.6"],\
           ["@jest/core", "virtual:30b1533895cb5c4997258d4337cb154a9781916eb52f2d9018b745ae165e440a0c8c1c0c5c77f001d2d850032f529b0fadc562061342b50ac2d08b309c32448c#npm:28.1.3"],\
+          ["@next/swc-darwin-arm64", "npm:12.3.4"],\
+          ["@next/swc-darwin-x64", "npm:12.3.4"],\
+          ["@next/swc-linux-arm64-gnu", "npm:12.3.4"],\
+          ["@next/swc-linux-x64-gnu", "npm:12.3.4"],\
           ["@types/eslint", "npm:8.44.4"],\
           ["@types/jest", "npm:28.1.8"],\
           ["@types/node", "npm:17.0.45"],\
@@ -264,19 +268,20 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@atls/next-identity-integration", [\
-      ["npm:0.0.12", {\
-        "packageLocation": "./.yarn/cache/@atls-next-identity-integration-npm-0.0.12-c54b2e7ec5-1180db6fc6.zip/node_modules/@atls/next-identity-integration/",\
+      ["npm:0.0.14", {\
+        "packageLocation": "./.yarn/cache/@atls-next-identity-integration-npm-0.0.14-68769a8cfc-773b9e688a.zip/node_modules/@atls/next-identity-integration/",\
         "packageDependencies": [\
-          ["@atls/next-identity-integration", "npm:0.0.12"]\
+          ["@atls/next-identity-integration", "npm:0.0.14"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.12", {\
-        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-c25ba12e11/0/cache/@atls-next-identity-integration-npm-0.0.12-c54b2e7ec5-1180db6fc6.zip/node_modules/@atls/next-identity-integration/",\
+      ["virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.14", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-4771324f12/0/cache/@atls-next-identity-integration-npm-0.0.14-68769a8cfc-773b9e688a.zip/node_modules/@atls/next-identity-integration/",\
         "packageDependencies": [\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.12"],\
-          ["@ory/integrations", "virtual:c25ba12e11e5c32bc12c18f831d7a13223c6a6b0c955c38309541deb92b3f81bf48a35d22601d1c56a1127e1cf08a8eccea7a68c47f35d6f9bc3f5ed514ae28f#npm:1.1.5"],\
-          ["@ory/kratos-client", "npm:0.11.1"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.14"],\
+          ["@ory/client", "npm:1.2.11"],\
+          ["@ory/integrations", "virtual:4771324f1228f065989eeaad748a4f638c3466f30927015aa419e514521c2580fa677a3ef5c70f26fa48043e606aac63bddd714667e5e625459c0d0488444eae#npm:1.1.5"],\
+          ["@ory/kratos-client", "npm:1.0.0"],\
           ["@types/next", null],\
           ["@types/react", "npm:18.2.28"],\
           ["next", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:12.3.4"],\
@@ -1708,7 +1713,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/entrypoints/accounts-app/",\
         "packageDependencies": [\
           ["@identity/renderer-entrypoint", "workspace:features/identity/client/entrypoints/accounts-app"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.12"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.14"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@formatjs/cli", "npm:4.8.4"],\
@@ -2299,6 +2304,16 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@ory/client", [\
+      ["npm:1.2.11", {\
+        "packageLocation": "./.yarn/cache/@ory-client-npm-1.2.11-20a2fd611b-d6cee64840.zip/node_modules/@ory/client/",\
+        "packageDependencies": [\
+          ["@ory/client", "npm:1.2.11"],\
+          ["axios", "npm:0.21.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@ory/integrations", [\
       ["npm:1.1.5", {\
         "packageLocation": "./.yarn/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
@@ -2307,11 +2322,11 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:c25ba12e11e5c32bc12c18f831d7a13223c6a6b0c955c38309541deb92b3f81bf48a35d22601d1c56a1127e1cf08a8eccea7a68c47f35d6f9bc3f5ed514ae28f#npm:1.1.5", {\
-        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-5fa42ea90c/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
+      ["virtual:4771324f1228f065989eeaad748a4f638c3466f30927015aa419e514521c2580fa677a3ef5c70f26fa48043e606aac63bddd714667e5e625459c0d0488444eae#npm:1.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-5814f6ce80/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
         "packageDependencies": [\
-          ["@ory/integrations", "virtual:c25ba12e11e5c32bc12c18f831d7a13223c6a6b0c955c38309541deb92b3f81bf48a35d22601d1c56a1127e1cf08a8eccea7a68c47f35d6f9bc3f5ed514ae28f#npm:1.1.5"],\
-          ["@ory/client", null],\
+          ["@ory/integrations", "virtual:4771324f1228f065989eeaad748a4f638c3466f30927015aa419e514521c2580fa677a3ef5c70f26fa48043e606aac63bddd714667e5e625459c0d0488444eae#npm:1.1.5"],\
+          ["@ory/client", "npm:1.2.11"],\
           ["@types/next", null],\
           ["@types/ory__client", null],\
           ["@types/tldjs", "npm:2.3.1"],\
@@ -2353,10 +2368,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@ory/kratos-client", [\
-      ["npm:0.11.1", {\
-        "packageLocation": "./.yarn/cache/@ory-kratos-client-npm-0.11.1-25968a9535-eac74b5904.zip/node_modules/@ory/kratos-client/",\
+      ["npm:1.0.0", {\
+        "packageLocation": "./.yarn/cache/@ory-kratos-client-npm-1.0.0-d902522584-53451104e2.zip/node_modules/@ory/kratos-client/",\
         "packageDependencies": [\
-          ["@ory/kratos-client", "npm:0.11.1"],\
+          ["@ory/kratos-client", "npm:1.0.0"],\
           ["axios", "npm:0.21.4"]\
         ],\
         "linkType": "HARD"\
@@ -6301,6 +6316,10 @@ const RAW_RUNTIME_STATE =
           ["@atls/code-service", "npm:0.0.23"],\
           ["@atls/config-jest", "npm:0.0.6"],\
           ["@jest/core", "virtual:30b1533895cb5c4997258d4337cb154a9781916eb52f2d9018b745ae165e440a0c8c1c0c5c77f001d2d850032f529b0fadc562061342b50ac2d08b309c32448c#npm:28.1.3"],\
+          ["@next/swc-darwin-arm64", "npm:12.3.4"],\
+          ["@next/swc-darwin-x64", "npm:12.3.4"],\
+          ["@next/swc-linux-arm64-gnu", "npm:12.3.4"],\
+          ["@next/swc-linux-x64-gnu", "npm:12.3.4"],\
           ["@types/eslint", "npm:8.44.4"],\
           ["@types/jest", "npm:28.1.8"],\
           ["@types/node", "npm:17.0.45"],\
