@@ -37,6 +37,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Queries
             }
 
             var userJoinRequests = await _userJoinRequestRepository.GetAllUserJoinRequestsByTeam(ct, teamId);
+            userJoinRequests = userJoinRequests.OrderByDescending(x=> x.AuditInfo.CreatedAt).ToArray();
             return Result.Ok(userJoinRequests);
         }
     }
