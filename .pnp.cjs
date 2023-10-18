@@ -22,6 +22,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:shared/keto"\
     },\
     {\
+      "name": "@ui/text",\
+      "reference": "workspace:ui/text"\
+    },\
+    {\
       "name": "@ui/theme",\
       "reference": "workspace:ui/theme"\
     }\
@@ -31,6 +35,7 @@ const RAW_RUNTIME_STATE =
   "fallbackExclusionList": [\
     ["@identity/renderer-entrypoint", ["workspace:features/identity/client/entrypoints/accounts-app"]],\
     ["@shared/keto", ["workspace:shared/keto"]],\
+    ["@ui/text", ["workspace:ui/text"]],\
     ["@ui/theme", ["workspace:ui/theme"]],\
     ["garnet-team", ["workspace:."]]\
   ],\
@@ -223,6 +228,33 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["@arcanis/slice-ansi", "npm:1.1.1"],\
           ["grapheme-splitter", "npm:1.0.4"]\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@atls-ui-parts/text", [\
+      ["npm:0.0.12", {\
+        "packageLocation": "./.yarn/cache/@atls-ui-parts-text-npm-0.0.12-1213b2c0b8-21c3158582.zip/node_modules/@atls-ui-parts/text/",\
+        "packageDependencies": [\
+          ["@atls-ui-parts/text", "npm:0.0.12"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:59c0e4b05210872ec6d6436536e5afcd8da95a2b3c2ebfdac70d49a46d55072979067e807b3ba8d05446bf35dc05d494f5733115fa0bd40b8bc50357eabbd9a0#npm:0.0.12", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-parts-text-virtual-6902f9d2ee/0/cache/@atls-ui-parts-text-npm-0.0.12-1213b2c0b8-21c3158582.zip/node_modules/@atls-ui-parts/text/",\
+        "packageDependencies": [\
+          ["@atls-ui-parts/text", "virtual:59c0e4b05210872ec6d6436536e5afcd8da95a2b3c2ebfdac70d49a46d55072979067e807b3ba8d05446bf35dc05d494f5733115fa0bd40b8bc50357eabbd9a0#npm:0.0.12"],\
+          ["@emotion/styled", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/react", "npm:18.2.28"],\
+          ["react", null],\
+          ["styled-system", "npm:5.1.5"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/styled",\
+          "@types/emotion__styled",\
+          "@types/react",\
+          "react"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -3029,6 +3061,18 @@ const RAW_RUNTIME_STATE =
           ["@types/yoga-layout", "npm:1.9.2"]\
         ],\
         "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@ui/text", [\
+      ["workspace:ui/text", {\
+        "packageLocation": "./ui/text/",\
+        "packageDependencies": [\
+          ["@ui/text", "workspace:ui/text"],\
+          ["@atls-ui-parts/text", "virtual:59c0e4b05210872ec6d6436536e5afcd8da95a2b3c2ebfdac70d49a46d55072979067e807b3ba8d05446bf35dc05d494f5733115fa0bd40b8bc50357eabbd9a0#npm:0.0.12"],\
+          ["@types/react", "npm:18.2.28"],\
+          ["@types/react-dom", "npm:18.2.13"]\
+        ],\
+        "linkType": "SOFT"\
       }]\
     ]],\
     ["@ui/theme", [\
