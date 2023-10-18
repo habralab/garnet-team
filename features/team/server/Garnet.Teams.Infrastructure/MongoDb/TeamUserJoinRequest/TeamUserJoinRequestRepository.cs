@@ -28,7 +28,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
                 teamId
             );
 
-            await InsertOneDocument(
+            joinRequest = await InsertOneDocument(
                 ct,
                 db.TeamUserJoinRequests,
                 joinRequest);

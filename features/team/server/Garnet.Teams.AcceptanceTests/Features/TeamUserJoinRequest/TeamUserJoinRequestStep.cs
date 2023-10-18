@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest;
 using HotChocolate.Execution;
@@ -28,8 +29,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequest
         {
             var userId = _currentUserProviderFake.GetUserIdByUsername(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+            var audit = AuditInfo.Create(DateTimeOffset.Now, _currentUserProviderFake.UserId);
             var request = TeamUserJoinRequestDocument.Create(Uuid.NewMongo(), userId, team.Id);
 
+            request = request with { AuditInfo = audit };
             await Db.TeamUserJoinRequests.InsertOneAsync(request);
         }
 
