@@ -22,10 +22,6 @@
     "husky": "8.0.3",
     "typescript": "4.6.4"
   },
-  "packageManager": "yarn@3.6.4",
-  "typecheckIgnorePatterns": [
-    "shared/keto/src/namespaces/*"
-  ],
   "dependenciesMeta": {
     "@next/swc-darwin-arm64@12.3.4": {
       "unplugged": true
@@ -39,5 +35,17 @@
     "@next/swc-linux-x64-gnu@12.3.4": {
       "unplugged": true
     }
-  }
+  },
+  "packageManager": "yarn@3.6.4",
+  "formatterIgnorePatterns": [
+    ".config/*",
+    "config/*",
+    ".github/*",
+    "features/project/*",
+    "features/team/server/*",
+    "features/user/server/*"
+  ],
+  "typecheckIgnorePatterns": [
+    "shared/keto/src/namespaces/*"
+  ]
 }
