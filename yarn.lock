@@ -156,6 +156,23 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@atls-ui-generators/button@npm:^0.0.17":
+  version: 0.0.17
+  resolution: "@atls-ui-generators/button@npm:0.0.17"
+  dependencies:
+    "@atls-ui-generators/utils": "npm:0.0.6"
+    "@atls/config-prettier": "npm:0.0.5"
+    "@atls/prettier-plugin": "npm:0.0.7"
+    "@babel/standalone": "npm:7.22.20"
+    camelcase: "npm:6.3.0"
+    commander: "npm:9.5.0"
+    prettier: "npm:2.8.8"
+  bin:
+    generate-styles: dist/generator.js
+  checksum: 81e512881f5e8b14b2ee7ac0e1a3e25a913ae1c78085253812208d5ddc2e3468be3554178ae60e6c50b8669606f7d97d85d6e8f7b99be63870faa969704be1e7
+  languageName: node
+  linkType: hard
+
 "@atls-ui-generators/input@npm:0.0.11":
   version: 0.0.11
   resolution: "@atls-ui-generators/input@npm:0.0.11"
@@ -182,6 +199,20 @@ __metadata:
     camelcase: "npm:6.3.0"
     prettier: "npm:2.8.8"
   checksum: cdda93861831389ecdc6c33014a6a6a3511145029ee00977a1886372fb601578ea8b51652b4bb9510595fabf95abd33db612574796d400807ccc07892a4c04e9
+  languageName: node
+  linkType: hard
+
+"@atls-ui-parts/button@npm:0.0.16":
+  version: 0.0.16
+  resolution: "@atls-ui-parts/button@npm:0.0.16"
+  dependencies:
+    "@atls-ui-parts/styles": "npm:0.0.6"
+  peerDependencies:
+    "@emotion/styled": 11.9.3
+    react: 18.2.0
+    styled-system: 5.1.5
+    styled-tools: 1.7.2
+  checksum: 330841b0fe56ad4927b7ca3fb0721a598f30c32d29a8eb175a5db77cf72bb9e648078c26168902a40f32c408c79e3e04ac9cec0500593d127e7f04b4f225448d
   languageName: node
   linkType: hard
 
@@ -2484,6 +2515,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react@npm:18.2.29":
+  version: 18.2.29
+  resolution: "@types/react@npm:18.2.29"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 41354427a476540c48ceb15e0999ac00d78f62ec59123ebbc3df0eb68754058cd377ffe17d307cb3f266698a3d5546cc52e6dd57cc58223ce5eafbdc4cd6d899
+  languageName: node
+  linkType: hard
+
 "@types/responselike@npm:*, @types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -2514,7 +2556,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-system@npm:5.1.19":
+"@types/styled-system@npm:5.1.19, @types/styled-system@npm:^5":
   version: 5.1.19
   resolution: "@types/styled-system@npm:5.1.19"
   dependencies:
@@ -2566,6 +2608,28 @@ __metadata:
   checksum: f6c8a0c3cc28b9604cc2e3a747944577f562be8dd5be46fbb522237fe52e0266c51571764322032f6d7e96d6b8f27cf51ba8e4be3024c6e68f5f173e1bd38761
   languageName: node
   linkType: hard
+
+"@ui/button@workspace:ui/button":
+  version: 0.0.0-use.local
+  resolution: "@ui/button@workspace:ui/button"
+  dependencies:
+    "@atls-ui-generators/button": "npm:^0.0.17"
+    "@atls-ui-parts/button": "npm:0.0.16"
+    "@emotion/styled": "npm:11.9.3"
+    "@types/react": "npm:18.2.29"
+    "@types/react-dom": "npm:18.2.13"
+    "@types/styled-system": "npm:^5"
+    "@ui/utils": "workspace:*"
+    styled-system: "npm:^5.1.5"
+    styled-tools: "npm:^1.7.2"
+  peerDependencies:
+    "@emotion/styled": "*"
+    react: "*"
+    react-dom: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
 
 "@ui/input@workspace:ui/input":
   version: 0.0.0-use.local
@@ -2641,9 +2705,9 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@utils/use-hover@workspace:utils/use-hover":
+"@ui/utils@workspace:*, @ui/utils@workspace:ui/utils":
   version: 0.0.0-use.local
-  resolution: "@utils/use-hover@workspace:utils/use-hover"
+  resolution: "@ui/utils@workspace:ui/utils"
   dependencies:
     "@atls-utils/use-hover": "npm:0.0.1"
   languageName: unknown
@@ -8274,7 +8338,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-system@npm:5.1.5":
+"styled-system@npm:5.1.5, styled-system@npm:^5.1.5":
   version: 5.1.5
   resolution: "styled-system@npm:5.1.5"
   dependencies:
@@ -8295,7 +8359,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-tools@npm:1.7.2":
+"styled-tools@npm:1.7.2, styled-tools@npm:^1.7.2":
   version: 1.7.2
   resolution: "styled-tools@npm:1.7.2"
   checksum: 726ba9b48df8bab6c091dc1508c9913e0b793a63a65099bfc28b1b807577fa5914644ba9f07ff49c8b1479d8b857a8877cb942ef5a2033385a87756fd3b3d596
