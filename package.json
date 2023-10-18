@@ -4,7 +4,8 @@
   "license": "BSD 3-Clause",
   "workspaces": [
     "features/identity/client/**/*",
-    "shared/**/*"
+    "shared/**/*",
+    "ui/**/*"
   ],
   "devDependencies": {
     "@atls/code-service": "0.0.23",
