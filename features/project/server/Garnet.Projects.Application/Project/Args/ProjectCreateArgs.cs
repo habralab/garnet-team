@@ -3,6 +3,6 @@
 public record ProjectCreateArgs(
     string ProjectName,
     string? Description,
-    string? AvatarUrl,
+    AvatarFileArgs? Avatar,
     string[] Tags
     );

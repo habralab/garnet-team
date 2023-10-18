@@ -48,14 +48,19 @@ public class ProjectsMutation
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct,
         ProjectCreateInput input)
     {
+        var avatarFile = input.File is null ? null : new AvatarFileArgs(
+            input.File.Name,
+            input.File.ContentType,
+            input.File.OpenReadStream());
         var args = new ProjectCreateArgs(input.ProjectName, input.Description,
-            input.AvatarUrl, input.Tags);
+            avatarFile, input.Tags);
 
         var result = await _projectCreateCommand.Execute(ct, args);
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
-        return new ProjectCreatePayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
+        return new ProjectCreatePayload(project.Id, project.OwnerUserId, project.ProjectName,
+            project.Description,
             project.AvatarUrl,
             project.Tags);
     }
