@@ -21,7 +21,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
 
         public static TeamJoinInvitationEntity ToDomain(TeamJoinInvitationDocument doc)
         {
-            var auditInfo = new TeamJoinInvitationAuditInfo(doc.AuditInfo.CreatedAt, doc.AuditInfo.CreatedBy);
+            var auditInfo = new TeamJoinInvitationAuditInfo(doc.AuditInfo.CreatedAt);
             return new TeamJoinInvitationEntity(doc.Id, doc.UserId, doc.TeamId, auditInfo);
         }
     }
