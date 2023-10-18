@@ -43,7 +43,7 @@ public class ProjectsQuery
 
         var project = result.Value;
         return new ProjectPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
-            project.Tags);
+            project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectFilterPayload> ProjectsFilter(CancellationToken ct, ProjectFilterInput input)
@@ -63,6 +63,7 @@ public class ProjectsQuery
             x.OwnerUserId,
             x.ProjectName,
             x.Description,
+            x.AvatarUrl,
             x.Tags
         )).ToArray());
     }
