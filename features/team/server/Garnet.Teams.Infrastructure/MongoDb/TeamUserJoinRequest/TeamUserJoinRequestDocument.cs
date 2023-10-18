@@ -1,8 +1,9 @@
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Teams.Application.TeamUserJoinRequest;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
 {
-    public class TeamUserJoinRequestDocument
+    public record TeamUserJoinRequestDocument : DocumentBase
     {
         public string Id { get; init; } = null!;
         public string UserId { get; init; } = null!;
@@ -20,7 +21,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
 
         public static TeamUserJoinRequestEntity ToDomain(TeamUserJoinRequestDocument doc)
         {
-            return new TeamUserJoinRequestEntity(doc.Id, doc.UserId, doc.TeamId);
+            var auditInfo = new TeamUserJoinRequestAuditInfo(doc.AuditInfo.CreatedAt);
+            return new TeamUserJoinRequestEntity(doc.Id, doc.UserId, doc.TeamId, auditInfo);
         }
     }
 }

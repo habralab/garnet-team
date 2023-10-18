@@ -76,7 +76,7 @@ namespace Garnet.Teams.Infrastructure.Api
             var result = await _teamUserJoinRequestsShowQuery.Query(ct, teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
-            var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId));
+            var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt));
             return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
         }
 
