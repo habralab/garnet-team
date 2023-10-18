@@ -5,7 +5,8 @@
   "workspaces": [
     "features/identity/client/**/*",
     "shared/**/*",
-    "ui/**/*"
+    "ui/**/*",
+    "utils/**/*"
   ],
   "devDependencies": {
     "@atls/code-service": "0.0.23",
