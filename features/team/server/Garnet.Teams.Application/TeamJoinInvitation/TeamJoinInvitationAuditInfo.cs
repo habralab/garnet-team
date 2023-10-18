@@ -1,4 +1,4 @@
 namespace Garnet.Teams.Application.TeamJoinInvitation
 {
-    public record TeamJoinInvitationAuditInfo(DateTimeOffset CreatedAt, string CreatedBy);
+    public record TeamJoinInvitationAuditInfo(DateTimeOffset CreatedAt);
 }
