@@ -1,0 +1,85 @@
+version: v0.11.1-alpha.0
+
+dsn: memory
+
+serve:
+  read:
+    host: 0.0.0.0
+    cors:
+      enabled: true
+      allowed_origins:
+        - http://localhost
+        - http://oathkeeper
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+        - Cookie
+        - Content-Type
+        - X-Session-Token
+      exposed_headers:
+        - Content-Type
+        - Set-Cookie
+      allow_credentials: true
+      debug: true
+  write:
+    host: 0.0.0.0
+    cors:
+      enabled: true
+      allowed_origins:
+        - http://localhost
+        - http://oathkeeper
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+        - Cookie
+        - Content-Type
+        - X-Session-Token
+      exposed_headers:
+        - Content-Type
+        - Set-Cookie
+      allow_credentials: true
+      debug: true
+
+  opl:
+    host: localhost
+    cors:
+      enabled: true
+      allowed_origins:
+        - http://localhost
+        - http://oathkeeper
+      allowed_methods:
+        - GET
+        - POST
+        - PUT
+        - PATCH
+        - DELETE
+      allowed_headers:
+        - Authorization
+        - Cookie
+        - Content-Type
+        - X-Session-Token
+      exposed_headers:
+        - Content-Type
+        - Set-Cookie
+      allow_credentials: true
+      debug: true
+
+namespaces:
+  location: file:///config/keto/namespaces/namespaces.keto.ts
+
+log:
+  level: debug
+  format: text
+  leak_sensitive_values: true
+
+$schema: file:///config/keto/schema.json
