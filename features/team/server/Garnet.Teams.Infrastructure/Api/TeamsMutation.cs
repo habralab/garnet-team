@@ -17,6 +17,7 @@ using Garnet.Teams.Infrastructure.Api.TeamUploadAvatar;
 using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
+using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -166,6 +167,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
+        }
+
+        public async Task<TeamJoinInvitePayload> TeamJoinInvitationDecide(CancellationToken ct, TeamJoinInvitationDecideInput input)
+        {
+            return null;
         }
     }
 }

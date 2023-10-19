@@ -1,22 +1,43 @@
+using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
+using MongoDB.Driver;
+
 namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationDecide
 {
     [Binding]
     public class TeamJoinInvitationDecideSteps : BaseSteps
     {
-        public TeamJoinInvitationDecideSteps(StepsArgs args) : base(args)
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
+
+        public TeamJoinInvitationDecideSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
+            _currentUserProviderFake = currentUserProviderFake;
         }
 
         [When(@"'(.*)' принимает приглашение в команду '(.*)'")]
-        public Task WhenПринимаетПриглашениеВКоманду(string маша0, string fooBar1)
+        public async Task WhenПринимаетПриглашениеВКоманду(string username, string teamName)
         {
-            return Task.CompletedTask;
+            _currentUserProviderFake.LoginAs(username);
+
+            var invitation = await Db.TeamJoinInvitations.Find(x =>
+                x.UserId == _currentUserProviderFake.GetUserIdByUsername(username)
+            ).FirstAsync();
+
+            var input = new TeamJoinInvitationDecideInput(invitation.Id, true);
+            await Mutation.TeamJoinInvitationDecide(CancellationToken.None, input);
         }
 
         [When(@"'(.*)' отклоняет приглашение в команду '(.*)'")]
-        public Task WhenОтклоняетПриглашениеВКоманду(string маша0, string fooBar1)
+        public async Task WhenОтклоняетПриглашениеВКоманду(string username, string teamName)
         {
-            return Task.CompletedTask;
+            _currentUserProviderFake.LoginAs(username);
+
+            var invitation = await Db.TeamJoinInvitations.Find(x =>
+                x.UserId == _currentUserProviderFake.GetUserIdByUsername(username)
+            ).FirstAsync();
+
+            var input = new TeamJoinInvitationDecideInput(invitation.Id, false);
+            await Mutation.TeamJoinInvitationDecide(CancellationToken.None, input);
         }
     }
 }
