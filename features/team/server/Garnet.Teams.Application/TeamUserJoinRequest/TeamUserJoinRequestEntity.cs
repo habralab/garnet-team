@@ -1,3 +1,4 @@
+using Garnet.Common.Application;
 using Garnet.Teams.Events.TeamUserJoinRequest;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest
@@ -6,7 +7,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest
         string Id,
         string UserId,
         string TeamId,
-        TeamUserJoinRequestAuditInfo AuditInfo
+        AuditInfo AuditInfo
     );
 
     public static class TeamUserJoinRequestEntityExtensions

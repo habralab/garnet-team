@@ -27,7 +27,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShowCreatedCh
             _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var created = DateTimeOffset.Parse(date);
-            var audit = AuditInfo.Create(created, _currentUserProviderFake.UserId);
+            var audit = AuditInfoDocument.Create(created, _currentUserProviderFake.UserId);
 
             await Db.TeamUserJoinRequests.UpdateOneAsync(
                 _f.And(_f.Eq(x => x.TeamId, team.Id), _f.Eq(x => x.UserId, _currentUserProviderFake.GetUserIdByUsername(username))),
