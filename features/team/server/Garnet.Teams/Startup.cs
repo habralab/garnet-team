@@ -137,7 +137,10 @@ namespace Garnet.Team
         public static void AddTeamJoinInvitationInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
+            
             services.AddScoped<TeamJoinInviteCommand>();
+            services.AddScoped<TeamJoinInvitationDecideCommand>();
+
             services.AddScoped<TeamJoinInvitationsShowQuery>();
         }
 

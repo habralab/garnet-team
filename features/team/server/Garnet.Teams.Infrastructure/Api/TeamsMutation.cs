@@ -35,6 +35,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
         private readonly TeamEditTagsCommand _teamEditTagsCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
+        private readonly TeamJoinInvitationDecideCommand _teamJoinInvitationDecideCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
@@ -43,6 +44,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamJoinInviteCommand joinInviteCommand,
             TeamEditNameCommand teamEditNameCommand,
+            TeamJoinInvitationDecideCommand teamJoinInvitationDecideCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
@@ -60,6 +62,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
             _teamEditNameCommand = teamEditNameCommand;
+            _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
         }
 
@@ -171,7 +174,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvitationDecide(CancellationToken ct, TeamJoinInvitationDecideInput input)
         {
-            return null;
+            var result = await _teamJoinInvitationDecideCommand.Execute(ct, input.JoinInvitationId, input.IsApproved);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var invitation = result.Value;
+            return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt);
         }
     }
 }
