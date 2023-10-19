@@ -16,5 +16,10 @@ namespace Garnet.Teams.Application.TeamJoinInvitation
         {
             return new TeamJoinInvitationCreatedEvent(entity.Id, entity.UserId, entity.TeamId);
         }
+
+        public static TeamJoinInvitationDecidedEvent ToDecidedEvent(this TeamJoinInvitationEntity entity, bool IsApproved)
+        {
+            return new TeamJoinInvitationDecidedEvent(entity.Id, entity.UserId, entity.TeamId, IsApproved);
+        }
     }
 }
