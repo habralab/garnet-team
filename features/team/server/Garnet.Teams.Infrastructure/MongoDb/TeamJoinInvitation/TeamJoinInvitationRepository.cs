@@ -34,9 +34,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
             return TeamJoinInvitationDocument.ToDomain(invitation);
         }
 
-        public Task<TeamJoinInvitationEntity?> DeleteInvitationsById(CancellationToken ct, string joinInvitationId)
+        public async Task<TeamJoinInvitationEntity?> DeleteInvitationsById(CancellationToken ct, string joinInvitationId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var invitation = await db.TeamJoinInvitations.FindOneAndDeleteAsync(
+                _f.Eq(x => x.Id, joinInvitationId)
+            );
+
+            return invitation is null ? null : TeamJoinInvitationDocument.ToDomain(invitation);
         }
 
         public async Task DeleteInvitationsByTeam(CancellationToken ct, string teamId)
@@ -67,9 +73,15 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
             return invitations.Select(x => TeamJoinInvitationDocument.ToDomain(x)).ToArray();
         }
 
-        public Task<TeamJoinInvitationEntity?> GetById(CancellationToken ct, string joinInvitationId)
+        public async Task<TeamJoinInvitationEntity?> GetById(CancellationToken ct, string joinInvitationId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var invitation = await db.TeamJoinInvitations.Find(
+                _f.Eq(x => x.Id, joinInvitationId)
+            ).FirstOrDefaultAsync(ct);
+
+            return invitation is null ? null : TeamJoinInvitationDocument.ToDomain(invitation);
         }
     }
 }
