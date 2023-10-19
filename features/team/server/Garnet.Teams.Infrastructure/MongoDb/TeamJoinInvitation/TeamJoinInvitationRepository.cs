@@ -1,3 +1,5 @@
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.TeamJoinInvitation;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
@@ -5,12 +7,15 @@ using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
 {
-    public class TeamJoinInvitationRepository : ITeamJoinInvitationRepository
+    public class TeamJoinInvitationRepository : RepositoryBase, ITeamJoinInvitationRepository
     {
         private readonly DbFactory _dbFactory;
         private readonly FilterDefinitionBuilder<TeamJoinInvitationDocument> _f = Builders<TeamJoinInvitationDocument>.Filter;
 
-        public TeamJoinInvitationRepository(DbFactory dbFactory)
+        public TeamJoinInvitationRepository(
+            ICurrentUserProvider currentUserProvider,
+            IDateTimeService dateTimeService,
+            DbFactory dbFactory) : base(currentUserProvider, dateTimeService)
         {
             _dbFactory = dbFactory;
         }
@@ -19,7 +24,13 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
         {
             var db = _dbFactory.Create();
             var invitation = TeamJoinInvitationDocument.Create(Uuid.NewMongo(), userId, teamId);
-            await db.TeamJoinInvitations.InsertOneAsync(invitation, cancellationToken: ct);
+
+            invitation = await InsertOneDocument(
+                ct,
+                db.TeamJoinInvitations,
+                invitation
+            );
+
             return TeamJoinInvitationDocument.ToDomain(invitation);
         }
 

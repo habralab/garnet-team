@@ -1,6 +1,7 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
 using Garnet.Teams.Infrastructure.MongoDb;
@@ -15,13 +16,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
     {
         private readonly QueryExceptionsContext _errorStepContext;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-
+        private readonly DateTimeServiceFake _dateTimeServiceFake;
 
         public TeamJoinInviteSteps(
+            DateTimeServiceFake dateTimeServiceFake,
             CurrentUserProviderFake currentUserProviderFake,
             QueryExceptionsContext errorStepContext,
             StepsArgs args) : base(args)
         {
+            _dateTimeServiceFake = dateTimeServiceFake;
             _currentUserProviderFake = currentUserProviderFake;
             _errorStepContext = errorStepContext;
         }
@@ -58,8 +61,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+            var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
 
             var invitation = TeamJoinInvitationDocument.Create(Uuid.NewMongo(), user.Id, team.Id);
+            invitation = invitation with { AuditInfo = audit };
             await Db.TeamJoinInvitations.InsertOneAsync(invitation);
         }
     }

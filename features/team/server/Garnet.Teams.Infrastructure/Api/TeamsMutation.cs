@@ -110,7 +110,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var team = result.Value;
-            return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId);
+            return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId, team.AuditInfo.CreatedAt);
         }
 
         public async Task<TeamJoinProjectRequestPayload> TeamJoinProjectRequest(CancellationToken ct, TeamJoinProjectRequestPayload input)
@@ -129,7 +129,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var invitation = result.Value;
-            return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId);
+            return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt);
         }
 
         public async Task<TeamUserJoinRequestPayload> TeamUserJoinRequestDecide(CancellationToken ct, TeamUserJoinRequestDecideInput input)
@@ -138,7 +138,7 @@ namespace Garnet.Teams.Infrastructure.Api
             result.ThrowQueryExceptionIfHasErrors();
 
             var userJoinRequest = result.Value;
-            return new TeamUserJoinRequestPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId);
+            return new TeamUserJoinRequestPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId, userJoinRequest.AuditInfo.CreatedAt);
         }
 
         public async Task<TeamUploadAvatarPayload> TeamUploadAvatar(CancellationToken ct, TeamUploadAvatarInput input)

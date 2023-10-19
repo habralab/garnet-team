@@ -1,15 +1,20 @@
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.TeamUserJoinRequest;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
 {
-    public class TeamUserJoinRequestRepository : ITeamUserJoinRequestRepository
+    public class TeamUserJoinRequestRepository : RepositoryBase, ITeamUserJoinRequestRepository
     {
         private readonly DbFactory _dbFactory;
         private readonly FilterDefinitionBuilder<TeamUserJoinRequestDocument> _f = Builders<TeamUserJoinRequestDocument>.Filter;
 
-        public TeamUserJoinRequestRepository(DbFactory dbFactory)
+        public TeamUserJoinRequestRepository(
+            ICurrentUserProvider currentUserProvider,
+            IDateTimeService dateTimeService,
+            DbFactory dbFactory) : base(currentUserProvider, dateTimeService)
         {
             _dbFactory = dbFactory;
         }
@@ -23,7 +28,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
                 teamId
             );
 
-            await db.TeamUserJoinRequests.InsertOneAsync(joinRequest, cancellationToken: ct);
+            joinRequest = await InsertOneDocument(
+                ct,
+                db.TeamUserJoinRequests,
+                joinRequest);
 
             return TeamUserJoinRequestDocument.ToDomain(joinRequest);
         }
