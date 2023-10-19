@@ -21,7 +21,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest
 
         public static TeamUserJoinRequestEntity ToDomain(TeamUserJoinRequestDocument doc)
         {
-            var auditInfo = new TeamUserJoinRequestAuditInfo(doc.AuditInfo.CreatedAt);
+            var auditInfo = AuditInfoDocument.ToDomain(doc.AuditInfo);
             return new TeamUserJoinRequestEntity(doc.Id, doc.UserId, doc.TeamId, auditInfo);
         }
     }

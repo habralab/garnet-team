@@ -31,7 +31,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequest
         {
             var userId = _currentUserProviderFake.GetUserIdByUsername(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var audit = AuditInfo.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
+            var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
             var request = TeamUserJoinRequestDocument.Create(Uuid.NewMongo(), userId, team.Id);
 
             request = request with { AuditInfo = audit };

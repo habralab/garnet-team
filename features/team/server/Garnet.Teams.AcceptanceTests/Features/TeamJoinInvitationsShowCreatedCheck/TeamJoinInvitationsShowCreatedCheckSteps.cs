@@ -31,7 +31,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShowCreatedCh
             var created = DateTimeOffset.Parse(date);
 
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var audit = AuditInfo.Create(created, _currentUserProviderFake.UserId);
+            var audit = AuditInfoDocument.Create(created, _currentUserProviderFake.UserId);
 
             await Db.TeamJoinInvitations.UpdateOneAsync(
                _f.And(_f.Eq(x => x.TeamId, team.Id), _f.Eq(x => x.UserId, _currentUserProviderFake.UserId)),
@@ -53,7 +53,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShowCreatedCh
             var created = DateTimeOffset.Parse(date);
             _result.TeamJoinInvites.First()
                 .Should()
-                .Match<TeamJoinInvitePayload>(x => x.Created == created);
+                .Match<TeamJoinInvitePayload>(x => x.CreatedAt == created);
             return Task.CompletedTask;
         }
     }
