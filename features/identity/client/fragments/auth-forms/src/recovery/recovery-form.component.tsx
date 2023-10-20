@@ -1,7 +1,7 @@
-import { FlowMessages }      from '@atls/next-identity-integration/dist/src'
-import { FlowSubmit }        from '@atls/next-identity-integration/dist/src'
-import { FlowNode }          from '@atls/next-identity-integration/dist/src'
-import { useFlow }           from '@atls/next-identity-integration/dist/src'
+import { FlowMessages }      from '@atls/next-identity-integration'
+import { FlowSubmit }        from '@atls/next-identity-integration'
+import { FlowNode }          from '@atls/next-identity-integration'
+import { useFlow }           from '@atls/next-identity-integration'
 
 import React                 from 'react'
 import { FormattedMessage }  from 'react-intl'

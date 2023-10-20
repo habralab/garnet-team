@@ -9,7 +9,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@atls/next-identity-integration": "0.0.15",
+    "@atls/next-identity-integration": "0.0.16",
     "@emotion/css": "11.9.0",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",

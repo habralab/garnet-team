@@ -8,7 +8,7 @@
     "@ui/background": "workspace:0.0.1"
   },
   "devDependencies": {
-    "@atls/next-identity-integration": "0.0.15",
+    "@atls/next-identity-integration": "0.0.16",
     "@types/react": "18.2.30",
     "@types/react-dom": "18.2.14"
   },

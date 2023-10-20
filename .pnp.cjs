@@ -1198,19 +1198,19 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@atls/next-identity-integration", [\
-      ["npm:0.0.15", {\
-        "packageLocation": "./.yarn/cache/@atls-next-identity-integration-npm-0.0.15-205d200e93-31002d69a0.zip/node_modules/@atls/next-identity-integration/",\
+      ["npm:0.0.16", {\
+        "packageLocation": "./.yarn/cache/@atls-next-identity-integration-npm-0.0.16-9abf33d9a5-e40baa1697.zip/node_modules/@atls/next-identity-integration/",\
         "packageDependencies": [\
-          ["@atls/next-identity-integration", "npm:0.0.15"]\
+          ["@atls/next-identity-integration", "npm:0.0.16"]\
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15", {\
-        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-010c159077/0/cache/@atls-next-identity-integration-npm-0.0.15-205d200e93-31002d69a0.zip/node_modules/@atls/next-identity-integration/",\
+      ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-58dbade277/0/cache/@atls-next-identity-integration-npm-0.0.16-9abf33d9a5-e40baa1697.zip/node_modules/@atls/next-identity-integration/",\
         "packageDependencies": [\
-          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16"],\
           ["@ory/client", "npm:1.2.11"],\
-          ["@ory/integrations", "virtual:010c159077795f48298d8d231afd3f1f97293054a4fdf5adffbd312478c7d48328b4e844de519796179ac2159000071c549a2469cbb22a99541fffad3f6b8502#npm:1.1.5"],\
+          ["@ory/integrations", "virtual:58dbade277e4a21cdce6d706c44f054aaa63e329679ab17c398b5db974fd9a908065d596fdf256a1a21513e44d06217ccc3ad463084803b3f42f923e8f0f6bf7#npm:1.1.5"],\
           ["@ory/kratos-client", "npm:1.0.0"],\
           ["@types/next", null],\
           ["@types/react", "npm:18.2.30"],\
@@ -1226,12 +1226,12 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.15", {\
-        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-feeceaa21a/0/cache/@atls-next-identity-integration-npm-0.0.15-205d200e93-31002d69a0.zip/node_modules/@atls/next-identity-integration/",\
+      ["virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.16", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-29bf0798b2/0/cache/@atls-next-identity-integration-npm-0.0.16-9abf33d9a5-e40baa1697.zip/node_modules/@atls/next-identity-integration/",\
         "packageDependencies": [\
-          ["@atls/next-identity-integration", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.16"],\
           ["@ory/client", "npm:1.2.11"],\
-          ["@ory/integrations", "virtual:feeceaa21a0cb2bab91bdc2a7da22ece02aca72fc0fc63841309582dc0dfced6f1ba52d681a199e6d9f9e72239d38fed400180b5e37730c7ead38e90b3d27a4b#npm:1.1.5"],\
+          ["@ory/integrations", "virtual:29bf0798b2d52ee6a9574caf7c1c9eb6145602cc01c77487faef6fefeed0ff2559a834858864d444ca07c920414604b91e80a8f346c5b315eecea46cc9413d4c#npm:1.1.5"],\
           ["@ory/kratos-client", "npm:1.0.0"],\
           ["@types/next", null],\
           ["@types/react", "npm:18.2.30"],\
@@ -1247,12 +1247,12 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15", {\
-        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-9a4ec7a35b/0/cache/@atls-next-identity-integration-npm-0.0.15-205d200e93-31002d69a0.zip/node_modules/@atls/next-identity-integration/",\
+      ["virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-next-identity-integration-virtual-b20a5aba9e/0/cache/@atls-next-identity-integration-npm-0.0.16-9abf33d9a5-e40baa1697.zip/node_modules/@atls/next-identity-integration/",\
         "packageDependencies": [\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@ory/client", "npm:1.2.11"],\
-          ["@ory/integrations", "virtual:9a4ec7a35b3997a315f954fe34086cc265ba8eef6a5d9a517890cf279f5ffcf6de96ca3e5aaa6857f0760e1a947eeda88946694e4127a2a7bea17ebb101bb768#npm:1.1.5"],\
+          ["@ory/integrations", "virtual:b20a5aba9eb9dc137dfe105b6c1ee89bd21406f66c954ba84c8adbed2ae57111df3f2a88f2edb6e7723943a4e587af743962a9f7456635ffc9525bf58bd1bfaf#npm:1.1.5"],\
           ["@ory/kratos-client", "npm:1.0.0"],\
           ["@types/next", null],\
           ["@types/react", "npm:18.2.30"],\
@@ -2677,7 +2677,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-auth-forms-fragment-virtual-081f9c2c6a/1/features/identity/client/fragments/auth-forms/",\
         "packageDependencies": [\
           ["@identity/auth-forms-fragment", "virtual:122a03d69c48cffcb0b2b52291f92e7c9a089b22360a93aeb90e935d17e8ca2ced5b384b6183c076217250887d80918076b4929a979978664ae17a475695ca26#workspace:features/identity/client/fragments/auth-forms"],\
-          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16"],\
           ["@emotion/react", null],\
           ["@emotion/styled", null],\
           ["@identity/messages-fragment", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:features/identity/client/fragments/messages"],\
@@ -2727,7 +2727,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-auth-forms-fragment-virtual-bdc7cb2329/1/features/identity/client/fragments/auth-forms/",\
         "packageDependencies": [\
           ["@identity/auth-forms-fragment", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#workspace:features/identity/client/fragments/auth-forms"],\
-          ["@atls/next-identity-integration", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.16"],\
           ["@emotion/react", null],\
           ["@emotion/styled", null],\
           ["@identity/messages-fragment", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:features/identity/client/fragments/messages"],\
@@ -2777,7 +2777,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-auth-forms-fragment-virtual-ea6d215f41/1/features/identity/client/fragments/auth-forms/",\
         "packageDependencies": [\
           ["@identity/auth-forms-fragment", "virtual:e9b4c6cc57c6aefe37cf6e202d633d45a24df69f77c4291112d433c4359dc90723c34954c729f9fd012d9923c91f2ff416849318a034b5279ad4a718a58f3b27#workspace:features/identity/client/fragments/auth-forms"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@identity/messages-fragment", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:features/identity/client/fragments/messages"],\
@@ -2828,7 +2828,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/fragments/auth-forms/",\
         "packageDependencies": [\
           ["@identity/auth-forms-fragment", "workspace:features/identity/client/fragments/auth-forms"],\
-          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16"],\
           ["@identity/messages-fragment", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:features/identity/client/fragments/messages"],\
           ["@types/react", "npm:18.2.30"],\
           ["@types/react-dom", "npm:18.2.14"],\
@@ -3035,7 +3035,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-login-page-virtual-e9b4c6cc57/1/features/identity/client/pages/login-page/",\
         "packageDependencies": [\
           ["@identity/login-page", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#workspace:features/identity/client/pages/login-page"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@identity/auth-forms-fragment", "virtual:e9b4c6cc57c6aefe37cf6e202d633d45a24df69f77c4291112d433c4359dc90723c34954c729f9fd012d9923c91f2ff416849318a034b5279ad4a718a58f3b27#workspace:features/identity/client/fragments/auth-forms"],\
@@ -3078,7 +3078,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/pages/login-page/",\
         "packageDependencies": [\
           ["@identity/login-page", "workspace:features/identity/client/pages/login-page"],\
-          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16"],\
           ["@identity/auth-forms-fragment", "virtual:122a03d69c48cffcb0b2b52291f92e7c9a089b22360a93aeb90e935d17e8ca2ced5b384b6183c076217250887d80918076b4929a979978664ae17a475695ca26#workspace:features/identity/client/fragments/auth-forms"],\
           ["@types/react", "npm:18.2.30"],\
           ["@types/react-dom", "npm:18.2.14"],\
@@ -3179,7 +3179,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-recovery-new-password-page-virtual-d7b9911b28/1/features/identity/client/pages/recovery-new-password-page/",\
         "packageDependencies": [\
           ["@identity/recovery-new-password-page", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#workspace:features/identity/client/pages/recovery-new-password-page"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@identity/auth-forms-fragment", "virtual:e9b4c6cc57c6aefe37cf6e202d633d45a24df69f77c4291112d433c4359dc90723c34954c729f9fd012d9923c91f2ff416849318a034b5279ad4a718a58f3b27#workspace:features/identity/client/fragments/auth-forms"],\
@@ -3222,7 +3222,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/pages/recovery-new-password-page/",\
         "packageDependencies": [\
           ["@identity/recovery-new-password-page", "workspace:features/identity/client/pages/recovery-new-password-page"],\
-          ["@atls/next-identity-integration", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#npm:0.0.16"],\
           ["@identity/auth-forms-fragment", "virtual:7794c5ce37bc560380e8faf22117db724db4e01353556a4ef809073a39bac392f4eec61c313314437239f36edbe8f789e1b75579867a767cd0d80a3345b5ea0a#workspace:features/identity/client/fragments/auth-forms"],\
           ["@types/react", "npm:18.2.30"],\
           ["@types/react-dom", "npm:18.2.14"],\
@@ -3237,7 +3237,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-recovery-page-virtual-6e230c42d2/1/features/identity/client/pages/recovery-page/",\
         "packageDependencies": [\
           ["@identity/recovery-page", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#workspace:features/identity/client/pages/recovery-page"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@identity/auth-forms-fragment", "virtual:e9b4c6cc57c6aefe37cf6e202d633d45a24df69f77c4291112d433c4359dc90723c34954c729f9fd012d9923c91f2ff416849318a034b5279ad4a718a58f3b27#workspace:features/identity/client/fragments/auth-forms"],\
@@ -3280,7 +3280,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/pages/recovery-page/",\
         "packageDependencies": [\
           ["@identity/recovery-page", "workspace:features/identity/client/pages/recovery-page"],\
-          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16"],\
           ["@identity/auth-forms-fragment", "virtual:122a03d69c48cffcb0b2b52291f92e7c9a089b22360a93aeb90e935d17e8ca2ced5b384b6183c076217250887d80918076b4929a979978664ae17a475695ca26#workspace:features/identity/client/fragments/auth-forms"],\
           ["@types/react", "npm:18.2.30"],\
           ["@types/react-dom", "npm:18.2.14"],\
@@ -3294,7 +3294,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@identity-registration-page-virtual-463a4b65e4/1/features/identity/client/pages/registration-page/",\
         "packageDependencies": [\
           ["@identity/registration-page", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#workspace:features/identity/client/pages/registration-page"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@identity/auth-forms-fragment", "virtual:e9b4c6cc57c6aefe37cf6e202d633d45a24df69f77c4291112d433c4359dc90723c34954c729f9fd012d9923c91f2ff416849318a034b5279ad4a718a58f3b27#workspace:features/identity/client/fragments/auth-forms"],\
@@ -3337,7 +3337,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/pages/registration-page/",\
         "packageDependencies": [\
           ["@identity/registration-page", "workspace:features/identity/client/pages/registration-page"],\
-          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:0.0.16"],\
           ["@identity/auth-forms-fragment", "virtual:122a03d69c48cffcb0b2b52291f92e7c9a089b22360a93aeb90e935d17e8ca2ced5b384b6183c076217250887d80918076b4929a979978664ae17a475695ca26#workspace:features/identity/client/fragments/auth-forms"],\
           ["@types/react", "npm:18.2.30"],\
           ["@types/react-dom", "npm:18.2.14"],\
@@ -3351,7 +3351,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./features/identity/client/entrypoints/accounts-app/",\
         "packageDependencies": [\
           ["@identity/renderer-entrypoint", "workspace:features/identity/client/entrypoints/accounts-app"],\
-          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.15"],\
+          ["@atls/next-identity-integration", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:0.0.16"],\
           ["@emotion/css", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.0"],\
           ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
           ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
@@ -4011,47 +4011,21 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:010c159077795f48298d8d231afd3f1f97293054a4fdf5adffbd312478c7d48328b4e844de519796179ac2159000071c549a2469cbb22a99541fffad3f6b8502#npm:1.1.5", {\
-        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-eecca05830/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
+      ["virtual:29bf0798b2d52ee6a9574caf7c1c9eb6145602cc01c77487faef6fefeed0ff2559a834858864d444ca07c920414604b91e80a8f346c5b315eecea46cc9413d4c#npm:1.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-01b98f3757/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
         "packageDependencies": [\
-          ["@ory/integrations", "virtual:010c159077795f48298d8d231afd3f1f97293054a4fdf5adffbd312478c7d48328b4e844de519796179ac2159000071c549a2469cbb22a99541fffad3f6b8502#npm:1.1.5"],\
+          ["@ory/integrations", "virtual:29bf0798b2d52ee6a9574caf7c1c9eb6145602cc01c77487faef6fefeed0ff2559a834858864d444ca07c920414604b91e80a8f346c5b315eecea46cc9413d4c#npm:1.1.5"],\
           ["@ory/client", "npm:1.2.11"],\
           ["@types/next", null],\
           ["@types/ory__client", null],\
           ["@types/tldjs", "npm:2.3.1"],\
           ["cookie", "npm:0.5.0"],\
           ["istextorbinary", "npm:6.0.0"],\
-          ["next", "virtual:eecca058306542f07358cc5a0bbbd8c90ffd684f203e866ca5a76d93df4308e542a5d822e7403cfb1412a4463bee89118814a3a697bd199e47bb873f975d1021#npm:13.5.6"],\
+          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
           ["ory-prettier-styles", "npm:1.3.0"],\
           ["prettier", "npm:2.3.2"],\
           ["react", "npm:18.2.0"],\
-          ["react-dom", "virtual:b5973615851486c9f48025dfe1c99235ca03fbb27910b2d8cc43a00b1983b14d0dca35b77637207a547ae8fab59e18082d2b2f726ca96826b2ffd4416406d5a5#npm:18.2.0"],\
-          ["request", "npm:2.88.2"],\
-          ["set-cookie-parser", "npm:2.6.0"],\
-          ["tldjs", "npm:2.3.1"]\
-        ],\
-        "packagePeers": [\
-          "@ory/client",\
-          "@types/next",\
-          "@types/ory__client"\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["virtual:9a4ec7a35b3997a315f954fe34086cc265ba8eef6a5d9a517890cf279f5ffcf6de96ca3e5aaa6857f0760e1a947eeda88946694e4127a2a7bea17ebb101bb768#npm:1.1.5", {\
-        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-b597361585/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
-        "packageDependencies": [\
-          ["@ory/integrations", "virtual:9a4ec7a35b3997a315f954fe34086cc265ba8eef6a5d9a517890cf279f5ffcf6de96ca3e5aaa6857f0760e1a947eeda88946694e4127a2a7bea17ebb101bb768#npm:1.1.5"],\
-          ["@ory/client", "npm:1.2.11"],\
-          ["@types/next", null],\
-          ["@types/ory__client", null],\
-          ["@types/tldjs", "npm:2.3.1"],\
-          ["cookie", "npm:0.5.0"],\
-          ["istextorbinary", "npm:6.0.0"],\
-          ["next", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:12.3.4"],\
-          ["ory-prettier-styles", "npm:1.3.0"],\
-          ["prettier", "npm:2.3.2"],\
-          ["react", "npm:18.2.0"],\
-          ["react-dom", "virtual:b5973615851486c9f48025dfe1c99235ca03fbb27910b2d8cc43a00b1983b14d0dca35b77637207a547ae8fab59e18082d2b2f726ca96826b2ffd4416406d5a5#npm:18.2.0"],\
+          ["react-dom", "virtual:e0c320d0356e1d06d35ebe12ac44e81cf11da989ca1dadf27caaf29caf32d5b37c7904c275d6ce9b0a79ea90a0e5878c2af26c50e8699cb83a602e3b226f9c00#npm:18.2.0"],\
           ["request", "npm:2.88.2"],\
           ["set-cookie-parser", "npm:2.6.0"],\
           ["tldjs", "npm:2.3.1"]\
@@ -4064,21 +4038,47 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:feeceaa21a0cb2bab91bdc2a7da22ece02aca72fc0fc63841309582dc0dfced6f1ba52d681a199e6d9f9e72239d38fed400180b5e37730c7ead38e90b3d27a4b#npm:1.1.5", {\
-        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-a75e1a54d7/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
+      ["virtual:58dbade277e4a21cdce6d706c44f054aaa63e329679ab17c398b5db974fd9a908065d596fdf256a1a21513e44d06217ccc3ad463084803b3f42f923e8f0f6bf7#npm:1.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-0eab4c4a40/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
         "packageDependencies": [\
-          ["@ory/integrations", "virtual:feeceaa21a0cb2bab91bdc2a7da22ece02aca72fc0fc63841309582dc0dfced6f1ba52d681a199e6d9f9e72239d38fed400180b5e37730c7ead38e90b3d27a4b#npm:1.1.5"],\
+          ["@ory/integrations", "virtual:58dbade277e4a21cdce6d706c44f054aaa63e329679ab17c398b5db974fd9a908065d596fdf256a1a21513e44d06217ccc3ad463084803b3f42f923e8f0f6bf7#npm:1.1.5"],\
           ["@ory/client", "npm:1.2.11"],\
           ["@types/next", null],\
           ["@types/ory__client", null],\
           ["@types/tldjs", "npm:2.3.1"],\
           ["cookie", "npm:0.5.0"],\
           ["istextorbinary", "npm:6.0.0"],\
-          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
+          ["next", "virtual:0eab4c4a40c9e3793a383fcd74fd80dcfb413cd237f914d5657b62600dab27a6ab26bc6f459881fec99248e65b48b098491e9c50024169c0041ebc3837f068c3#npm:13.5.6"],\
           ["ory-prettier-styles", "npm:1.3.0"],\
           ["prettier", "npm:2.3.2"],\
           ["react", "npm:18.2.0"],\
-          ["react-dom", "virtual:b5973615851486c9f48025dfe1c99235ca03fbb27910b2d8cc43a00b1983b14d0dca35b77637207a547ae8fab59e18082d2b2f726ca96826b2ffd4416406d5a5#npm:18.2.0"],\
+          ["react-dom", "virtual:e0c320d0356e1d06d35ebe12ac44e81cf11da989ca1dadf27caaf29caf32d5b37c7904c275d6ce9b0a79ea90a0e5878c2af26c50e8699cb83a602e3b226f9c00#npm:18.2.0"],\
+          ["request", "npm:2.88.2"],\
+          ["set-cookie-parser", "npm:2.6.0"],\
+          ["tldjs", "npm:2.3.1"]\
+        ],\
+        "packagePeers": [\
+          "@ory/client",\
+          "@types/next",\
+          "@types/ory__client"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:b20a5aba9eb9dc137dfe105b6c1ee89bd21406f66c954ba84c8adbed2ae57111df3f2a88f2edb6e7723943a4e587af743962a9f7456635ffc9525bf58bd1bfaf#npm:1.1.5", {\
+        "packageLocation": "./.yarn/__virtual__/@ory-integrations-virtual-e0c320d035/0/cache/@ory-integrations-npm-1.1.5-6931081dde-d7a70f28af.zip/node_modules/@ory/integrations/",\
+        "packageDependencies": [\
+          ["@ory/integrations", "virtual:b20a5aba9eb9dc137dfe105b6c1ee89bd21406f66c954ba84c8adbed2ae57111df3f2a88f2edb6e7723943a4e587af743962a9f7456635ffc9525bf58bd1bfaf#npm:1.1.5"],\
+          ["@ory/client", "npm:1.2.11"],\
+          ["@types/next", null],\
+          ["@types/ory__client", null],\
+          ["@types/tldjs", "npm:2.3.1"],\
+          ["cookie", "npm:0.5.0"],\
+          ["istextorbinary", "npm:6.0.0"],\
+          ["next", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:12.3.4"],\
+          ["ory-prettier-styles", "npm:1.3.0"],\
+          ["prettier", "npm:2.3.2"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:e0c320d0356e1d06d35ebe12ac44e81cf11da989ca1dadf27caaf29caf32d5b37c7904c275d6ce9b0a79ea90a0e5878c2af26c50e8699cb83a602e3b226f9c00#npm:18.2.0"],\
           ["request", "npm:2.88.2"],\
           ["set-cookie-parser", "npm:2.6.0"],\
           ["tldjs", "npm:2.3.1"]\
@@ -11399,6 +11399,47 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:0eab4c4a40c9e3793a383fcd74fd80dcfb413cd237f914d5657b62600dab27a6ab26bc6f459881fec99248e65b48b098491e9c50024169c0041ebc3837f068c3#npm:13.5.6", {\
+        "packageLocation": "./.yarn/__virtual__/next-virtual-8010ce0c94/0/cache/next-npm-13.5.6-306005c39c-711352223d.zip/node_modules/next/",\
+        "packageDependencies": [\
+          ["next", "virtual:0eab4c4a40c9e3793a383fcd74fd80dcfb413cd237f914d5657b62600dab27a6ab26bc6f459881fec99248e65b48b098491e9c50024169c0041ebc3837f068c3#npm:13.5.6"],\
+          ["@next/env", "npm:13.5.6"],\
+          ["@next/swc-darwin-arm64", "npm:13.5.6"],\
+          ["@next/swc-darwin-x64", "npm:13.5.6"],\
+          ["@next/swc-linux-arm64-gnu", "npm:13.5.6"],\
+          ["@next/swc-linux-arm64-musl", "npm:13.5.6"],\
+          ["@next/swc-linux-x64-gnu", "npm:13.5.6"],\
+          ["@next/swc-linux-x64-musl", "npm:13.5.6"],\
+          ["@next/swc-win32-arm64-msvc", "npm:13.5.6"],\
+          ["@next/swc-win32-ia32-msvc", "npm:13.5.6"],\
+          ["@next/swc-win32-x64-msvc", "npm:13.5.6"],\
+          ["@opentelemetry/api", null],\
+          ["@swc/helpers", "npm:0.5.2"],\
+          ["@types/opentelemetry__api", null],\
+          ["@types/react", null],\
+          ["@types/react-dom", null],\
+          ["@types/sass", null],\
+          ["busboy", "npm:1.6.0"],\
+          ["caniuse-lite", "npm:1.0.30001551"],\
+          ["postcss", "npm:8.4.31"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:e0c320d0356e1d06d35ebe12ac44e81cf11da989ca1dadf27caaf29caf32d5b37c7904c275d6ce9b0a79ea90a0e5878c2af26c50e8699cb83a602e3b226f9c00#npm:18.2.0"],\
+          ["sass", null],\
+          ["styled-jsx", "virtual:8010ce0c94247c9b9d8db2d3b10db364a91e54a7e078ee90c8fcb6bc94e34362941e0e89e9aa84285fe0c6c6618dadd239e66505040eae0800a4097306655984#npm:5.1.1"],\
+          ["watchpack", "npm:2.4.0"]\
+        ],\
+        "packagePeers": [\
+          "@opentelemetry/api",\
+          "@types/opentelemetry__api",\
+          "@types/react-dom",\
+          "@types/react",\
+          "@types/sass",\
+          "react-dom",\
+          "react",\
+          "sass"\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4", {\
         "packageLocation": "./.yarn/__virtual__/next-virtual-f8dd40be3b/0/cache/next-npm-12.3.4-cdaf2db0a7-529695d4c8.zip/node_modules/next/",\
         "packageDependencies": [\
@@ -11489,47 +11530,6 @@ const RAW_RUNTIME_STATE =
           "@types/sass",\
           "fibers",\
           "node-sass",\
-          "react-dom",\
-          "react",\
-          "sass"\
-        ],\
-        "linkType": "HARD"\
-      }],\
-      ["virtual:eecca058306542f07358cc5a0bbbd8c90ffd684f203e866ca5a76d93df4308e542a5d822e7403cfb1412a4463bee89118814a3a697bd199e47bb873f975d1021#npm:13.5.6", {\
-        "packageLocation": "./.yarn/__virtual__/next-virtual-cdbd49f030/0/cache/next-npm-13.5.6-306005c39c-711352223d.zip/node_modules/next/",\
-        "packageDependencies": [\
-          ["next", "virtual:eecca058306542f07358cc5a0bbbd8c90ffd684f203e866ca5a76d93df4308e542a5d822e7403cfb1412a4463bee89118814a3a697bd199e47bb873f975d1021#npm:13.5.6"],\
-          ["@next/env", "npm:13.5.6"],\
-          ["@next/swc-darwin-arm64", "npm:13.5.6"],\
-          ["@next/swc-darwin-x64", "npm:13.5.6"],\
-          ["@next/swc-linux-arm64-gnu", "npm:13.5.6"],\
-          ["@next/swc-linux-arm64-musl", "npm:13.5.6"],\
-          ["@next/swc-linux-x64-gnu", "npm:13.5.6"],\
-          ["@next/swc-linux-x64-musl", "npm:13.5.6"],\
-          ["@next/swc-win32-arm64-msvc", "npm:13.5.6"],\
-          ["@next/swc-win32-ia32-msvc", "npm:13.5.6"],\
-          ["@next/swc-win32-x64-msvc", "npm:13.5.6"],\
-          ["@opentelemetry/api", null],\
-          ["@swc/helpers", "npm:0.5.2"],\
-          ["@types/opentelemetry__api", null],\
-          ["@types/react", null],\
-          ["@types/react-dom", null],\
-          ["@types/sass", null],\
-          ["busboy", "npm:1.6.0"],\
-          ["caniuse-lite", "npm:1.0.30001551"],\
-          ["postcss", "npm:8.4.31"],\
-          ["react", "npm:18.2.0"],\
-          ["react-dom", "virtual:b5973615851486c9f48025dfe1c99235ca03fbb27910b2d8cc43a00b1983b14d0dca35b77637207a547ae8fab59e18082d2b2f726ca96826b2ffd4416406d5a5#npm:18.2.0"],\
-          ["sass", null],\
-          ["styled-jsx", "virtual:cdbd49f0304cbc6634f7531a1414903c58ca60544e35872bb36a2fec0df5b6f3ecdf3994a840ff2ed394197fd16ad3ace080a4e4277adcb958cadd4ed95ab044#npm:5.1.1"],\
-          ["watchpack", "npm:2.4.0"]\
-        ],\
-        "packagePeers": [\
-          "@opentelemetry/api",\
-          "@types/opentelemetry__api",\
-          "@types/react-dom",\
-          "@types/react",\
-          "@types/sass",\
           "react-dom",\
           "react",\
           "sass"\
@@ -12196,10 +12196,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:b5973615851486c9f48025dfe1c99235ca03fbb27910b2d8cc43a00b1983b14d0dca35b77637207a547ae8fab59e18082d2b2f726ca96826b2ffd4416406d5a5#npm:18.2.0", {\
-        "packageLocation": "./.yarn/__virtual__/react-dom-virtual-b3974ace1e/0/cache/react-dom-npm-18.2.0-dd675bca1c-7c5b915fb7.zip/node_modules/react-dom/",\
+      ["virtual:e0c320d0356e1d06d35ebe12ac44e81cf11da989ca1dadf27caaf29caf32d5b37c7904c275d6ce9b0a79ea90a0e5878c2af26c50e8699cb83a602e3b226f9c00#npm:18.2.0", {\
+        "packageLocation": "./.yarn/__virtual__/react-dom-virtual-7ce2e92dbb/0/cache/react-dom-npm-18.2.0-dd675bca1c-7c5b915fb7.zip/node_modules/react-dom/",\
         "packageDependencies": [\
-          ["react-dom", "virtual:b5973615851486c9f48025dfe1c99235ca03fbb27910b2d8cc43a00b1983b14d0dca35b77637207a547ae8fab59e18082d2b2f726ca96826b2ffd4416406d5a5#npm:18.2.0"],\
+          ["react-dom", "virtual:e0c320d0356e1d06d35ebe12ac44e81cf11da989ca1dadf27caaf29caf32d5b37c7904c275d6ce9b0a79ea90a0e5878c2af26c50e8699cb83a602e3b226f9c00#npm:18.2.0"],\
           ["@types/react", null],\
           ["loose-envify", "npm:1.4.0"],\
           ["react", "npm:18.2.0"],\
@@ -13066,10 +13066,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:cdbd49f0304cbc6634f7531a1414903c58ca60544e35872bb36a2fec0df5b6f3ecdf3994a840ff2ed394197fd16ad3ace080a4e4277adcb958cadd4ed95ab044#npm:5.1.1", {\
-        "packageLocation": "./.yarn/__virtual__/styled-jsx-virtual-15c813ae0b/0/cache/styled-jsx-npm-5.1.1-2557a209ba-709de74259.zip/node_modules/styled-jsx/",\
+      ["virtual:8010ce0c94247c9b9d8db2d3b10db364a91e54a7e078ee90c8fcb6bc94e34362941e0e89e9aa84285fe0c6c6618dadd239e66505040eae0800a4097306655984#npm:5.1.1", {\
+        "packageLocation": "./.yarn/__virtual__/styled-jsx-virtual-9bf3eaeb66/0/cache/styled-jsx-npm-5.1.1-2557a209ba-709de74259.zip/node_modules/styled-jsx/",\
         "packageDependencies": [\
-          ["styled-jsx", "virtual:cdbd49f0304cbc6634f7531a1414903c58ca60544e35872bb36a2fec0df5b6f3ecdf3994a840ff2ed394197fd16ad3ace080a4e4277adcb958cadd4ed95ab044#npm:5.1.1"],\
+          ["styled-jsx", "virtual:8010ce0c94247c9b9d8db2d3b10db364a91e54a7e078ee90c8fcb6bc94e34362941e0e89e9aa84285fe0c6c6618dadd239e66505040eae0800a4097306655984#npm:5.1.1"],\
           ["@babel/core", null],\
           ["@types/babel-plugin-macros", null],\
           ["@types/babel__core", null],\

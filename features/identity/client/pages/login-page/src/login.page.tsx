@@ -1,4 +1,4 @@
-import { LoginFlow }  from '@atls/next-identity-integration/dist/src'
+import { LoginFlow }  from '@atls/next-identity-integration'
 
 import React          from 'react'
 

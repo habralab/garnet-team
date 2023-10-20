@@ -1,7 +1,7 @@
-import { FlowMessages }      from '@atls/next-identity-integration/dist/src'
-import { FlowSubmit }        from '@atls/next-identity-integration/dist/src'
-import { FlowNode }          from '@atls/next-identity-integration/dist/src'
-import { useFlow }           from '@atls/next-identity-integration/dist/src'
+import { FlowMessages }      from '@atls/next-identity-integration'
+import { FlowSubmit }        from '@atls/next-identity-integration'
+import { FlowNode }          from '@atls/next-identity-integration'
+import { useFlow }           from '@atls/next-identity-integration'
 
 import React                 from 'react'
 import { FormattedMessage }  from 'react-intl'
@@ -9,16 +9,16 @@ import { useState }          from 'react'
 import { useIntl }           from 'react-intl'
 
 import { LocalizedMessages } from '@identity/messages-fragment'
-import { Background }        from '@ui/background/src'
-import { Button }            from '@ui/button/src'
+import { Background }        from '@ui/background'
+import { Button }            from '@ui/button'
 import { Condition }         from '@ui/condition'
-import { EyeIcon }           from '@ui/icon/src'
+import { EyeIcon }           from '@ui/icon'
 import { Input }             from '@ui/input'
 import { Row }               from '@ui/layout'
 import { Column }            from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { Text }              from '@ui/text'
-import { checkPassword }     from '@utils/helpers/src'
+import { checkPassword }     from '@utils/helpers'
 
 export const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)

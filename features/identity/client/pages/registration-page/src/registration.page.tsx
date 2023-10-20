@@ -1,9 +1,9 @@
-import { RegistrationFlow } from '@atls/next-identity-integration/dist/src'
+import { RegistrationFlow } from '@atls/next-identity-integration'
 
 import React                from 'react'
 
 import { RegistrationForm } from '@identity/auth-forms-fragment'
-import { Background }       from '@ui/background/src'
+import { Background }       from '@ui/background'
 
 const RegistrationPage = () => (
   <RegistrationFlow returnToUrl='/auth/confirmation'>

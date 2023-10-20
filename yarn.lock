@@ -410,9 +410,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@atls/next-identity-integration@npm:0.0.15":
-  version: 0.0.15
-  resolution: "@atls/next-identity-integration@npm:0.0.15"
+"@atls/next-identity-integration@npm:0.0.16":
+  version: 0.0.16
+  resolution: "@atls/next-identity-integration@npm:0.0.16"
   dependencies:
     "@ory/client": "npm:1.2.11"
     "@ory/integrations": "npm:1.1.5"
@@ -421,7 +421,7 @@ __metadata:
   peerDependencies:
     next: 12.3.4
     react: 18.2.0
-  checksum: 31002d69a0bb545392481e34b2871bb0a0ac307fd2377bf562525906d8119713772d75352e8ffc90dba405479267d5708e6d4054b13859aefd7b670c21ec346f
+  checksum: e40baa169731a8fb2b0353f5fdd75a82870ddea1289958161e7fc3be35766ff1087225cf1b4754d61c3b91cf2ecfcdf1e61592e1e76dbda4c9df5c7f0b21186b
   languageName: node
   linkType: hard
 
@@ -1284,7 +1284,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/auth-forms-fragment@workspace:features/identity/client/fragments/auth-forms"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.15"
+    "@atls/next-identity-integration": "npm:0.0.16"
     "@identity/messages-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
@@ -1371,7 +1371,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/login-page@workspace:features/identity/client/pages/login-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.15"
+    "@atls/next-identity-integration": "npm:0.0.16"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
@@ -1418,7 +1418,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/recovery-new-password-page@workspace:features/identity/client/pages/recovery-new-password-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.15"
+    "@atls/next-identity-integration": "npm:0.0.16"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
@@ -1440,7 +1440,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/recovery-page@workspace:features/identity/client/pages/recovery-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.15"
+    "@atls/next-identity-integration": "npm:0.0.16"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
@@ -1461,7 +1461,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/registration-page@workspace:features/identity/client/pages/registration-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.15"
+    "@atls/next-identity-integration": "npm:0.0.16"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
@@ -1482,7 +1482,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/renderer-entrypoint@workspace:features/identity/client/entrypoints/accounts-app"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.15"
+    "@atls/next-identity-integration": "npm:0.0.16"
     "@emotion/css": "npm:11.9.0"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"

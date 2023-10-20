@@ -1,7 +1,7 @@
-import { FlowMessages }      from '@atls/next-identity-integration/dist/src'
-import { FlowSubmit }        from '@atls/next-identity-integration/dist/src'
-import { FlowNode }          from '@atls/next-identity-integration/dist/src'
-import { useFlow }           from '@atls/next-identity-integration/dist/src'
+import { FlowMessages }      from '@atls/next-identity-integration'
+import { FlowSubmit }        from '@atls/next-identity-integration'
+import { FlowNode }          from '@atls/next-identity-integration'
+import { useFlow }           from '@atls/next-identity-integration'
 
 import React                 from 'react'
 import { FormattedMessage }  from 'react-intl'
@@ -18,7 +18,7 @@ import { Row }               from '@ui/layout'
 import { Column }            from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { Text }              from '@ui/text'
-import { checkPassword }     from '@utils/helpers/src'
+import { checkPassword }     from '@utils/helpers'
 
 export const RecoveryNewPasswordForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)

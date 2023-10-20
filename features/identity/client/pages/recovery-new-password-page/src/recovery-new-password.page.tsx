@@ -1,9 +1,9 @@
-import { SettingsFlow }            from '@atls/next-identity-integration/dist/src'
+import { SettingsFlow }            from '@atls/next-identity-integration'
 
 import React                       from 'react'
 
 import { RecoveryNewPasswordForm } from '@identity/auth-forms-fragment'
-import { Background }              from '@ui/background/src'
+import { Background }              from '@ui/background'
 
 const RecoveryNewPasswordPage = () => (
   <SettingsFlow>
