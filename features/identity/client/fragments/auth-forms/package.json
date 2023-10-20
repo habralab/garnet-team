@@ -16,15 +16,15 @@
     "@utils/helpers": "workspace:0.0.1"
   },
   "devDependencies": {
-    "@fork/identity-integration": "workspace:0.0.1",
-    "@types/react": "18.2.29",
+    "@atls/next-identity-integration": "0.0.15",
+    "@types/react": "18.2.30",
     "@types/react-dom": "18.2.14",
     "react-intl": "6.0.8"
   },
   "peerDependencies": {
+    "@atls/next-identity-integration": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
-    "@fork/identity-integration": "*",
     "next": "*",
     "react": "*",
     "react-dom": "*",

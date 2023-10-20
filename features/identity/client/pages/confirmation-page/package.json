@@ -1,8 +1,17 @@
 {
   "name": "@identity/confirmation-page",
   "version": "0.0.1",
-  "main": "src/index.ts",
   "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@identity/confirmation-card-fragment": "workspace:0.0.1",
+    "@ui/background": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14",
+    "next": "12.3.4"
+  },
   "peerDependencies": {
     "@emotion/react": "*",
     "@emotion/styled": "*",
@@ -11,14 +20,5 @@
     "react-dom": "*",
     "react-intl": "*",
     "styled-system": "*"
-  },
-  "devDependencies": {
-    "@types/react": "18.2.30",
-    "@types/react-dom": "18.2.14",
-    "next": "12.3.4"
-  },
-  "dependencies": {
-    "@identity/confirmation-card-fragment": "workspace:0.0.1",
-    "@ui/background": "workspace:0.0.1"
   }
 }

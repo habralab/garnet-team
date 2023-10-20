@@ -3,7 +3,7 @@ export const colors = {
     primary: 'rgba(0, 0, 0, 1)',
     error: 'rgba(216, 57, 57, 1)',
     secondary: 'rgba(255, 255, 255, 1)',
-    accent: 'rgba(99, 58, 216, 1)'
+    accent: 'rgba(99, 58, 216, 1)',
   },
   button: {
     primary: {

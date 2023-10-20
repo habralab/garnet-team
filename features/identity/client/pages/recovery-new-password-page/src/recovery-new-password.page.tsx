@@ -1,13 +1,16 @@
-import { SettingsFlow }            from '@fork/identity-integration/src'
-import { RecoveryNewPasswordForm } from '@identity/auth-forms-fragment'
-import { Background }              from '@ui/background/src'
+import { SettingsFlow }            from '@atls/next-identity-integration/dist/src'
+
 import React                       from 'react'
 
-const RecoveryNewPasswordPage = () =>
+import { RecoveryNewPasswordForm } from '@identity/auth-forms-fragment'
+import { Background }              from '@ui/background/src'
+
+const RecoveryNewPasswordPage = () => (
   <SettingsFlow>
     <Background fill color='lightGreyForty' justifyContent='center' alignItems='center'>
-      <RecoveryNewPasswordForm/>
+      <RecoveryNewPasswordForm />
     </Background>
   </SettingsFlow>
+)
 
 export default RecoveryNewPasswordPage

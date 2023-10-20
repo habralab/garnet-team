@@ -1,6 +1,6 @@
-export type CheckPassword = (password: string,  repeatPassword: string) => boolean
+export type CheckPassword = (password: string, repeatPassword: string) => boolean
 
 export const checkPassword: CheckPassword = (password, repeatPassword) => {
   if (password === '' || repeatPassword === '') return false
-  return password === repeatPassword;
+  return password === repeatPassword
 }

@@ -1,11 +1,2 @@
-import React from 'react'
-
-const getServerSideProps = (_) => {
-  return {
-    redirect: {
-      destination: '/auth/login', permanent: true
-    }
-  }
-}
-
-export default getServerSideProps
+export { default } from '@identity/index-page'
+export { getServerSideProps } from '@identity/index-page'

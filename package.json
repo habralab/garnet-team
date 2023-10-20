@@ -6,8 +6,6 @@
     "features/identity/client/**/*",
     "shared/**/*",
     "ui/**/*",
-    "utils/**/*",
-    "fork/**/*",
     "utils/**/*"
   ],
   "devDependencies": {

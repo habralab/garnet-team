@@ -1,4 +1,4 @@
-import { styleFn }    from 'styled-system'
+import { styleFn } from 'styled-system'
 
 export const transitionStyles: styleFn = () => ({
   transition: '0.3s',

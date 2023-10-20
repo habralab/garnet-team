@@ -1,6 +1,7 @@
+import { RegistrationFlow } from '@atls/next-identity-integration/dist/src'
+
 import React                from 'react'
 
-import { RegistrationFlow } from '@fork/identity-integration'
 import { RegistrationForm } from '@identity/auth-forms-fragment'
 import { Background }       from '@ui/background/src'
 

@@ -15,5 +15,7 @@ const CustomTheme = ({ children }) => (
 )
 
 export const ThemeProvider = ({ children }) => (
-  <ProtoThemeProvider children={<CustomTheme children={children} />} />
+  <ProtoThemeProvider>
+    <CustomTheme>{children}</CustomTheme>
+  </ProtoThemeProvider>
 )

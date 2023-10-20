@@ -1,21 +1,21 @@
-import styled             from '@emotion/styled'
-import { RawInput }       from '@atls-ui-parts/input'
-import { useChangeValue } from '@atls-ui-parts/input'
+import styled                       from '@emotion/styled'
+import { RawInput }                 from '@atls-ui-parts/input'
+import { useChangeValue }           from '@atls-ui-parts/input'
 
 import React                        from 'react'
 import { ForwardRefRenderFunction } from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
 
-import { Condition } from '@ui/condition'
-import { Text }      from '@ui/text'
+import { Condition }                from '@ui/condition'
+import { Text }                     from '@ui/text'
 
-import { IconAttachment }   from './icon-attachment'
-import { InputProps }       from './input.interfaces'
-import { transitionStyles } from './styles'
-import { shapeStyles }      from './styles'
-import { baseStyles }       from './styles'
-import { appearanceStyles } from './styles'
+import { IconAttachment }           from './icon-attachment'
+import { InputProps }               from './input.interfaces'
+import { transitionStyles }         from './styles'
+import { shapeStyles }              from './styles'
+import { baseStyles }               from './styles'
+import { appearanceStyles }         from './styles'
 
 export const InputElement = styled.div<any>(
   baseStyles,
@@ -64,15 +64,13 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
           />
         </Condition>
       </InputElement>
-      <Layout flexBasis={5}/>
+      <Layout flexBasis={5} />
       <Condition match={typeof errorText === 'string'}>
-        <Text color='text.error' fontSize={'normal'}>
+        <Text color='text.error' fontSize='normal'>
           {errorText}
         </Text>
       </Condition>
-      <Condition match={Boolean(errorText) && typeof errorText !== 'string'}>
-        {errorText}
-      </Condition>
+      <Condition match={Boolean(errorText) && typeof errorText !== 'string'}>{errorText}</Condition>
     </Container>
   )
 }

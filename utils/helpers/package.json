@@ -1,6 +1,6 @@
 {
   "name": "@utils/helpers",
   "version": "0.0.1",
-  "main": "src/index.ts",
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts"
 }
