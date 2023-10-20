@@ -3,5 +3,6 @@
 public record ProjectTeamEntity(
     string Id,
     string TeamName,
-    string OwnerUserId
+    string OwnerUserId,
+    string[] UserParticipantsId
 );
