@@ -1,6 +1,8 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Users.Infrastructure.Api.UserEdit.UserEditUsername;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Users.AcceptanceTests.Features.UserEditUsername
@@ -9,9 +11,14 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEditUsername
     public class UserEditUsernameSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        public UserEditUsernameSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        private readonly QueryExceptionsContext _queryExceptionsContext;
+        public UserEditUsernameSteps(
+            QueryExceptionsContext queryExceptionsContext,
+            CurrentUserProviderFake currentUserProviderFake,
+            StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
+            _queryExceptionsContext = queryExceptionsContext;
         }
 
         [When(@"пользователь '(.*)' меняет в своем профиле ник на '(.*)'")]
@@ -19,7 +26,16 @@ namespace Garnet.Users.AcceptanceTests.Features.UserEditUsername
         {
             _currentUserProviderFake.LoginAs(username);
             var input = new UserEditUsernameInput(newUsername);
-            await Mutation.UserEditUsername(CancellationToken.None, input);
+
+            try
+            {
+                await Mutation.UserEditUsername(CancellationToken.None, input);
+
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [Then(@"в системе есть пользователь с ником '(.*)'")]
