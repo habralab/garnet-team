@@ -9,9 +9,9 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@atls/next-identity-integration": "0.0.14",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
-    "@fork/next-identity-integration": "workspace:0.0.12",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -21,23 +21,10 @@
   },
   "devDependencies": {
     "@formatjs/cli": "4.8.4",
-    "@identity/error-page": "workspace:0.0.1",
-    "@identity/index-page": "workspace:0.0.1",
-    "@identity/login-page": "workspace:0.0.1",
-    "@identity/logout-page": "workspace:0.0.1",
-    "@identity/recovery-new-password-page": "workspace:0.0.1",
-    "@identity/recovery-page": "workspace:0.0.1",
-    "@identity/registration-page": "workspace:0.0.1",
-    "@identity/settings-page": "workspace:0.0.1",
-    "@identity/verification-page": "workspace:0.0.1",
     "@types/node": "16.18.36",
-    "@types/react": "17.0.38",
-    "@types/react-dom": "17.0.11",
-    "@types/styled-system": "5.1.16",
-    "@ui/theme": "workspace:0.0.1",
-    "typescript": "4.6.2"
-  },
-  "peerDependencies": {
-    "typescript": "*"
+    "@types/react": "18.2.28",
+    "@types/react-dom": "18.2.13",
+    "@types/styled-system": "5.1.19",
+    "typescript": "4.6.4"
   }
 }

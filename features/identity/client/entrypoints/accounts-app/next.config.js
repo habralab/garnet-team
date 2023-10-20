@@ -4,6 +4,6 @@ module.exports = {
     swcFileReading: false,
     workerThreads: true,
     esmExternals: 'loose',
-    outputStandalone: true,
   },
+  output: 'standalone',
 }
