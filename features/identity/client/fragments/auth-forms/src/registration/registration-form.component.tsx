@@ -1,30 +1,42 @@
-import { FlowSubmit }       from '@atls/next-identity-integration'
-import { FlowNode }         from '@atls/next-identity-integration'
-import { Background }       from '@ui/background/src'
-import { Button }           from '@ui/button/src'
-import { EyeIcon }          from '@ui/icon/src'
-import { useState }         from 'react'
-import React                from 'react'
-import { useIntl }          from 'react-intl'
-import { FormattedMessage } from 'react-intl'
+import { useFlow }           from '@fork/identity-integration'
+import { FlowMessages }      from '@fork/identity-integration'
+import { LocalizedMessages } from '@identity/messages-fragment'
+import { checkPassword }     from '@utils/helpers/src'
+import React                 from 'react'
+import { FormattedMessage }  from 'react-intl'
+import { useState }          from 'react'
+import { useIntl }           from 'react-intl'
 
-import { Input }       from '@ui/input'
-import { Box, Column } from '@ui/layout'
-import { Layout }      from '@ui/layout'
-import { Text }        from '@ui/text'
+import { FlowSubmit } from '@fork/identity-integration'
+import { FlowNode }   from '@fork/identity-integration'
+import { Background } from '@ui/background/src'
+import { Button }     from '@ui/button/src'
+import { EyeIcon }    from '@ui/icon/src'
+import { Input }      from '@ui/input'
+import { Row }        from '@ui/layout'
+import { Column }     from '@ui/layout'
+import { Layout }     from '@ui/layout'
+import { Text }       from '@ui/text'
+import { Condition }  from '@ui/condition'
 
 export const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const [showPasswordRepeat, setShowPasswordRepeat] = useState<boolean>(false)
+  const [password, setPassword] = useState<string>('')
+  const [repeatPassword, setRepeatPassword] = useState<string>('')
 
   const { formatMessage } = useIntl()
+
+  const { loading } = useFlow()
 
   const togglePassword = () => setShowPassword(!showPassword)
   const togglePasswordRepeat = () => setShowPasswordRepeat(!showPasswordRepeat)
 
+  const arePasswordsIdentical = checkPassword(password, repeatPassword)
+
   return (
     <Background color='white' borderRadius='medium' boxShadow='black'>
-      <Column paddingX={32} width={342} boxSizing='content-box'>
+      <Column paddingX={32} width={342} boxSizing='content-box' alignItems='center'>
         <Layout flexBasis={56} flexShrink={0}/>
         <Layout justifyContent='center'>
           <Text fontSize='preLarge' width='min-content' textAlign='center'>
@@ -32,59 +44,94 @@ export const RegistrationForm = () => {
           </Text>
         </Layout>
         <Layout flexBasis={40} flexShrink={0}/>
-        <Input placeholder={formatMessage({ id: 'registration_password.name' })}/>
-        <Layout flexBasis={16} flexShrink={0}/>
-        <Input placeholder={formatMessage({ id: 'registration_password.last_name' })}/>
-        <Layout flexBasis={40} flexShrink={0}/>
-        <FlowNode name='traits.email'>
-          {(field, value, onChange) => (
+        <FlowNode name='traits.name.first'>
+          {(node, value, callback) => (
             <Input
-              placeholder={formatMessage({ id: 'registration_password.email' })}
-              {...field.attributes}
+              {...node.attributes}
               value={value}
-              onChange={onChange}/>
+              onChange={callback}
+              errorText={node.messages.length > 0 ?
+                <LocalizedMessages messages={node.messages}/> : undefined}
+              placeholder={formatMessage({ id: 'registration_password.name' })}
+            />
+          )}
+        </FlowNode>
+
+        <Layout flexBasis={16} flexShrink={0}/>
+        <FlowNode name='traits.name.last'>
+          {(node, value, callback) => (
+            <Input
+              {...node.attributes}
+              value={value}
+              onChange={callback}
+              errorText={node.messages.length > 0 ?
+                <LocalizedMessages messages={node.messages}/> : undefined}
+              placeholder={formatMessage({ id: 'registration_password.last_name' })}
+            />
           )}
         </FlowNode>
         <Layout flexBasis={40} flexShrink={0}/>
-        <Box position='relative'>
-          <FlowNode name='password'>
-            {(field, value, onChange) => (
-              <Input
-                placeholder={formatMessage({ id: 'registration_password.password' })}
-                value={value}
-                onChange={onChange}
-                iconSvg={<EyeIcon/>}
-                valueWidth={16}
-                valueHeight={16}
-                onIconClick={togglePassword}
-                {...field.attributes}/>
-            )}
-          </FlowNode>
-        </Box>
+        <FlowNode name='traits.email'>
+          {(node, value, onChange) => (
+            <Input
+              {...node.attributes}
+              placeholder={formatMessage({ id: 'registration_password.email' })}
+              value={value}
+              errorText={node.messages.length > 0 ?
+                <LocalizedMessages messages={node.messages}/> : undefined}
+              onChange={onChange}
+            />
+          )}
+        </FlowNode>
         <Layout flexBasis={40} flexShrink={0}/>
-        <Input
-          placeholder={formatMessage({ id: 'registration_password.repeat_password' })}
-          onIconClick={togglePasswordRepeat}
-          iconSvg={<EyeIcon/>}
-          valueWidth={16}
-          valueHeight={16}
-          type={showPasswordRepeat ? 'text' : 'password'}
-        />
+        <FlowNode name='password'>
+          {(node, value, onChange) => (
+            <Input
+              {...node.attributes}
+              placeholder={formatMessage({ id: 'registration_password.password' })}
+              value={value}
+              onChange={(value) => {
+                onChange(value)
+                setPassword(value)
+              }}
+              iconSvg={<EyeIcon/>}
+              valueWidth={16}
+              valueHeight={16}
+              errorText={node.messages.length > 0 ?
+                <LocalizedMessages messages={node.messages}/> : undefined}
+              onIconClick={togglePassword}
+              type={showPassword ? 'text' : 'password'}
+            />
+          )}
+        </FlowNode>
         <Layout flexBasis={40} flexShrink={0}/>
+        <Condition match={!loading}>
+          <Input
+            placeholder={formatMessage({ id: 'registration_password.repeat_password' })}
+            onIconClick={togglePasswordRepeat}
+            iconSvg={<EyeIcon/>}
+            valueWidth={16}
+            valueHeight={16}
+            onChange={setRepeatPassword}
+            type={showPasswordRepeat ? 'text' : 'password'}
+          />
+          <Layout flexBasis={40} flexShrink={0}/>
+        </Condition>
         <FlowSubmit>
           {({ submitting, onSubmit }) => (
-            <Button disabled={submitting} onClick={() =>
-              onSubmit({
-                // traits: {
-                //   email,
-                //   name: { first: name.split(' ')[0], last: name.split(' ')[1] },
-                // },
-                method: 'password',
-              })}>
-              <FormattedMessage id={'registration_password.register'}/>
-            </Button>
+            <Row justifyContent='center'>
+              <Button disabled={submitting || loading || !arePasswordsIdentical}
+                      onClick={() => onSubmit()}>
+                <FormattedMessage id={'registration_password.register'}/>
+              </Button>
+            </Row>
           )}
         </FlowSubmit>
+        <FlowMessages>
+          {(messages) => (
+            <LocalizedMessages messages={messages}/>
+          )}
+        </FlowMessages>
         <Layout flexBasis={56} flexShrink={0}/>
       </Column>
     </Background>

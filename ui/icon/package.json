@@ -1,8 +1,8 @@
 {
   "name": "@ui/icon",
   "version": "0.0.1",
-  "main": "src/index.ts",
   "license": "BSD-3-Clause",
+  "main": "src/index.ts",
   "scripts": {
     "build": "generate-icons src/ -i ./icons -r replacements.ts"
   },

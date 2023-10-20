@@ -1,4 +1,4 @@
-import * as statics  from './Inter/static'
+import * as statics      from './Inter/static'
 
 import { InterVariable } from './Inter'
 

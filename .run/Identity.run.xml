@@ -8,7 +8,7 @@
     <node-interpreter value="project" />
     <envs />
     <method v="2">
-      <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://localhost:3000/auth/login" withDebugger="true" />
+      <option name="LaunchBrowser.Before.Run" browser="98ca6316-2f89-46d9-a9e5-fa9e2b0625b3" url="http://localhost:3000/auth/registration" />
     </method>
   </configuration>
 </component>

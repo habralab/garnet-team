@@ -296,6 +296,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@atls-ui-parts/link@npm:0.0.12":
+  version: 0.0.12
+  resolution: "@atls-ui-parts/link@npm:0.0.12"
+  dependencies:
+    "@atls-ui-parts/text": "npm:0.0.12"
+  peerDependencies:
+    "@emotion/styled": ^11.1.5
+    next: "*"
+    react: ^17.0.1
+    styled-system: ^5.1.5
+  checksum: 010c82a4b0ee497b01673356aaf1a27ded2ee40379dfbb5b9cebad27f0943a03c2f4432c63de19425cdc7f837a2c403a98d7aca1a388d779444f0668ba9ea590
+  languageName: node
+  linkType: hard
+
 "@atls-ui-parts/styles@npm:0.0.6":
   version: 0.0.6
   resolution: "@atls-ui-parts/styles@npm:0.0.6"
@@ -386,21 +400,6 @@ __metadata:
   version: 0.0.2
   resolution: "@atls/config-typescript@npm:0.0.2"
   checksum: f02ccc8b023ff754423e8b22695295c4b516a30af07d8d39498f03fb99c22f9b32039f6c8b8e6bc7113e618df892879f75b538ddeebd02db101b6db49d4806dc
-  languageName: node
-  linkType: hard
-
-"@atls/next-identity-integration@npm:0.0.14":
-  version: 0.0.14
-  resolution: "@atls/next-identity-integration@npm:0.0.14"
-  dependencies:
-    "@ory/client": "npm:1.2.11"
-    "@ory/integrations": "npm:1.1.5"
-    "@ory/kratos-client": "npm:1.0.0"
-    tldjs: "npm:2.3.1"
-  peerDependencies:
-    next: 12.3.4
-    react: 18.2.0
-  checksum: 773b9e688ade5501dbdeebeccc64717f017d4af60616e5d70ad9c5902a536a722b0c89880b129969140eff86851ad536d512b2603c7cccedc2805fccbed26a43
   languageName: node
   linkType: hard
 
@@ -1224,6 +1223,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fork/identity-integration@workspace:0.0.1, @fork/identity-integration@workspace:fork/identity-integration":
+  version: 0.0.0-use.local
+  resolution: "@fork/identity-integration@workspace:fork/identity-integration"
+  dependencies:
+    "@ory/client": "npm:1.2.11"
+    "@ory/integrations": "npm:1.1.5"
+    "@ory/kratos-client": "npm:1.0.0"
+    "@types/react": "npm:17.0.47"
+    "@types/react-dom": "npm:17.0.17"
+    axios: "npm:1.5.1"
+    next: "npm:12.3.4"
+    react: "npm:17.0.2"
+    react-dom: "npm:17.0.2"
+    tldjs: "npm:2.3.1"
+  peerDependencies:
+    next: "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
+
 "@formatjs/cli@npm:4.8.4":
   version: 4.8.4
   resolution: "@formatjs/cli@npm:4.8.4"
@@ -1424,24 +1443,161 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@identity/auth-forms-fragment@workspace:0.0.1, @identity/auth-forms-fragment@workspace:features/identity/client/fragments/auth-forms":
+"@identity/auth-forms-fragment@workspace:0.0.1, @identity/auth-forms-fragment@workspace:^, @identity/auth-forms-fragment@workspace:features/identity/client/fragments/auth-forms":
   version: 0.0.0-use.local
   resolution: "@identity/auth-forms-fragment@workspace:features/identity/client/fragments/auth-forms"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.14"
+    "@fork/identity-integration": "workspace:0.0.1"
+    "@identity/messages-fragment": "workspace:^"
     "@types/react": "npm:18.2.29"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
-    "@ui/icon": "workspace:^"
+    "@ui/condition": "workspace:^"
+    "@ui/icon": "workspace:0.0.1"
     "@ui/input": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
+    "@ui/link": "workspace:^"
     "@ui/text": "workspace:0.0.1"
+    "@utils/helpers": "workspace:^"
     react-intl: "npm:6.0.8"
   peerDependencies:
-    "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@fork/identity-integration": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/confirmation-card-fragment@workspace:0.0.1, @identity/confirmation-card-fragment@workspace:features/identity/client/fragments/confirmation-card":
+  version: 0.0.0-use.local
+  resolution: "@identity/confirmation-card-fragment@workspace:features/identity/client/fragments/confirmation-card"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/confirmation-page@workspace:0.0.1, @identity/confirmation-page@workspace:features/identity/client/pages/confirmation-page":
+  version: 0.0.0-use.local
+  resolution: "@identity/confirmation-page@workspace:features/identity/client/pages/confirmation-page"
+  dependencies:
+    "@identity/confirmation-card-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/login-page@workspace:0.0.1, @identity/login-page@workspace:features/identity/client/pages/login-page":
+  version: 0.0.0-use.local
+  resolution: "@identity/login-page@workspace:features/identity/client/pages/login-page"
+  dependencies:
+    "@fork/identity-integration": "workspace:0.0.1"
+    "@identity/auth-forms-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.29"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    "@fork/identity-integration": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/messages-fragment@workspace:^, @identity/messages-fragment@workspace:features/identity/client/fragments/messages":
+  version: 0.0.0-use.local
+  resolution: "@identity/messages-fragment@workspace:features/identity/client/fragments/messages"
+  dependencies:
+    "@emotion/react": "npm:11.9.3"
+    "@emotion/styled": "npm:11.9.3"
+    "@ory/kratos-client": "npm:1.0.0"
+    "@types/react": "npm:18.2.29"
+    "@types/styled-system": "npm:5.1.20"
+    "@ui/condition": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    styled-system: "npm:5.1.5"
+    styled-tools: "npm:1.7.2"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    "@types/react": "*"
+    "@types/styled-system": "*"
+    react: "*"
+    react-dom: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/recovery-new-password-page@workspace:^, @identity/recovery-new-password-page@workspace:features/identity/client/pages/recovery-new-password-page":
+  version: 0.0.0-use.local
+  resolution: "@identity/recovery-new-password-page@workspace:features/identity/client/pages/recovery-new-password-page"
+  dependencies:
+    "@fork/identity-integration": "workspace:0.0.1"
+    "@identity/auth-forms-fragment": "workspace:^"
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "npm:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    "@fork/identity-integration": "workspace:0.0.1"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/recovery-page@workspace:^, @identity/recovery-page@workspace:features/identity/client/pages/recovery-page":
+  version: 0.0.0-use.local
+  resolution: "@identity/recovery-page@workspace:features/identity/client/pages/recovery-page"
+  dependencies:
+    "@fork/identity-integration": "workspace:0.0.1"
+    "@identity/auth-forms-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    "@fork/identity-integration": "workspace:*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -1454,15 +1610,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/registration-page@workspace:features/identity/client/pages/registration-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.14"
+    "@fork/identity-integration": "workspace:0.0.1"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.29"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
   peerDependencies:
-    "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@fork/identity-integration": "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -1475,11 +1631,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/renderer-entrypoint@workspace:features/identity/client/entrypoints/accounts-app"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.14"
     "@emotion/css": "npm:11.9.0"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
+    "@fork/identity-integration": "workspace:0.0.1"
     "@formatjs/cli": "npm:4.8.4"
+    "@identity/confirmation-page": "workspace:0.0.1"
+    "@identity/login-page": "workspace:0.0.1"
+    "@identity/recovery-new-password-page": "workspace:^"
+    "@identity/recovery-page": "workspace:^"
     "@identity/registration-page": "workspace:0.0.1"
     "@types/node": "npm:16.18.36"
     "@types/react": "npm:18.2.28"
@@ -2742,6 +2902,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-dom@npm:17.0.17":
+  version: 17.0.17
+  resolution: "@types/react-dom@npm:17.0.17"
+  dependencies:
+    "@types/react": "npm:^17"
+  checksum: 71b755bbc253c77a5a9c1c79cde91a1fda8224e26f4be20e56b5ebd4cb700281f60255b08cbaaab4f92608af1642b5caa46193843deeed163d519e51e953747a
+  languageName: node
+  linkType: hard
+
 "@types/react-dom@npm:18.2.13":
   version: 18.2.13
   resolution: "@types/react-dom@npm:18.2.13"
@@ -2779,6 +2948,39 @@ __metadata:
     "@types/scheduler": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 41354427a476540c48ceb15e0999ac00d78f62ec59123ebbc3df0eb68754058cd377ffe17d307cb3f266698a3d5546cc52e6dd57cc58223ce5eafbdc4cd6d899
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:17.0.47":
+  version: 17.0.47
+  resolution: "@types/react@npm:17.0.47"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 9f9b6b73890e83407686d10a28251cf23d71a4c6ba21295e9701194ed58c94895dc2eac19303b419a294c4c4aff0d7d4e5eb458270ee0fa90dbb0b5a37ec3b88
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:18.2.30":
+  version: 18.2.30
+  resolution: "@types/react@npm:18.2.30"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: 8e5edff84846403f7ba17b65926165d21c5ddd466ef43c4dd68994471824edbbacc9b4389750f476e9b696cb8d2fa7a43ddc7c11d70f76f1baa45261d79d8f99
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:^17":
+  version: 17.0.69
+  resolution: "@types/react@npm:17.0.69"
+  dependencies:
+    "@types/prop-types": "npm:*"
+    "@types/scheduler": "npm:*"
+    csstype: "npm:^3.0.2"
+  checksum: f5a0e4f6e333b234e9d7e03f29c427b919b47ea8b1a32422aa4dab5751b8d256c67018950d7d39af12f63a12e71b8829118baf2d19f86e93636219cab70fd425
   languageName: node
   linkType: hard
 
@@ -2821,7 +3023,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/styled-system@npm:5.1.20":
+"@types/styled-system@npm:5.1.20, @types/styled-system@npm:^5":
   version: 5.1.20
   resolution: "@types/styled-system@npm:5.1.20"
   dependencies:
@@ -2874,7 +3076,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ui/background@workspace:0.0.1, @ui/background@workspace:ui/background":
+"@ui/background@npm:0.0.1, @ui/background@workspace:0.0.1, @ui/background@workspace:ui/background":
   version: 0.0.0-use.local
   resolution: "@ui/background@workspace:ui/background"
   dependencies:
@@ -2916,15 +3118,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ui/condition@workspace:^, @ui/condition@workspace:ui/condition":
+"@ui/condition@workspace:0.0.1, @ui/condition@workspace:^, @ui/condition@workspace:ui/condition":
   version: 0.0.0-use.local
   resolution: "@ui/condition@workspace:ui/condition"
   dependencies:
     "@atls-ui-parts/condition": "npm:0.0.9"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    react: "*"
   languageName: unknown
   linkType: soft
 
-"@ui/icon@workspace:^, @ui/icon@workspace:ui/icon":
+"@ui/icon@workspace:0.0.1, @ui/icon@workspace:ui/icon":
   version: 0.0.0-use.local
   resolution: "@ui/icon@workspace:ui/icon"
   dependencies:
@@ -2980,6 +3186,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ui/link@workspace:^, @ui/link@workspace:ui/link":
+  version: 0.0.0-use.local
+  resolution: "@ui/link@workspace:ui/link"
+  dependencies:
+    "@atls-ui-parts/link": "npm:0.0.12"
+    "@emotion/react": "npm:11.9.3"
+    "@emotion/styled": "npm:11.9.3"
+    "@types/react": "npm:18.2.29"
+    "@types/react-dom": "npm:18.2.14"
+    "@types/styled-system": "npm:^5"
+    "@ui/text": "workspace:0.0.1"
+    next: "npm:12.3.4"
+    styled-system: "npm:^5.1.5"
+    styled-tools: "npm:^1.7.2"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@ui/text@workspace:*, @ui/text@workspace:0.0.1, @ui/text@workspace:ui/text":
   version: 0.0.0-use.local
   resolution: "@ui/text@workspace:ui/text"
@@ -3027,6 +3258,12 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
+  languageName: unknown
+  linkType: soft
+
+"@utils/helpers@workspace:^, @utils/helpers@workspace:utils/helpers":
+  version: 0.0.0-use.local
+  resolution: "@utils/helpers@workspace:utils/helpers"
   languageName: unknown
   linkType: soft
 
@@ -4305,6 +4542,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"axios@npm:1.5.1":
+  version: 1.5.1
+  resolution: "axios@npm:1.5.1"
+  dependencies:
+    follow-redirects: "npm:^1.15.0"
+    form-data: "npm:^4.0.0"
+    proxy-from-env: "npm:^1.1.0"
+  checksum: 64a26417b5ce899a931c318db28a762ca530b37ac999b83961dfcb61b67a9f77c207b31467fe464184d9b7897a8843084a1c28b054a752305d6926fc4ebb8402
+  languageName: node
+  linkType: hard
+
 "axios@npm:^0.21.4":
   version: 0.21.4
   resolution: "axios@npm:0.21.4"
@@ -4876,7 +5124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"combined-stream@npm:^1.0.6, combined-stream@npm:~1.0.6":
+"combined-stream@npm:^1.0.6, combined-stream@npm:^1.0.8, combined-stream@npm:~1.0.6":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
   dependencies:
@@ -5020,7 +5268,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
+"debug@npm:*, debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -5685,7 +5933,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.14.0":
+"follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.15.0":
   version: 1.15.3
   resolution: "follow-redirects@npm:1.15.3"
   peerDependenciesMeta:
@@ -5699,6 +5947,17 @@ __metadata:
   version: 0.6.1
   resolution: "forever-agent@npm:0.6.1"
   checksum: b426cf45f0bdea79970a4320cb550b84d0bcd0530d544e0424456f44272a19641a000ea921f8e58dba5511b71f94d95c80692e3d13ce5f0b766f18426430efd5
+  languageName: node
+  linkType: hard
+
+"form-data@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "form-data@npm:4.0.0"
+  dependencies:
+    asynckit: "npm:^0.4.0"
+    combined-stream: "npm:^1.0.8"
+    mime-types: "npm:^2.1.12"
+  checksum: de37c5684d843842d2cc2bc44a975d9fecdf1df30d061c90b62fc0caeeeeb45794bceaba7aa52ee5eae8ede01ba44215b26c58f41cf64271c513787b7241fce4
   languageName: node
   linkType: hard
 
@@ -8238,6 +8497,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"proxy-from-env@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "proxy-from-env@npm:1.1.0"
+  checksum: 0bba2ef7c8374b384e94e4477764e53df66fcdfa7d19e2c4a063cb39eea979c139ce13981970223665422e72b7d149609a927046e2e40ab340b84d91af082591
+  languageName: node
+  linkType: hard
+
 "psl@npm:^1.1.28":
   version: 1.9.0
   resolution: "psl@npm:1.9.0"
@@ -8329,6 +8595,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-dom@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react-dom@npm:17.0.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+    scheduler: "npm:^0.20.2"
+  peerDependencies:
+    react: 17.0.2
+  checksum: 51a70345e6ce512d39789750b46524a2bd0bd8474fabcded2e9cd90dda77ae834fdb8481ca1e64265b91bacf8a1d760f17d6c0382bdfacf455362e617abbe5fa
+  languageName: node
+  linkType: hard
+
 "react-dom@npm:18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
@@ -8401,6 +8680,16 @@ __metadata:
   peerDependencies:
     react: ^17.0.2
   checksum: 6afc7bc37899ff5cfec336b6b9dd70e5e76840e903c6e95e49257b6e335df9459e0a952338a09ed10035d4ad403200839dd58e42ff152be30bfe92ce6104a574
+  languageName: node
+  linkType: hard
+
+"react@npm:17.0.2":
+  version: 17.0.2
+  resolution: "react@npm:17.0.2"
+  dependencies:
+    loose-envify: "npm:^1.1.0"
+    object-assign: "npm:^4.1.1"
+  checksum: c21b6ec9641b973afe3974e77d67d20df6e83c7e4de718af85d12389baa1077604560f086ae0e54e3c34ea87c60bd5d26080ba0cbad1c770307f53d6fa495e32
   languageName: node
   linkType: hard
 
@@ -9099,7 +9388,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-system@npm:5.1.5":
+"styled-system@npm:5.1.5, styled-system@npm:^5.1.5":
   version: 5.1.5
   resolution: "styled-system@npm:5.1.5"
   dependencies:
@@ -9120,7 +9409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"styled-tools@npm:1.7.2":
+"styled-tools@npm:1.7.2, styled-tools@npm:^1.7.2":
   version: 1.7.2
   resolution: "styled-tools@npm:1.7.2"
   checksum: 726ba9b48df8bab6c091dc1508c9913e0b793a63a65099bfc28b1b807577fa5914644ba9f07ff49c8b1479d8b857a8877cb942ef5a2033385a87756fd3b3d596
@@ -9138,6 +9427,13 @@ __metadata:
   version: 4.2.0
   resolution: "stylis@npm:4.2.0"
   checksum: c7ee385328bfaf1b0de0a13ec773da26d11e534c111f3ef72d1ff751e276ec6cd221c10476d14a9581ff25758ab1dce74c115000aa2eb9140ceca977491e8708
+  languageName: node
+  linkType: hard
+
+"supports-color@npm:*":
+  version: 9.4.0
+  resolution: "supports-color@npm:9.4.0"
+  checksum: 519086c0c2c1999000a5dee47334d9a5da91cafcba5c15b14d9f1ecb816189cb19e67f696d1808c9be6c01456af85ff5c34655da6a16dcf64c8b16de3a4d59cc
   languageName: node
   linkType: hard
 

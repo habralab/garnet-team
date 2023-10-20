@@ -1,7 +1,9 @@
 export const colors = {
   text: {
     primary: 'rgba(0, 0, 0, 1)',
+    error: 'rgba(216, 57, 57, 1)',
     secondary: 'rgba(255, 255, 255, 1)',
+    accent: 'rgba(99, 58, 216, 1)'
   },
   button: {
     primary: {
@@ -77,8 +79,8 @@ export const colors = {
         font: 'rgba(145, 145, 145, 1)',
       },
       error: {
-        background: 'rgba(230, 229, 234, 1)',
-        border: 'rgba(208, 204, 218, 1)',
+        background: 'rgba(255, 255, 255, 1)',
+        border: 'rgba(216, 57, 57, 1)',
         font: 'rgba(53, 53, 53, 1)',
       },
     },

@@ -9,10 +9,14 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
-    "@atls/next-identity-integration": "0.0.14",
     "@emotion/css": "11.9.0",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
+    "@fork/identity-integration": "workspace:0.0.1",
+    "@identity/confirmation-page": "workspace:0.0.1",
+    "@identity/login-page": "workspace:0.0.1",
+    "@identity/recovery-new-password-page": "workspace:^",
+    "@identity/recovery-page": "workspace:^",
     "@identity/registration-page": "workspace:0.0.1",
     "@ui/theme": "workspace:0.0.1",
     "next": "12.3.4",

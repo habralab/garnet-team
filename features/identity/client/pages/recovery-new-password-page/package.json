@@ -1,0 +1,26 @@
+{
+  "name": "@identity/recovery-new-password-page",
+  "main": "src/index.ts",
+  "license": "BSD-3-Clause",
+  "version": "0.0.1",
+  "devDependencies": {
+    "@fork/identity-integration": "workspace:0.0.1",
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14",
+    "next": "12.3.4"
+  },
+  "peerDependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@fork/identity-integration": "workspace:0.0.1",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-intl": "*",
+    "styled-system": "*"
+  },
+  "dependencies": {
+    "@identity/auth-forms-fragment": "workspace:^",
+    "@ui/background": "0.0.1"
+  }
+}

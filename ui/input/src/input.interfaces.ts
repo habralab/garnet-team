@@ -1,8 +1,9 @@
 import { InputProps as BaseInputProps } from '@atls-ui-parts/input'
+
 import { ReactNode }                    from 'react'
 
 export interface InputProps extends BaseInputProps {
-  errorText?: string
+  errorText?: string | ReactNode | ReactNode[]
   horizontalLocation?: 'left' | 'right'
   iconSvg?: ReactNode
   valueWidth?: number | object

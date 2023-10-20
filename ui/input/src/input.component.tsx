@@ -7,16 +7,15 @@ import { ForwardRefRenderFunction } from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
 
-import { Text }           from '@ui/text'
-import { IconAttachment } from './icon-attachment'
+import { Condition } from '@ui/condition'
+import { Text }      from '@ui/text'
 
+import { IconAttachment }   from './icon-attachment'
 import { InputProps }       from './input.interfaces'
 import { transitionStyles } from './styles'
 import { shapeStyles }      from './styles'
 import { baseStyles }       from './styles'
 import { appearanceStyles } from './styles'
-
-import { Condition } from '@ui/condition'
 
 export const InputElement = styled.div<any>(
   baseStyles,
@@ -66,7 +65,14 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
         </Condition>
       </InputElement>
       <Layout flexBasis={5}/>
-      <Text color='input.error'>{errorText}</Text>
+      <Condition match={typeof errorText === 'string'}>
+        <Text color='text.error' fontSize={'normal'}>
+          {errorText}
+        </Text>
+      </Condition>
+      <Condition match={Boolean(errorText) && typeof errorText !== 'string'}>
+        {errorText}
+      </Condition>
     </Container>
   )
 }

@@ -1,0 +1,24 @@
+{
+  "name": "@fork/identity-integration",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@ory/client": "1.2.11",
+    "@ory/integrations": "1.1.5",
+    "@ory/kratos-client": "1.0.0",
+    "tldjs": "2.3.1"
+  },
+  "devDependencies": {
+    "@types/react": "17.0.47",
+    "@types/react-dom": "17.0.17",
+    "axios": "1.5.1",
+    "next": "12.3.4",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
+  },
+  "peerDependencies": {
+    "next": "*",
+    "react": "*"
+  }
+}
