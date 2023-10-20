@@ -31,7 +31,7 @@ public class ProjectTeamDocumentBuilder
 
     public ProjectTeamDocument Build()
     {
-        return ProjectTeamDocument.Create(_id, _teamName, _ownerUserId);
+        return ProjectTeamDocument.Create(_id, _teamName, _ownerUserId, new []{_ownerUserId});
     }
 
     public static implicit operator ProjectTeamDocument(ProjectTeamDocumentBuilder documentBuilder)
