@@ -19,7 +19,8 @@ public class ProjectTeamRepository : IProjectTeamRepository
         string teamName, string ownerUserId)
     {
         var db = _dbFactory.Create();
-        var team = ProjectTeamDocument.Create(teamId, teamName, ownerUserId);
+        var userParticipantsId = new[] { ownerUserId };
+        var team = ProjectTeamDocument.Create(teamId, teamName, ownerUserId, userParticipantsId);
         await db.ProjectTeams.InsertOneAsync(team, cancellationToken: ct);
 
         return ProjectTeamDocument.ToDomain(team);
