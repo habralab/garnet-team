@@ -12,10 +12,10 @@ public class ProjectUserRepository : IProjectUserRepository
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectUserEntity> AddUser(CancellationToken ct, string userId)
+    public async Task<ProjectUserEntity> AddUser(CancellationToken ct, string userId, string userName)
     {
         var db = _dbFactory.Create();
-        var user = ProjectUserDocument.Create(userId);
+        var user = ProjectUserDocument.Create(userId, userName);
         await db.ProjectUsers.InsertOneAsync(user, cancellationToken: ct);
 
         return ProjectUserDocument.ToDomain(user);
