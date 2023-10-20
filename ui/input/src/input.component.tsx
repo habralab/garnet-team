@@ -3,11 +3,13 @@ import { RawInput }                 from '@atls-ui-parts/input'
 import { useChangeValue }           from '@atls-ui-parts/input'
 
 import React                        from 'react'
+import { HTMLInputTypeAttribute }   from 'react'
 import { ForwardRefRenderFunction } from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
 
 import { Condition }                from '@ui/condition'
+import { Layout }                   from '@ui/layout'
 import { Text }                     from '@ui/text'
 
 import { IconAttachment }           from './icon-attachment'
@@ -17,22 +19,12 @@ import { shapeStyles }              from './styles'
 import { baseStyles }               from './styles'
 import { appearanceStyles }         from './styles'
 
-export const InputElement = styled.div<any>(
-  baseStyles,
-  shapeStyles,
-  appearanceStyles,
-  transitionStyles
-)
+export const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles)
 
-const Container = styled.div(({ type }: any) => ({
+const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
   width: '100%',
   flexDirection: 'column',
-}))
-
-const Layout = styled.div(({ flexBasis }: any) => ({
-  display: 'flex',
-  flexBasis,
 }))
 
 export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
