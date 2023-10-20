@@ -3264,6 +3264,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@user/index-page@workspace:0.0.1, @user/index-page@workspace:features/user/client/pages/index-page":
+  version: 0.0.0-use.local
+  resolution: "@user/index-page@workspace:features/user/client/pages/index-page"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    next: "npm:12.3.4"
+  peerDependencies:
+    next: "*"
+    react: "*"
+    react-dom: "*"
+  languageName: unknown
+  linkType: soft
+
 "@user/renderer-entrypoint@workspace:features/user/client/entrypoints/renderer":
   version: 0.0.0-use.local
   resolution: "@user/renderer-entrypoint@workspace:features/user/client/entrypoints/renderer"
@@ -3277,6 +3291,8 @@ __metadata:
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/theme": "workspace:0.0.1"
+    "@user/index-page": "workspace:0.0.1"
+    "@user/user-page": "workspace:0.0.1"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -3286,6 +3302,25 @@ __metadata:
     typescript: "npm:4.6.4"
   peerDependencies:
     typescript: "*"
+  languageName: unknown
+  linkType: soft
+
+"@user/user-page@workspace:0.0.1, @user/user-page@workspace:features/user/client/pages/user-page":
+  version: 0.0.0-use.local
+  resolution: "@user/user-page@workspace:features/user/client/pages/user-page"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
   languageName: unknown
   linkType: soft
 

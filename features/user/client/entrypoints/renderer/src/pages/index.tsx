@@ -1,3 +1,2 @@
-const IndexPage = () => null
-
-export default IndexPage
+export { default } from '@user/index-page'
+export { getServerSideProps } from '@user/index-page'
