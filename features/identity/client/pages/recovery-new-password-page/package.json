@@ -20,7 +20,7 @@
     "styled-system": "*"
   },
   "dependencies": {
-    "@identity/auth-forms-fragment": "workspace:^",
+    "@identity/auth-forms-fragment": "workspace:0.0.1",
     "@ui/background": "0.0.1"
   }
 }
