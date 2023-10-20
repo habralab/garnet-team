@@ -14,7 +14,7 @@ namespace Garnet.Projects.Infrastructure.EventHandlers.User
 
         public async Task Consume(UserCreatedEvent message)
         {
-            await _projectUserCreateCommand.Execute(CancellationToken.None, message.UserId);
+            await _projectUserCreateCommand.Execute(CancellationToken.None, message.UserId, message.UserName);
         }
     }
 }
