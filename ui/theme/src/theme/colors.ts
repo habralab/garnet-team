@@ -1,6 +1,8 @@
 export const colors = {
   text: {
     accent: 'rgba(99, 58, 216, 1)',
+    accentHover: 'rgba(161, 87, 255, 1)',
+    accentPressed: 'rgba(62, 41, 120, 1)',
     error: 'rgba(216, 57, 57, 1)',
     gray: 'rgba(162, 159, 171, 1)',
     lightGrey: 'rgba(208, 204, 218, 1)',
