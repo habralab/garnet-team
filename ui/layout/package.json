@@ -1,0 +1,19 @@
+{
+  "name": "@ui/layout",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@atls-ui-parts/layout": "0.0.10"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14"
+  },
+  "peerDependencies": {
+    "@emotion/styled": "*",
+    "react": "*",
+    "react-dom": "*",
+    "styled-system": "*"
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@identity/recovery-page",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@identity/auth-forms-fragment": "workspace:0.0.1",
+    "@ui/background": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@atls/next-identity-integration": "0.0.16",
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14"
+  },
+  "peerDependencies": {
+    "@atls/next-identity-integration": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-intl": "*",
+    "styled-system": "*"
+  }
+}

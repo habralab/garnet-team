@@ -1,5 +1,2 @@
-import React from 'react'
-
-const Index = () => <h1>Index</h1>
-
-export default Index
+export { default } from '@identity/index-page'
+export { getServerSideProps } from '@identity/index-page'

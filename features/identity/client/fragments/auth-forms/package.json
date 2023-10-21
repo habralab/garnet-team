@@ -1,0 +1,34 @@
+{
+  "name": "@identity/auth-forms-fragment",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@identity/messages-fragment": "workspace:0.0.1",
+    "@ui/background": "workspace:0.0.1",
+    "@ui/button": "workspace:0.0.1",
+    "@ui/condition": "workspace:0.0.1",
+    "@ui/icon": "workspace:0.0.1",
+    "@ui/input": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/link": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1",
+    "@utils/helpers": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@atls/next-identity-integration": "0.0.16",
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14",
+    "react-intl": "6.0.8"
+  },
+  "peerDependencies": {
+    "@atls/next-identity-integration": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-intl": "*",
+    "styled-system": "*"
+  }
+}
