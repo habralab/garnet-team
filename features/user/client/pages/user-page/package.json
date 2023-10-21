@@ -4,7 +4,8 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "@ui/background": "workspace:0.0.1"
+    "@ui/background": "workspace:0.0.1",
+    "@user/header-fragment": "workspace:0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.30",
