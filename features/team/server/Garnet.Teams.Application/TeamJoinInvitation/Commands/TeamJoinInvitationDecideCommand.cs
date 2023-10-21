@@ -55,17 +55,16 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             }
 
             var user = await _teamUserRepository.GetUser(ct, invitation.UserId);
-
-            if (isApproved & user is not null)
-            {
-                await _teamParticipantRepository.CreateTeamParticipant(ct, user!.Id, user.Username, invitation.TeamId);
-            }
-            await _teamJoinInvitationRepository.DeleteInvitationsById(ct, joinInvitationId);
-
             if (user is null)
             {
                 return Result.Fail(new TeamUserNotFoundError(invitation.UserId));
             }
+
+            if (isApproved)
+            {
+                await _teamParticipantRepository.CreateTeamParticipant(ct, user!.Id, user.Username, invitation.TeamId);
+            }
+            await _teamJoinInvitationRepository.DeleteInvitationsById(ct, joinInvitationId);
 
             var @event = invitation.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
