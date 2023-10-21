@@ -1,0 +1,24 @@
+{
+  "name": "@ui/avatar",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@atls-ui-proto/avatar": "0.0.10",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/theme": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14",
+    "next": "12.3.4"
+  },
+  "peerDependencies": {
+    "@emotion/styled": "*",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "styled-system": "*",
+    "styled-tools": "*"
+  }
+}
