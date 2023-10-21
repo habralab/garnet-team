@@ -22,7 +22,7 @@ export const Header: FC = () => {
   const currentPathname = `/${pathname.split('/')[1]}`
 
   return (
-    <Background fill maxHeight={120} color='white'>
+    <Background fill maxHeight={120} color='white' borderBottom='lightGrayForty'>
       <Column fill>
         <Layout flexBasis={36.5} flexShrink={0} />
         <Row justifyContent='space-between' alignItems='center'>
