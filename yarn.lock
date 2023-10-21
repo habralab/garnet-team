@@ -3312,6 +3312,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ui/title@workspace:0.0.1, @ui/title@workspace:ui/title":
+  version: 0.0.0-use.local
+  resolution: "@ui/title@workspace:ui/title"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/condition": "workspace:0.0.1"
+    "@ui/icon": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/link": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@ui/utils@workspace:0.0.1, @ui/utils@workspace:ui/utils":
   version: 0.0.0-use.local
   resolution: "@ui/utils@workspace:ui/utils"
@@ -3371,6 +3396,34 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@user/profile-fragment@workspace:0.0.1, @user/profile-fragment@workspace:features/user/client/fragments/profile-fragment":
+  version: 0.0.0-use.local
+  resolution: "@user/profile-fragment@workspace:features/user/client/fragments/profile-fragment"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/link": "workspace:0.0.1"
+    "@ui/modal": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    "@ui/title": "workspace:0.0.1"
+    framer-motion: "npm:10.16.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    framer-motion: "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
 "@user/renderer-entrypoint@workspace:features/user/client/entrypoints/renderer":
   version: 0.0.0-use.local
   resolution: "@user/renderer-entrypoint@workspace:features/user/client/entrypoints/renderer"
@@ -3406,6 +3459,7 @@ __metadata:
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
     "@user/header-fragment": "workspace:0.0.1"
+    "@user/profile-fragment": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
     "@emotion/react": "*"
