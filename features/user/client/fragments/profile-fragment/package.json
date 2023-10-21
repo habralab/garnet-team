@@ -1,21 +1,27 @@
 {
-  "name": "@user/user-page",
+  "name": "@user/profile-fragment",
   "version": "0.0.1",
-  "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
     "@ui/background": "workspace:0.0.1",
-    "@user/header-fragment": "workspace:0.0.1",
-    "@user/profile-fragment": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/link": "workspace:0.0.1",
+    "@ui/modal": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1",
+    "@ui/title": "workspace:0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.30",
     "@types/react-dom": "18.2.14",
-    "next": "12.3.4"
+    "framer-motion": "10.16.1",
+    "next": "12.3.4",
+    "react-intl": "6.0.8"
   },
   "peerDependencies": {
     "@emotion/react": "*",
     "@emotion/styled": "*",
+    "framer-motion": "*",
     "next": "*",
     "react": "*",
     "react-dom": "*",
