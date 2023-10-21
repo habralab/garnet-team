@@ -3,6 +3,12 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "license": "BSD-3-Clause",
+  "scripts": {
+    "build": "yarn next build src --no-lint && cp -r ./src/.next/standalone ./dist && cp -r ./src/.next/static ./dist/.next/static && mv ./dist/server.js ./dist/index.js",
+    "dev": "yarn next dev src -p 3000",
+    "prepack": "run build",
+    "start": "node dist/index.js"
+  },
   "dependencies": {
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
