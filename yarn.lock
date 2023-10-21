@@ -779,7 +779,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@dashboard/index-page@workspace:^, @dashboard/index-page@workspace:features/user/client/user-dashboard/pages/index-page":
+"@dashboard/index-page@workspace:0.0.1, @dashboard/index-page@workspace:features/user/client/user-dashboard/pages/index-page":
   version: 0.0.0-use.local
   resolution: "@dashboard/index-page@workspace:features/user/client/user-dashboard/pages/index-page"
   dependencies:
@@ -799,13 +799,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@dashboard/renderer-entrypoint@workspace:features/user/client/user-dashboard/entrypoints/dashboard"
   dependencies:
-    "@dashboard/index-page": "workspace:^"
+    "@dashboard/index-page": "workspace:0.0.1"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@formatjs/cli": "npm:4.8.4"
+    "@module-federation/nextjs-mf": "npm:^7.0.8"
     "@types/node": "npm:16.18.36"
-    "@types/react": "npm:^18.2.31"
-    "@types/react-dom": "npm:^18.2.14"
+    "@types/react": "npm:18.2.31"
+    "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
@@ -1677,6 +1678,75 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@module-federation/nextjs-mf@npm:^7.0.8":
+  version: 7.0.8
+  resolution: "@module-federation/nextjs-mf@npm:7.0.8"
+  dependencies:
+    "@module-federation/node": "npm:1.0.7"
+    "@module-federation/utilities": "npm:2.0.6"
+    encoding: "npm:0.1.13"
+    eventemitter3: "npm:^5.0.0"
+    fast-glob: "npm:^3.2.11"
+    node-fetch: "npm:2.6.9"
+    webpack-sources: "npm:^3.2.3"
+  peerDependencies:
+    next: ^12 || ^13
+    react: ^17 || ^18
+    react-dom: ^17 || ^18
+    styled-jsx: "*"
+    webpack: ^5.40.0
+  peerDependenciesMeta:
+    styled-jsx:
+      optional: true
+  checksum: 0f666128feca83ccdde0c712c41b1cefbda61c63fbc394bce82b35e3e9a3f53436ed36cce741b3ed7637f9d27124a1590a4ab0efbcd8638b97e276655d50577a
+  languageName: node
+  linkType: hard
+
+"@module-federation/node@npm:1.0.7":
+  version: 1.0.7
+  resolution: "@module-federation/node@npm:1.0.7"
+  dependencies:
+    "@module-federation/utilities": "npm:2.0.6"
+    encoding: "npm:^0.1.13"
+    node-fetch: "npm:^2.6.7"
+    webpack-sources: "npm:3.2.3"
+  peerDependencies:
+    next: ^12||^13
+    react: ^16||^17||^18
+    react-dom: ^16||^17||^18
+    webpack: ^5.40.0
+  peerDependenciesMeta:
+    next:
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 4270d6dae3ca13894f7e099a20ba9c0944a576abafcc4a1c32bd3291a957ae1c447f0a6bfb6c1d4debcd353ecd5ebc40d7ae93741c3dde83d6b7b263b8161489
+  languageName: node
+  linkType: hard
+
+"@module-federation/utilities@npm:2.0.6":
+  version: 2.0.6
+  resolution: "@module-federation/utilities@npm:2.0.6"
+  dependencies:
+    webpack-sources: "npm:3.2.3"
+  peerDependencies:
+    next: ^12 || ^13
+    react: ^16 || ^17 || ^18
+    react-dom: ^16 || ^17 || ^18
+    webpack: ^5.40.0
+  peerDependenciesMeta:
+    next:
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 8e63ce3dd3d14587c53d6ce4512e1182d014a3cac3541b8743d52e34af210746d03b16b40f7202cc17afb9c66f0cedc59867bd45061a6bc9ccb683178edc8f0b
+  languageName: node
+  linkType: hard
+
 "@monstrs/jest-pnp-resolver@npm:0.0.1":
   version: 0.0.1
   resolution: "@monstrs/jest-pnp-resolver@npm:0.0.1"
@@ -2415,7 +2485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.14, @types/react-dom@npm:^18.2.14":
+"@types/react-dom@npm:18.2.14":
   version: 18.2.14
   resolution: "@types/react-dom@npm:18.2.14"
   dependencies:
@@ -2446,7 +2516,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:16 || 17 || 18, @types/react@npm:18.2.31, @types/react@npm:^18.2.31":
+"@types/react@npm:16 || 17 || 18, @types/react@npm:18.2.31":
   version: 18.2.31
   resolution: "@types/react@npm:18.2.31"
   dependencies:
@@ -4484,7 +4554,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encoding@npm:^0.1.13":
+"encoding@npm:0.1.13, encoding@npm:^0.1.13":
   version: 0.1.13
   resolution: "encoding@npm:0.1.13"
   dependencies:
@@ -4743,6 +4813,13 @@ __metadata:
   version: 2.0.3
   resolution: "esutils@npm:2.0.3"
   checksum: 179e017b58d3c0c3ecbe5f6d27abf26cdde45cea702c037bc80a74e32b28ab20d7a03820c002c3f7202706fb6baff40bba1a1e0843ec4e8eba6062ab9f976c70
+  languageName: node
+  linkType: hard
+
+"eventemitter3@npm:^5.0.0":
+  version: 5.0.1
+  resolution: "eventemitter3@npm:5.0.1"
+  checksum: 3c7f3864e4bd8b23574595c43fda88ac8b5798a6bd6f57788c2cf7fa5a09e11c7c6161da6d263f2c40bcbca58bc69914ee2bbf684eccf73d671b12f002f44ce6
   languageName: node
   linkType: hard
 
@@ -6818,6 +6895,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"node-fetch@npm:2.6.9":
+  version: 2.6.9
+  resolution: "node-fetch@npm:2.6.9"
+  dependencies:
+    whatwg-url: "npm:^5.0.0"
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: 8457cf62f599e9d55b01d58f87ed2110c65f83c4fcce8be0e350909995384e96a55e2b810d0e1a67a1fbe7f9930cd0998146d2dcce4843f9ed3ac0b479bd5c64
+  languageName: node
+  linkType: hard
+
+"node-fetch@npm:^2.6.7":
+  version: 2.7.0
+  resolution: "node-fetch@npm:2.7.0"
+  dependencies:
+    whatwg-url: "npm:^5.0.0"
+  peerDependencies:
+    encoding: ^0.1.0
+  peerDependenciesMeta:
+    encoding:
+      optional: true
+  checksum: a3ad7889038bf6c49046272515d4f0e3167088b40fd37e1cc6eeea745f5a68cec798d55ac3210e2bc51891cb745e3dc30a734cc5f4b4df764f45886881b198b1
+  languageName: node
+  linkType: hard
+
 "node-gyp@npm:latest":
   version: 9.0.0
   resolution: "node-gyp@npm:9.0.0"
@@ -8283,6 +8388,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tr46@npm:~0.0.3":
+  version: 0.0.3
+  resolution: "tr46@npm:0.0.3"
+  checksum: c670667f2df1c0983b48ee7e81d6013ab304f73573e9e4292233821b2219504307bedffc303c32df30813a9138114b8b084c81dea94fb68f08aca7770af98578
+  languageName: node
+  linkType: hard
+
 "treeify@npm:^1.1.0":
   version: 1.1.0
   resolution: "treeify@npm:1.1.0"
@@ -8600,6 +8712,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"webidl-conversions@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "webidl-conversions@npm:3.0.1"
+  checksum: 57c8c5fdd986be5432ea6adacd87d6757144289d3b48b33441e7310bd4f4f6d782dd34acbd74d61e923c142cc50333d27ba58235692fa7248541c0bcce2563e1
+  languageName: node
+  linkType: hard
+
 "webpack-chain@npm:^6.5.1":
   version: 6.5.1
   resolution: "webpack-chain@npm:6.5.1"
@@ -8610,7 +8729,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"webpack-sources@npm:^3.2.3":
+"webpack-sources@npm:3.2.3, webpack-sources@npm:^3.2.3":
   version: 3.2.3
   resolution: "webpack-sources@npm:3.2.3"
   checksum: aaccb99ee23afcfa1ebddbd7101f7cf15cdc3d72afe37258cf6d852eb6cfedf540086fae3a53b2c65412040eb2e1a3e7b1bff077b09eaf4f82f032a8211d6a6f
@@ -8651,6 +8770,16 @@ __metadata:
   bin:
     webpack: bin/webpack.js
   checksum: d6416e650775ec1ac2087daa1f0db738a07bd709b1ab2784d902d4add2d75bdbfa1c6103ce1191ddc11aaa08ad99cc99c49bfcf885a4b89553286716c3c1a9b4
+  languageName: node
+  linkType: hard
+
+"whatwg-url@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "whatwg-url@npm:5.0.0"
+  dependencies:
+    tr46: "npm:~0.0.3"
+    webidl-conversions: "npm:^3.0.0"
+  checksum: bd0cc6b75b84b3d032e30712e2f40eefbc07ecd14f093e87b2f81bb68bce10a3961e8eb646a7a8cc9c2352548fb501eeff668c8b2595fd7c6ea91d1406ce11ee
   languageName: node
   linkType: hard
 

@@ -1,4 +1,4 @@
-const { ModuleFederationPlugin } = require("webpack").container;
+const NextModuleFederationPlugin = require('@module-federation/nextjs-mf');
 
 module.exports = {
   experimental: {
@@ -9,18 +9,15 @@ module.exports = {
   },
   output: 'standalone',
   webpack: (config, _) => {
-    // TODO: reintroduce module federation
-    // config.plugins.push(
-    //   new ModuleFederationPlugin({
-    //     name: "UserDashboard",
-    //     library: { type: config.output.libraryTarget, name: "UserDashboard" },
-    //     filename: "remoteEntry.js",
-    //     exposes: {
-    //       "./Dashboard": "./components/Dashboard",
-    //     },
-    //     shared: ["react", "react-dom"],
-    //   })
-    // );
+    config.plugins.push(
+      new NextModuleFederationPlugin({
+        name: "UserDashboard",
+        filename: "static/chunks/remoteEntry.js",
+        exposes: {
+          "./Dashboard": "./components/Dashboard",
+        },
+      })
+    );
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
       type: 'asset/resource',
@@ -30,4 +27,4 @@ module.exports = {
     });
     return config;
   }
-}
+};
