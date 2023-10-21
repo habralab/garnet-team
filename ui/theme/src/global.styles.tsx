@@ -12,6 +12,10 @@ export const GlobalStyles = () => (
       font-family: 'Inter';
       src: url(${fonts.InterVariable}) format('truetype');
     }
+
+    body {
+      overflow: auto;
+    }
   `}
   />
 )

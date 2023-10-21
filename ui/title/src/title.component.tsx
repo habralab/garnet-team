@@ -27,7 +27,7 @@ export const Title: FC<TitleProps> = ({ backUrl, children, hasBack }) => {
   const router = useRouter()
 
   return (
-    <Column>
+    <Column height='max-content'>
       <Layout flexBasis={32} flexShrink={0} />
       <Column minHeight={63}>
         <Text fontSize='extraHuge' fontWeight='superBold' color='text.secondary'>
