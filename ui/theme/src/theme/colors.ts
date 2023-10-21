@@ -1,9 +1,11 @@
 export const colors = {
   text: {
-    primary: 'rgba(0, 0, 0, 1)',
-    error: 'rgba(216, 57, 57, 1)',
-    secondary: 'rgba(255, 255, 255, 1)',
     accent: 'rgba(99, 58, 216, 1)',
+    error: 'rgba(216, 57, 57, 1)',
+    gray: 'rgba(162, 159, 171, 1)',
+    lightGrey: 'rgba(208, 204, 218, 1)',
+    primary: 'rgba(0, 0, 0, 1)',
+    secondary: 'rgba(53, 53, 53, 1)',
   },
   button: {
     primary: {
@@ -46,6 +48,28 @@ export const colors = {
       },
       disabled: {
         background: 'rgba(162, 159, 171, 1)',
+        font: 'rgba(208, 204, 218, 1)',
+        border: 'transparent',
+      },
+    },
+    link: {
+      default: {
+        background: 'transparent',
+        font: 'rgba(99, 58, 216, 1)',
+        border: 'transparent',
+      },
+      hover: {
+        background: 'transparent',
+        font: 'rgba(161, 87, 255, 1)',
+        border: 'transparent',
+      },
+      pressed: {
+        background: 'transparent',
+        font: 'rgba(62, 41, 120, 1)',
+        border: 'transparent',
+      },
+      disabled: {
+        background: 'transparent',
         font: 'rgba(208, 204, 218, 1)',
         border: 'transparent',
       },

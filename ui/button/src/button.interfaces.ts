@@ -2,7 +2,7 @@ import { ButtonProps as BaseButtonProps } from '@atls-ui-parts/button'
 
 import { ReactNode }                      from 'react'
 
-export type ButtonVariant = 'primary' | 'secondary'
+export type ButtonVariant = 'primary' | 'secondary' | 'link'
 
 export type ButtonSize = 'normal'
 
