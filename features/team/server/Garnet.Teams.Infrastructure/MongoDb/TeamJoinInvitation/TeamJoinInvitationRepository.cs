@@ -34,6 +34,17 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
             return TeamJoinInvitationDocument.ToDomain(invitation);
         }
 
+        public async Task<TeamJoinInvitationEntity?> DeleteInvitationsById(CancellationToken ct, string joinInvitationId)
+        {
+            var db = _dbFactory.Create();
+
+            var invitation = await db.TeamJoinInvitations.FindOneAndDeleteAsync(
+                _f.Eq(x => x.Id, joinInvitationId)
+            );
+
+            return invitation is null ? null : TeamJoinInvitationDocument.ToDomain(invitation);
+        }
+
         public async Task DeleteInvitationsByTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
@@ -60,6 +71,17 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
                 .ToListAsync(ct);
 
             return invitations.Select(x => TeamJoinInvitationDocument.ToDomain(x)).ToArray();
+        }
+
+        public async Task<TeamJoinInvitationEntity?> GetById(CancellationToken ct, string joinInvitationId)
+        {
+            var db = _dbFactory.Create();
+
+            var invitation = await db.TeamJoinInvitations.Find(
+                _f.Eq(x => x.Id, joinInvitationId)
+            ).FirstOrDefaultAsync(ct);
+
+            return invitation is null ? null : TeamJoinInvitationDocument.ToDomain(invitation);
         }
     }
 }
