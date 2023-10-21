@@ -361,6 +361,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@atls-ui-proto/avatar@npm:0.0.10":
+  version: 0.0.10
+  resolution: "@atls-ui-proto/avatar@npm:0.0.10"
+  dependencies:
+    "@atls-ui-proto/core": "npm:0.1.3"
+    "@radix-ui/react-avatar": "npm:1.0.3"
+  peerDependencies:
+    "@emotion/styled": 11.9.3
+    react: 18.2.0
+    styled-system: 5.1.5
+    styled-tools: 1.7.2
+  checksum: 2bf94e5f98b24310bbdc6c1659aaad8dc4f3980db6ffb15cd794caca1165861ee0dfe80e5f15550eacd55c82c69e95cfd17bf73fd9c3b6d788954eb02e1ef8a3
+  languageName: node
+  linkType: hard
+
+"@atls-ui-proto/core@npm:0.1.3":
+  version: 0.1.3
+  resolution: "@atls-ui-proto/core@npm:0.1.3"
+  dependencies:
+    "@stitches/react": "npm:1.2.8"
+  peerDependencies:
+    react: 18.2.0
+  checksum: bb93d2e59a916a51bee2f2e3f02d01eb184f429ce9252ecc517f4786c744ce4e483d466286580a39ec1d71a2b601178171aca6bc3ab1b8cd075ca7166d79a828
+  languageName: node
+  linkType: hard
+
 "@atls-ui-proto/modal@npm:0.0.6":
   version: 0.0.6
   resolution: "@atls-ui-proto/modal@npm:0.0.6"
@@ -2440,6 +2466,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@stitches/react@npm:1.2.8":
+  version: 1.2.8
+  resolution: "@stitches/react@npm:1.2.8"
+  peerDependencies:
+    react: ">= 16.3.0"
+  checksum: 234e307b9e00710bdc1d2004b36682ca6c08f59399d650bd56f752d51bdb8a46c569aa6809430913a79df84330bedfa0dd467623153320d7d4ecdcaa66627719
+  languageName: node
+  linkType: hard
+
 "@styled-system/background@npm:^5.1.2":
   version: 5.1.2
   resolution: "@styled-system/background@npm:5.1.2"
@@ -3104,6 +3139,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ui/avatar@workspace:0.0.1, @ui/avatar@workspace:ui/avatar":
+  version: 0.0.0-use.local
+  resolution: "@ui/avatar@workspace:ui/avatar"
+  dependencies:
+    "@atls-ui-proto/avatar": "npm:0.0.10"
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/theme": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@ui/background@npm:0.0.1, @ui/background@workspace:0.0.1, @ui/background@workspace:ui/background":
   version: 0.0.0-use.local
   resolution: "@ui/background@workspace:ui/background"
@@ -3265,11 +3320,38 @@ __metadata:
     "@atls-ui-proto/modal": "npm:0.0.6"
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/condition": "workspace:0.0.1"
+    "@ui/icon": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    react-intl: "npm:6.0.8"
   peerDependencies:
+    "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
     react: "*"
     react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/tag@workspace:0.0.1, @ui/tag@workspace:ui/tag":
+  version: 0.0.0-use.local
+  resolution: "@ui/tag@workspace:ui/tag"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    react: "*"
+    react-dom: "*"
+    styled-system: "*"
   languageName: unknown
   linkType: soft
 
@@ -3402,11 +3484,14 @@ __metadata:
   dependencies:
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
+    "@ui/avatar": "workspace:0.0.1"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
+    "@ui/condition": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
     "@ui/link": "workspace:0.0.1"
     "@ui/modal": "workspace:0.0.1"
+    "@ui/tag": "workspace:0.0.1"
     "@ui/text": "workspace:0.0.1"
     "@ui/title": "workspace:0.0.1"
     framer-motion: "npm:10.16.1"
