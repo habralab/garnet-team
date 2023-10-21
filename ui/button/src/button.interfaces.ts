@@ -4,7 +4,7 @@ import { ReactNode }                      from 'react'
 
 export type ButtonVariant = 'primary' | 'secondary' | 'link'
 
-export type ButtonSize = 'normal'
+export type ButtonSize = 'normal' | 'micro'
 
 export interface ButtonProps extends BaseButtonProps {
   variant?: ButtonVariant
