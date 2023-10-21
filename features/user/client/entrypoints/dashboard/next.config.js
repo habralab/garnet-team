@@ -11,10 +11,10 @@ module.exports = {
   webpack: (config, _) => {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'Identity',
+        name: 'User',
         filename: 'static/chunks/remoteEntry.js',
         exposes: {
-          './index-page': './pages/index.tsx',
+          './dashboard-page': './pages/index.ts',
         },
       })
     )
