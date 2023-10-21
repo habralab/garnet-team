@@ -330,6 +330,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@atls-ui-parts/portal@npm:0.0.6":
+  version: 0.0.6
+  resolution: "@atls-ui-parts/portal@npm:0.0.6"
+  peerDependencies:
+    react: 18.2.0
+    react-dom: 18.2.0
+  checksum: 021265097e5baef3bfe7b74df97df180ff5394e88c47d9ca8c1c286b0adb1396d90177cdb271aaf2d438521cb794b99cfc07fdf009119b860a588be719b80743
+  languageName: node
+  linkType: hard
+
 "@atls-ui-parts/styles@npm:0.0.6":
   version: 0.0.6
   resolution: "@atls-ui-parts/styles@npm:0.0.6"
@@ -348,6 +358,21 @@ __metadata:
     "@emotion/styled": 11.9.3
     react: 18.2.0
   checksum: 21c31585826d3d1bd4f222cb7b09a2fc95f11f4373891f7e39359eb9d607341195fc59f6afe7ceef697110783942720dcc482dfe69cd489034569c9e34413637
+  languageName: node
+  linkType: hard
+
+"@atls-ui-proto/modal@npm:0.0.6":
+  version: 0.0.6
+  resolution: "@atls-ui-proto/modal@npm:0.0.6"
+  dependencies:
+    "@atls-ui-parts/portal": "npm:0.0.6"
+  peerDependencies:
+    "@emotion/css": 11.9.0
+    "@emotion/styled": 11.9.3
+    framer-motion: 10.16.1
+    react: 18.2.0
+    react-dom: 18.2.0
+  checksum: 2c67b22781ee509e8383ccdd8195f84e9e0f11610794e306f52bd8344de187e00786b739110e217ee23423a99671329033aa1e0e8c97ffb19b57f737092d2693
   languageName: node
   linkType: hard
 
@@ -3214,6 +3239,40 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@ui/logo@workspace:0.0.1, @ui/logo@workspace:ui/logo":
+  version: 0.0.0-use.local
+  resolution: "@ui/logo@workspace:ui/logo"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/link": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/modal@workspace:0.0.1, @ui/modal@workspace:ui/modal":
+  version: 0.0.0-use.local
+  resolution: "@ui/modal@workspace:ui/modal"
+  dependencies:
+    "@atls-ui-proto/modal": "npm:0.0.6"
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+  peerDependencies:
+    "@emotion/styled": "*"
+    framer-motion: "*"
+    react: "*"
+    react-dom: "*"
+  languageName: unknown
+  linkType: soft
+
 "@ui/text@workspace:0.0.1, @ui/text@workspace:ui/text":
   version: 0.0.0-use.local
   resolution: "@ui/text@workspace:ui/text"
@@ -3261,6 +3320,40 @@ __metadata:
   peerDependencies:
     react: "*"
     react-dom: "*"
+  languageName: unknown
+  linkType: soft
+
+"@user/header-fragment@workspace:0.0.1, @user/header-fragment@workspace:features/user/client/fragments/header-fragment":
+  version: 0.0.0-use.local
+  resolution: "@user/header-fragment@workspace:features/user/client/fragments/header-fragment"
+  dependencies:
+    "@emotion/react": "npm:11.9.3"
+    "@emotion/styled": "npm:11.9.3"
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@types/styled-system": "npm:5.1.20"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/icon": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/link": "workspace:0.0.1"
+    "@ui/logo": "workspace:0.0.1"
+    "@ui/modal": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    framer-motion: "npm:10.16.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+    styled-system: "npm:5.1.5"
+    styled-tools: "npm:1.7.2"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    framer-motion: "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
   languageName: unknown
   linkType: soft
 
@@ -3312,6 +3405,7 @@ __metadata:
     "@types/react": "npm:18.2.30"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
+    "@user/header-fragment": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
     "@emotion/react": "*"
@@ -6025,6 +6119,27 @@ __metadata:
     react-dom:
       optional: true
   checksum: 630b575886b06e2977aeb07f9f8cd9724930cdef564a40bbe90a106dcdfcf26a67a11fcf60dd333f615d58a115ca108fe91c777db125910ce7dc92d7bceb056e
+  languageName: node
+  linkType: hard
+
+"framer-motion@npm:10.16.1":
+  version: 10.16.1
+  resolution: "framer-motion@npm:10.16.1"
+  dependencies:
+    "@emotion/is-prop-valid": "npm:^0.8.2"
+    tslib: "npm:^2.4.0"
+  peerDependencies:
+    react: ^18.0.0
+    react-dom: ^18.0.0
+  dependenciesMeta:
+    "@emotion/is-prop-valid":
+      optional: true
+  peerDependenciesMeta:
+    react:
+      optional: true
+    react-dom:
+      optional: true
+  checksum: 01b047a8457939821a742d4421679d1f91d448941d550c459f1cf407e18454b858e7e179b6d3a13af656519b2218e76b42ca6d6ddb351bf71c960a3732bd155c
   languageName: node
   linkType: hard
 

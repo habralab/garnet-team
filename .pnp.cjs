@@ -62,6 +62,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:features/user/client/entrypoints/renderer"\
     },\
     {\
+      "name": "@user/header-fragment",\
+      "reference": "workspace:features/user/client/fragments/header-fragment"\
+    },\
+    {\
       "name": "@user/index-page",\
       "reference": "workspace:features/user/client/pages/index-page"\
     },\
@@ -102,6 +106,14 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:ui/link"\
     },\
     {\
+      "name": "@ui/logo",\
+      "reference": "workspace:ui/logo"\
+    },\
+    {\
+      "name": "@ui/modal",\
+      "reference": "workspace:ui/modal"\
+    },\
+    {\
       "name": "@ui/text",\
       "reference": "workspace:ui/text"\
     },\
@@ -133,16 +145,19 @@ const RAW_RUNTIME_STATE =
     ["@identity/registration-page", ["virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#workspace:features/identity/client/pages/registration-page", "workspace:features/identity/client/pages/registration-page"]],\
     ["@identity/renderer-entrypoint", ["workspace:features/identity/client/entrypoints/accounts-app"]],\
     ["@shared/keto", ["workspace:shared/keto"]],\
-    ["@ui/background", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/background", "virtual:8a45899c4893f6603f44eab33f38aad09e9bd508dc53a5ac0a576901b87aa31d6b5462f679bc7f89adfa54de1976fc3be74cae19bb4753b11512afdb08cf2b57#workspace:ui/background", "workspace:ui/background"]],\
-    ["@ui/button", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/button", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/button", "workspace:ui/button"]],\
+    ["@ui/background", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/background", "virtual:8a45899c4893f6603f44eab33f38aad09e9bd508dc53a5ac0a576901b87aa31d6b5462f679bc7f89adfa54de1976fc3be74cae19bb4753b11512afdb08cf2b57#workspace:ui/background", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/background", "workspace:ui/background"]],\
+    ["@ui/button", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/button", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/button", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/button", "workspace:ui/button"]],\
     ["@ui/condition", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/condition", "virtual:8250f06a1494559dca58bc1db5a9a0a3d09520d6a969a0b25eb1dba5c8ea4c01a437240d8d47b01777e2ed6e4873b79bf852aeaef91695037f11259a1e5877bd#workspace:ui/condition", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/condition", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/condition", "workspace:ui/condition"]],\
-    ["@ui/icon", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/icon", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/icon", "workspace:ui/icon"]],\
+    ["@ui/icon", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/icon", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/icon", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/icon", "workspace:ui/icon"]],\
     ["@ui/input", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/input", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/input", "workspace:ui/input"]],\
     ["@ui/layout", ["virtual:38041a86b28873cf69de0d069da4eeb8518c6467addc0e59e4091a23a025b8eb0924f5f9eaadcfea43c16c3a5bf90aa58eefabd7d2bf0fb523f1af6276b9ca47#workspace:ui/layout", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/layout", "virtual:8250f06a1494559dca58bc1db5a9a0a3d09520d6a969a0b25eb1dba5c8ea4c01a437240d8d47b01777e2ed6e4873b79bf852aeaef91695037f11259a1e5877bd#workspace:ui/layout", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/layout", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/layout", "workspace:ui/layout"]],\
-    ["@ui/link", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/link", "virtual:bdc7cb2329ed28ac2ef237d184e1bd2ea88bdc5a1c40fdb6a0498797c5b338eded48a3aad8ef0da75b67d0b1f381233c6ef8d33d8b0ab8cee0f8d25582dc7da4#workspace:ui/link", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/link", "workspace:ui/link"]],\
+    ["@ui/link", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/link", "virtual:bdc7cb2329ed28ac2ef237d184e1bd2ea88bdc5a1c40fdb6a0498797c5b338eded48a3aad8ef0da75b67d0b1f381233c6ef8d33d8b0ab8cee0f8d25582dc7da4#workspace:ui/link", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/link", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/link", "workspace:ui/link"]],\
+    ["@ui/logo", ["virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/logo", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/logo", "workspace:ui/logo"]],\
+    ["@ui/modal", ["virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/modal", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/modal", "workspace:ui/modal"]],\
     ["@ui/text", ["virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/text", "virtual:8250f06a1494559dca58bc1db5a9a0a3d09520d6a969a0b25eb1dba5c8ea4c01a437240d8d47b01777e2ed6e4873b79bf852aeaef91695037f11259a1e5877bd#workspace:ui/text", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/text", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/text", "workspace:ui/text"]],\
     ["@ui/theme", ["virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#workspace:ui/theme", "virtual:b6a76d36bc5f47ff8a4f0f8e011b307d4ab3065df46e0be4565369b820208134343c534328fdd9d583e5fce8c9bc072414bbf22aca3d15cf89527d279bf60b8b#workspace:ui/theme", "workspace:ui/theme"]],\
     ["@ui/utils", ["virtual:bd3125611ab512881992b7031a905a1c55edba6dcdf6d6349ef067e70b32ae4a8f2df211f40bedb2829d22b92defa008d92c0851b693126dd8eca07e4c358e61#workspace:ui/utils", "virtual:c54632b14dfdf5c2bb77fe72db338d23280abb978b50de6988630cc1a483ae84b164cde9acf6a065cc68389eb1bfe7c094318cbd91f1a06f4bfbeb1160ee8de4#workspace:ui/utils", "workspace:ui/utils"]],\
+    ["@user/header-fragment", ["virtual:7388a5e53d93275590b03f8ff30164a257b6ab667672f04d6414d345233d2b2b9b18af0c50ec83f62c0fc5967901dc24b9cb20562cd754aa70384189cb62e3ca#workspace:features/user/client/fragments/header-fragment", "virtual:7beea308ad9afef92a38ec020f5b222fcc7c8c8885cd93428df0457be1acca8dd95ff54cbb0a5a9e25c76c87c463df13846bd24b595c81bc9d17f9a5667e5985#workspace:features/user/client/fragments/header-fragment", "workspace:features/user/client/fragments/header-fragment"]],\
     ["@user/index-page", ["virtual:4b6ef69a4bd0fd68f62615386152cff3722785822462708af139696561d65791f01952dbf465a7cf5a55cd1b530b269908f2fa448b3fe057dd5a48aff32bb989#workspace:features/user/client/pages/index-page", "workspace:features/user/client/pages/index-page"]],\
     ["@user/renderer-entrypoint", ["workspace:features/user/client/entrypoints/renderer"]],\
     ["@user/user-page", ["virtual:4b6ef69a4bd0fd68f62615386152cff3722785822462708af139696561d65791f01952dbf465a7cf5a55cd1b530b269908f2fa448b3fe057dd5a48aff32bb989#workspace:features/user/client/pages/user-page", "workspace:features/user/client/pages/user-page"]],\
@@ -449,6 +464,32 @@ const RAW_RUNTIME_STATE =
           ["@atls-ui-parts/button", "npm:0.0.16"]\
         ],\
         "linkType": "SOFT"\
+      }],\
+      ["virtual:a737c01e922d1732ff8918f97cdf1d24d93fc1f6297c85d36cc64ba48cf6b209dd9c95020cd600291f7affdac582a2572a825cee5442ddc5f52a89b5b3aa4a0c#npm:0.0.16", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-parts-button-virtual-2faa286245/0/cache/@atls-ui-parts-button-npm-0.0.16-d90787be09-330841b0fe.zip/node_modules/@atls-ui-parts/button/",\
+        "packageDependencies": [\
+          ["@atls-ui-parts/button", "virtual:a737c01e922d1732ff8918f97cdf1d24d93fc1f6297c85d36cc64ba48cf6b209dd9c95020cd600291f7affdac582a2572a825cee5442ddc5f52a89b5b3aa4a0c#npm:0.0.16"],\
+          ["@atls-ui-parts/styles", "virtual:75a212a0096c255aa851d5c44256ece96a97cc70e9ce29f89ca0d80cf3ef8d8a276215b95fcb7d972ea2326e0169a6c3ec32b119ed5575030511d51606d993a2#npm:0.0.6"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__styled", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@types/styled-tools", null],\
+          ["react", null],\
+          ["styled-system", "npm:5.1.5"],\
+          ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/styled",\
+          "@types/emotion__styled",\
+          "@types/react",\
+          "@types/styled-system",\
+          "@types/styled-tools",\
+          "react",\
+          "styled-system",\
+          "styled-tools"\
+        ],\
+        "linkType": "HARD"\
       }],\
       ["virtual:bd3125611ab512881992b7031a905a1c55edba6dcdf6d6349ef067e70b32ae4a8f2df211f40bedb2829d22b92defa008d92c0851b693126dd8eca07e4c358e61#npm:0.0.16", {\
         "packageLocation": "./.yarn/__virtual__/@atls-ui-parts-button-virtual-d335e2e1dc/0/cache/@atls-ui-parts-button-npm-0.0.16-d90787be09-330841b0fe.zip/node_modules/@atls-ui-parts/button/",\
@@ -952,6 +993,49 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@atls-ui-parts/portal", [\
+      ["npm:0.0.6", {\
+        "packageLocation": "./.yarn/cache/@atls-ui-parts-portal-npm-0.0.6-409e5f12a5-021265097e.zip/node_modules/@atls-ui-parts/portal/",\
+        "packageDependencies": [\
+          ["@atls-ui-parts/portal", "npm:0.0.6"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:23259a53ce682aa95cdeb3d1e127035b1f8ecfc91d0894c9854c8c3b54362e9afa6c8306c4eef2dc138405a8d1fafd2408c31229405f1bd6f247b32edf55ae98#npm:0.0.6", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-parts-portal-virtual-773ddac268/0/cache/@atls-ui-parts-portal-npm-0.0.6-409e5f12a5-021265097e.zip/node_modules/@atls-ui-parts/portal/",\
+        "packageDependencies": [\
+          ["@atls-ui-parts/portal", "virtual:23259a53ce682aa95cdeb3d1e127035b1f8ecfc91d0894c9854c8c3b54362e9afa6c8306c4eef2dc138405a8d1fafd2408c31229405f1bd6f247b32edf55ae98#npm:0.0.6"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:c68b65aec33b513cb585b45c968c9a8fea65fde02285707154b941604ca63d4b072a9e6c61c9df65f8c7af28cf7bff05270a36cc1c452388f9c5d2eb04a51102#npm:0.0.6", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-parts-portal-virtual-1a31e25d9d/0/cache/@atls-ui-parts-portal-npm-0.0.6-409e5f12a5-021265097e.zip/node_modules/@atls-ui-parts/portal/",\
+        "packageDependencies": [\
+          ["@atls-ui-parts/portal", "virtual:c68b65aec33b513cb585b45c968c9a8fea65fde02285707154b941604ca63d4b072a9e6c61c9df65f8c7af28cf7bff05270a36cc1c452388f9c5d2eb04a51102#npm:0.0.6"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["react", null],\
+          ["react-dom", null]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
     ["@atls-ui-parts/styles", [\
       ["npm:0.0.6", {\
         "packageLocation": "./.yarn/cache/@atls-ui-parts-styles-npm-0.0.6-968fc984d1-bb6ebb0054.zip/node_modules/@atls-ui-parts/styles/",\
@@ -1063,6 +1147,105 @@ const RAW_RUNTIME_STATE =
           "@emotion/styled",\
           "@types/emotion__styled",\
           "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }]\
+    ]],\
+    ["@atls-ui-proto/modal", [\
+      ["npm:0.0.6", {\
+        "packageLocation": "./.yarn/cache/@atls-ui-proto-modal-npm-0.0.6-857b3b7558-2c67b22781.zip/node_modules/@atls-ui-proto/modal/",\
+        "packageDependencies": [\
+          ["@atls-ui-proto/modal", "npm:0.0.6"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:022582748e26ff71edd1a892b9c1e97572220820919e45005e7819c1ae62563f2b767d6efb854723fb68ea687338ead52bdc9be8b471766fe8a99fb9a3ab5311#npm:0.0.6", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-proto-modal-virtual-23e03bf476/0/cache/@atls-ui-proto-modal-npm-0.0.6-857b3b7558-2c67b22781.zip/node_modules/@atls-ui-proto/modal/",\
+        "packageDependencies": [\
+          ["@atls-ui-proto/modal", "virtual:022582748e26ff71edd1a892b9c1e97572220820919e45005e7819c1ae62563f2b767d6efb854723fb68ea687338ead52bdc9be8b471766fe8a99fb9a3ab5311#npm:0.0.6"],\
+          ["@atls-ui-parts/portal", "virtual:c68b65aec33b513cb585b45c968c9a8fea65fde02285707154b941604ca63d4b072a9e6c61c9df65f8c7af28cf7bff05270a36cc1c452388f9c5d2eb04a51102#npm:0.0.6"],\
+          ["@emotion/css", null],\
+          ["@emotion/styled", null],\
+          ["@types/emotion__css", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["framer-motion", null],\
+          ["react", null],\
+          ["react-dom", null]\
+        ],\
+        "packagePeers": [\
+          "@emotion/css",\
+          "@emotion/styled",\
+          "@types/emotion__css",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/react-dom",\
+          "@types/react",\
+          "framer-motion",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:47a3d8251293ef47635fc02eaf41e5b2eeaf63c9afdceb72cf649a78cc482f02ee51775c4652b4e6409d59693aa0a7edf231236a8cd45970e45bdc3ab907af93#npm:0.0.6", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-proto-modal-virtual-23259a53ce/0/cache/@atls-ui-proto-modal-npm-0.0.6-857b3b7558-2c67b22781.zip/node_modules/@atls-ui-proto/modal/",\
+        "packageDependencies": [\
+          ["@atls-ui-proto/modal", "virtual:47a3d8251293ef47635fc02eaf41e5b2eeaf63c9afdceb72cf649a78cc482f02ee51775c4652b4e6409d59693aa0a7edf231236a8cd45970e45bdc3ab907af93#npm:0.0.6"],\
+          ["@atls-ui-parts/portal", "virtual:23259a53ce682aa95cdeb3d1e127035b1f8ecfc91d0894c9854c8c3b54362e9afa6c8306c4eef2dc138405a8d1fafd2408c31229405f1bd6f247b32edf55ae98#npm:0.0.6"],\
+          ["@emotion/css", null],\
+          ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
+          ["@types/emotion__css", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["framer-motion", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#npm:10.16.1"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/css",\
+          "@emotion/styled",\
+          "@types/emotion__css",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/react-dom",\
+          "@types/react",\
+          "framer-motion",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:606e4cbb190cb61253eb1a6573af9ab4478635440d696212f19e8afaf07487244fa42098f9863a1feeab6f4b088e8dd78b86a9101904966109df60a1fa6bbd7d#npm:0.0.6", {\
+        "packageLocation": "./.yarn/__virtual__/@atls-ui-proto-modal-virtual-c68b65aec3/0/cache/@atls-ui-proto-modal-npm-0.0.6-857b3b7558-2c67b22781.zip/node_modules/@atls-ui-proto/modal/",\
+        "packageDependencies": [\
+          ["@atls-ui-proto/modal", "virtual:606e4cbb190cb61253eb1a6573af9ab4478635440d696212f19e8afaf07487244fa42098f9863a1feeab6f4b088e8dd78b86a9101904966109df60a1fa6bbd7d#npm:0.0.6"],\
+          ["@atls-ui-parts/portal", "virtual:c68b65aec33b513cb585b45c968c9a8fea65fde02285707154b941604ca63d4b072a9e6c61c9df65f8c7af28cf7bff05270a36cc1c452388f9c5d2eb04a51102#npm:0.0.6"],\
+          ["@emotion/css", null],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__css", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["framer-motion", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#npm:10.16.1"],\
+          ["react", null],\
+          ["react-dom", null]\
+        ],\
+        "packagePeers": [\
+          "@emotion/css",\
+          "@emotion/styled",\
+          "@types/emotion__css",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/react-dom",\
+          "@types/react",\
+          "framer-motion",\
+          "react-dom",\
           "react"\
         ],\
         "linkType": "HARD"\
@@ -5250,6 +5433,31 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/background", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-background-virtual-08a87c8236/1/ui/background/",\
+        "packageDependencies": [\
+          ["@ui/background", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/background"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@ui/layout", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/layout"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["styled-system", "npm:5.1.5"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@types/emotion__react",\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["workspace:ui/background", {\
         "packageLocation": "./ui/background/",\
         "packageDependencies": [\
@@ -5296,6 +5504,44 @@ const RAW_RUNTIME_STATE =
           "@types/styled-tools",\
           "react-dom",\
           "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/button", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-button-virtual-a737c01e92/1/ui/button/",\
+        "packageDependencies": [\
+          ["@ui/button", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/button"],\
+          ["@atls-ui-generators/button", "npm:0.0.17"],\
+          ["@atls-ui-parts/button", "virtual:a737c01e922d1732ff8918f97cdf1d24d93fc1f6297c85d36cc64ba48cf6b209dd9c95020cd600291f7affdac582a2572a825cee5442ddc5f52a89b5b3aa4a0c#npm:0.0.16"],\
+          ["@atls-ui-parts/conditional-render", "virtual:bd3125611ab512881992b7031a905a1c55edba6dcdf6d6349ef067e70b32ae4a8f2df211f40bedb2829d22b92defa008d92c0851b693126dd8eca07e4c358e61#npm:0.0.6"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@types/styled-tools", null],\
+          ["@ui/layout", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/layout"],\
+          ["@ui/utils", "virtual:bd3125611ab512881992b7031a905a1c55edba6dcdf6d6349ef067e70b32ae4a8f2df211f40bedb2829d22b92defa008d92c0851b693126dd8eca07e4c358e61#workspace:ui/utils"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["styled-system", "npm:5.1.5"],\
+          ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/react-dom",\
+          "@types/react",\
+          "@types/styled-system",\
+          "@types/styled-tools",\
+          "react-dom",\
+          "react",\
+          "styled-system",\
+          "styled-tools"\
         ],\
         "linkType": "SOFT"\
       }],\
@@ -5469,6 +5715,30 @@ const RAW_RUNTIME_STATE =
           ["react", null]\
         ],\
         "packagePeers": [\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/icon", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-icon-virtual-88105cea8c/1/ui/icon/",\
+        "packageDependencies": [\
+          ["@ui/icon", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/icon"],\
+          ["@atls-ui-generators/icons", "virtual:cc4af9731b88ea805e69533b8e84c099475e0d2aba41cc2b56a69dae029f509c7bd0ba47d1600ab482db3a0e190ed6ace1fd815dc33166266bea59794a7d380d#npm:0.0.9"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["glob", "npm:8.1.0"],\
+          ["glob-promise", "virtual:cc4af9731b88ea805e69533b8e84c099475e0d2aba41cc2b56a69dae029f509c7bd0ba47d1600ab482db3a0e190ed6ace1fd815dc33166266bea59794a7d380d#npm:3.4.0"],\
+          ["react", null]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
           "@types/emotion__react",\
           "@types/emotion__styled",\
           "@types/react",\
@@ -5818,6 +6088,45 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/link", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-link-virtual-b80f6a95ce/1/ui/link/",\
+        "packageDependencies": [\
+          ["@ui/link", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/link"],\
+          ["@atls-ui-parts/link", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:0.0.12"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@types/styled-tools", null],\
+          ["@ui/text", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/text"],\
+          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["styled-system", "npm:5.1.5"],\
+          ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/next",\
+          "@types/react-dom",\
+          "@types/react",\
+          "@types/styled-system",\
+          "@types/styled-tools",\
+          "next",\
+          "react-dom",\
+          "react",\
+          "styled-system",\
+          "styled-tools"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/link", {\
         "packageLocation": "./.yarn/__virtual__/@ui-link-virtual-152543b77c/1/ui/link/",\
         "packageDependencies": [\
@@ -5870,6 +6179,159 @@ const RAW_RUNTIME_STATE =
           ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
           ["styled-system", "npm:5.1.5"],\
           ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@ui/logo", [\
+      ["virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/logo", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-logo-virtual-6fe26c6396/1/ui/logo/",\
+        "packageDependencies": [\
+          ["@ui/logo", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/logo"],\
+          ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/react-intl", null],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@ui/link", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/link"],\
+          ["next", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:12.3.4"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"],\
+          ["react-intl", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:6.0.8"],\
+          ["styled-system", "npm:5.1.5"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/next",\
+          "@types/react-dom",\
+          "@types/react-intl",\
+          "@types/react",\
+          "@types/styled-system",\
+          "next",\
+          "react-dom",\
+          "react-intl",\
+          "react",\
+          "styled-system"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/logo", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-logo-virtual-b345ddacd0/1/ui/logo/",\
+        "packageDependencies": [\
+          ["@ui/logo", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/logo"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/react-intl", null],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@ui/link", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/link"],\
+          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["react-intl", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:6.0.8"],\
+          ["styled-system", "npm:5.1.5"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/next",\
+          "@types/react-dom",\
+          "@types/react-intl",\
+          "@types/react",\
+          "@types/styled-system",\
+          "next",\
+          "react-dom",\
+          "react-intl",\
+          "react",\
+          "styled-system"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:ui/logo", {\
+        "packageLocation": "./ui/logo/",\
+        "packageDependencies": [\
+          ["@ui/logo", "workspace:ui/logo"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@ui/link", "virtual:bdc7cb2329ed28ac2ef237d184e1bd2ea88bdc5a1c40fdb6a0498797c5b338eded48a3aad8ef0da75b67d0b1f381233c6ef8d33d8b0ab8cee0f8d25582dc7da4#workspace:ui/link"],\
+          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@ui/modal", [\
+      ["virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/modal", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-modal-virtual-47a3d82512/1/ui/modal/",\
+        "packageDependencies": [\
+          ["@ui/modal", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/modal"],\
+          ["@atls-ui-proto/modal", "virtual:47a3d8251293ef47635fc02eaf41e5b2eeaf63c9afdceb72cf649a78cc482f02ee51775c4652b4e6409d59693aa0a7edf231236a8cd45970e45bdc3ab907af93#npm:0.0.6"],\
+          ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["framer-motion", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#npm:10.16.1"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/styled",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/react-dom",\
+          "@types/react",\
+          "framer-motion",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/modal", {\
+        "packageLocation": "./.yarn/__virtual__/@ui-modal-virtual-606e4cbb19/1/ui/modal/",\
+        "packageDependencies": [\
+          ["@ui/modal", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/modal"],\
+          ["@atls-ui-proto/modal", "virtual:606e4cbb190cb61253eb1a6573af9ab4478635440d696212f19e8afaf07487244fa42098f9863a1feeab6f4b088e8dd78b86a9101904966109df60a1fa6bbd7d#npm:0.0.6"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["framer-motion", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#npm:10.16.1"],\
+          ["react", null],\
+          ["react-dom", null]\
+        ],\
+        "packagePeers": [\
+          "@emotion/styled",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/react-dom",\
+          "@types/react",\
+          "framer-motion",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:ui/modal", {\
+        "packageLocation": "./ui/modal/",\
+        "packageDependencies": [\
+          ["@ui/modal", "workspace:ui/modal"],\
+          ["@atls-ui-proto/modal", "virtual:022582748e26ff71edd1a892b9c1e97572220820919e45005e7819c1ae62563f2b767d6efb854723fb68ea687338ead52bdc9be8b471766fe8a99fb9a3ab5311#npm:0.0.6"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -6115,6 +6577,126 @@ const RAW_RUNTIME_STATE =
         "linkType": "SOFT"\
       }]\
     ]],\
+    ["@user/header-fragment", [\
+      ["virtual:7388a5e53d93275590b03f8ff30164a257b6ab667672f04d6414d345233d2b2b9b18af0c50ec83f62c0fc5967901dc24b9cb20562cd754aa70384189cb62e3ca#workspace:features/user/client/fragments/header-fragment", {\
+        "packageLocation": "./.yarn/__virtual__/@user-header-fragment-virtual-3263e1af90/1/features/user/client/fragments/header-fragment/",\
+        "packageDependencies": [\
+          ["@user/header-fragment", "virtual:7388a5e53d93275590b03f8ff30164a257b6ab667672f04d6414d345233d2b2b9b18af0c50ec83f62c0fc5967901dc24b9cb20562cd754aa70384189cb62e3ca#workspace:features/user/client/fragments/header-fragment"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/react-intl", null],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@ui/background", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/background"],\
+          ["@ui/button", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/button"],\
+          ["@ui/icon", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/icon"],\
+          ["@ui/layout", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/layout"],\
+          ["@ui/link", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/link"],\
+          ["@ui/logo", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/logo"],\
+          ["@ui/modal", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/modal"],\
+          ["@ui/text", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/text"],\
+          ["framer-motion", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#npm:10.16.1"],\
+          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["react-intl", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:6.0.8"],\
+          ["styled-system", "npm:5.1.5"],\
+          ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/next",\
+          "@types/react-dom",\
+          "@types/react-intl",\
+          "@types/react",\
+          "next",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:7beea308ad9afef92a38ec020f5b222fcc7c8c8885cd93428df0457be1acca8dd95ff54cbb0a5a9e25c76c87c463df13846bd24b595c81bc9d17f9a5667e5985#workspace:features/user/client/fragments/header-fragment", {\
+        "packageLocation": "./.yarn/__virtual__/@user-header-fragment-virtual-0e86808db1/1/features/user/client/fragments/header-fragment/",\
+        "packageDependencies": [\
+          ["@user/header-fragment", "virtual:7beea308ad9afef92a38ec020f5b222fcc7c8c8885cd93428df0457be1acca8dd95ff54cbb0a5a9e25c76c87c463df13846bd24b595c81bc9d17f9a5667e5985#workspace:features/user/client/fragments/header-fragment"],\
+          ["@emotion/react", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/framer-motion", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/react-intl", null],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@ui/background", "virtual:8a45899c4893f6603f44eab33f38aad09e9bd508dc53a5ac0a576901b87aa31d6b5462f679bc7f89adfa54de1976fc3be74cae19bb4753b11512afdb08cf2b57#workspace:ui/background"],\
+          ["@ui/button", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/button"],\
+          ["@ui/icon", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/icon"],\
+          ["@ui/layout", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/layout"],\
+          ["@ui/link", "virtual:ea6d215f4183d7b1f0f5d886a4ce3c3c4c6ef742bf6c5fc6a10e32906d705740b7bcba97cac3527376dffbfbbe28e9fda9b73f8ca0528389e2445e5a52b1c918#workspace:ui/link"],\
+          ["@ui/logo", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/logo"],\
+          ["@ui/modal", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#workspace:ui/modal"],\
+          ["@ui/text", "virtual:df355b7723cb12c0ee56ea5ce1ee7819c5af3fd1719e51b758b38a8c0838745b3f131b1693e21739a11a32612d3abaa5b0b56d2d59bc05c37a4611807aab0a59#workspace:ui/text"],\
+          ["framer-motion", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#npm:10.16.1"],\
+          ["next", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:12.3.4"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"],\
+          ["react-intl", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:6.0.8"],\
+          ["styled-system", "npm:5.1.5"],\
+          ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/framer-motion",\
+          "@types/next",\
+          "@types/react-dom",\
+          "@types/react-intl",\
+          "@types/react",\
+          "@types/styled-system",\
+          "next",\
+          "react-dom",\
+          "react-intl",\
+          "react",\
+          "styled-system"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:features/user/client/fragments/header-fragment", {\
+        "packageLocation": "./features/user/client/fragments/header-fragment/",\
+        "packageDependencies": [\
+          ["@user/header-fragment", "workspace:features/user/client/fragments/header-fragment"],\
+          ["@emotion/react", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#npm:11.9.3"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/styled-system", "npm:5.1.20"],\
+          ["@ui/background", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/background"],\
+          ["@ui/button", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/button"],\
+          ["@ui/icon", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/icon"],\
+          ["@ui/layout", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/layout"],\
+          ["@ui/link", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/link"],\
+          ["@ui/logo", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/logo"],\
+          ["@ui/modal", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#workspace:ui/modal"],\
+          ["@ui/text", "virtual:fb31a642662bc1d63011e5485b734598dea982a5add27e0332ddb5c594d59106401366865dfae56588203cb5795328156f9ca859243507392de2edf1fa3d2270#workspace:ui/text"],\
+          ["framer-motion", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#npm:10.16.1"],\
+          ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"],\
+          ["react-intl", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#npm:6.0.8"],\
+          ["styled-system", "npm:5.1.5"],\
+          ["styled-tools", "npm:1.7.2"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@user/index-page", [\
       ["virtual:4b6ef69a4bd0fd68f62615386152cff3722785822462708af139696561d65791f01952dbf465a7cf5a55cd1b530b269908f2fa448b3fe057dd5a48aff32bb989#workspace:features/user/client/pages/index-page", {\
         "packageLocation": "./.yarn/__virtual__/@user-index-page-virtual-9242840965/1/features/user/client/pages/index-page/",\
@@ -6190,6 +6772,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-intl", null],\
           ["@types/styled-system", "npm:5.1.20"],\
           ["@ui/background", "virtual:8a45899c4893f6603f44eab33f38aad09e9bd508dc53a5ac0a576901b87aa31d6b5462f679bc7f89adfa54de1976fc3be74cae19bb4753b11512afdb08cf2b57#workspace:ui/background"],\
+          ["@user/header-fragment", "virtual:7beea308ad9afef92a38ec020f5b222fcc7c8c8885cd93428df0457be1acca8dd95ff54cbb0a5a9e25c76c87c463df13846bd24b595c81bc9d17f9a5667e5985#workspace:features/user/client/fragments/header-fragment"],\
           ["next", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:12.3.4"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"],\
@@ -6221,6 +6804,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.30"],\
           ["@types/react-dom", "npm:18.2.14"],\
           ["@ui/background", "virtual:65729a862fad1aba8e89f8b43c616735306ae1c86307b69757c2689dc66ca7db68b8789801feb73dbab3c8a85a067e02be9aeeeb99883281dbe1ec3f3a1be0c9#workspace:ui/background"],\
+          ["@user/header-fragment", "virtual:7388a5e53d93275590b03f8ff30164a257b6ab667672f04d6414d345233d2b2b9b18af0c50ec83f62c0fc5967901dc24b9cb20562cd754aa70384189cb62e3ca#workspace:features/user/client/fragments/header-fragment"],\
           ["next", "virtual:6b61a2b1e0bae48851790adb59b2be5329b0cd3a1e6988aaaf3e8e476dc8e63ce673616d380cdec6cc7f5b6e03bc0a8109bd5d921a8c25fbf453f6f62bcccf29#npm:12.3.4"]\
         ],\
         "linkType": "SOFT"\
@@ -9767,6 +10351,13 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["npm:10.16.1", {\
+        "packageLocation": "./.yarn/cache/framer-motion-npm-10.16.1-73639ed293-01b047a845.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "npm:10.16.1"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
       ["virtual:0a38d618a2619b06d4393517a90dfd324a2127709429c1f7f832b1355850a4f5944fe86e2072f201ddd11b4296dcb0e91b1374348b4385c914e04c4515837f41#npm:10.15.2", {\
         "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-a2fd2adcd3/0/cache/framer-motion-npm-10.15.2-3eff176406-630b575886.zip/node_modules/framer-motion/",\
         "packageDependencies": [\
@@ -9777,6 +10368,25 @@ const RAW_RUNTIME_STATE =
           ["react", null],\
           ["react-dom", null],\
           ["tslib", "npm:2.5.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#npm:10.16.1", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-36e677122b/0/cache/framer-motion-npm-10.16.1-73639ed293-01b047a845.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "virtual:0e86808db12c10d74a6e1b421c25ee22d3be5e1a087fd8bff6f2be19085001d19412cb21a8701df88871e8f449432fb7e308253a8d914da0c7a59a1db2b6bdff#npm:10.16.1"],\
+          ["@emotion/is-prop-valid", "npm:0.8.8"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:7ee891d52eff4d8712793a18188ac270c7e91a760a5379ff596216af0622c44046bf6edeceadb0d77cf4eb9fecd88eef07f8a6d3e237c42585117a51e08c7db9#npm:18.2.0"],\
+          ["tslib", "npm:2.6.2"]\
         ],\
         "packagePeers": [\
           "@types/react-dom",\
@@ -9815,6 +10425,25 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.2.0"],\
           ["react-dom", null],\
           ["tslib", "npm:2.5.0"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-dom",\
+          "@types/react",\
+          "react-dom",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#npm:10.16.1", {\
+        "packageLocation": "./.yarn/__virtual__/framer-motion-virtual-24dec8d9bd/0/cache/framer-motion-npm-10.16.1-73639ed293-01b047a845.zip/node_modules/framer-motion/",\
+        "packageDependencies": [\
+          ["framer-motion", "virtual:c9f6288f19d0b9b5fb70382a844b34e2ca8e4f15f4842547f25c1591ff6721041c8e05f7b19ac4e6c0aeced373cb72d95d6438242c886ffebf70acaa1564110f#npm:10.16.1"],\
+          ["@emotion/is-prop-valid", "npm:0.8.8"],\
+          ["@types/react", "npm:18.2.30"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["tslib", "npm:2.6.2"]\
         ],\
         "packagePeers": [\
           "@types/react-dom",\
