@@ -1,0 +1,21 @@
+{
+  "name": "@app/renderer",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "license": "BSD-3-Clause",
+  "dependencies": {
+    "@emotion/react": "11.9.3",
+    "@emotion/styled": "11.9.3",
+    "next": "12.3.4",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-intl": "6.0.8",
+    "styled-system": "5.1.5",
+    "styled-tools": "1.7.2"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.31",
+    "@types/react-dom": "18.2.14",
+    "@types/styled-system": "5.1.20"
+  }
+}
