@@ -50,8 +50,8 @@ export const Icon: FC = () => (
         y2='0.0142562'
         gradientUnits='userSpaceOnUse'
       >
-        <stop stop-color='#9747FF' />
-        <stop offset='1' stop-color='#9747FF' stop-opacity='0' />
+        <stop stopColor='#9747FF' />
+        <stop offset='1' stopColor='#9747FF' stopOpacity='0' />
       </linearGradient>
     </defs>
   </svg>
