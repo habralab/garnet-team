@@ -4,16 +4,26 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "@atls-ui-proto/modal": "0.0.6"
+    "@atls-ui-proto/modal": "0.0.6",
+    "@ui/background": "workspace:0.0.1",
+    "@ui/button": "workspace:0.0.1",
+    "@ui/condition": "workspace:0.0.1",
+    "@ui/icon": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.30",
-    "@types/react-dom": "18.2.14"
+    "@types/react-dom": "18.2.14",
+    "react-intl": "6.0.8"
   },
   "peerDependencies": {
+    "@emotion/react": "*",
     "@emotion/styled": "*",
     "framer-motion": "*",
     "react": "*",
-    "react-dom": "*"
+    "react-dom": "*",
+    "react-intl": "*",
+    "styled-system": "*"
   }
 }
