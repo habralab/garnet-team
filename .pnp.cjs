@@ -22,6 +22,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:features/user/client/user-dashboard/entrypoints/dashboard"\
     },\
     {\
+      "name": "@dashboard/index-page",\
+      "reference": "workspace:features/user/client/user-dashboard/pages/index-page"\
+    },\
+    {\
       "name": "@shared/keto",\
       "reference": "workspace:shared/keto"\
     }\
@@ -29,6 +33,7 @@ const RAW_RUNTIME_STATE =
   "enableTopLevelFallback": true,\
   "ignorePatternData": "(^(?:\\\\.yarn\\\\/sdks(?:\\\\/(?!\\\\.{1,2}(?:\\\\/|$))(?:(?:(?!(?:^|\\\\/)\\\\.{1,2}(?:\\\\/|$)).)*?)|$))$)",\
   "fallbackExclusionList": [\
+    ["@dashboard/index-page", ["virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#workspace:features/user/client/user-dashboard/pages/index-page", "workspace:features/user/client/user-dashboard/pages/index-page"]],\
     ["@dashboard/renderer-entrypoint", ["workspace:features/user/client/user-dashboard/entrypoints/dashboard"]],\
     ["@identity/renderer-entrypoint", ["workspace:features/identity/client/entrypoints/accounts-app"]],\
     ["@shared/keto", ["workspace:shared/keto"]],\
@@ -1236,11 +1241,56 @@ const RAW_RUNTIME_STATE =
         "linkType": "HARD"\
       }]\
     ]],\
+    ["@dashboard/index-page", [\
+      ["virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#workspace:features/user/client/user-dashboard/pages/index-page", {\
+        "packageLocation": "./.yarn/__virtual__/@dashboard-index-page-virtual-3e417986f1/1/features/user/client/user-dashboard/pages/index-page/",\
+        "packageDependencies": [\
+          ["@dashboard/index-page", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#workspace:features/user/client/user-dashboard/pages/index-page"],\
+          ["@emotion/react", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:11.9.3"],\
+          ["@emotion/styled", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:11.9.3"],\
+          ["@types/emotion__react", null],\
+          ["@types/emotion__styled", null],\
+          ["@types/next", null],\
+          ["@types/react", "npm:18.2.31"],\
+          ["@types/react-dom", "npm:18.2.14"],\
+          ["@types/react-intl", null],\
+          ["next", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:12.3.4"],\
+          ["react", "npm:18.2.0"],\
+          ["react-dom", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:18.2.0"],\
+          ["react-intl", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:6.0.8"]\
+        ],\
+        "packagePeers": [\
+          "@emotion/react",\
+          "@emotion/styled",\
+          "@types/emotion__react",\
+          "@types/emotion__styled",\
+          "@types/next",\
+          "@types/react-dom",\
+          "@types/react-intl",\
+          "@types/react",\
+          "next",\
+          "react-dom",\
+          "react-intl",\
+          "react"\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["workspace:features/user/client/user-dashboard/pages/index-page", {\
+        "packageLocation": "./features/user/client/user-dashboard/pages/index-page/",\
+        "packageDependencies": [\
+          ["@dashboard/index-page", "workspace:features/user/client/user-dashboard/pages/index-page"],\
+          ["@types/react", "npm:18.2.31"],\
+          ["@types/react-dom", "npm:18.2.14"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
     ["@dashboard/renderer-entrypoint", [\
       ["workspace:features/user/client/user-dashboard/entrypoints/dashboard", {\
         "packageLocation": "./features/user/client/user-dashboard/entrypoints/dashboard/",\
         "packageDependencies": [\
           ["@dashboard/renderer-entrypoint", "workspace:features/user/client/user-dashboard/entrypoints/dashboard"],\
+          ["@dashboard/index-page", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#workspace:features/user/client/user-dashboard/pages/index-page"],\
           ["@emotion/react", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:11.9.3"],\
           ["@emotion/styled", "virtual:914babe7119fe64323a217b8add1c9ee95fe8a0cd7586239428c04b6e2b696d02c07ac46fd9e9b82ac46af941cdd6c4925550c85e0775288b523160e283dfef8#npm:11.9.3"],\
           ["@formatjs/cli", "npm:4.8.4"],\

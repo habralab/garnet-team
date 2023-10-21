@@ -9,6 +9,7 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@dashboard/index-page": "workspace:^",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "next": "12.3.4",
