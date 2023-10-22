@@ -3524,6 +3524,7 @@ __metadata:
     "@ui/theme": "workspace:0.0.1"
     "@user/index-page": "workspace:0.0.1"
     "@user/user-page": "workspace:0.0.1"
+    "@user/user-teams-page": "workspace:0.0.1"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -3545,6 +3546,58 @@ __metadata:
     "@ui/background": "workspace:0.0.1"
     "@user/header-fragment": "workspace:0.0.1"
     "@user/profile-fragment": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@user/user-teams-fragment@workspace:0.0.1, @user/user-teams-fragment@workspace:features/user/client/fragments/user-teams-fragment":
+  version: 0.0.0-use.local
+  resolution: "@user/user-teams-fragment@workspace:features/user/client/fragments/user-teams-fragment"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/avatar": "workspace:0.0.1"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/condition": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/link": "workspace:0.0.1"
+    "@ui/modal": "workspace:0.0.1"
+    "@ui/tag": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    "@ui/title": "workspace:0.0.1"
+    framer-motion: "npm:10.16.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    framer-motion: "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@user/user-teams-page@workspace:0.0.1, @user/user-teams-page@workspace:features/user/client/pages/user-teams-page":
+  version: 0.0.0-use.local
+  resolution: "@user/user-teams-page@workspace:features/user/client/pages/user-teams-page"
+  dependencies:
+    "@types/react": "npm:18.2.30"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    "@user/header-fragment": "workspace:0.0.1"
+    "@user/user-teams-fragment": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
     "@emotion/react": "*"

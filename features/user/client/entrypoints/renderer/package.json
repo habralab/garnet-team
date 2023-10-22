@@ -15,6 +15,7 @@
     "@ui/theme": "workspace:0.0.1",
     "@user/index-page": "workspace:0.0.1",
     "@user/user-page": "workspace:0.0.1",
+    "@user/user-teams-page": "workspace:0.0.1",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
