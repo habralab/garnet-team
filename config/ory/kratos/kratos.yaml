@@ -41,8 +41,8 @@ session:
 selfservice:
   default_browser_return_url: http://localhost:3000/app
   allowed_return_urls:
-    - http://localhost:3000/app
-    - http://localhost:4455/app
+    - http://localhost:3000/
+    - http://localhost:4455/
 
   methods:
     password:
@@ -71,11 +71,10 @@ selfservice:
       enabled: true
       ui_url: http://localhost:3000/auth/recovery
       use: link
+      lifespan: 1h
 
     verification:
-      enabled: true
-      use: link
-      ui_url: http://localhost:3000/auth/verification
+      enabled: false
 
     logout:
       after:
@@ -83,14 +82,12 @@ selfservice:
 
     login:
       ui_url: http://localhost:3000/auth/login
-      after:
-        hooks:
-          - hook: require_verified_address
 
     registration:
       ui_url: http://localhost:3000/auth/registration
       lifespan: 10m
       after:
+        default_browser_return_url: http://localhost:3000/auth/confirmation
         hooks:
           - hook: web_hook
             config:

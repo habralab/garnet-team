@@ -90,6 +90,7 @@ namespace Garnet.Team
                 o.RegisterMessage<TeamUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationCreatedEvent>();
+                o.RegisterMessage<TeamJoinInvitationDecidedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamJoinProjectRequestCreatedEvent>();
             });
@@ -137,7 +138,10 @@ namespace Garnet.Team
         public static void AddTeamJoinInvitationInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
+            
             services.AddScoped<TeamJoinInviteCommand>();
+            services.AddScoped<TeamJoinInvitationDecideCommand>();
+
             services.AddScoped<TeamJoinInvitationsShowQuery>();
         }
 
