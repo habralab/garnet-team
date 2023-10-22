@@ -1,13 +1,15 @@
 ﻿using FluentAssertions;
-using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.AcceptanceTests.Support;
-using Garnet.Projects.Application.ProjectTeamParticipant;
+using Garnet.Projects.Application.Project;
+using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
+using Garnet.Projects.Infrastructure.MongoDb.Project;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
-namespace Garnet.Projects.AcceptanceTests.Features.ProjectTeamParticipantsUsers_ProjectsGet;
+namespace Garnet.Projects.AcceptanceTests.Features.ProjectTeamParticipantsUsersAndProjectsGet;
 
 [Binding]
 public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
@@ -30,19 +32,33 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
         var userParticipants = new List<ProjectUserEntity>();
         for (var i = 0; i < participantCount; i++)
         {
-            userParticipants.Add(new UserParticipant(
-                Uuid.NewMongo(),
-                $"User{i}",
-                ""));
+            var user = GiveMe.ProjectUser().WithUserName($"User{i}");
+            userParticipants.Add(ProjectUserDocument.ToDomain(user));
         }
 
-        await Db.ProjectTeamsParticipants.UpdateOneAsync(
+        await Db.ProjectTeamsParticipants.UpdateManyAsync(
             _f.Eq(x => x.TeamName, teamName),
-            _u.Set<UserParticipant[]>(x => x.UserParticipants, userParticipants.ToArray())
+            _u.Set<ProjectUserEntity[]>(x => x.UserParticipants, userParticipants.ToArray())
         );
     }
 
-    [When(@"происходит получение списка команд-участников проекта '([^']*)'")]
+    [Given(@"в команде '([^']*)' количество проектов равно '([^']*)'")]
+    public async Task GivenВКомандеКоличествоПроектовРавно(string teamName, int projectsCount)
+    {
+        var projectList = new List<ProjectEntity>();
+        for (var i = 0; i < projectsCount; i++)
+        {
+            var project = GiveMe.Project().WithProjectName($"Project{i}");
+            projectList.Add(ProjectDocument.ToDomain(project));
+        }
+
+        await Db.ProjectTeamsParticipants.UpdateManyAsync(
+            _f.Eq(x => x.TeamName, teamName),
+            _u.Set<ProjectEntity[]>(x => x.Projects, projectList.ToArray())
+        );
+    }
+
+    [When(@"происходит получение списка команд участников проекта '([^']*)'")]
     public async Task WhenПроисходитПолученияСпискаКомандУчастниковПроекта(string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
@@ -54,6 +70,13 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
     public Task ThenКоличествоУчастниковВПервойКомандеСпискаРавно(int userParticipantsCount)
     {
         _response!.ProjectTeamParticipant.First().UserParticipants.Count().Should().Be(userParticipantsCount);
+        return Task.CompletedTask;
+    }
+
+    [Then(@"количество проектов в первой команде списка равно '([^']*)'")]
+    public Task ThenКоличествоПроектовВПервойКомандеСпискаРавно(int projectsCount)
+    {
+        _response!.ProjectTeamParticipant.First().Projects.Count().Should().Be(projectsCount);
         return Task.CompletedTask;
     }
 }
