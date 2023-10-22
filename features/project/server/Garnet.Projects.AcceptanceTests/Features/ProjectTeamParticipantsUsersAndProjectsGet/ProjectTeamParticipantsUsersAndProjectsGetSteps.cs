@@ -25,11 +25,10 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
     }
 
     [Given(@"в команде '([^']*)' количество участников равно '([^']*)'")]
-    public async Task GivenВКомандеКоличествоУчастниковРавно(string teamName, string participantCount)
+    public async Task GivenВКомандеКоличествоУчастниковРавно(string teamName, int participantCount)
     {
-        var userParticipants = new List<UserParticipant>();
-        int.TryParse(participantCount, out var participantCountInt);
-        for (var i = 0; i <= participantCountInt; i++)
+        var userParticipants = new List<ProjectUserEntity>();
+        for (var i = 0; i < participantCount; i++)
         {
             userParticipants.Add(new UserParticipant(
                 Uuid.NewMongo(),

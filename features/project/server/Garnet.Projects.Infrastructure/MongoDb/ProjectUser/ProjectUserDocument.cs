@@ -6,7 +6,7 @@ public record ProjectUserDocument
 {
     public string Id { get; init; } = null!;
     public string UserName { get; set; } = null!;
-    public string UserAvatarUrl { get; set; } = null!;
+    public string UserAvatarUrl { get; set; } = "";
 
     public static ProjectUserDocument Create(string id, string userName)
     {

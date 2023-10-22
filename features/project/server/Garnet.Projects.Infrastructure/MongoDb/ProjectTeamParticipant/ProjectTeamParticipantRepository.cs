@@ -1,6 +1,7 @@
 ﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.ProjectTeamParticipant;
+using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 using MongoDB.Driver;
 
@@ -29,11 +30,11 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         var team = await db.ProjectTeams.Find(x => x.Id == teamId).FirstAsync(ct);
         var userParticipantsIds = team.UserParticipantsId;
 
-        var userParticipants = new List<UserParticipant>();
+        var userParticipants = new List<ProjectUserEntity>();
         foreach (var userId in userParticipantsIds)
         {
             var user = await db.ProjectUsers.Find(x => x.Id == userId).FirstAsync(ct);
-            userParticipants.Add(new UserParticipant(user.Id, user.UserName, user.UserAvatarUrl));
+            userParticipants.Add(new ProjectUserEntity(user.Id, user.UserName, user.UserAvatarUrl));
         }
 
         var projectsIdOfTeamParticipant =

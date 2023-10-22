@@ -1,7 +1,7 @@
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project;
-using Garnet.Projects.Application.ProjectTeamParticipant;
+using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 
 namespace Garnet.Projects.AcceptanceTests.Support;
@@ -13,9 +13,9 @@ public class ProjectTeamParticipantDocumentBuilder
     private string _teamName = "TeamName";
     private string _projectId = Uuid.NewMongo();
 
-    private UserParticipant[] _userParticipants =
+    private ProjectUserEntity[] _userParticipants =
     {
-        new UserParticipant(
+        new ProjectUserEntity(
             Uuid.NewMongo(),
             "Username",
             "")
