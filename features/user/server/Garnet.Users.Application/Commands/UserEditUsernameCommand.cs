@@ -23,6 +23,11 @@ namespace Garnet.Users.Application.Commands
 
         public async Task<Result<User>> Execute(CancellationToken ct, string newUsername)
         {
+            if (string.IsNullOrWhiteSpace(newUsername))
+            {
+                return Result.Fail(new UsernameCanNotBeEmptyError());
+            }
+
             var user = await _usersRepository.GetUser(ct, _currentUserProvider.UserId);
             if (user is null)
             {

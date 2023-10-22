@@ -1,0 +1,22 @@
+{
+  "name": "@ui/icon",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "generate-icons src/ -i ./icons -r replacements.ts"
+  },
+  "devDependencies": {
+    "@atls-ui-generators/icons": "0.0.9",
+    "@emotion/react": "11.9.3",
+    "@emotion/styled": "11.9.3",
+    "@types/react": "18.2.30",
+    "glob": "8.1.0",
+    "glob-promise": "3.4.0"
+  },
+  "peerDependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "react": "*"
+  }
+}

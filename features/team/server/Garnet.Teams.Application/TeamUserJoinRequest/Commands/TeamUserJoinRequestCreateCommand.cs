@@ -3,6 +3,9 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
+using Garnet.Teams.Application.TeamJoinInvitation;
+using Garnet.Teams.Application.TeamJoinInvitation.Args;
+using Garnet.Teams.Application.TeamJoinInvitation.Errors;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
@@ -19,10 +22,12 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
         private readonly ITeamParticipantRepository _participantRepository;
         private readonly ITeamUserRepository _userRepository;
         private readonly IMessageBus _messageBus;
+        private readonly ITeamJoinInvitationRepository _teamJoinInvitationRepository;
 
         public TeamUserJoinRequestCreateCommand(
             ICurrentUserProvider currentUserProvider,
             ITeamRepository teamRepository,
+            ITeamJoinInvitationRepository teamJoinInvitationRepository,
             ITeamUserJoinRequestRepository userJoinRequestRepository,
             ITeamParticipantRepository participantRepository,
             ITeamUserRepository userRepository,
@@ -31,6 +36,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
             _userRepository = userRepository;
+            _teamJoinInvitationRepository = teamJoinInvitationRepository;
             _participantRepository = participantRepository;
             _userJoinRequestRepository = userJoinRequestRepository;
             _messageBus = messageBus;
@@ -56,8 +62,15 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
                 return Result.Fail(new TeamPendingUserJoinRequestError(_currentUserProvider.UserId));
             }
 
+            var joinInvitationFilter = new TeamJoinInvitationFilterArgs(user.Id, teamId);
+            var teamJoinInvitations = await _teamJoinInvitationRepository.FilterInvitations(ct, joinInvitationFilter);
+            if (teamJoinInvitations.Length > 0)
+            {
+                return Result.Fail(new TeamPendingJoinInvitationError(user.Id));
+            }
+
             var userTeams = await _participantRepository.GetMembershipOfUser(ct, user.Id);
-            if (userTeams.Any(x=> x.TeamId == teamId))
+            if (userTeams.Any(x => x.TeamId == teamId))
             {
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
             }

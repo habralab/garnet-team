@@ -36,7 +36,10 @@ public class UsersMutation
     public async Task<UserCreatePayload> UserCreate(CancellationToken ct, UserCreateInput input)
     {
         var result = await _userCreateCommand.Execute(ct, input.IdentityId, input.UserName);
-        return new UserCreatePayload(result.Id, result.UserName, result.Description, result.AvatarUrl, result.Tags);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var user = result.Value;
+        return new UserCreatePayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
     }
 
     public async Task<UserEditDescriptionPayload> UserEditDescription(CancellationToken ct, UserEditDescriptionInput input)

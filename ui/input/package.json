@@ -1,0 +1,31 @@
+{
+  "name": "@ui/input",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "scripts": {
+    "generate-styles": "generate-styles src/styles/appearance -t ../../ui/theme/src/theme/colors.ts"
+  },
+  "dependencies": {
+    "@atls-ui-generators/input": "0.0.11",
+    "@atls-ui-parts/conditional-render": "0.0.6",
+    "@atls-ui-parts/input": "0.0.15",
+    "@ui/condition": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@emotion/styled": "11.9.3",
+    "@types/react": "18.2.30",
+    "@types/react-dom": "18.2.14",
+    "styled-tools": "1.7.2"
+  },
+  "peerDependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "react": "*",
+    "react-dom": "*",
+    "styled-system": "*",
+    "styled-tools": "*"
+  }
+}

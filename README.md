@@ -27,7 +27,7 @@ API: **GraphQL**
 | [**Андрей**](https://career.habr.com/torinasakura) | [**Данила**](https://github.com/picolino) |
 | Фронтенд разработчики                              | Бекенд разработчики                       |
 | [Никита](https://career.habr.com/nelfimov1)        | [Дамир](https://career.habr.com/demorey)  |
-| [Руслан](https://career.habr.com/kentjs)           | [Юлия](https://career.habr.com/gfg7)      |
+| [Дмитрий](https://career.habr.com/amiditin)        | [Юлия](https://career.habr.com/gfg7)      |
 | Дизайнеры                                          |                                           |
 | [Дмитрий](https://career.habr.com/dmitryadv)       |                                           |
 | [Анна](https://career.habr.com/exanngell)          |                                           |
