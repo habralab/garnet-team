@@ -22,8 +22,8 @@ public static class Program
 
         builder.WebHost.UseUrls("http://*:3000");
 
+        builder.Services.AddKratosAuth(); // Uncomment when Kratos will be ready to handle authorization
         builder.Services.AddSecretKeyAuth();
-        // builder.Services.AddKratosAuth(); // Uncomment when Kratos will be ready to handle authorization
         
         builder.Services
             .AddHttpContextAccessor()
