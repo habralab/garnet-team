@@ -34,6 +34,7 @@ using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using Garnet.Teams.Events.Team;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
+using Garnet.Teams.Events.TeamUserJoinRequest;
 using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -111,6 +112,7 @@ public static class Startup
 
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
             o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
+            o.RegisterConsumer<TeamUserJoinRequestDecidedEventConsumer, TeamUserJoinRequestDecidedEvent>();
         });
     }
 
