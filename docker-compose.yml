@@ -45,7 +45,8 @@ services:
     environment:
       - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
       - LOG_LEVEL=trace
-    command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
+    #УБРАТЬ dev, ТОЛЬКО ДЛЯ ТЕСТИРОВАНИЯ
+    command: serve --dev -c /config/kratos/kratos.yaml --dev --watch-courier
     volumes:
       - type: bind
         source: ./config/ory/kratos
