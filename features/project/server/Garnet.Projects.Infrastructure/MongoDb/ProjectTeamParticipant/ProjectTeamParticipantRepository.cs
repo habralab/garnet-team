@@ -82,4 +82,20 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
             cancellationToken: ct
         );
     }
+
+    public async Task AddProjectTeamUserParticipant(CancellationToken ct, string teamId, string userId)
+    {
+        var db = _dbFactory.Create();
+        var user = await db.ProjectUsers.Find(x => x.Id == userId).FirstAsync(ct);
+        var userDoc = new ProjectUserEntity(user.Id, user.UserName, user.UserAvatarUrl);
+        var teams = await db.ProjectTeams.Find(x => x.Id == teamId).ToListAsync(ct);
+        foreach (var team in teams)
+        {
+            await db.ProjectTeamsParticipants.FindOneAndUpdateAsync(
+                _f.Eq(x => x.Id, teamId),
+                _u.AddToSet(x => x.UserParticipants, userDoc),
+                cancellationToken: ct
+            );
+        }
+    }
 }

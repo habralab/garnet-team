@@ -53,4 +53,14 @@ public class ProjectTeamRepository : IProjectTeamRepository
 
         return team is null ? null : ProjectTeamDocument.ToDomain(team);
     }
+
+    public async Task AddProjectTeamParticipant(CancellationToken ct, string teamId, string userId)
+    {
+        var db = _dbFactory.Create();
+        await db.ProjectTeams.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, teamId),
+            _u.AddToSet(x => x.UserParticipantsId, userId),
+            cancellationToken: ct
+        );
+    }
 }

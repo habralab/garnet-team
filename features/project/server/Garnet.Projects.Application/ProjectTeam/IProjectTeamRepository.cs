@@ -7,4 +7,6 @@ public interface IProjectTeamRepository
     Task<ProjectTeamEntity> GetProjectTeamById(CancellationToken ct, string teamId);
     Task<ProjectTeamEntity?> UpdateProjectTeam(CancellationToken ct, string teamId, string teamName,
         string ownerUserId);
+    Task AddProjectTeamParticipant(CancellationToken ct, string teamId, string userId);
+
 }
