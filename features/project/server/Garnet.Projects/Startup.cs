@@ -33,6 +33,7 @@ using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using Garnet.Teams.Events.Team;
+using Garnet.Teams.Events.TeamJoinInvitation;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
 using Garnet.Teams.Events.TeamUserJoinRequest;
 using Garnet.Users.Events;
@@ -113,6 +114,7 @@ public static class Startup
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
             o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamUserJoinRequestDecidedEventConsumer, TeamUserJoinRequestDecidedEvent>();
+            o.RegisterConsumer<TeamJoinInvitationDecidedEventConsumer, TeamJoinInvitationDecidedEvent>();
         });
     }
 
