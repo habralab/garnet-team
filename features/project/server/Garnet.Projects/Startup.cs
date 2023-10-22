@@ -77,6 +77,8 @@ public static class Startup
 
         services.AddScoped<ProjectTeamCreateCommand>();
         services.AddScoped<ProjectTeamUpdateCommand>();
+        services.AddScoped<ProjectTeamAddParticipantCommand>();
+
 
         services.AddScoped<ProjectUserCreateCommand>();
 
@@ -86,6 +88,7 @@ public static class Startup
         services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
         services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
         services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
+        services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
 
 
         services.AddScoped<ProjectGetQuery>();

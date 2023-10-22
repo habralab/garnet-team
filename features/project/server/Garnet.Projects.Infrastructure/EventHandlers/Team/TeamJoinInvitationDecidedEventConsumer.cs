@@ -25,10 +25,10 @@ public class TeamJoinInvitationDecidedEventConsumer: IMessageBusConsumer<TeamJoi
     {
         if (message.IsApproved)
         {
-            var projectTeamAddParticipantArgs = new ProjectTeamAddParticipantArgs(message.TeamId, message.UserId);
+            var projectTeamAddParticipantArgs = new ProjectTeamAddParticipantArgs(message.UserId, message.TeamId);
             await _projectTeamAddParticipantCommand.Execute(CancellationToken.None, projectTeamAddParticipantArgs);
 
-            var projectTeamParticipantAddParticipantArgs = new ProjectTeamParticipantAddParticipantArgs(message.TeamId, message.UserId);;
+            var projectTeamParticipantAddParticipantArgs = new ProjectTeamParticipantAddParticipantArgs(message.UserId, message.TeamId);;
             await _projectTeamParticipantAddParticipantCommand.Execute(CancellationToken.None,
                 projectTeamParticipantAddParticipantArgs);
         }
