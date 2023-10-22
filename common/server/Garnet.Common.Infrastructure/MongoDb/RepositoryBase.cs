@@ -22,7 +22,7 @@ public abstract class RepositoryBase
     {
         var creationDate = _dateTimeService.UtcNow;
         var createdUser = _currentUserProvider.UserId;
-        var auditInfo = AuditInfo.Create(creationDate, createdUser);
+        var auditInfo = AuditInfoDocument.Create(creationDate, createdUser);
         var createdDocument = document with { AuditInfo = auditInfo };
         await collection.InsertOneAsync(createdDocument, cancellationToken: ct);
         return createdDocument;

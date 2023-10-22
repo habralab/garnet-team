@@ -2,5 +2,5 @@
 
 public record DocumentBase
 {
-    public AuditInfo AuditInfo { get; init; } = null!;
+    public AuditInfoDocument AuditInfo { get; init; } = null!;
 }
