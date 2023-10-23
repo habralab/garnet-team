@@ -81,7 +81,7 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((
       {...props}
       ref={ref}
     >
-      <Content divider={8}>{children}</Content>
+      <Content divider={4}>{children}</Content>
     </ButtonElement>
   )
 })
