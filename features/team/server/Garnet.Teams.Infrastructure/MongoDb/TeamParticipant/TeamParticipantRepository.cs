@@ -95,5 +95,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
                 cancellationToken: ct
             );
         }
+
+        public Task DeleteParticipantById(CancellationToken ct, string participantId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

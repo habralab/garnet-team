@@ -41,6 +41,7 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Events.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Commands;
 
 namespace Garnet.Team
 {
@@ -124,6 +125,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
 
+            services.AddScoped<TeamParticipantLeaveTeamCommand>();
             services.AddScoped<TeamParticipantFilterQuery>();
         }
 
@@ -140,7 +142,7 @@ namespace Garnet.Team
         public static void AddTeamJoinInvitationInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
-            
+
             services.AddScoped<TeamJoinInviteCommand>();
             services.AddScoped<TeamJoinInvitationDecideCommand>();
 
