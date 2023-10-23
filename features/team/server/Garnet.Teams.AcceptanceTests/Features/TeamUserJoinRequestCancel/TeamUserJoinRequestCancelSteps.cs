@@ -1,5 +1,6 @@
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.Support;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 
@@ -28,13 +29,13 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestCancel
             var userJoinRequest = await Db.TeamUserJoinRequests.Find(x =>
                 x.TeamId == team.Id
                 & x.UserId == userId
-            ).FirstAsync();
+            ).FirstOrDefaultAsync();
 
             _currentUserProviderFake.LoginAs(username);
 
             try
             {
-                await Mutation.TeamUserJoinRequestCancel(CancellationToken.None, userJoinRequest.Id);
+                await Mutation.TeamUserJoinRequestCancel(CancellationToken.None, userJoinRequest?.Id ?? Uuid.NewMongo());
             }
             catch (QueryException ex)
             {
