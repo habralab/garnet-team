@@ -1,4 +1,10 @@
-const NextFederationPlugin = require('@module-federation/nextjs-mf')
+/**
+ * @type {import('next').NextConfig}
+ **/
+
+const {NextFederationPlugin} = require('@module-federation/nextjs-mf')
+const shared = require('../../../../sharedEmotion').DEFAULT_SHARE_SCOPE
+const deps = require('./package.json').dependencies
 
 const remotes = (isServer) => {
   const location = isServer ? 'ssr' : 'chunks'
@@ -23,30 +29,11 @@ module.exports = {
       new NextFederationPlugin({
         name: 'app',
         filename: 'static/chunks/remoteEntry.js',
-        library: { type: config.output.libraryTarget, name: 'app' },
         remotes: remotes(isServer),
-        shared: {
-          '@emotion/react': {
-            eager: true,
-            singleton: true,
-            requiredVersion: false,
-          },
-          '@emotion/styled': {
-            eager: true,
-            singleton: true,
-            requiredVersion: false,
-          },
-          'styled-system': {
-            eager: true,
-            singleton: true,
-            requiredVersion: false,
-          },
-          'styled-tools': {
-            eager: true,
-            singleton: true,
-            requiredVersion: false,
-          },
-        },
+        shared: shared(deps),
+        extraOptions: {
+          debug: true,
+        }
       })
     )
     config.module.rules.push({

@@ -32,7 +32,7 @@ const DEFAULT_SHARE_SCOPE = {
   react: {
     singleton: true,
     requiredVersion: false,
-    eager: false,
+    eager: true,
     import: false,
   },
   'react-dom': {
@@ -64,6 +64,31 @@ const DEFAULT_SHARE_SCOPE = {
     singleton: true,
     import: undefined,
     eager: false,
+  },
+  '@emotion/react': {
+    eager: true,
+    singleton: true,
+    requiredVersion: false,
+  },
+  '@emotion/css': {
+    eager: true,
+    singleton: true,
+    requiredVersion: false,
+  },
+  '@emotion/styled': {
+    eager: true,
+    singleton: true,
+    requiredVersion: false,
+  },
+  'styled-system': {
+    eager: true,
+    singleton: true,
+    requiredVersion: false,
+  },
+  'styled-tools': {
+    eager: true,
+    singleton: true,
+    requiredVersion: false,
   },
 }
 

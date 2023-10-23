@@ -1,6 +1,6 @@
-import React from 'react'
+import dynamic from 'next/dynamic'
 
 // @ts-ignore
-const indexpage = React.lazy(() => import('project/index-page'))
+const IndexPage = dynamic(() => import('project/index-page'), { ssr: false })
 
-export default indexpage
+export default IndexPage

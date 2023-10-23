@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="User" type="js.build_tools.npm">
+  <configuration default="false" name="user" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/features/user/client/entrypoints/dashboard/package.json" />
     <command value="run" />
     <scripts>

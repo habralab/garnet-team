@@ -1,4 +1,10 @@
-const NextFederationPlugin = require('@module-federation/nextjs-mf')
+/**
+ * @type {import('next').NextConfig}
+ **/
+
+const {NextFederationPlugin} = require('@module-federation/nextjs-mf')
+const shared = require('../../../../../sharedEmotion').DEFAULT_SHARE_SCOPE
+const deps = require('./package.json').dependencies
 
 module.exports = {
   experimental: {
@@ -11,11 +17,16 @@ module.exports = {
   webpack: (config, _) => {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'Identity',
+        name: 'identity',
         filename: 'static/chunks/remoteEntry.js',
+        shared: shared(deps),
         exposes: {
-          './index-page': './pages/index.tsx',
+          './auth/login': './pages/auth/login/index.ts',
+          './auth/registration': './pages/auth/registration/index.ts'
         },
+        extraOptions: {
+          debug: true,
+        }
       })
     )
     config.module.rules.push({

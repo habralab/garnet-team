@@ -150,6 +150,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/renderer-entrypoint@workspace:common/client/entrypoints/renderer"
   dependencies:
+    "@emotion/css": "npm:11.9.0"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@module-federation/nextjs-mf": "npm:7.0.8"
@@ -157,6 +158,8 @@ __metadata:
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
+    "@ui/theme": "workspace:0.0.1"
+    concurrently: "npm:8.2.2"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -943,7 +946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10":
+"@babel/runtime@npm:^7.12.5, @babel/runtime@npm:^7.13.10, @babel/runtime@npm:^7.21.0":
   version: 7.23.2
   resolution: "@babel/runtime@npm:7.23.2"
   dependencies:
@@ -1674,7 +1677,7 @@ __metadata:
     "@ui/background": "npm:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
-    "@atls/next-identity-integration": 0.0.15
+    "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     next: "*"
@@ -2233,7 +2236,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:12.3.4":
+"@next/swc-darwin-arm64@npm:12.3.4, @next/swc-darwin-arm64@npm:=12.3.4":
   version: 12.3.4
   resolution: "@next/swc-darwin-arm64@npm:12.3.4"
   checksum: 69e34266c7d697b6994443ba90860698bd5f5c712fc33d65aec666ee99006cbcb8784f3d283390c7833ca87261fdef5c2430b18f1c82346145cafbfa9e096284
@@ -2248,7 +2251,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:12.3.4":
+"@next/swc-darwin-x64@npm:12.3.4, @next/swc-darwin-x64@npm:=12.3.4":
   version: 12.3.4
   resolution: "@next/swc-darwin-x64@npm:12.3.4"
   checksum: 7c7a0d9cb5aae0d191c2ae242bc6526425a34a28a2c914ee5d62651f28617027fd77457e5fe21a9f49f5bb96fd2d9205643b555f72b807cfca568330f2f546c0
@@ -2277,7 +2280,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:12.3.4":
+"@next/swc-linux-arm64-gnu@npm:12.3.4, @next/swc-linux-arm64-gnu@npm:=12.3.4":
   version: 12.3.4
   resolution: "@next/swc-linux-arm64-gnu@npm:12.3.4"
   checksum: 518b62f0bc0b635c4d84bd21752ee28f556e3d13d2d9d08deb41d3894e917daffb3a2237a38d1679cb7e0f7969c0934b279ef637ef24a2233b2618f609a15dee
@@ -2306,7 +2309,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:12.3.4":
+"@next/swc-linux-x64-gnu@npm:12.3.4, @next/swc-linux-x64-gnu@npm:=12.3.4":
   version: 12.3.4
   resolution: "@next/swc-linux-x64-gnu@npm:12.3.4"
   checksum: 80b1d67a0a3abe57bd01349166cf87536326824a7eafe68532e07fc68a3209ad2e5419618d466f4b3c3c1eed22ac80d3d3dc6624b673983f1fcea21b68800d9b
@@ -2506,6 +2509,7 @@ __metadata:
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
+    "@ui/theme": "workspace:0.0.1"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -5108,7 +5112,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chalk@npm:^4.0.0, chalk@npm:^4.1.0":
+"chalk@npm:^4.0.0, chalk@npm:^4.1.0, chalk@npm:^4.1.2":
   version: 4.1.2
   resolution: "chalk@npm:4.1.2"
   dependencies:
@@ -5346,6 +5350,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"concurrently@npm:8.2.2":
+  version: 8.2.2
+  resolution: "concurrently@npm:8.2.2"
+  dependencies:
+    chalk: "npm:^4.1.2"
+    date-fns: "npm:^2.30.0"
+    lodash: "npm:^4.17.21"
+    rxjs: "npm:^7.8.1"
+    shell-quote: "npm:^1.8.1"
+    spawn-command: "npm:0.0.2"
+    supports-color: "npm:^8.1.1"
+    tree-kill: "npm:^1.2.2"
+    yargs: "npm:^17.7.2"
+  bin:
+    conc: dist/bin/concurrently.js
+    concurrently: dist/bin/concurrently.js
+  checksum: a5f46c85f2bfd617948b31c94823b8189d4fd8ce652d50f6558ef61f08380cf2d25fdbb88d2be9db2d52303d4d0e2afbfc160ac9e33b357516dfb4b4606053d3
+  languageName: node
+  linkType: hard
+
 "console-control-strings@npm:^1.1.0":
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
@@ -5436,6 +5460,15 @@ __metadata:
   dependencies:
     assert-plus: "npm:^1.0.0"
   checksum: 4904e050758457a2c9730e8eb783e1d6ba9c16d115aae263762606479ff94eb5272ed4d3e0e8cadebdb666485af89fcfcc369d32fbc4d78e2cd6088c4be436f4
+  languageName: node
+  linkType: hard
+
+"date-fns@npm:^2.30.0":
+  version: 2.30.0
+  resolution: "date-fns@npm:2.30.0"
+  dependencies:
+    "@babel/runtime": "npm:^7.21.0"
+  checksum: 1edbb6ae2e10008de7f5ef37faee6c993926b008c98ca1d0cb4b0263c8448f2d3db5d84ac9475044f2295dee5d0d80bf6e92fe289f7f397420f0c8ad4bd7c069
   languageName: node
   linkType: hard
 
@@ -6254,16 +6287,16 @@ __metadata:
     "@atls/code-service": "npm:0.0.23"
     "@atls/config-jest": "npm:0.0.6"
     "@jest/core": "npm:28.1.3"
-    "@next/swc-darwin-arm64": "npm:12.3.4"
-    "@next/swc-darwin-x64": "npm:12.3.4"
-    "@next/swc-linux-arm64-gnu": "npm:12.3.4"
-    "@next/swc-linux-x64-gnu": "npm:12.3.4"
+    "@next/swc-darwin-arm64": "npm:=12.3.4"
+    "@next/swc-darwin-x64": "npm:=12.3.4"
+    "@next/swc-linux-arm64-gnu": "npm:=12.3.4"
+    "@next/swc-linux-x64-gnu": "npm:=12.3.4"
     "@types/eslint": "npm:8"
     "@types/jest": "npm:28.1.8"
     "@types/node": "npm:17.0.45"
     eslint: "npm:8.17.0"
     husky: "npm:8.0.3"
-    typescript: "npm:4.6.4"
+    typescript: "npm:=4.6.4"
   dependenciesMeta:
     "@next/swc-darwin-arm64@12.3.4":
       unplugged: true
@@ -7776,7 +7809,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.17.15, lodash@npm:^4.17.20":
+"lodash@npm:^4.17.15, lodash@npm:^4.17.20, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: 3ac18e92108d68f88429fcddee609e42cf2b653583d9bac22308815a4cd6b185b89a0ad0d9b0c670c371d9d6b61571a98fee6b36e1db14e52766ca253ed9cba0
@@ -9076,6 +9109,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"rxjs@npm:^7.8.1":
+  version: 7.8.1
+  resolution: "rxjs@npm:7.8.1"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: d7daafba4296c4360b19bdff02d24e2f8acc7731605b0d99a0c920373d0af995bcb6b3c58c211e02db50aabddd9e854250a195f87ed193b56e79f245494774f5
+  languageName: node
+  linkType: hard
+
 "safe-buffer@npm:^5.0.1, safe-buffer@npm:^5.1.0, safe-buffer@npm:^5.1.2, safe-buffer@npm:~5.2.0":
   version: 5.2.1
   resolution: "safe-buffer@npm:5.2.1"
@@ -9213,6 +9255,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"shell-quote@npm:^1.8.1":
+  version: 1.8.1
+  resolution: "shell-quote@npm:1.8.1"
+  checksum: 8f06faa1888a928fdcc30fa68803260a101dc1b5fb717072f9797c6001701c14b181381e54d5838f5975afc88f35ffabf880e82fd3b13557b79593fc64685a5b
+  languageName: node
+  linkType: hard
+
 "signal-exit@npm:^3.0.2":
   version: 3.0.6
   resolution: "signal-exit@npm:3.0.6"
@@ -9341,6 +9390,13 @@ __metadata:
   version: 0.6.1
   resolution: "source-map@npm:0.6.1"
   checksum: cba9f44c3a4a0485f44a7760ebe427eecdd3b58011ae0459c05506b54f898835b2302073d6afa563a19b60ee9e54c82e33bc4a032e28bebacdfc635f1d0bf7e0
+  languageName: node
+  linkType: hard
+
+"spawn-command@npm:0.0.2":
+  version: 0.0.2
+  resolution: "spawn-command@npm:0.0.2"
+  checksum: 55688b0efa375730ad47d325329807d2a06016afc091373c49082df6c8bbb54e69798512335fd7021233d77ac9b51fe6a6edfa3735769823457a54e226c00702
   languageName: node
   linkType: hard
 
@@ -9593,7 +9649,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"supports-color@npm:^8.0.0":
+"supports-color@npm:^8.0.0, supports-color@npm:^8.1.1":
   version: 8.1.1
   resolution: "supports-color@npm:8.1.1"
   dependencies:
@@ -9850,6 +9906,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"tree-kill@npm:^1.2.2":
+  version: 1.2.2
+  resolution: "tree-kill@npm:1.2.2"
+  bin:
+    tree-kill: cli.js
+  checksum: e1c77812496ec255402297a3494acc4cda93d532ebefb1c6704b38d2a8eb6b9ed03d5f0b088a13341705f2923e52a73c3c2bb87a30ea890095cc51fb7a4ce6e0
+  languageName: node
+  linkType: hard
+
 "treeify@npm:^1.1.0":
   version: 1.1.0
   resolution: "treeify@npm:1.1.0"
@@ -10007,7 +10072,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:4.6.4":
+"typescript@npm:4.6.4, typescript@npm:=4.6.4":
   version: 4.6.4
   resolution: "typescript@npm:4.6.4"
   bin:
@@ -10037,7 +10102,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A4.6.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A4.6.4#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A=4.6.4#optional!builtin<compat/typescript>":
   version: 4.6.4
   resolution: "typescript@patch:typescript@npm%3A4.6.4#optional!builtin<compat/typescript>::version=4.6.4&hash=5d3a66"
   bin:
@@ -10420,7 +10485,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yargs@npm:^17.3.1":
+"yargs@npm:^17.3.1, yargs@npm:^17.7.2":
   version: 17.7.2
   resolution: "yargs@npm:17.7.2"
   dependencies:

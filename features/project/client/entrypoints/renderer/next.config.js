@@ -1,4 +1,10 @@
-const NextFederationPlugin = require('@module-federation/nextjs-mf')
+/**
+ * @type {import('next').NextConfig}
+ **/
+
+const {NextFederationPlugin} = require('@module-federation/nextjs-mf')
+const shared = require('../../../../../sharedEmotion').DEFAULT_SHARE_SCOPE
+const deps = require('./package.json').dependencies
 
 module.exports = {
   experimental: {
@@ -13,6 +19,7 @@ module.exports = {
       new NextFederationPlugin({
         name: 'project',
         filename: 'static/chunks/remoteEntry.js',
+        shared: shared(deps),
         exposes: {
           './index-page': './pages/index.ts',
         },
