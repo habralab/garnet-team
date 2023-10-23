@@ -3,18 +3,25 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {
-    "@ui/background": "workspace:0.0.1",
+    "@ui/condition": "workspace:0.0.1",
+    "@ui/icon": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1"
   },
   "devDependencies": {
+    "@emotion/styled": "11.9.3",
     "@types/react": "18.2.30",
-    "@types/react-dom": "18.2.14"
+    "@types/react-dom": "18.2.14",
+    "@types/styled-system": "5.1.20",
+    "styled-system": "5.1.5",
+    "styled-tools": "1.7.2"
   },
   "peerDependencies": {
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "react": "*",
     "react-dom": "*",
-    "styled-system": "*"
+    "styled-system": "*",
+    "styled-tools": "*"
   }
 }
