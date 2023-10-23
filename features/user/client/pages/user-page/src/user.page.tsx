@@ -1,16 +1,16 @@
-import React          from 'react'
+import React               from 'react'
 
-import { Background } from '@ui/background'
-import { Wrapper }    from '@ui/background'
-import { Header }     from '@user/header-fragment'
-import { Profile }    from '@user/profile-fragment'
+import { Background }      from '@ui/background'
+import { WrapperMaxWidth } from '@ui/wrapper'
+import { Header }          from '@user/header-fragment'
+import { Profile }         from '@user/profile-fragment'
 
 const UserPage = () => (
-  <Background fill color='lightGreyTen' flexDirection='column' alignItems='center'>
+  <Background color='lightGreyTen' flexDirection='column' alignItems='center'>
     <Header />
-    <Wrapper>
+    <WrapperMaxWidth>
       <Profile />
-    </Wrapper>
+    </WrapperMaxWidth>
   </Background>
 )
 

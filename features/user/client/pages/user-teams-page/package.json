@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "dependencies": {
     "@ui/background": "workspace:0.0.1",
+    "@ui/wrapper": "workspace:0.0.1",
     "@user/header-fragment": "workspace:0.0.1",
     "@user/user-teams-fragment": "workspace:0.0.1"
   },

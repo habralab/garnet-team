@@ -1,16 +1,16 @@
-import React          from 'react'
+import React               from 'react'
 
-import { Background } from '@ui/background'
-import { Wrapper }    from '@ui/background'
-import { Header }     from '@user/header-fragment'
-import { UserTeams }  from '@user/user-teams-fragment'
+import { Background }      from '@ui/background'
+import { WrapperMaxWidth } from '@ui/wrapper'
+import { Header }          from '@user/header-fragment'
+import { UserTeams }       from '@user/user-teams-fragment'
 
 const UserTeamsPage = () => (
   <Background fill color='lightGreyTen' flexDirection='column' alignItems='center'>
     <Header />
-    <Wrapper>
+    <WrapperMaxWidth>
       <UserTeams />
-    </Wrapper>
+    </WrapperMaxWidth>
   </Background>
 )
 
