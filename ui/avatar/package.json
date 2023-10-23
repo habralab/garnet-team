@@ -5,7 +5,10 @@
   "main": "src/index.ts",
   "dependencies": {
     "@atls-ui-proto/avatar": "0.0.10",
+    "@ui/background": "workspace:0.0.1",
+    "@ui/condition": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1",
     "@ui/theme": "workspace:0.0.1"
   },
   "devDependencies": {
@@ -14,6 +17,7 @@
     "next": "12.3.4"
   },
   "peerDependencies": {
+    "@emotion/react": "*",
     "@emotion/styled": "*",
     "next": "*",
     "react": "*",
