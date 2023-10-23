@@ -3,16 +3,15 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {
-    "@ui/avatar": "workspace:0.0.1",
-    "@ui/background": "workspace:0.0.1",
+    "@shared/data": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
+    "@ui/card": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
-    "@ui/link": "workspace:0.0.1",
-    "@ui/modal": "workspace:0.0.1",
     "@ui/tag": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1",
-    "@ui/title": "workspace:0.0.1"
+    "@ui/title": "workspace:0.0.1",
+    "@ui/wrapper": "workspace:0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.30",
