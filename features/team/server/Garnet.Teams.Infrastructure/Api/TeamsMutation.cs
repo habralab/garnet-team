@@ -18,6 +18,7 @@ using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestCancel;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -180,5 +181,11 @@ namespace Garnet.Teams.Infrastructure.Api
             var invitation = result.Value;
             return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt);
         }
+
+        public async Task<TeamUserJoinRequestCancelPayload> TeamUserJoinRequestCancel(CancellationToken ct, string userJoinRequestId)
+        {
+            return null;
+        }
+
     }
 }
