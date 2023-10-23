@@ -30,6 +30,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamEditDescriptionCommand _teamEditDescriptionCommand;
         private readonly TeamEditOwnerCommand _teamEditOwnerCommand;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
+        private readonly TeamJoinInvitationCancelCommand _teamJoinInvitationCancelCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
@@ -48,6 +49,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamJoinInvitationDecideCommand teamJoinInvitationDecideCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
+            TeamJoinInvitationCancelCommand teamJoinInvitationCancelCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
             TeamEditTagsCommand teamEditTagsCommand,
             TeamJoinProjectRequestCreateCommand joinProjectRequestCommand)
@@ -65,6 +67,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamEditNameCommand = teamEditNameCommand;
             _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
+            _teamJoinInvitationCancelCommand = teamJoinInvitationCancelCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, TeamCreateInput input)
@@ -175,7 +178,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamJoinInvitationCancelPayload> TeamJoinInvitationCancel(CancellationToken ct, string joinInvitationId)
         {
-            return null;
+            var result = await _teamJoinInvitationCancelCommand.Execute(ct, joinInvitationId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var invitation = result.Value;
+            return new TeamJoinInvitationCancelPayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt);
         }
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvitationDecide(CancellationToken ct, TeamJoinInvitationDecideInput input)
