@@ -1,8 +1,8 @@
 ﻿using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -14,9 +14,14 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     private readonly UpdateDefinitionBuilder<ProjectTeamParticipantDocument> _u =
         Builders<ProjectTeamParticipantDocument>.Update;
 
-    private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _f =
+    private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _teamParticipantFilter =
         Builders<ProjectTeamParticipantDocument>.Filter;
 
+    private readonly FilterDefinitionBuilder<ProjectUserDocument> _userFilter =
+        Builders<ProjectUserDocument>.Filter;
+
+    private readonly FilterDefinitionBuilder<ProjectDocument> _projectFilter =
+        Builders<ProjectDocument>.Filter;
 
     public ProjectTeamParticipantRepository(DbFactory dbFactory)
     {
@@ -28,26 +33,20 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     {
         var db = _dbFactory.Create();
         var team = await db.ProjectTeams.Find(x => x.Id == teamId).FirstAsync(ct);
-        var userParticipantsIds = team.UserParticipantsId;
-
-        var userParticipants = new List<ProjectUserEntity>();
-        foreach (var userId in userParticipantsIds)
-        {
-            var user = await db.ProjectUsers.Find(x => x.Id == userId).FirstAsync(ct);
-            userParticipants.Add(new ProjectUserEntity(user.Id, user.UserName, user.UserAvatarUrl));
-        }
+        var userParticipantsIds = team.UserParticipantId;
+        var userParticipants =
+            await db.ProjectUsers.Find(_userFilter.In(x => x.Id, userParticipantsIds)).ToListAsync(ct);
+        var userParticipantsEntities = userParticipants.Select(ProjectUserDocument.ToDomain).ToArray();
 
         var projectsIdOfTeamParticipant =
             await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId).ToListAsync(ct);
-        var projectsList = new List<ProjectEntity>();
-        foreach (var projectIdOfTeamParticipant in projectsIdOfTeamParticipant)
-        {
-            var project = await db.Projects.Find(x => x.Id == projectIdOfTeamParticipant.ProjectId).FirstAsync(ct);
-            projectsList.Add(ProjectDocument.ToDomain(project));
-        }
+        var projectIds = projectsIdOfTeamParticipant.Select(x => x.ProjectId);
+        var projectsList =
+            await db.Projects.Find(_projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
+        var projectsListEntities = projectsList.Select(ProjectDocument.ToDomain).ToArray();
 
         var teamParticipant = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId,
-            userParticipants.ToArray(), projectsList.ToArray());
+            userParticipantsEntities, projectsListEntities);
         await db.ProjectTeamsParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
 
         return ProjectTeamParticipantDocument.ToDomain(teamParticipant);
@@ -68,7 +67,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     {
         var db = _dbFactory.Create();
         await db.ProjectTeamsParticipants.UpdateManyAsync(
-            _f.Eq(x => x.TeamId, teamId),
+            _teamParticipantFilter.Eq(x => x.TeamId, teamId),
             _u.Set(x => x.TeamName, teamName),
             cancellationToken: ct
         );
@@ -78,7 +77,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     {
         var db = _dbFactory.Create();
         await db.ProjectTeamsParticipants.DeleteManyAsync(
-            _f.Eq(x => x.ProjectId, projectId),
+            _teamParticipantFilter.Eq(x => x.ProjectId, projectId),
             cancellationToken: ct
         );
     }
@@ -92,7 +91,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         foreach (var team in teams)
         {
             await db.ProjectTeamsParticipants.FindOneAndUpdateAsync(
-                _f.Eq(x => x.Id, teamId),
+                _teamParticipantFilter.Eq(x => x.Id, teamId),
                 _u.AddToSet(x => x.UserParticipants, userDoc),
                 cancellationToken: ct
             );
