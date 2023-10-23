@@ -6,5 +6,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamParticipantLeaveTeam
         public TeamParticipantLeaveTeamSteps(StepsArgs args) : base(args)
         {
         }
+
+        [When(@"'(.*)' выходит из состава команды '(.*)'")]
+        public Task WhenВыходитИзСоставаКоманды(string username, string teamName)
+        {
+            return Task.CompletedTask;
+        }
     }
 }
