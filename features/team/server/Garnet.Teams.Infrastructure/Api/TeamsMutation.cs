@@ -64,6 +64,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUploadAvatarCommand = teamUploadAvatarCommand;
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
+            _teamParticipantLeaveTeamCommand = teamParticipantLeaveTeamCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
             _teamEditNameCommand = teamEditNameCommand;
             _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
