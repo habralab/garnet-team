@@ -19,7 +19,6 @@
     "@identity/recovery-new-password-page": "workspace:0.0.1",
     "@identity/recovery-page": "workspace:0.0.1",
     "@identity/registration-page": "workspace:0.0.1",
-    "@module-federation/nextjs-mf": "7.0.8",
     "@ui/theme": "workspace:0.0.1",
     "next": "12.3.4",
     "react": "18.2.0",
