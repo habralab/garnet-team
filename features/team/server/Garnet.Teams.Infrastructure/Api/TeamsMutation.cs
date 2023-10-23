@@ -36,6 +36,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
         private readonly TeamEditTagsCommand _teamEditTagsCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
+        private readonly TeamUserJoinRequestCancelCommand _teamUserJoinRequestCancelCommand;
         private readonly TeamJoinInvitationDecideCommand _teamJoinInvitationDecideCommand;
 
         public TeamsMutation(
@@ -45,6 +46,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamJoinInviteCommand joinInviteCommand,
             TeamEditNameCommand teamEditNameCommand,
+            TeamUserJoinRequestCancelCommand teamUserJoinRequestCancelCommand,
             TeamJoinInvitationDecideCommand teamJoinInvitationDecideCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
@@ -65,6 +67,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamEditNameCommand = teamEditNameCommand;
             _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
+            _teamUserJoinRequestCancelCommand = teamUserJoinRequestCancelCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, TeamCreateInput input)
@@ -184,7 +187,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestCancelPayload> TeamUserJoinRequestCancel(CancellationToken ct, string userJoinRequestId)
         {
-            return null;
+            var result = await _teamUserJoinRequestCancelCommand.Execute(ct, userJoinRequestId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var userJoinRequest = result.Value;
+            return new TeamUserJoinRequestCancelPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId, userJoinRequest.AuditInfo.CreatedAt);
         }
 
     }
