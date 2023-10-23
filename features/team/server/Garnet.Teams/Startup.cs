@@ -40,6 +40,7 @@ using Garnet.Teams.Application.TeamParticipant.Queries;
 using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
+using Garnet.Teams.Events.TeamParticipant;
 
 namespace Garnet.Team
 {
@@ -87,6 +88,7 @@ namespace Garnet.Team
                 o.RegisterConsumer<ProjectDeletedEventConsumer, ProjectDeletedEvent>();
                 o.RegisterMessage<TeamCreatedEvent>();
                 o.RegisterMessage<TeamDeletedEvent>();
+                o.RegisterMessage<TeamParticipantLeftTeamEvent>();
                 o.RegisterMessage<TeamUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationCreatedEvent>();
