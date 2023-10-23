@@ -13,7 +13,7 @@ public class ProjectTeamParticipantDocumentBuilder
     private string _teamName = "TeamName";
     private string _projectId = Uuid.NewMongo();
 
-    private ProjectUserEntity[] _userParticipants =
+    private List<ProjectUserEntity> _userParticipants = new List<ProjectUserEntity>()
     {
         new ProjectUserEntity(
             Uuid.NewMongo(),
@@ -21,7 +21,7 @@ public class ProjectTeamParticipantDocumentBuilder
             "")
     };
 
-    private ProjectEntity[] _projects =
+    private List<ProjectEntity> _projects = new List<ProjectEntity>()
     {
         new ProjectEntity(
             Uuid.NewMongo(),
@@ -64,8 +64,8 @@ public class ProjectTeamParticipantDocumentBuilder
             _teamId,
             _teamName,
             _projectId,
-            _userParticipants,
-            _projects);
+            _userParticipants.ToArray(),
+            _projects.ToArray());
     }
 
     public static implicit operator ProjectTeamParticipantDocument(
