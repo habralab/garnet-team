@@ -5,9 +5,6 @@
   "workspaces": [
     "common/client/**/*",
     "features/identity/client/**/*",
-    "features/user/client/**/*",
-    "features/team/client/**/*",
-    "features/project/client/**/*",
     "shared/**/*",
     "ui/**/*",
     "utils/**/*"

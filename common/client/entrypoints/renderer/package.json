@@ -5,14 +5,14 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "yarn next build src --no-lint && cp -r ./src/.next/standalone ./dist && cp -r ./src/.next/static ./dist/.next/static && mv ./dist/server.js ./dist/index.js",
-    "dev": "yarn next dev src -p 3004",
+    "dev": "yarn next dev src -p 3001",
     "prepack": "run build",
     "start": "node dist/index.js"
   },
   "dependencies": {
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
-    "@module-federation/nextjs-mf": "7.0.8",
+    "@ui/theme": "workspace:0.0.1",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
