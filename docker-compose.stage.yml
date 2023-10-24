@@ -1,0 +1,151 @@
+version: '3.3'
+
+networks:
+  internal:
+    external: false
+  habralab-stage:
+    external: true
+
+services:
+  yarn:
+    image: node:18.13
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn
+    labels:
+      - 'traefik.enable=false'
+    networks:
+      - internal
+
+  proxy:
+    image: traefik:v3.0
+    ports:
+      - '443:443'
+      - '8080:8080'
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock:ro'
+      - type: bind
+        source: ./config/traefik/traefik.yml
+        target: /traefik.yml
+    networks:
+      - habralab-stage
+      - internal
+
+  oathkeeper:
+    image: oryd/oathkeeper:v0.40.6
+    command: serve --config /config/oathkeeper/oathkeeper.yml
+    volumes:
+      - type: bind
+        source: ./config/ory/oathkeeper
+        target: /config/oathkeeper
+    networks:
+      - internal
+    ports:
+      - '4455:4455'
+      - '4456:4456'
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.middlewares.redirect-identity.redirectscheme.scheme=https'
+      - 'traefik.http.middlewares.redirect-identity.redirectscheme.permanent=true'
+      - 'traefik.http.routers.identity.entrypoints=websecure'
+      - 'traefik.http.routers.identity.rule=Host(`stage.garnet.pet-project.habr.com`) && 
+      PathPrefix(`identity`)'
+      - 'traefik.http.routers.identity.tls=true'
+      - 'traefik.port=443'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
+      - 'traefik.http.routers.identity.middlewares=cor,redirect-identity'
+
+  identity:
+    restart: unless-stopped
+    image: node:18.13
+    working_dir: /workspace
+    entrypoint: yarn workspace @identity/renderer-entrypoint dev
+    volumes:
+      - ./:/workspace
+    ports:
+      - '3000:3000'
+    depends_on:
+      - yarn
+      - kratos
+    networks:
+      - internal
+    labels:
+      - 'traefik.enable=false'
+
+  app:
+    restart: unless-stopped
+    image: node:18.13
+    working_dir: /workspace
+    labels:
+      - 'traefik.enable=false'
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn workspace @app/renderer-entrypoint dev
+    ports:
+      - '3001:3001'
+    depends_on:
+      - yarn
+    networks:
+      - internal
+
+  kratos:
+    depends_on:
+      - kratos-migrate
+      - db
+    image: oryd/kratos:v1.0.0
+    labels:
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.app.entrypoints=websecure'
+      - 'traefik.http.routers.app.rule=Host(`stage.garnet.pet-project.habr.com`)'
+      - 'traefik.http.routers.app.tls=true'
+      - 'traefik.port=443'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
+      - 'traefik.http.routers.app.middlewares=cor,redirect-app'
+
+    ports:
+      - '4433:4433'
+    restart: unless-stopped
+    environment:
+      - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+      - LOG_LEVEL=trace
+    command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
+    volumes:
+      - type: bind
+        source: ./config/ory/kratos
+        target: /config/kratos
+    networks:
+      - internal
+
+  kratos-migrate:
+    depends_on:
+      - db
+    image: docker.io/oryd/kratos:v1.0.0
+    labels:
+      - 'traefik.enable=false'
+    environment:
+      - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+    volumes:
+      - type: bind
+        source: ./config/ory/kratos
+        target: /config/kratos
+    command: -c /config/kratos/kratos.yaml migrate sql -e --yes
+    restart: on-failure
+    networks:
+      - internal
+
+  db:
+    image: bitnami/postgresql
+    restart: unless-stopped
+    labels:
+      - 'traefik.enable=false'
+    environment:
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=db
+      - POSTGRESQL_USER=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - internal

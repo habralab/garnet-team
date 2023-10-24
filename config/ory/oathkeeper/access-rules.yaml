@@ -1,8 +1,8 @@
 - id: auth
   upstream:
-    url: http://localhost:3000/
+    url: http://identity:3000/
   match:
-    url: http://<127.0.0.1|localhost>:4455/<(?!app|admin).*>
+    url: https://stage.garnet.pet-project.habr.com/<(?!app|admin).*>
     methods:
       - GET
       - POST
@@ -20,9 +20,9 @@
 
 - id: app
   upstream:
-    url: http://localhost:3000/app
+    url: http://app:3001/
   match:
-    url: http://<127.0.0.1|localhost>:4455/app<.*>
+    url: https://stage.garnet.pet-project.habr.com/<.*>
     methods:
       - GET
       - POST
@@ -30,7 +30,7 @@
       - DELETE
       - PATCH
   authenticators:
-    - handler: anonymous
+    - handler: cookie_session
   authorizer:
     handler: allow
   mutators:
