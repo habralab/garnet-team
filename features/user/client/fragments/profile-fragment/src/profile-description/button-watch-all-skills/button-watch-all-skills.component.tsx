@@ -37,7 +37,7 @@ export const ButtonWatchAllSkills: FC<ButtonWatchAllSkillsProps> = ({ skills }) 
       >
         <Row flexWrap='wrap' style={{ gap: 10 }}>
           {skills?.map((tag) => (
-            <Tag>{tag}</Tag>
+            <Tag key={tag}>{tag}</Tag>
           ))}
         </Row>
         <Layout flexBasis={50} flexShrink={0} />

@@ -33,7 +33,7 @@ export const ListTeams: FC<ListTeamsProps> = ({ teams }) => {
           justifyContent='space-between'
         >
           {teams.slice(0, itemPerPage * countPages).map((team) => (
-            <CardTeam team={team} cardSize='small' />
+            <CardTeam key={team.id} team={team} cardSize='small' />
           ))}
         </Row>
         <Condition match={teams.slice(0, itemPerPage * countPages).length !== teams.length}>

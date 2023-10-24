@@ -74,6 +74,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
               image={team?.avatarUrl}
               url={`/team/${team?.id}`}
               title={team?.name}
+              key={team.id}
             />
           ))}
         </Row>

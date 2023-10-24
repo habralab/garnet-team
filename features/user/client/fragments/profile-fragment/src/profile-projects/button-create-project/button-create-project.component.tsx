@@ -16,7 +16,7 @@ import { ButtonCreateProjectProps } from './button-create-project.interfaces'
 
 const defaultFormValues: FormProjectValues = { name: '', description: '', tags: [], avatar: '' }
 
-export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ user }) => {
+export const ButtonCreateProject: FC<ButtonCreateProjectProps> = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [formValues, setFormValues] = useState<FormProjectValues>(defaultFormValues)
   const { formatMessage } = useIntl()
@@ -33,7 +33,6 @@ export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ user }) => {
 
   const handleSubmit = () => {
     /** @todo submit form */
-    user
     closeModal()
   }
 

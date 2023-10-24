@@ -80,8 +80,6 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
     (item) => !value.includes(item) && item.toLowerCase().includes(search.toLowerCase())
   )
 
-  console.log({ buttonProps, menuProps })
-
   return (
     <Container ref={containerRef} type={type}>
       <InputElement
@@ -93,9 +91,9 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
       >
         <Condition match={Array.isArray(value)}>
           <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
-            {(value as string[]).map((tag, index) => (
+            {(value as string[]).map((tag) => (
               <Box>
-                <Tag key={`${tag}${index}`} onClick={() => handleRemoveTag(tag)} close>
+                <Tag key={tag} onClick={() => handleRemoveTag(tag)} close>
                   {tag}
                 </Tag>
               </Box>
@@ -149,8 +147,8 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
                 </Text>
                 <Layout flexBasis={12} flexShrink={0} />
                 <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
-                  {filteredItems.map((item, index) => (
-                    <Tag key={`${item}${index}`} onClick={() => handleAddTag(item)}>
+                  {filteredItems.map((item) => (
+                    <Tag key={item} onClick={() => handleAddTag(item)}>
                       {item}
                     </Tag>
                   ))}

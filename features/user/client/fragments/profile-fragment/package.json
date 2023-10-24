@@ -14,7 +14,6 @@
     "@ui/layout": "workspace:0.0.1",
     "@ui/link": "workspace:0.0.1",
     "@ui/modal": "workspace:0.0.1",
-    "@ui/multiselect": "workspace:0.0.1",
     "@ui/tag": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1",
     "@ui/title": "workspace:0.0.1",

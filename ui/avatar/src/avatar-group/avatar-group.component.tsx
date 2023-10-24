@@ -19,6 +19,7 @@ export const AvatarGroup: FC<AvatarGroupProps> = ({
   <>
     {Array.from({ length: avatars.length <= maxCount ? maxCount : maxCount }, (_, index) => (
       <Background
+        key={index}
         height={size}
         width={size}
         color='white'

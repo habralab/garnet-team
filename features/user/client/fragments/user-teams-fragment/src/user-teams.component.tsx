@@ -35,6 +35,8 @@ export const UserTeams: FC = () => {
     if (user?.id === mockAuthUserId) setIsMyProfile(true)
 
     setSelectedTags(uniqueTags)
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
   const handleClickTag = (tag: string) => () => {
@@ -70,6 +72,7 @@ export const UserTeams: FC = () => {
             <Row flexWrap='wrap' style={{ gap: 10 }}>
               {uniqueTags.map((tag) => (
                 <Tag
+                  key={tag}
                   onClick={handleClickTag(tag)}
                   variant={selectedTags.includes(tag) ? 'primary' : 'secondary'}
                   close={selectedTags.includes(tag)}

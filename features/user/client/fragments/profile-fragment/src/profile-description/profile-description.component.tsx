@@ -32,7 +32,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ user }) => (
     <Layout flexBasis={10} flexShrink={0} />
     <Row flexWrap='wrap' maxHeight={72} overflow='hidden' style={{ gap: 10 }}>
       {user?.tags?.map((tag) => (
-        <Tag>{tag}</Tag>
+        <Tag key={tag}>{tag}</Tag>
       ))}
     </Row>
     <Layout flexBasis={10} flexShrink={0} />

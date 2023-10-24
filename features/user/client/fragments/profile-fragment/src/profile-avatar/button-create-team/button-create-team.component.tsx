@@ -16,7 +16,7 @@ import { ButtonCreateTeamProps } from './button-create-team.interfaces'
 
 const defaultFormValues: FormTeamValues = { name: '', description: '', tags: [], avatar: '' }
 
-export const ButtonCreateTeam: FC<ButtonCreateTeamProps> = ({ user }) => {
+export const ButtonCreateTeam: FC<ButtonCreateTeamProps> = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [formValues, setFormValues] = useState<FormTeamValues>(defaultFormValues)
   const { formatMessage } = useIntl()
@@ -33,7 +33,6 @@ export const ButtonCreateTeam: FC<ButtonCreateTeamProps> = ({ user }) => {
 
   const handleSubmit = () => {
     /** @todo submit form */
-    user
     closeModal()
   }
 
