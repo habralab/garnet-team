@@ -1,6 +1,7 @@
 import styled                       from '@emotion/styled'
 import { RawInput }                 from '@atls-ui-parts/input'
 import { useChangeValue }           from '@atls-ui-parts/input'
+import { createTextareaProps }      from '@atls-ui-parts/input'
 
 import React                        from 'react'
 import { HTMLInputTypeAttribute }   from 'react'
@@ -12,16 +13,18 @@ import { Condition }                from '@ui/condition'
 import { Layout }                   from '@ui/layout'
 import { Text }                     from '@ui/text'
 
-import { IconAttachment }           from './icon-attachment'
-import { InputProps }               from './input.interfaces'
-import { transitionStyles }         from './input.styles'
-import { shapeStyles }              from './input.styles'
-import { baseStyles }               from './input.styles'
-import { appearanceStyles }         from './input.styles'
+import { IconAttachment }           from '../icon-attachment'
+import { InputProps }               from '../input.interfaces'
+import { transitionStyles }         from '../input.styles'
+import { shapeStyles }              from '../input.styles'
+import { baseStyles }               from '../input.styles'
+import { appearanceStyles }         from '../input.styles'
 
-export const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles)
+const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles, {
+  padding: 16,
+})
 
-export const Label = styled.label()
+const { containerProps, rawInputProps } = createTextareaProps()
 
 const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
@@ -29,7 +32,7 @@ const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   flexDirection: 'column',
 }))
 
-export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
+export const TextareaWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
   { value, type, disabled, id, errorText = '', onChange, onChangeNative, ...props },
   ref
 ) => {
@@ -40,7 +43,7 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
 
   return (
     <Container type={type} onClick={() => (ref as any).current.focus()}>
-      <InputElement {...props} error={errorText !== ''} disabled={disabled}>
+      <InputElement {...containerProps} {...props} error={errorText !== ''}>
         <RawInput
           id={id}
           ref={ref}
@@ -48,7 +51,9 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
           disabled={disabled}
           value={value}
           onChange={changeValue}
+          {...rawInputProps}
           {...props}
+          style={{ ...props.style, height: '100%' }}
         />
         <Condition match={Boolean(props.iconSvg)}>
           <IconAttachment
@@ -73,4 +78,4 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
   )
 }
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(InputWithoutRef)
+export const Textarea = forwardRef<HTMLInputElement, InputProps>(TextareaWithoutRef)
