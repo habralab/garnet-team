@@ -1,5 +1,2 @@
-import React from 'react'
-
-const IndexPage = () => <h1>Test</h1>
-
-export default IndexPage
+export { default } from '@user/index-page'
+export { getServerSideProps } from '@user/index-page'
