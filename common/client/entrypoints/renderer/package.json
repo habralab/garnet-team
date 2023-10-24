@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@app/index-page": "workspace:0.0.1",
+    "@app/project-page": "workspace:0.0.1",
+    "@app/project-profile-page": "workspace:0.0.1",
     "@app/user-page": "workspace:0.0.1",
     "@app/user-teams-page": "workspace:0.0.1",
     "@emotion/css": "11.9.0",
