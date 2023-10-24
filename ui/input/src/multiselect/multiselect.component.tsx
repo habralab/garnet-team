@@ -137,13 +137,13 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
               <Condition match={filteredItems.length === 0}>
                 <Layout flexBasis={30} flexShrink={0} />
                 <Text fontSize='semiLarge' color='text.gray' style={{ justifyContent: 'center' }}>
-                  <FormattedMessage id='profile.skills_not_found' />
+                  <FormattedMessage id='shared_ui.skills_not_found' />
                 </Text>
                 <Layout flexBasis={30} flexShrink={0} />
               </Condition>
               <Condition match={filteredItems.length > 0}>
                 <Text fontSize='semiMedium' color='text.secondary'>
-                  <FormattedMessage id='profile.choose_skill' />:
+                  <FormattedMessage id='shared_ui.choose_skill' />:
                 </Text>
                 <Layout flexBasis={12} flexShrink={0} />
                 <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>

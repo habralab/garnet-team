@@ -27,7 +27,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
         <Box minWidth={125} justifyContent='flex-end'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='name'>
-              <FormattedMessage id='profile.naming' />
+              <FormattedMessage id='shared_ui.form.naming' />
             </Label>
           </Text>
         </Box>
@@ -35,7 +35,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
         <Input
           id='name'
           value={formValues.name}
-          placeholder={formatMessage({ id: 'profile.my_team' })}
+          placeholder={formatMessage({ id: 'shared_ui.form.my_team' })}
           onChange={handleChange('name')}
         />
       </Row>
@@ -44,7 +44,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
         <Box height={50} minWidth={125} justifyContent='flex-end' alignItems='center'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='description'>
-              <FormattedMessage id='profile.description' />
+              <FormattedMessage id='shared_ui.form.description' />
             </Label>
           </Text>
         </Box>
@@ -52,7 +52,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
         <Textarea
           id='description'
           value={formValues.description}
-          placeholder={formatMessage({ id: 'profile.description_team' })}
+          placeholder={formatMessage({ id: 'shared_ui.form.description_team' })}
           onChange={handleChange('description')}
           style={{ height: 176, resize: 'none' }}
           min={150}
@@ -62,7 +62,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
       <Layout flexBasis={10} flexShrink={0} />
       <Row fill justifyContent='flex-end'>
         <Text fontSize='normal' color='text.gray'>
-          <FormattedMessage id='profile.from_to_symbols' />
+          <FormattedMessage id='shared_ui.form.from_to_symbols' />
         </Text>
       </Row>
       <Layout flexBasis={30} flexShrink={0} />
@@ -70,14 +70,14 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
         <Box height={50} minWidth={125} justifyContent='flex-end' alignItems='center'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='tags'>
-              <FormattedMessage id='profile.skills' />
+              <FormattedMessage id='shared_ui.form.skills' />
             </Label>
           </Text>
         </Box>
         <Layout flexBasis={24} flexShrink={0} />
         <Multiselect
           id='tags'
-          placeholder={formatMessage({ id: 'profile.enter_skill' })}
+          placeholder={formatMessage({ id: 'shared_ui.form.enter_skill' })}
           value={formValues.tags}
           onChange={handleChange('tags')}
         />
@@ -86,7 +86,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
       <Row fill alignItems='flex-start'>
         <Box height={50} minWidth={125} justifyContent='flex-end' alignItems='center'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
-            <FormattedMessage id='profile.image' />
+            <FormattedMessage id='shared_ui.form.image' />
           </Text>
         </Box>
         <Layout flexBasis={24} flexShrink={0} />
@@ -96,7 +96,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
             <Layout flexBasis={10} flexShrink={0} />
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>
-                <FormattedMessage id='profile.change' />
+                <FormattedMessage id='shared_ui.form.change' />
               </Text>
             </Button>
           </Condition>
@@ -104,14 +104,14 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
             <Box height={50} justifyContent='center' alignItems='center'>
               <Button variant='link' size='micro'>
                 <Text fontSize='medium' color='currentColor'>
-                  <FormattedMessage id='profile.load' />
+                  <FormattedMessage id='shared_ui.form.load' />
                 </Text>
               </Button>
             </Box>
           </Condition>
           <Layout flexBasis={10} flexShrink={0} />
           <Text fontSize='normal' textAlign='center' color='text.gray'>
-            <FormattedMessage id='profile.minimum_size' />
+            <FormattedMessage id='shared_ui.form.minimum_size' />
           </Text>
         </Column>
       </Row>

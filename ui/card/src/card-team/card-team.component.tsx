@@ -17,13 +17,13 @@ export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
   const countUsers = team.countUsers || 0
   const countPeopleWord = `${countUsers} ${getDependOfNumberWord(
     countUsers,
-    formatMessage({ id: 'profile.people_words' }).split(' ')
+    formatMessage({ id: 'shared_ui.card.people_words' }).split(' ')
   )}`
 
   const countProjects = team.countProjects || 0
   const countProjectsWord = `${countProjects} ${getDependOfNumberWord(
     countProjects,
-    formatMessage({ id: 'profile.project_words' }).split(' ')
+    formatMessage({ id: 'shared_ui.card.project_words' }).split(' ')
   )}`
 
   const mockAvatarsTeams = Array.from({ length: countProjects }, () => team.avatarUrl || '')

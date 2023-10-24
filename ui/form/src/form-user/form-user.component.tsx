@@ -26,7 +26,7 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
         <Box minWidth={125} justifyContent='flex-end'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='name'>
-              <FormattedMessage id='profile.name' />
+              <FormattedMessage id='shared_ui.form.name' />
             </Label>
           </Text>
         </Box>
@@ -38,7 +38,7 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
         <Box minWidth={125} justifyContent='flex-end'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='surname'>
-              <FormattedMessage id='profile.surname' />
+              <FormattedMessage id='shared_ui.form.surname' />
             </Label>
           </Text>
         </Box>
@@ -50,7 +50,7 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
         <Box height={50} minWidth={125} justifyContent='flex-end' alignItems='center'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='description'>
-              <FormattedMessage id='profile.about' />
+              <FormattedMessage id='shared_ui.form.about' />
             </Label>
           </Text>
         </Box>
@@ -67,7 +67,7 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
       <Layout flexBasis={10} flexShrink={0} />
       <Row fill justifyContent='flex-end'>
         <Text fontSize='normal' color='text.gray'>
-          <FormattedMessage id='profile.from_to_symbols' />
+          <FormattedMessage id='shared_ui.form.from_to_symbols' />
         </Text>
       </Row>
       <Layout flexBasis={30} flexShrink={0} />
@@ -75,14 +75,14 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
         <Box height={50} minWidth={125} justifyContent='flex-end' alignItems='center'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
             <Label htmlFor='tags'>
-              <FormattedMessage id='profile.skills' />
+              <FormattedMessage id='shared_ui.form.skills' />
             </Label>
           </Text>
         </Box>
         <Layout flexBasis={24} flexShrink={0} />
         <Multiselect
           id='tags'
-          placeholder={formatMessage({ id: 'profile.enter_skill' })}
+          placeholder={formatMessage({ id: 'shared_ui.form.enter_skill' })}
           value={formValues.tags}
           onChange={handleChange('tags')}
         />
@@ -91,7 +91,7 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
       <Row fill alignItems='flex-start'>
         <Box height={50} minWidth={125} justifyContent='flex-end' alignItems='center'>
           <Text fontSize='medium' textAlign='right' color='text.gray'>
-            <FormattedMessage id='profile.image' />
+            <FormattedMessage id='shared_ui.form.image' />
           </Text>
         </Box>
         <Layout flexBasis={24} flexShrink={0} />
@@ -100,12 +100,12 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
           <Layout flexBasis={10} flexShrink={0} />
           <Button variant='link' size='micro'>
             <Text fontSize='normal' color='currentColor'>
-              <FormattedMessage id='profile.change' />
+              <FormattedMessage id='shared_ui.form.change' />
             </Text>
           </Button>
           <Layout flexBasis={10} flexShrink={0} />
           <Text fontSize='normal' textAlign='center' color='text.gray'>
-            <FormattedMessage id='profile.minimum_size' />
+            <FormattedMessage id='shared_ui.form.minimum_size' />
           </Text>
         </Column>
       </Row>
