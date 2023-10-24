@@ -75,6 +75,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddGarnetMessageBus(Uuid.NewGuid(), o =>
             {
                 o.RegisterConsumer<ProjectTeamJoinRequestFakeConsumer, TeamJoinProjectRequestCreatedEvent>();
+                o.RegisterConsumer<ProjectTeamLeaveFakeConsumer, TeamLeaveProjectEvent>();
             });
         }
     }
