@@ -35,12 +35,14 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
         private readonly TeamUploadAvatarCommand _teamUploadAvatarCommand;
         private readonly TeamEditTagsCommand _teamEditTagsCommand;
+        private readonly TeamLeaveProjectCommand _teamLeaveProjectCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
         private readonly TeamJoinInvitationDecideCommand _teamJoinInvitationDecideCommand;
 
         public TeamsMutation(
             TeamCreateCommand teamCreateCommand,
             TeamDeleteCommand teamDeleteCommand,
+            TeamLeaveProjectCommand teamLeaveProjectCommand,
             TeamEditDescriptionCommand teamEditDescriptionCommand,
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamJoinInviteCommand joinInviteCommand,
@@ -62,6 +64,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamUserJoinRequestCreateCommand = teamUserJoinRequestCreateCommand;
             _teamUserJoinRequestDecideCommand = teamUserJoinRequestDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
+            _teamLeaveProjectCommand = teamLeaveProjectCommand;
             _teamEditNameCommand = teamEditNameCommand;
             _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
@@ -129,7 +132,10 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamLeaveProjectNotice> TeamLeaveProject(CancellationToken ct, TeamLeaveProjectNotice input)
         {
-            return null;
+            var result = await _teamLeaveProjectCommand.Execute(ct, input.TeamId, input.ProjectId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            return input;
         }
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvite(CancellationToken ct, TeamJoinInviteInput input)
