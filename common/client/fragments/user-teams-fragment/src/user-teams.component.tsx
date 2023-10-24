@@ -1,24 +1,24 @@
-import React                  from 'react'
-import { FC }                 from 'react'
-import { FormattedMessage }   from 'react-intl'
-import { useRouter }          from 'next/router'
-import { useEffect }          from 'react'
-import { useState }           from 'react'
+import React                from 'react'
+import { FC }               from 'react'
+import { FormattedMessage } from 'react-intl'
+import { useRouter }        from 'next/router'
+import { useEffect }        from 'react'
+import { useState }         from 'react'
 
-import { Condition }          from '@ui/condition'
-import { Box }                from '@ui/layout'
-import { Column }             from '@ui/layout'
-import { Row }                from '@ui/layout'
-import { Layout }             from '@ui/layout'
-import { Tag }                from '@ui/tag'
-import { Text }               from '@ui/text'
-import { Title }              from '@ui/title'
-import { WrapperWhite }       from '@ui/wrapper'
-import { mockAuthUserId }     from '@shared/data'
-import { getMockUser }        from '@shared/data'
+import { Condition }        from '@ui/condition'
+import { Box }              from '@ui/layout'
+import { Column }           from '@ui/layout'
+import { Row }              from '@ui/layout'
+import { Layout }           from '@ui/layout'
+import { Tag }              from '@ui/tag'
+import { Text }             from '@ui/text'
+import { Title }            from '@ui/title'
+import { WrapperWhite }     from '@ui/wrapper'
+import { mockAuthUserId }   from '@shared/data'
+import { getMockUser }      from '@shared/data'
+import { getUniqueTags }    from '@shared/helpers'
 
-import { ListTeams }          from './list-teams/list-teams.component'
-import { getTeamsUniqueTags } from './helpers'
+import { ListTeams }        from './list-teams/list-teams.component'
 
 export const UserTeams: FC = () => {
   const [isMyProfile, setIsMyProfile] = useState(false)
@@ -29,7 +29,7 @@ export const UserTeams: FC = () => {
 
   const user = userData?.user
   const teams = userData?.teams || []
-  const uniqueTags = getTeamsUniqueTags(teams)
+  const uniqueTags = getUniqueTags(teams)
 
   useEffect(() => {
     if (user?.id === mockAuthUserId) setIsMyProfile(true)
