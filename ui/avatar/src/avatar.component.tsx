@@ -22,7 +22,7 @@ export const Avatar: FC<AvatarProps> = ({ image, shape = 'circle', size = 74, ur
           width: size,
           height: size,
           backgroundColor: 'transparent',
-          borderRadius: shape === 'circle' ? '100%' : theme.radii.medium,
+          borderRadius: shape === 'circle' ? theme.radii.full : theme.radii.medium,
         }}
       >
         <AvatarImage src={image} />
