@@ -15,12 +15,14 @@
     "next": "12.3.4"
   },
   "peerDependencies": {
+    "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "next": "*",
     "react": "*",
     "react-dom": "*",
     "react-intl": "*",
-    "styled-system": "*"
+    "styled-system": "*",
+    "styled-tools": "*"
   }
 }

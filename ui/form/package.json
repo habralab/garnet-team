@@ -16,11 +16,13 @@
     "react-intl": "6.0.8"
   },
   "peerDependencies": {
+    "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "react": "*",
     "react-dom": "*",
     "react-intl": "*",
-    "styled-system": "*"
+    "styled-system": "*",
+    "styled-tools": "*"
   }
 }

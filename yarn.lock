@@ -219,6 +219,7 @@ __metadata:
     next: "npm:12.3.4"
     react-intl: "npm:6.0.8"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
@@ -227,6 +228,7 @@ __metadata:
     react-dom: "*"
     react-intl: "*"
     styled-system: "*"
+    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
@@ -268,6 +270,7 @@ __metadata:
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     next: "*"
@@ -275,6 +278,7 @@ __metadata:
     react-dom: "*"
     react-intl: "*"
     styled-system: "*"
+    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
@@ -297,6 +301,7 @@ __metadata:
     next: "npm:12.3.4"
     react-intl: "npm:6.0.8"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
@@ -305,6 +310,7 @@ __metadata:
     react-dom: "*"
     react-intl: "*"
     styled-system: "*"
+    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
@@ -320,6 +326,7 @@ __metadata:
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     next: "*"
@@ -327,6 +334,7 @@ __metadata:
     react-dom: "*"
     react-intl: "*"
     styled-system: "*"
+    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
@@ -3449,6 +3457,7 @@ __metadata:
     "@ui/theme": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     next: "*"
@@ -3520,6 +3529,7 @@ __metadata:
     next: "npm:12.3.4"
     react-intl: "npm:6.0.8"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
@@ -3528,6 +3538,7 @@ __metadata:
     react-dom: "*"
     react-intl: "*"
     styled-system: "*"
+    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
@@ -3557,12 +3568,14 @@ __metadata:
     "@ui/text": "workspace:0.0.1"
     react-intl: "npm:6.0.8"
   peerDependencies:
+    "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     react: "*"
     react-dom: "*"
     react-intl: "*"
     styled-system: "*"
+    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
