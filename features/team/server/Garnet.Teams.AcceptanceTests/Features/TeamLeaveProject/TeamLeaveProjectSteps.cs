@@ -1,6 +1,9 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
+using Garnet.Teams.Infrastructure.Api.TeamLeaveProject;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamLeaveProject
@@ -10,14 +13,17 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamLeaveProject
     {
         private readonly ProjectTeamLeaveFakeConsumer _projectFake;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly QueryExceptionsContext _queryExceptionsContext;
 
         public TeamLeaveProjectSteps(
+            QueryExceptionsContext queryExceptionsContext,
             CurrentUserProviderFake currentUserProviderFake,
             ProjectTeamLeaveFakeConsumer projectFake,
             StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
             _projectFake = projectFake;
+            _queryExceptionsContext = queryExceptionsContext;
         }
 
         [Given(@"команда '(.*)' является участником проекта '(.*)'")]
@@ -28,10 +34,20 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamLeaveProject
         }
 
         [When(@"'(.*)' удаляет команду '(.*)' из состава проекта '(.*)'")]
-        public Task WhenУдаляетКомандуИзСоставаПроекта(string username, string teamName, string project)
+        public async Task WhenУдаляетКомандуИзСоставаПроекта(string username, string teamName, string project)
         {
-            return Task.CompletedTask;
+            var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
+            var input = new TeamLeaveProjectNotice(team.Id, project);
 
+            _currentUserProviderFake.LoginAs(username);
+            try
+            {
+                await Mutation.TeamLeaveProject(CancellationToken.None, input);
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [Then(@"команда '(.*)' не является участником проекта '(.*)'")]

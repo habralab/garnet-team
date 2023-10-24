@@ -18,6 +18,7 @@ using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
+using Garnet.Teams.Infrastructure.Api.TeamLeaveProject;
 
 namespace Garnet.Teams.Infrastructure.Api
 {
@@ -124,6 +125,11 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var joinProjectRequest = result.Value;
             return new TeamJoinProjectRequestPayload(joinProjectRequest.Id, joinProjectRequest.TeamId, joinProjectRequest.ProjectId);
+        }
+
+        public async Task<TeamLeaveProjectNotice> TeamLeaveProject(CancellationToken ct, TeamLeaveProjectNotice input)
+        {
+            return null;
         }
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvite(CancellationToken ct, TeamJoinInviteInput input)
