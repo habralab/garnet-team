@@ -1,5 +1,5 @@
 {
-  "name": "@user/user-teams-fragment",
+  "name": "@app/user-teams-fragment",
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {

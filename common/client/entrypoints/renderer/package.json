@@ -10,13 +10,13 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@app/index-page": "workspace:0.0.1",
+    "@app/user-page": "workspace:0.0.1",
+    "@app/user-teams-page": "workspace:0.0.1",
     "@emotion/css": "11.9.0",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "@ui/theme": "workspace:0.0.1",
-    "@user/index-page": "workspace:0.0.1",
-    "@user/user-page": "workspace:0.0.1",
-    "@user/user-teams-page": "workspace:0.0.1",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",

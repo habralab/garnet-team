@@ -1,1 +1,1 @@
-export { default } from '@user/user-teams-page'
+export { default } from '@app/user-teams-page'
