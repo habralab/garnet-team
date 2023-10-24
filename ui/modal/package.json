@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "@atls-ui-proto/modal": "0.0.6",
+    "@atls-ui-parts/portal": "0.0.6",
     "@ui/background": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
@@ -13,8 +13,11 @@
     "@ui/text": "workspace:0.0.1"
   },
   "devDependencies": {
+    "@emotion/css": "11.9.0",
+    "@emotion/styled": "11.9.3",
     "@types/react": "18.2.30",
     "@types/react-dom": "18.2.14",
+    "framer-motion": "10.16.1",
     "react-intl": "6.0.8"
   },
   "peerDependencies": {

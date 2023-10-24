@@ -1,8 +1,6 @@
-import { ModalProps as ModalComponentProps } from '@atls-ui-proto/modal'
+import { PropsWithChildren } from 'react'
 
-import { PropsWithChildren }                 from 'react'
-
-export interface ModalProps extends PropsWithChildren<ModalComponentProps> {
+export interface ModalProps extends PropsWithChildren {
   theme?: 'primary' | 'exit'
   title?: string
   okText?: string
@@ -11,4 +9,6 @@ export interface ModalProps extends PropsWithChildren<ModalComponentProps> {
   showCancel?: boolean
   onOk?: () => void
   onCancel?: () => void
+  onClose?: () => void
+  open?: boolean
 }

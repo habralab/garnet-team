@@ -1,23 +1,27 @@
-import { Modal as ModalComponent } from '@atls-ui-proto/modal'
+import { Portal }          from '@atls-ui-parts/portal'
 
-import React                       from 'react'
-import { FC }                      from 'react'
-import { useIntl }                 from 'react-intl'
+import React               from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { FC }              from 'react'
+import { useIntl }         from 'react-intl'
 
-import { Background }              from '@ui/background'
-import { Button }                  from '@ui/button'
-import { Condition }               from '@ui/condition'
-import { ClearIcon }               from '@ui/icon'
-import { Box }                     from '@ui/layout'
-import { Column }                  from '@ui/layout'
-import { Row }                     from '@ui/layout'
-import { Layout }                  from '@ui/layout'
-import { Text }                    from '@ui/text'
+import { Background }      from '@ui/background'
+import { Button }          from '@ui/button'
+import { Condition }       from '@ui/condition'
+import { ClearIcon }       from '@ui/icon'
+import { Box }             from '@ui/layout'
+import { Column }          from '@ui/layout'
+import { Row }             from '@ui/layout'
+import { Layout }          from '@ui/layout'
+import { Text }            from '@ui/text'
 
-import { ModalProps }              from './modal.interfaces'
+import { Backdrop }        from './backdrop'
+import { Container }       from './container'
+import { ModalProps }      from './modal.interfaces'
 
 export const Modal: FC<ModalProps> = ({
   children,
+  open,
   theme = 'primary',
   title,
   okText,
@@ -27,7 +31,6 @@ export const Modal: FC<ModalProps> = ({
   onOk,
   onCancel,
   onClose,
-  ...props
 }) => {
   const { formatMessage } = useIntl()
 
@@ -35,89 +38,106 @@ export const Modal: FC<ModalProps> = ({
   const defaultOkText = okText ?? formatMessage({ id: 'shared_ui.save' })
 
   return (
-    <ModalComponent onClose={onClose} {...props}>
-      <Condition match={theme === 'primary'}>
-        <Background
-          position='absolute'
-          top='50%'
-          left='50%'
-          style={{ transform: 'translate(-50%, -50%)' }}
-          maxWidth={632}
-          borderRadius='medium'
-          color='white'
-          alignItems='center'
-        >
-          <Box
-            position='absolute'
-            top={16}
-            right={16}
-            style={{ cursor: 'pointer' }}
-            onClick={onClose}
-          >
-            <ClearIcon width={32} height={32} />
-          </Box>
-          <Layout flexBasis={32} flexShrink={0} />
-          <Column alignItems='center'>
-            <Layout flexBasis={56} />
-            <Condition match={Boolean(title)}>
-              <Text fontSize='preLarge' fontWeight='bold' color='text.secondary'>
-                {title}
-              </Text>
-              <Layout flexBasis={50} flexShrink={0} />
+    <AnimatePresence>
+      <Condition match={Boolean(open)}>
+        <Portal>
+          <Container>
+            <Backdrop onClick={onClose} />
+            <Condition match={theme === 'primary'}>
+              <Box
+                position='absolute'
+                left={0}
+                right={0}
+                margin='10% auto'
+                width='100%'
+                maxWidth={632}
+                flexDirection='column'
+              >
+                <Background fill borderRadius='medium' color='white' alignItems='center'>
+                  <Box
+                    position='absolute'
+                    top={16}
+                    right={16}
+                    style={{ cursor: 'pointer' }}
+                    onClick={onClose}
+                  >
+                    <ClearIcon width={32} height={32} />
+                  </Box>
+                  <Layout flexBasis={32} flexShrink={0} />
+                  <Column width='100%' alignItems='center'>
+                    <Layout flexBasis={56} />
+                    <Condition match={Boolean(title)}>
+                      <Text fontSize='preLarge' fontWeight='bold' color='text.secondary'>
+                        {title}
+                      </Text>
+                      <Layout flexBasis={50} flexShrink={0} />
+                    </Condition>
+                    {children}
+                    <Row justifyContent='flex-end'>
+                      <Condition match={showCancel}>
+                        <Button variant='link' onClick={onCancel}>
+                          <Text fontSize='medium' color='currentColor'>
+                            {defaultCancelText}
+                          </Text>
+                        </Button>
+                        <Layout flexBasis={24} flexShrink={0} />
+                      </Condition>
+                      <Condition match={showOk}>
+                        <Button variant='primary' onClick={onOk}>
+                          <Text fontSize='medium' color='currentColor'>
+                            {defaultOkText}
+                          </Text>
+                        </Button>
+                      </Condition>
+                    </Row>
+                    <Layout flexBasis={56} />
+                  </Column>
+                  <Layout flexBasis={32} flexShrink={0} />
+                </Background>
+                <Layout flexBasis={100} flexShrink={0} />
+              </Box>
             </Condition>
-            {children}
-            <Row justifyContent='flex-end'>
-              <Condition match={showCancel}>
-                <Button variant='link' onClick={onCancel}>
-                  {defaultCancelText}
-                </Button>
-                <Layout flexBasis={24} flexShrink={0} />
-              </Condition>
-              <Condition match={showOk}>
-                <Button variant='primary' onClick={onOk}>
-                  {defaultOkText}
-                </Button>
-              </Condition>
-            </Row>
-            <Layout flexBasis={56} />
-          </Column>
-          <Layout flexBasis={32} flexShrink={0} />
-        </Background>
+            <Condition match={theme === 'exit'}>
+              <Background
+                position='absolute'
+                top={140}
+                right={24}
+                fill
+                maxWidth={360}
+                maxHeight={200}
+                borderRadius='medium'
+                color='white'
+                alignItems='center'
+                justifyContent='center'
+              >
+                <Layout flexBasis={60} />
+                <Column alignItems='center'>
+                  <Layout flexBasis={40} />
+                  {children}
+                  <Row justifyContent='space-between'>
+                    <Condition match={showCancel}>
+                      <Button variant='link' onClick={onCancel}>
+                        <Text fontSize='medium' color='currentColor'>
+                          {defaultCancelText}
+                        </Text>
+                      </Button>
+                    </Condition>
+                    <Condition match={showOk}>
+                      <Button variant='secondary' onClick={onOk}>
+                        <Text fontSize='medium' color='currentColor'>
+                          {defaultOkText}
+                        </Text>
+                      </Button>
+                    </Condition>
+                  </Row>
+                  <Layout flexBasis={40} />
+                </Column>
+                <Layout flexBasis={60} />
+              </Background>
+            </Condition>
+          </Container>
+        </Portal>
       </Condition>
-      <Condition match={theme === 'exit'}>
-        <Background
-          position='absolute'
-          top={140}
-          right={24}
-          fill
-          maxWidth={350}
-          maxHeight={200}
-          borderRadius='medium'
-          color='white'
-          alignItems='center'
-          justifyContent='center'
-        >
-          <Layout flexBasis={60} />
-          <Column alignItems='center'>
-            <Layout flexBasis={40} />
-            {children}
-            <Row justifyContent='space-between'>
-              <Condition match={showCancel}>
-                <Button variant='link' onClick={onCancel}>
-                  {defaultCancelText}
-                </Button>
-              </Condition>
-              <Condition match={showOk}>
-                <Button variant='secondary' onClick={onOk}>
-                  {defaultOkText}
-                </Button>
-              </Condition>
-            </Row>
-            <Layout flexBasis={40} />
-          </Column>
-          <Layout flexBasis={60} />
-        </Background>
-      </Condition>
-    </ModalComponent>
+    </AnimatePresence>
   )
 }
