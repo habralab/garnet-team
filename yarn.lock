@@ -3194,17 +3194,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:18.2.30":
-  version: 18.2.30
-  resolution: "@types/react@npm:18.2.30"
-  dependencies:
-    "@types/prop-types": "npm:*"
-    "@types/scheduler": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 8e5edff84846403f7ba17b65926165d21c5ddd466ef43c4dd68994471824edbbacc9b4389750f476e9b696cb8d2fa7a43ddc7c11d70f76f1baa45261d79d8f99
-  languageName: node
-  linkType: hard
-
 "@types/responselike@npm:*, @types/responselike@npm:^1.0.0":
   version: 1.0.0
   resolution: "@types/responselike@npm:1.0.0"
@@ -3293,7 +3282,7 @@ __metadata:
   resolution: "@ui/avatar@workspace:ui/avatar"
   dependencies:
     "@atls-ui-proto/avatar": "npm:0.0.10"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -3359,7 +3348,7 @@ __metadata:
   resolution: "@ui/card@workspace:ui/card"
   dependencies:
     "@shared/data": "workspace:0.0.1"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/background": "workspace:0.0.1"
@@ -3400,7 +3389,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/form@workspace:ui/form"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -3512,7 +3501,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/logo@workspace:ui/logo"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/link": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -3534,7 +3523,7 @@ __metadata:
     "@atls-ui-parts/portal": "npm:0.0.6"
     "@emotion/css": "npm:11.9.0"
     "@emotion/styled": "npm:11.9.3"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -3560,7 +3549,7 @@ __metadata:
   resolution: "@ui/tag@workspace:ui/tag"
   dependencies:
     "@emotion/styled": "npm:11.9.3"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/condition": "workspace:0.0.1"
@@ -3622,7 +3611,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/title@workspace:ui/title"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/condition": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
@@ -3658,7 +3647,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/wrapper@workspace:ui/wrapper"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
@@ -3678,7 +3667,7 @@ __metadata:
   dependencies:
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
@@ -3710,7 +3699,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@user/index-page@workspace:features/user/client/pages/index-page"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     next: "npm:12.3.4"
   peerDependencies:
@@ -3725,7 +3714,7 @@ __metadata:
   resolution: "@user/profile-fragment@workspace:features/user/client/fragments/profile-fragment"
   dependencies:
     "@shared/data": "workspace:0.0.1"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -3760,7 +3749,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@user/user-page@workspace:features/user/client/pages/user-page"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
@@ -3783,7 +3772,7 @@ __metadata:
   resolution: "@user/user-teams-fragment@workspace:features/user/client/fragments/user-teams-fragment"
   dependencies:
     "@shared/data": "workspace:0.0.1"
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/button": "workspace:0.0.1"
     "@ui/card": "workspace:0.0.1"
@@ -3812,7 +3801,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@user/user-teams-page@workspace:features/user/client/pages/user-teams-page"
   dependencies:
-    "@types/react": "npm:18.2.30"
+    "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
