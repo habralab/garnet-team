@@ -4,7 +4,7 @@ import { useRouter }             from 'next/router'
 import { useIntl }               from 'react-intl'
 
 import { UserGroupIcon }         from '@ui/icon'
-import { getDependOfNumberWord } from '@utils/helpers'
+import { getDependOfNumberWord } from '@shared/helpers'
 
 import { Card }                  from '../card.component'
 import { CardProjectsProps }     from './card-project.interfaces'

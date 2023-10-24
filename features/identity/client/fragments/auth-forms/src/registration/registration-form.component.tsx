@@ -18,7 +18,7 @@ import { Row }               from '@ui/layout'
 import { Column }            from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { Text }              from '@ui/text'
-import { checkPassword }     from '@utils/helpers'
+import { checkPassword }     from '@shared/helpers'
 
 export const RegistrationForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)

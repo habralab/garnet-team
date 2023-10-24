@@ -4,7 +4,7 @@ import { useRouter }             from 'next/router'
 import { useIntl }               from 'react-intl'
 
 import { Settings2Icon }         from '@ui/icon'
-import { getDependOfNumberWord } from '@utils/helpers'
+import { getDependOfNumberWord } from '@shared/helpers'
 
 import { Card }                  from '../card.component'
 import { CardTeamProps }         from './card-team.interfaces'

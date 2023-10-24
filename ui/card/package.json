@@ -4,14 +4,14 @@
   "main": "src/index.ts",
   "dependencies": {
     "@shared/data": "workspace:0.0.1",
+    "@shared/helpers": "workspace:0.0.1",
     "@ui/avatar": "workspace:0.0.1",
     "@ui/background": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
     "@ui/icon": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1",
-    "@ui/utils": "workspace:0.0.1",
-    "@utils/helpers": "workspace:0.0.1"
+    "@ui/utils": "workspace:0.0.1"
   },
   "devDependencies": {
     "@types/react": "18.2.28",
