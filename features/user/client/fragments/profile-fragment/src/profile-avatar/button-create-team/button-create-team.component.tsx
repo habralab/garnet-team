@@ -27,7 +27,7 @@ export const ButtonCreateTeam: FC<ButtonCreateTeamProps> = ({ user }) => {
     setModalOpen(false)
   }
 
-  const handleChange = (field: keyof FormTeamValues) => (value: string) => {
+  const handleChange = (field: keyof FormTeamValues) => (value: string | string[]) => {
     setFormValues({ ...formValues, [field]: value })
   }
 

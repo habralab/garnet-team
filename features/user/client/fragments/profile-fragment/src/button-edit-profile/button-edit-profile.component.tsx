@@ -25,7 +25,7 @@ export const ButtonEditProfile: FC<ButtonEditProfileProps> = ({ user }) => {
     setModalOpen(false)
   }
 
-  const handleChange = (field: keyof FormUserValues) => (value: string) => {
+  const handleChange = (field: keyof FormUserValues) => (value: string | string[]) => {
     setFormValues({ ...formValues, [field]: value })
   }
 

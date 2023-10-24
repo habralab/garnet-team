@@ -7,6 +7,7 @@ import { Avatar }           from '@ui/avatar'
 import { Button }           from '@ui/button'
 import { Condition }        from '@ui/condition'
 import { Input }            from '@ui/input'
+import { Multiselect }      from '@ui/input'
 import { Label }            from '@ui/input'
 import { Textarea }         from '@ui/input'
 import { Box }              from '@ui/layout'
@@ -74,10 +75,10 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
           </Text>
         </Box>
         <Layout flexBasis={24} flexShrink={0} />
-        <Input
+        <Multiselect
           id='tags'
+          placeholder={formatMessage({ id: 'profile.enter_skill' })}
           value={formValues.tags}
-          placeholder={formatMessage({ id: 'profile.choose_skill' })}
           onChange={handleChange('tags')}
         />
       </Row>

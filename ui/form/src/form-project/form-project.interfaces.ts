@@ -7,5 +7,5 @@ export interface FormProjectValues {
 
 export interface FormProjectProps {
   formValues: FormProjectValues
-  handleChange: (field: keyof FormProjectValues) => (value: string) => void
+  handleChange: (field: keyof FormProjectValues) => (value: string | string[]) => void
 }

@@ -8,7 +8,6 @@
     "@ui/condition": "workspace:0.0.1",
     "@ui/input": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
-    "@ui/multiselect": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1"
   },
   "devDependencies": {

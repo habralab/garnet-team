@@ -27,7 +27,7 @@ export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ user }) => {
     setModalOpen(false)
   }
 
-  const handleChange = (field: keyof FormProjectValues) => (value: string) => {
+  const handleChange = (field: keyof FormProjectValues) => (value: string | string[]) => {
     setFormValues({ ...formValues, [field]: value })
   }
 

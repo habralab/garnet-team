@@ -7,5 +7,5 @@ export interface FormTeamValues {
 
 export interface FormTeamProps {
   formValues: FormTeamValues
-  handleChange: (field: keyof FormTeamValues) => (value: string) => void
+  handleChange: (field: keyof FormTeamValues) => (value: string | string[]) => void
 }

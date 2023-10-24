@@ -8,5 +8,5 @@ export interface FormUserValues {
 
 export interface FormUserProps {
   formValues: FormUserValues
-  handleChange: (field: keyof FormUserValues) => (value: string) => void
+  handleChange: (field: keyof FormUserValues) => (value: string | string[]) => void
 }
