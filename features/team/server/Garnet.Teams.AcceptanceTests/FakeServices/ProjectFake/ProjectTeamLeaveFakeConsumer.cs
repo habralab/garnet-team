@@ -22,5 +22,7 @@ namespace Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake
 
             _projectTeams[projectId].Add(teamId);
         }
+
+        public List<string> GetProjectTeams(string projectId) => _projectTeams[projectId].ToList();
     }
 }
