@@ -58,5 +58,16 @@
   "user_teams.no_teams": "Нет команд",
   "user_teams.show_more": "Показать еще",
   "user_teams.teams": "Команды",
+  "shared_ui.skills.smm": "SMM",
+  "shared_ui.skills.targeted_ad": "Таргетированная реклама",
+  "shared_ui.skills.marketing": "Маркетинг",
+  "shared_ui.skills.ux_ui_design": "UX/UI дизайн",
+  "shared_ui.skills.google_analytics": "Google Analytics",
+  "shared_ui.skills.sql": "SQL",
+  "shared_ui.skills.javascript": "JavaScript",
+  "shared_ui.skills.typescript": "TypeScript",
+  "shared_ui.skills.react": "React",
+  "shared_ui.skills.nextjs": "Next js",
+  "shared_ui.skills.nestjs": "Nest js",
   "user_teams.you_do_not_have_teams": "У вас еще нет команд"
 }

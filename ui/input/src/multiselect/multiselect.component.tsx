@@ -11,6 +11,7 @@ import { FormattedMessage }         from 'react-intl'
 import { useState }                 from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
+import { useIntl }                  from 'react-intl'
 
 import { Background }               from '@ui/background'
 import { Condition }                from '@ui/condition'
@@ -51,10 +52,17 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
   const [menuOpen, setMenuOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
+  const { formatMessage } = useIntl()
+
   const handleChangeSearch = (searchValue: string) => setSearch(searchValue)
   const changeSearchValue = useChangeValue(disabled, handleChangeSearch, onChangeNative)
 
-  const { buttonProps, menuProps, renderMenu } = useSelect({ items: mockSkills, isOpen: menuOpen })
+  const localizedSkills = mockSkills.map((item) => formatMessage({ id: item }))
+
+  const { buttonProps, menuProps, renderMenu } = useSelect({
+    items: localizedSkills,
+    isOpen: menuOpen,
+  })
 
   // eslint-disable-next-line
   if (!ref) ref = useRef(null)
@@ -76,7 +84,7 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
     onChange?.(value.concat([newValue]))
   }
 
-  const filteredItems = mockSkills.filter(
+  const filteredItems = localizedSkills.filter(
     (item) => !value.includes(item) && item.toLowerCase().includes(search.toLowerCase())
   )
 
@@ -149,7 +157,7 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
                 <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
                   {filteredItems.map((item) => (
                     <Tag key={item} onClick={() => handleAddTag(item)}>
-                      {item}
+                      <FormattedMessage id={item} />
                     </Tag>
                   ))}
                 </Row>
