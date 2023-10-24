@@ -42,6 +42,7 @@ services:
       - '4433:4433'
       - '4434:4434'
     restart: unless-stopped
+    env_file: .env.kratos.stage
     environment:
       - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
       - LOG_LEVEL=trace
@@ -96,7 +97,7 @@ services:
     environment:
       KETO_WRITE_REMOTE: keto:4467
     command: relation-tuple create /config/keto/relation-tuples --insecure-disable-transport-security
-    restart: no
+    restart: on-failure
     volumes:
       - type: bind
         source: ./config/ory/keto
