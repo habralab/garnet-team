@@ -2,7 +2,7 @@ export interface FormTeamValues {
   name: string
   description: string
   tags: string[]
-  avatar: any
+  avatar: string
 }
 
 export interface FormTeamProps {

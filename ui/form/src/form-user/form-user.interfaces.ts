@@ -3,7 +3,7 @@ export interface FormUserValues {
   surname: string
   description: string
   tags: string[]
-  avatar: any
+  avatar: string
 }
 
 export interface FormUserProps {
