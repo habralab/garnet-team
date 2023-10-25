@@ -7,21 +7,19 @@ import { useSelect }                from '@atls-ui-parts/select'
 import React                        from 'react'
 import { HTMLInputTypeAttribute }   from 'react'
 import { ForwardRefRenderFunction } from 'react'
-import { FormattedMessage }         from 'react-intl'
 import { useState }                 from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
 import { useIntl }                  from 'react-intl'
 
-import { Background }               from '@ui/background'
 import { Condition }                from '@ui/condition'
-import { ClearIcon }                from '@ui/icon'
 import { Box }                      from '@ui/layout'
 import { Layout }                   from '@ui/layout'
 import { Row }                      from '@ui/layout'
 import { Tag }                      from '@ui/tag'
 import { Text }                     from '@ui/text'
 
+import { DropdownSkills }           from '../dropdown-skills'
 import { IconAttachment }           from '../icon-attachment'
 import { InputProps }               from '../input.interfaces'
 import { transitionStyles }         from '../input.styles'
@@ -118,13 +116,7 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
             />
           </Row>
           {renderMenu(
-            <Background
-              color='white'
-              borderRadius='medium'
-              border='lightGrayForty'
-              padding='16px'
-              flexDirection='column'
-              position='relative'
+            <Box
               {...menuProps}
               style={{
                 ...menuProps.style,
@@ -133,36 +125,12 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
                 zIndex: 2000,
               }}
             >
-              <Box
-                position='absolute'
-                top={16}
-                right={16}
-                style={{ cursor: 'pointer' }}
+              <DropdownSkills
+                options={filteredItems}
+                onChangeOption={handleAddTag}
                 onClick={closeMenu}
-              >
-                <ClearIcon width={24} height={24} color='gray' />
-              </Box>
-              <Condition match={filteredItems.length === 0}>
-                <Layout flexBasis={30} flexShrink={0} />
-                <Text fontSize='semiLarge' color='text.gray' style={{ justifyContent: 'center' }}>
-                  <FormattedMessage id='shared_ui.skills_not_found' />
-                </Text>
-                <Layout flexBasis={30} flexShrink={0} />
-              </Condition>
-              <Condition match={filteredItems.length > 0}>
-                <Text fontSize='semiMedium' color='text.secondary'>
-                  <FormattedMessage id='shared_ui.choose_skill' />:
-                </Text>
-                <Layout flexBasis={12} flexShrink={0} />
-                <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
-                  {filteredItems.map((item) => (
-                    <Tag key={item} onClick={() => handleAddTag(item)}>
-                      <FormattedMessage id={item} />
-                    </Tag>
-                  ))}
-                </Row>
-              </Condition>
-            </Background>
+              />
+            </Box>
           )}
         </Condition>
         <Condition match={Boolean(props.iconSvg)}>
