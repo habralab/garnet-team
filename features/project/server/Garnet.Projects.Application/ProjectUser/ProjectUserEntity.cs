@@ -3,5 +3,5 @@
 public record ProjectUserEntity(
     string Id,
     string UserName,
-    string UserAvatarUrl
+    string? UserAvatarUrl
 );

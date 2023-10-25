@@ -6,14 +6,15 @@ public record ProjectUserDocument
 {
     public string Id { get; init; } = null!;
     public string UserName { get; set; } = null!;
-    public string UserAvatarUrl { get; set; } = "";
+    public string? UserAvatarUrl { get; set; } = null!;
 
-    public static ProjectUserDocument Create(string id, string userName)
+    public static ProjectUserDocument Create(string id, string userName, string? userAvatarUrl)
     {
         return new ProjectUserDocument
         {
             Id = id,
-            UserName = userName
+            UserName = userName,
+            UserAvatarUrl = userAvatarUrl
         };
     }
 

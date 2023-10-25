@@ -9,6 +9,7 @@ public class ProjectUserDocumentBuilder
 {
     private string _id = Uuid.NewMongo();
     private string _userName = "Username";
+    private string? _userAvatarUrl = null!;
 
 
     public ProjectUserDocumentBuilder WithId(string id)
@@ -26,7 +27,7 @@ public class ProjectUserDocumentBuilder
 
     public ProjectUserDocument Build()
     {
-        return ProjectUserDocument.Create(_id, _userName);
+        return ProjectUserDocument.Create(_id, _userName, _userAvatarUrl);
     }
 
     public static implicit operator ProjectUserDocument(ProjectUserDocumentBuilder builder)

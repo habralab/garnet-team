@@ -81,6 +81,7 @@ public static class Startup
 
 
         services.AddScoped<ProjectUserCreateCommand>();
+        services.AddScoped<ProjectUserUpdateCommand>();
 
         services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
@@ -110,6 +111,7 @@ public static class Startup
             o.RegisterMessage<ProjectDeletedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+            o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
 
             o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEvent>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEvent>();
