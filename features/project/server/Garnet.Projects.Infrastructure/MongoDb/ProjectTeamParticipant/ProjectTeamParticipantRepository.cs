@@ -1,6 +1,5 @@
 ﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.ProjectTeamParticipant;
-using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using MongoDB.Driver;
@@ -36,14 +35,12 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         var userParticipantsIds = team.UserParticipantId;
         var userParticipants =
             await db.ProjectUsers.Find(_userFilter.In(x => x.Id, userParticipantsIds)).ToListAsync(ct);
-        var userParticipantsEntities = userParticipants.Select(ProjectUserDocument.ToDomain).ToArray();
 
         var projectsIdOfTeamParticipant =
             await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId).ToListAsync(ct);
         var projectIds = projectsIdOfTeamParticipant.Select(x => x.ProjectId);
         var projectsList =
             await db.Projects.Find(_projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
-        var projectsListEntities = projectsList.Select(ProjectDocument.ToDomain).ToArray();
 
         var teamParticipant = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId,
             team.TeamAvatarUrl,
@@ -88,11 +85,10 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     {
         var db = _dbFactory.Create();
         var user = await db.ProjectUsers.Find(x => x.Id == userId).FirstAsync(ct);
-        var userDoc = new ProjectUserEntity(user.Id, user.UserName, user.UserAvatarUrl);
 
         await db.ProjectTeamsParticipants.UpdateManyAsync(
             _teamParticipantFilter.Eq(x => x.TeamId, teamId),
-            _u.AddToSet(x => x.UserParticipants, userDoc),
+            _u.AddToSet(x => x.UserParticipants, user),
             cancellationToken: ct
         );
     }

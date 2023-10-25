@@ -29,32 +29,32 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
     [Given(@"в команде '([^']*)' количество участников равно '([^']*)'")]
     public async Task GivenВКомандеКоличествоУчастниковРавно(string teamName, int participantCount)
     {
-        var userParticipants = new List<ProjectUserEntity>();
+        var userParticipants = new List<ProjectUserDocument>();
         for (var i = 0; i < participantCount; i++)
         {
             var user = GiveMe.ProjectUser().WithUserName($"User{i}");
-            userParticipants.Add(ProjectUserDocument.ToDomain(user));
+            userParticipants.Add(user);
         }
 
         await Db.ProjectTeamsParticipants.UpdateManyAsync(
             _f.Eq(x => x.TeamName, teamName),
-            _u.Set<ProjectUserEntity[]>(x => x.UserParticipants, userParticipants.ToArray())
+            _u.Set<ProjectUserDocument[]>(x => x.UserParticipants, userParticipants.ToArray())
         );
     }
 
     [Given(@"в команде '([^']*)' количество проектов равно '([^']*)'")]
     public async Task GivenВКомандеКоличествоПроектовРавно(string teamName, int projectsCount)
     {
-        var projectList = new List<ProjectEntity>();
+        var projectList = new List<ProjectDocument>();
         for (var i = 0; i < projectsCount; i++)
         {
             var project = GiveMe.Project().WithProjectName($"Project{i}");
-            projectList.Add(ProjectDocument.ToDomain(project));
+            projectList.Add(project);
         }
 
         await Db.ProjectTeamsParticipants.UpdateManyAsync(
             _f.Eq(x => x.TeamName, teamName),
-            _u.Set<ProjectEntity[]>(x => x.Projects, projectList.ToArray())
+            _u.Set<ProjectDocument[]>(x => x.Projects, projectList.ToArray())
         );
     }
 
