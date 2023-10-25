@@ -5,5 +5,5 @@ public record ProjectTeamEntity(
     string TeamName,
     string OwnerUserId,
     string? TeamAvatarUrl,
-    string[] UserParticipantsId
+    string[] UserParticipantIds
 );
