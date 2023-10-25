@@ -9,6 +9,7 @@ public class ProjectTeamDocumentBuilder
     private string _id = Uuid.NewMongo();
     private string _teamName = "TeamName";
     private string _ownerUserId = Uuid.NewMongo();
+    private string _teamAvatarUrl = "";
 
 
     public ProjectTeamDocumentBuilder WithId(string id)
@@ -31,7 +32,7 @@ public class ProjectTeamDocumentBuilder
 
     public ProjectTeamDocument Build()
     {
-        return ProjectTeamDocument.Create(_id, _teamName, _ownerUserId, new []{_ownerUserId});
+        return ProjectTeamDocument.Create(_id, _teamName, _ownerUserId, _teamAvatarUrl, new []{_ownerUserId});
     }
 
     public static implicit operator ProjectTeamDocument(ProjectTeamDocumentBuilder documentBuilder)
