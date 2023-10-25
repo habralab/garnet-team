@@ -21,21 +21,21 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestCancel
             _queryExceptionsContext = queryExceptionsContext;
         }
 
-        [When(@"'(.*)' отменяет заявку на вступление в '(.*)'")]
-        public async Task WhenОтменяетЗаявкуНаВступлениеВ(string username, string teamName)
+        [When(@"'(.*)' отменяет заявку пользователя '(.*)' на вступление в '(.*)'")]
+        public async Task WhenОтменяетЗаявкуНаВступлениеПользователяВ(string username, string requestedUser, string teamName)
         {
-            var userId = _currentUserProviderFake.GetUserIdByUsername(username);
+            var userId = _currentUserProviderFake.GetUserIdByUsername(requestedUser);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             var userJoinRequest = await Db.TeamUserJoinRequests.Find(x =>
                 x.TeamId == team.Id
                 & x.UserId == userId
-            ).FirstOrDefaultAsync();
+            ).FirstAsync();
 
             _currentUserProviderFake.LoginAs(username);
 
             try
             {
-                await Mutation.TeamUserJoinRequestCancel(CancellationToken.None, userJoinRequest?.Id ?? Uuid.NewMongo());
+                await Mutation.TeamUserJoinRequestCancel(CancellationToken.None, userJoinRequest.Id);
             }
             catch (QueryException ex)
             {
