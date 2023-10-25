@@ -1,17 +1,17 @@
 import React               from 'react'
 
 import { Header }          from '@app/header-fragment'
-import { ProjectProfile }  from '@app/project-profile-fragment'
+import { Project }         from '@app/project-fragment'
 import { Background }      from '@ui/background'
 import { WrapperMaxWidth } from '@ui/wrapper'
 
-const UserTeamsPage = () => (
+const ProjectPage = () => (
   <Background fill color='lightGreyTen' flexDirection='column' alignItems='center'>
     <Header />
     <WrapperMaxWidth>
-      <ProjectProfile />
+      <Project />
     </WrapperMaxWidth>
   </Background>
 )
 
-export default UserTeamsPage
+export default ProjectPage
