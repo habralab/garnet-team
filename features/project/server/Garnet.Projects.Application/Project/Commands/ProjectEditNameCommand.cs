@@ -25,8 +25,12 @@ public class ProjectEditNameCommand
     public async Task<Result<ProjectEntity>> Execute(CancellationToken ct,
         string projectId, string newName)
     {
-        var project = await _projectRepository.GetProject(ct, projectId);
+        if (string.IsNullOrEmpty(newName))
+        {
+            return Result.Fail(new ProjectNameCanNotBeEmptyError());
+        }
 
+        var project = await _projectRepository.GetProject(ct, projectId);
         if (project is null)
         {
             return Result.Fail(new ProjectNotFoundError(projectId));

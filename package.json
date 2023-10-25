@@ -3,6 +3,7 @@
   "private": true,
   "license": "BSD 3-Clause",
   "workspaces": [
+    "common/client/**/*",
     "features/identity/client/**/*",
     "shared/**/*",
     "ui/**/*",

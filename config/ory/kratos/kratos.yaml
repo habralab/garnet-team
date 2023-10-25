@@ -4,12 +4,13 @@ dsn: memory
 
 serve:
   public:
-    base_url: http://localhost:4433/
+    base_url: https://https://stage.garnet.pet-project.habr.com:4433/
     cors:
       enabled: true
       allowed_origins:
         - http://localhost:3000
         - http://identity:3000
+        - http://app:3001
         - http://localhost:4455
         - http://oathkeeper:4455
         - http://localhost:4466
