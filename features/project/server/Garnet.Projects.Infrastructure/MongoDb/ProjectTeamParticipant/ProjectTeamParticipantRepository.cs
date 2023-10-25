@@ -46,7 +46,8 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         var projectsListEntities = projectsList.Select(ProjectDocument.ToDomain).ToArray();
 
         var teamParticipant = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId,
-            userParticipantsEntities, projectsListEntities);
+            team.TeamAvatarUrl,
+            userParticipants.ToArray(), projectsList.ToArray());
         await db.ProjectTeamsParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
 
         return ProjectTeamParticipantDocument.ToDomain(teamParticipant);
@@ -63,12 +64,13 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     }
 
     public async Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
-        string teamName)
+        string teamName, string? teamAvatarUrl)
     {
         var db = _dbFactory.Create();
         await db.ProjectTeamsParticipants.UpdateManyAsync(
             _teamParticipantFilter.Eq(x => x.TeamId, teamId),
-            _u.Set(x => x.TeamName, teamName),
+            _u.Set(x => x.TeamName, teamName)
+                .Set(x => x.TeamAvatarUrl, teamAvatarUrl),
             cancellationToken: ct
         );
     }

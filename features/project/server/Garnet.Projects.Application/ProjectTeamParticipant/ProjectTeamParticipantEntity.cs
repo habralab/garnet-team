@@ -8,6 +8,7 @@ public record ProjectTeamParticipantEntity(
     string TeamId,
     string TeamName,
     string ProjectId,
+    string? TeamAvatarUrl,
     ProjectUserEntity[] UserParticipants,
     ProjectEntity[] Projects
 );

@@ -22,6 +22,7 @@ public record ProjectTeamParticipantDocument
             TeamId = teamId,
             TeamName = teamName,
             ProjectId = projectId,
+            TeamAvatarUrl = teamAvatarUrl,
             UserParticipants = userParticipants,
             Projects = projects
         };

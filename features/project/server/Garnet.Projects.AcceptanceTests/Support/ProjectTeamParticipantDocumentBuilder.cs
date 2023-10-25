@@ -12,6 +12,7 @@ public class ProjectTeamParticipantDocumentBuilder
     private string _teamId = Uuid.NewMongo();
     private string _teamName = "TeamName";
     private string _projectId = Uuid.NewMongo();
+    private string _teamAvatarUrl = "";
 
     private List<ProjectUserEntity> _userParticipants = new List<ProjectUserEntity>()
     {
@@ -64,6 +65,7 @@ public class ProjectTeamParticipantDocumentBuilder
             _teamId,
             _teamName,
             _projectId,
+            _teamAvatarUrl,
             _userParticipants.ToArray(),
             _projects.ToArray());
     }

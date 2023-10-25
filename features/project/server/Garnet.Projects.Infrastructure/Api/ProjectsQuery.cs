@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Garnet.Common.Infrastructure.Identity;
-using Garnet.Common.Infrastructure.Support;
+﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Queries;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
@@ -78,6 +76,7 @@ public class ProjectsQuery
             x.TeamId,
             x.TeamName,
             x.ProjectId,
+            x.TeamAvatarUrl,
             x.UserParticipants,
             x.Projects
         )).ToArray());
