@@ -96,14 +96,12 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             );
         }
 
-        public async Task<TeamParticipantEntity?> DeleteParticipantById(CancellationToken ct, string participantId)
+        public async Task DeleteParticipantById(CancellationToken ct, string participantId)
         {
             var db = _dbFactory.Create();
-            var participant = await db.TeamParticipants.FindOneAndDeleteAsync(
+            await db.TeamParticipants.DeleteOneAsync(
                 _f.Eq(x => x.Id, participantId)
             );
-
-            return participant is null ? null : TeamParticipantDocument.ToDomain(participant);
         }
 
         public async Task<TeamParticipantEntity?> IsParticipantInTeam(CancellationToken ct, string userId, string teamId)
