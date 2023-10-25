@@ -1,1 +1,1 @@
-export { default } from './user-teams.page'
+export { default } from './project-profile.page'
