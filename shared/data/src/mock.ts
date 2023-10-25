@@ -1,4 +1,5 @@
 import { MockUser } from './data.interfaces'
+import { Project }  from './data.interfaces'
 
 export const mockAuthUserId = '6516e88d723450ac19495148'
 
@@ -104,3 +105,13 @@ export const getMockUser = (id: string) => {
 
   return null
 }
+
+export const mockProjects: Project[] = Array.from({ length: 20 }, (_, index) => ({
+  id: String(index),
+  name: `Dream Project ${index}`,
+  countTeams: index + 1,
+  countUsers: index + 1,
+  avatarUrl:
+    'https://is4-ssl.mzstatic.com/image/thumb/Music112/v4/2e/3a/7f/2e3a7f87-761b-0113-9f01-dd4fc4470dcf/5059801037680_cover.jpg/1200x1200bf-60.jpg',
+  tags: mockTags,
+}))
