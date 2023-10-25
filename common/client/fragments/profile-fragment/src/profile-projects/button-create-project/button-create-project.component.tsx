@@ -2,58 +2,37 @@ import React                        from 'react'
 import { FC }                       from 'react'
 import { FormattedMessage }         from 'react-intl'
 import { useState }                 from 'react'
-import { useIntl }                  from 'react-intl'
 
+import { ModalCreateProject }       from '@shared/modals-fragment'
 import { Button }                   from '@ui/button'
-import { FormProject }              from '@ui/form'
-import { FormProjectValues }        from '@ui/form'
+import { Condition }                from '@ui/condition'
 import { AddIcon }                  from '@ui/icon'
-import { Layout }                   from '@ui/layout'
-import { Modal }                    from '@ui/modal'
 import { Text }                     from '@ui/text'
 
 import { ButtonCreateProjectProps } from './button-create-project.interfaces'
 
-const defaultFormValues: FormProjectValues = { name: '', description: '', tags: [], avatar: '' }
-
-export const ButtonCreateProject: FC<ButtonCreateProjectProps> = () => {
+export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ withIcon }) => {
   const [modalOpen, setModalOpen] = useState(false)
-  const [formValues, setFormValues] = useState<FormProjectValues>(defaultFormValues)
-  const { formatMessage } = useIntl()
 
   const openModal = () => setModalOpen(true)
-  const closeModal = () => {
-    setFormValues(defaultFormValues)
-    setModalOpen(false)
-  }
-
-  const handleChange = (field: keyof FormProjectValues) => (value: string | string[]) => {
-    setFormValues({ ...formValues, [field]: value })
-  }
-
-  const handleSubmit = () => {
-    /** @todo submit form */
-    closeModal()
-  }
+  const closeModal = () => setModalOpen(false)
 
   return (
     <>
-      <Button variant='secondary' size='small' onClick={openModal} style={{ paddingLeft: 20 }}>
-        <AddIcon width={16} height={16} color='currentColor' />
+      <Button
+        variant='secondary'
+        size='small'
+        onClick={openModal}
+        style={{ paddingLeft: withIcon ? 20 : '' }}
+      >
+        <Condition match={Boolean(withIcon)}>
+          <AddIcon width={16} height={16} color='currentColor' />
+        </Condition>
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.create_project' />
         </Text>
       </Button>
-      <Modal
-        open={modalOpen}
-        title={formatMessage({ id: 'profile.create_project' })}
-        onClose={closeModal}
-        onCancel={closeModal}
-        onOk={handleSubmit}
-      >
-        <FormProject formValues={formValues} handleChange={handleChange} />
-        <Layout flexBasis={50} flexShrink={0} />
-      </Modal>
+      <ModalCreateProject modalOpen={modalOpen} onClose={closeModal} />
     </>
   )
 }
