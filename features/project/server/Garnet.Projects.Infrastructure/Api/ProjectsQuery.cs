@@ -77,7 +77,8 @@ public class ProjectsQuery
             x.Id,
             x.TeamId,
             x.TeamName,
-            x.ProjectId
+            x.ProjectId,
+            x.UserParticipants
         )).ToArray());
     }
 
