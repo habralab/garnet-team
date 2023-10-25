@@ -21,7 +21,7 @@ namespace Garnet.Teams.Application.Team.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result> Execute(CancellationToken ct, string teamId, string projectId)
+        public async Task<Result<string>> Execute(CancellationToken ct, string teamId, string projectId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
@@ -36,7 +36,7 @@ namespace Garnet.Teams.Application.Team.Commands
 
             var @event = new TeamLeaveProjectEvent(teamId, projectId);
             await _messageBus.Publish(@event);
-            return Result.Ok();
+            return Result.Ok(teamId);
         }
     }
 }
