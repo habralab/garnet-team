@@ -14,15 +14,9 @@ public class ProjectTeamParticipantDocumentBuilder
     private string _projectId = Uuid.NewMongo();
     private string _teamAvatarUrl = "";
 
-    private List<ProjectUserDocument> _userParticipants = new List<ProjectUserDocument>()
-    {
-        new ProjectUserDocument()
-    };
+    private List<ProjectUserDocument> _userParticipants = new List<ProjectUserDocument>();
 
-    private List<ProjectDocument> _projects = new List<ProjectDocument>()
-    {
-        new ProjectDocument()
-    };
+    private List<ProjectDocument> _projects = new List<ProjectDocument>();
 
 
     public ProjectTeamParticipantDocumentBuilder WithId(string id)
