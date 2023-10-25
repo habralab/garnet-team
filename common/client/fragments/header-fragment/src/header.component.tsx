@@ -33,7 +33,7 @@ export const Header: FC = () => {
           <Layout flexBasis={100} flexShrink={0} />
           {navigationItems.map(({ id, url }) => (
             <Fragment key={id}>
-              <NextLink path={url} active>
+              <NextLink path={url} href={url} active>
                 <TabItem active={url === currentPathname}>
                   <FormattedMessage id={id} />
                 </TabItem>

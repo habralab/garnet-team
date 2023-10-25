@@ -36,7 +36,7 @@ export const Title: FC<TitleProps> = ({ backUrl, children, hasBack }) => {
         <Condition match={Boolean(hasBack)}>
           <Layout flexBasis={10} flexShrink={0} />
           <Condition match={Boolean(backUrl)}>
-            <NextLink path={backUrl || '/'}>
+            <NextLink path={backUrl || '/'} href={backUrl || '/'}>
               <BackJsx />
             </NextLink>
           </Condition>
