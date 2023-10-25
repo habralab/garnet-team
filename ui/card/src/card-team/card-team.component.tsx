@@ -1,6 +1,5 @@
 import React                     from 'react'
 import { FC }                    from 'react'
-import { useRouter }             from 'next/router'
 import { useIntl }               from 'react-intl'
 
 import { Settings2Icon }         from '@ui/icon'
@@ -10,8 +9,6 @@ import { Card }                  from '../card.component'
 import { CardTeamProps }         from './card-team.interfaces'
 
 export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
-  const router = useRouter()
-
   const { formatMessage } = useIntl()
 
   const countUsers = team.countUsers || 0
@@ -28,8 +25,6 @@ export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
 
   const mockAvatarsTeams = Array.from({ length: countProjects }, () => team.avatarUrl || '')
 
-  const handleClick = () => router.push(`/team/${team.id}`)
-
   return (
     <Card
       avatarUrl={team.avatarUrl}
@@ -40,7 +35,7 @@ export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
       itemsAvatars={mockAvatarsTeams}
       itemsAvatarsShape='circle'
       cardSize={cardSize}
-      onClick={handleClick}
+      url={`/team/${team.id}`}
       itemsIcon={<Settings2Icon width={14} height={14} color='accentPressed' />}
     />
   )
