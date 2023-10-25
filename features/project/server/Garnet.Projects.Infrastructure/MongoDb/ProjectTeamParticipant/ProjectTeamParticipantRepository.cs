@@ -32,7 +32,7 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     {
         var db = _dbFactory.Create();
         var team = await db.ProjectTeams.Find(x => x.Id == teamId).FirstAsync(ct);
-        var userParticipantsIds = team.UserParticipantId;
+        var userParticipantsIds = team.UserParticipantIds;
         var userParticipants =
             await db.ProjectUsers.Find(_userFilter.In(x => x.Id, userParticipantsIds)).ToListAsync(ct);
 

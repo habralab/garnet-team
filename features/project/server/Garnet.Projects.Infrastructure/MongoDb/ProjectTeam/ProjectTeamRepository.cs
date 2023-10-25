@@ -60,7 +60,7 @@ public class ProjectTeamRepository : IProjectTeamRepository
         var db = _dbFactory.Create();
         await db.ProjectTeams.FindOneAndUpdateAsync(
             _f.Eq(x => x.Id, teamId),
-            _u.AddToSet(x => x.UserParticipantId, userId),
+            _u.AddToSet(x => x.UserParticipantIds, userId),
             cancellationToken: ct
         );
     }

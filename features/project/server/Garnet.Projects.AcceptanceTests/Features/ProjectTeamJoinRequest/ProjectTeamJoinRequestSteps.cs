@@ -36,7 +36,7 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         await Db.ProjectTeams.FindOneAndUpdateAsync(
             _f.Eq(x => x.TeamName, teamName),
             _u.Set(x => x.OwnerUserId, _currentUserProviderFake.GetUserIdByUsername(username))
-                .AddToSet(x => x.UserParticipantId, _currentUserProviderFake.GetUserIdByUsername(username))
+                .AddToSet(x => x.UserParticipantIds, _currentUserProviderFake.GetUserIdByUsername(username))
         );
     }
 

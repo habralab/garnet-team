@@ -8,7 +8,7 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam
         public string TeamName { get; init; } = null!;
         public string OwnerUserId { get; set; } = null!;
         public string? TeamAvatarUrl { get; set; } = null!;
-        public string[] UserParticipantId { get; set; } = null!;
+        public string[] UserParticipantIds { get; set; } = null!;
 
         public static ProjectTeamDocument Create(string id, string teamName, string ownerUserId, string? teamAvatarUrl, string[] userParticipants)
         {
@@ -18,13 +18,13 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam
                 TeamName = teamName,
                 OwnerUserId = ownerUserId,
                 TeamAvatarUrl = teamAvatarUrl,
-                UserParticipantId = userParticipants
+                UserParticipantIds = userParticipants
             };
         }
 
         public static ProjectTeamEntity ToDomain(ProjectTeamDocument doc)
         {
-            return new ProjectTeamEntity(doc.Id, doc.TeamName, doc.OwnerUserId, doc.TeamAvatarUrl, doc.UserParticipantId);
+            return new ProjectTeamEntity(doc.Id, doc.TeamName, doc.OwnerUserId, doc.TeamAvatarUrl, doc.UserParticipantIds);
         }
     }
 }
