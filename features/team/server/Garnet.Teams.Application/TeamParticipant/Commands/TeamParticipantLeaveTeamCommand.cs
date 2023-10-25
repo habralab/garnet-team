@@ -39,18 +39,17 @@ namespace Garnet.Teams.Application.TeamParticipant.Commands
                 return Result.Fail(new TeamOwnerCanNotLeaveTeamError());
             }
 
-            var userMemberships = await _teamParticipantRepository.GetMembershipOfUser(ct, _currentUserProvider.UserId);
-            var teamMembership = userMemberships.FirstOrDefault(x => x.TeamId == teamId);
-            if (teamMembership is null)
+            var membership = await _teamParticipantRepository.IsParticipantInTeam(ct, _currentUserProvider.UserId, teamId);
+            if (membership is null)
             {
                 return Result.Fail(new TeamUserNotATeamParticipantError(_currentUserProvider.UserId));
             }
 
-            await _teamParticipantRepository.DeleteParticipantById(ct, teamMembership.Id);
+            await _teamParticipantRepository.DeleteParticipantById(ct, membership.Id);
 
-            var @event = teamMembership.ToLeftTeamEvent();
+            var @event = membership.ToLeftTeamEvent();
             await _messageBus.Publish(@event);
-            return Result.Ok(teamMembership);
+            return Result.Ok(membership);
         }
     }
 }
