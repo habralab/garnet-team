@@ -10,13 +10,14 @@ import { Box }         from '@ui/layout'
 import { Column }      from '@ui/layout'
 import { Row }         from '@ui/layout'
 import { Layout }      from '@ui/layout'
+import { NextLink }    from '@ui/link'
 import { Text }        from '@ui/text'
 import { useHover }    from '@ui/utils'
 
 import { CardProps }   from './card.interfaces'
 import { sizeConfig }  from './card.config'
 
-export const Card: FC<CardProps> = ({
+export const CardComponent: FC<CardProps> = ({
   name,
   cardSize = 'large',
   avatarUrl,
@@ -110,4 +111,16 @@ export const Card: FC<CardProps> = ({
       </Condition>
     </Box>
   )
+}
+
+export const Card: FC<CardProps> = ({ url, ...props }) => {
+  if (url) {
+    return (
+      <NextLink path={url} href={url}>
+        <CardComponent {...props} />
+      </NextLink>
+    )
+  }
+
+  return <CardComponent {...props} />
 }

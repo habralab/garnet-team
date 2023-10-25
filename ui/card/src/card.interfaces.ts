@@ -21,4 +21,5 @@ export interface CardProps {
   itemsAvatarsShape?: AvatarProps['shape']
   itemsIcon?: ReactNode
   cardSize?: CardSize
+  url?: string
 }
