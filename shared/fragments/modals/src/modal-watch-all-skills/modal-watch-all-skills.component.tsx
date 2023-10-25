@@ -19,8 +19,8 @@ export const ModalWatchAllSkills: FC<ModalWatchAllSkillsProps> = ({
   return (
     <Modal
       open={modalOpen}
-      title={formatMessage({ id: 'shared_ui.skills' })}
-      okText={formatMessage({ id: 'shared_ui.close' })}
+      title={formatMessage({ id: 'shared_ui.modal.skills' })}
+      okText={formatMessage({ id: 'shared_ui.modal.close' })}
       showCancel={false}
       onClose={onClose}
       onOk={onClose}
