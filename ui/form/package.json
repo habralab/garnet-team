@@ -19,6 +19,7 @@
     "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
+    "next": "*",
     "react": "*",
     "react-dom": "*",
     "react-intl": "*",
