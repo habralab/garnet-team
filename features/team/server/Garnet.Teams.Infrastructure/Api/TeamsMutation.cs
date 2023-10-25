@@ -130,12 +130,12 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamJoinProjectRequestPayload(joinProjectRequest.Id, joinProjectRequest.TeamId, joinProjectRequest.ProjectId);
         }
 
-        public async Task<TeamLeaveProjectNotice> TeamLeaveProject(CancellationToken ct, TeamLeaveProjectNotice input)
+        public async Task<TeamLeaveProjectPayload> TeamLeaveProject(CancellationToken ct, TeamLeaveProjectInput input)
         {
             var result = await _teamLeaveProjectCommand.Execute(ct, input.TeamId, input.ProjectId);
             result.ThrowQueryExceptionIfHasErrors();
 
-            return input;
+            return new TeamLeaveProjectPayload(input.TeamId, input.ProjectId);
         }
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvite(CancellationToken ct, TeamJoinInviteInput input)

@@ -37,7 +37,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamLeaveProject
         public async Task WhenУдаляетКомандуИзСоставаПроекта(string username, string teamName, string project)
         {
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
-            var input = new TeamLeaveProjectNotice(team.Id, project);
+            var input = new TeamLeaveProjectInput(team.Id, project);
 
             _currentUserProviderFake.LoginAs(username);
             try

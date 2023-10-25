@@ -1,7 +1,7 @@
 namespace Garnet.Teams.Infrastructure.Api.TeamLeaveProject
 {
-    public record TeamLeaveProjectNotice(
+    public record TeamLeaveProjectPayload(
         string TeamId,
         string ProjectId
-    );
+    ) : TeamLeaveProjectInput(TeamId, ProjectId);
 }
