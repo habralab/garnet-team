@@ -1,6 +1,5 @@
 import React           from 'react'
 import { FC }          from 'react'
-import { useRouter }   from 'next/router'
 
 import { Avatar }      from '@ui/avatar'
 import { AvatarGroup } from '@ui/avatar'
@@ -11,14 +10,13 @@ import { Box }         from '@ui/layout'
 import { Column }      from '@ui/layout'
 import { Row }         from '@ui/layout'
 import { Layout }      from '@ui/layout'
-import { Link }        from '@ui/link'
 import { Text }        from '@ui/text'
 import { useHover }    from '@ui/utils'
 
 import { CardProps }   from './card.interfaces'
 import { sizeConfig }  from './card.config'
 
-export const CardComponent: FC<CardProps> = ({
+export const Card: FC<CardProps> = ({
   name,
   cardSize = 'large',
   avatarUrl,
@@ -112,24 +110,4 @@ export const CardComponent: FC<CardProps> = ({
       </Condition>
     </Box>
   )
-}
-
-export const Card: FC<CardProps> = ({ url, ...props }) => {
-  const router = useRouter()
-
-  if (url) {
-    const handleClick = (event) => {
-      event.preventDefault()
-
-      router.push(url)
-    }
-
-    return (
-      <Link href={url} onClick={handleClick}>
-        <CardComponent {...props} />
-      </Link>
-    )
-  }
-
-  return <CardComponent {...props} />
 }

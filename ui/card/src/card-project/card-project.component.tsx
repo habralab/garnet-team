@@ -5,7 +5,7 @@ import { useIntl }               from 'react-intl'
 import { UserGroupIcon }         from '@ui/icon'
 import { getDependOfNumberWord } from '@shared/helpers'
 
-import { Card }                  from '../card.component'
+import { CardWithLink }          from '../card-with-link'
 import { CardProjectsProps }     from './card-project.interfaces'
 
 export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large' }) => {
@@ -26,7 +26,7 @@ export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large'
   const mockAvatarsTeams = Array.from({ length: countTeams }, () => project.avatarUrl || '')
 
   return (
-    <Card
+    <CardWithLink
       avatarUrl={project.avatarUrl}
       name={project.name}
       countItems={countTeams}
