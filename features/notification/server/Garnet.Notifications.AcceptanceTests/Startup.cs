@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Notifications.Infrastructure.MongoDB;
-using Garnet.Notifications.AcceptanceTests.FakeServices;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Notifications.Events;
 using Garnet.Notifications.Infrastructure.Api;
@@ -27,8 +26,6 @@ namespace Garnet.Notifications.AcceptanceTests
 
             services.AddScoped<CurrentUserProviderFake>();
             services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
-
-            services.AddScoped<FakeNotificationProducer>();
 
             services.AddScoped<DateTimeServiceFake>();
             services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());

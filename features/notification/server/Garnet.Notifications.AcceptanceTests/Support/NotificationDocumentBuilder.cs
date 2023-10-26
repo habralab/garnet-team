@@ -1,30 +1,18 @@
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Notifications.Events;
 using Garnet.Notifications.Infrastructure.MongoDB;
 
 namespace Garnet.Notifications.AcceptanceTests.Support
 {
     public class NotificationDocumentBuilder
     {
-        private string _id = Uuid.NewMongo();
-        private string _title = "Title";
-        private string _body = "Body";
+        private readonly string _id = Uuid.NewMongo();
+        private readonly string _title = "Title";
+        private readonly string _body = "Body";
         private DateTimeOffset _createdAt = DateTimeOffset.Now;
         private string _userId = "system";
-        private string _type = "Type";
-        private string? _linkedEntityId;
-
-        public NotificationDocumentBuilder WithTitle(string title)
-        {
-            _title = title;
-            return this;
-        }
-
-        public NotificationDocumentBuilder WithBody(string body)
-        {
-            _body = body;
-            return this;
-        }
+        private readonly string _type = "Type";
 
         public NotificationDocumentBuilder WithUserId(string userId)
         {
@@ -32,21 +20,15 @@ namespace Garnet.Notifications.AcceptanceTests.Support
             return this;
         }
 
-        public NotificationDocumentBuilder WithType(string type)
+        public NotificationDocumentBuilder WithCreatedAt(DateTimeOffset createdAt)
         {
-            _type = type;
-            return this;
-        }
-
-        public NotificationDocumentBuilder WithLinkedEntityId(string linkedEntityId)
-        {
-            _linkedEntityId = linkedEntityId;
+            _createdAt = createdAt;
             return this;
         }
 
         public NotificationDocument Build()
         {
-            return NotificationDocument.Create(_id, _title, _body, _userId, _type, _createdAt, _linkedEntityId);
+            return NotificationDocument.Create(_id, _title, _body, _userId, _type, _createdAt, null);
         }
 
         public static implicit operator NotificationDocument(NotificationDocumentBuilder builder)
@@ -57,9 +39,21 @@ namespace Garnet.Notifications.AcceptanceTests.Support
 
     public static class GiveMeExtensions
     {
-        public static NotificationDocumentBuilder User(this GiveMe _)
+        public static NotificationDocumentBuilder Notification(this GiveMe _)
         {
             return new NotificationDocumentBuilder();
+        }
+
+        public static SendNotificationCommandMessage EventFromNotification(this GiveMe _, NotificationDocument document)
+        {
+            return new SendNotificationCommandMessage(
+                document.Title,
+                document.Body,
+                document.UserId,
+                document.Type,
+                document.CreatedAt,
+                document.LinkedEntityId
+            );
         }
     }
 }
