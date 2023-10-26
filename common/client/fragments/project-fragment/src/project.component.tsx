@@ -91,6 +91,11 @@ export const Project: FC = () => {
                 <Layout flexBasis={60} flexShrink={0} />
               </Condition>
               <Condition match={filteredProjects.length > 0}>
+                <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
+                  <FormattedMessage id='project.projects_found' />
+                  {`: ${filteredProjects.length}`}
+                </Text>
+                <Layout flexBasis={42} flexShrink={0} />
                 <Row
                   display='grid'
                   style={{ gap: 22, gridTemplateColumns: 'repeat(auto-fill, 150px)' }}
