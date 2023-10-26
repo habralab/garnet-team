@@ -8,6 +8,6 @@ namespace Garnet.Teams.Application.TeamJoinInvitation
         Task<TeamJoinInvitationEntity?> GetById(CancellationToken ct, string joinInvitationId);
         Task<TeamJoinInvitationEntity[]> FilterInvitations(CancellationToken ct, TeamJoinInvitationFilterArgs filter);
         Task DeleteInvitationsByTeam(CancellationToken ct, string teamId);
-        Task<TeamJoinInvitationEntity?> DeleteInvitationsById(CancellationToken ct, string joinInvitationId);
+        Task<TeamJoinInvitationEntity?> DeleteInvitationById(CancellationToken ct, string joinInvitationId);
     }
 }

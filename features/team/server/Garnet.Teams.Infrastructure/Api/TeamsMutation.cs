@@ -18,6 +18,7 @@ using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
+using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationCancel;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantLeaveTeam;
 using Garnet.Teams.Application.TeamParticipant.Commands;
 
@@ -31,6 +32,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamEditDescriptionCommand _teamEditDescriptionCommand;
         private readonly TeamEditOwnerCommand _teamEditOwnerCommand;
         private readonly TeamJoinProjectRequestCreateCommand _joinProjectRequestCommand;
+        private readonly TeamJoinInvitationCancelCommand _teamJoinInvitationCancelCommand;
         private readonly TeamJoinInviteCommand _joinInviteCommand;
         private readonly TeamUserJoinRequestCreateCommand _teamUserJoinRequestCreateCommand;
         private readonly TeamUserJoinRequestDecideCommand _teamUserJoinRequestDecideCommand;
@@ -50,6 +52,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamJoinInvitationDecideCommand teamJoinInvitationDecideCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
+            TeamJoinInvitationCancelCommand teamJoinInvitationCancelCommand,
             TeamUploadAvatarCommand teamUploadAvatarCommand,
             TeamParticipantLeaveTeamCommand teamParticipantLeaveTeamCommand,
             TeamEditTagsCommand teamEditTagsCommand,
@@ -69,6 +72,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamEditNameCommand = teamEditNameCommand;
             _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
+            _teamJoinInvitationCancelCommand = teamJoinInvitationCancelCommand;
         }
 
         public async Task<TeamCreatePayload> TeamCreate(CancellationToken ct, TeamCreateInput input)
@@ -184,6 +188,15 @@ namespace Garnet.Teams.Infrastructure.Api
 
             var team = result.Value;
             return new TeamEditNamePayload(team.Id, team.Name, team.Description, team.AvatarUrl, team.Tags, team.OwnerUserId);
+        }
+
+        public async Task<TeamJoinInvitationCancelPayload> TeamJoinInvitationCancel(CancellationToken ct, string joinInvitationId)
+        {
+            var result = await _teamJoinInvitationCancelCommand.Execute(ct, joinInvitationId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var invitation = result.Value;
+            return new TeamJoinInvitationCancelPayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt);
         }
 
         public async Task<TeamJoinInvitePayload> TeamJoinInvitationDecide(CancellationToken ct, TeamJoinInvitationDecideInput input)
