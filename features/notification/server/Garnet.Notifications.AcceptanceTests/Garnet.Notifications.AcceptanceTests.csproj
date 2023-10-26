@@ -22,6 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.AcceptanceTests\Garnet.Common.AcceptanceTests.csproj" />
       <ProjectReference Include="..\Garnet.Notifications.Infrastructure\Garnet.Notifications.Infrastructure.csproj" />
       <ProjectReference Include="..\Garnet.Notifications\Garnet.Notifications.csproj" />
     </ItemGroup>

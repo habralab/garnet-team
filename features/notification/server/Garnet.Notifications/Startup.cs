@@ -25,6 +25,11 @@ namespace Garnet.Notifications
             services.AddGarnetMongoSerializers();
         }
 
+        public static void AddNotificationInternal(this IServiceCollection services)
+        {
+
+        }
+
         public static void AddGarnetNotificationMessageBus(this IServiceCollection services, string name)
         {
             services.AddGarnetMessageBus(name, o =>
