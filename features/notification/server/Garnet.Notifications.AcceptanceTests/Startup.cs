@@ -9,6 +9,7 @@ using Garnet.Notifications.Infrastructure.MongoDB;
 using Garnet.Notifications.AcceptanceTests.FakeServices;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Notifications.Events;
+using Garnet.Notifications.Infrastructure.Api;
 
 namespace Garnet.Notifications.AcceptanceTests
 {
@@ -20,6 +21,9 @@ namespace Garnet.Notifications.AcceptanceTests
             var services = new ServiceCollection();
 
             services.AddNotificationInternal();
+
+            services.AddScoped<NotificationQuery>();
+            services.AddScoped<NotificationMutation>();
 
             services.AddScoped<CurrentUserProviderFake>();
             services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());

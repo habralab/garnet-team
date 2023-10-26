@@ -8,6 +8,8 @@ using Garnet.Notifications.Infrastructure.MongoDB;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Notifications.Infrastructure.EventHandlers;
 using Garnet.Notifications.Events;
+using Garnet.Notifications.Infrastructure.Api;
+using Garnet.Common.Infrastructure.Api;
 
 namespace Garnet.Notifications
 {
@@ -18,6 +20,8 @@ namespace Garnet.Notifications
         public static IRequestExecutorBuilder AddGarnetNotification(this IRequestExecutorBuilder builder)
         {
             builder.Services.AddGarnetAuthorization();
+            builder.AddApiType<NotificationQuery>();
+            builder.AddApiType<NotificationMutation>();
             builder.Services.AddGarnetNotificationInternal();
             builder.Services.AddGarnetNotificationMessageBus(nameof(Notifications));
             builder.Services.AddRepeatableMigrations();
