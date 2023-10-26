@@ -15,6 +15,8 @@ using Garnet.Teams.AcceptanceTests.FakeServices.ProjectFake;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
 using Garnet.Common.Application.S3;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
+using Garnet.Teams.AcceptanceTests.FakeServices.NotificationFake;
+using Garnet.Notifications.Events;
 
 namespace Garnet.Teams.AcceptanceTests
 {
@@ -76,6 +78,7 @@ namespace Garnet.Teams.AcceptanceTests
             {
                 o.RegisterConsumer<ProjectTeamJoinRequestFakeConsumer, TeamJoinProjectRequestCreatedEvent>();
                 o.RegisterConsumer<ProjectTeamLeaveFakeConsumer, TeamLeaveProjectEvent>();
+                o.RegisterConsumer<SendNotificationCommandMessageFakeConsumer, SendNotificationCommandMessage>();
             });
         }
     }
