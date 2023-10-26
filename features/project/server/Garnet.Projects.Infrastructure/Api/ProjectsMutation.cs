@@ -1,12 +1,15 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Commands;
+using Garnet.Projects.Application.ProjectTask.Args;
+using Garnet.Projects.Application.ProjectTask.Commands;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
 using Garnet.Projects.Infrastructure.Api.ProjectCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectDelete;
 using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using Garnet.Projects.Infrastructure.Api.ProjectEditName;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
+using Garnet.Projects.Infrastructure.Api.ProjectTask;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using Garnet.Projects.Infrastructure.Api.ProjectUploadAvatar;
@@ -24,6 +27,7 @@ public class ProjectsMutation
     private readonly ProjectTeamJoinRequestDecideCommand _projectTeamJoinRequestDecideCommand;
     private readonly ProjectUploadAvatarCommand _projectUploadAvatarCommand;
     private readonly ProjectEditNameCommand _projectEditNameCommand;
+    private readonly ProjectTaskCreateCommand _projectTaskCreateCommand;
 
 
     public ProjectsMutation(
@@ -33,8 +37,7 @@ public class ProjectsMutation
         ProjectEditOwnerCommand projectEditOwnerCommand,
         ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand,
         ProjectUploadAvatarCommand projectUploadAvatarCommand,
-        ProjectEditNameCommand projectEditNameCommand
-    )
+        ProjectEditNameCommand projectEditNameCommand, ProjectTaskCreateCommand projectTaskCreateCommand)
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
@@ -43,15 +46,18 @@ public class ProjectsMutation
         _projectTeamJoinRequestDecideCommand = projectTeamJoinRequestDecideCommand;
         _projectUploadAvatarCommand = projectUploadAvatarCommand;
         _projectEditNameCommand = projectEditNameCommand;
+        _projectTaskCreateCommand = projectTaskCreateCommand;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct,
         ProjectCreateInput input)
     {
-        var avatarFile = input.File is null ? null : new AvatarFileArgs(
-            input.File.Name,
-            input.File.ContentType,
-            input.File.OpenReadStream());
+        var avatarFile = input.File is null
+            ? null
+            : new AvatarFileArgs(
+                input.File.Name,
+                input.File.ContentType,
+                input.File.OpenReadStream());
         var args = new ProjectCreateArgs(input.ProjectName, input.Description,
             avatarFile, input.Tags);
 
@@ -135,5 +141,26 @@ public class ProjectsMutation
         var teamJoinRequest = result.Value;
         return new ProjectTeamJoinRequestPayload(teamJoinRequest.Id, teamJoinRequest.TeamId, teamJoinRequest.TeamName,
             teamJoinRequest.ProjectId);
+    }
+
+    public async Task<ProjectTaskCreatePayload> ProjectTaskCreate(CancellationToken ct,
+        ProjectTaskCreateInput input)
+    {
+        var args = new ProjectTaskCreateArgs(
+            input.ProjectId,
+            input.Name,
+            input.Description,
+            "To be completed",
+            input.TeamExecutorId,
+            input.UserExecutorId,
+            input.Tags);
+
+        var result = await _projectTaskCreateCommand.Execute(ct, args);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var project = result.Value;
+        return new ProjectTaskCreatePayload(
+            project.Id, project.ProjectId, project.UserCreatorId, project.Name, project.Description,
+            project.Status, project.TeamExecutorId, project.UserExecutorId, project.Tags);
     }
 }
