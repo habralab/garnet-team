@@ -32,8 +32,8 @@ public class ProjectTaskCreateCommand
 
         var teamParticipants =
             await _projectTeamParticipantRepository.GetProjectTeamParticipantsByProjectId(ct, args.ProjectId);
-        var user = teamParticipants.Select(x => x.UserParticipants.Where(u => u.Id == currentUserId)).FirstOrDefault();
-
+        var user = teamParticipants.FirstOrDefault(x => x.UserParticipants.Any(
+            o => o.Id == currentUserId));
         if (user is null)
         {
             return Result.Fail(new ProjectOnlyParticipantCanCreateTaskError());
