@@ -4,8 +4,8 @@ import { useIntl }               from 'react-intl'
 
 import { UserGroupIcon }     from '@ui/icon'
 
-import { Card }              from '../card.component'
-import { CardProjectsProps } from './card-project.interfaces'
+import { CardWithLink }          from '../card-with-link'
+import { CardProjectsProps }     from './card-project.interfaces'
 
 export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large' }) => {
   const { formatMessage } = useIntl()
@@ -16,7 +16,7 @@ export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large'
   const mockAvatarsTeams = Array.from({ length: countTeams }, () => project.avatarUrl || '')
 
   return (
-    <Card
+    <CardWithLink
       avatarUrl={project.avatarUrl}
       name={project.name}
       countItems={countTeams}
