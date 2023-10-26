@@ -16,7 +16,7 @@ namespace Garnet.Projects.Infrastructure.EventHandlers.Team
 
         public async Task Consume(TeamCreatedEvent message)
         {
-            var args = new ProjectTeamCreateArgs(message.Id, message.Name, message.OwnerUserId);
+            var args = new ProjectTeamCreateArgs(message.Id, message.Name, message.OwnerUserId, message.AvatarUrl);
             await _projectTeamCreateCommand.Execute(CancellationToken.None, args);
         }
     }

@@ -3,5 +3,6 @@
 public record ProjectTeamParticipantCreateArgs(
     string TeamId,
     string TeamName,
-    string ProjectId
+    string ProjectId,
+    string? TeamAvatarUrl
     );

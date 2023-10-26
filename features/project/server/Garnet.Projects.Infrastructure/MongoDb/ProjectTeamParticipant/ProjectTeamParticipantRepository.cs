@@ -1,5 +1,7 @@
 ﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.ProjectTeamParticipant;
+using Garnet.Projects.Infrastructure.MongoDb.Project;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -11,9 +13,14 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     private readonly UpdateDefinitionBuilder<ProjectTeamParticipantDocument> _u =
         Builders<ProjectTeamParticipantDocument>.Update;
 
-    private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _f =
+    private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _teamParticipantFilter =
         Builders<ProjectTeamParticipantDocument>.Filter;
 
+    private readonly FilterDefinitionBuilder<ProjectUserDocument> _userFilter =
+        Builders<ProjectUserDocument>.Filter;
+
+    private readonly FilterDefinitionBuilder<ProjectDocument> _projectFilter =
+        Builders<ProjectDocument>.Filter;
 
     public ProjectTeamParticipantRepository(DbFactory dbFactory)
     {
@@ -24,10 +31,23 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         string teamName, string projectId)
     {
         var db = _dbFactory.Create();
-        var team = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId);
-        await db.ProjectTeamsParticipants.InsertOneAsync(team, cancellationToken: ct);
+        var team = await db.ProjectTeams.Find(x => x.Id == teamId).FirstAsync(ct);
+        var userParticipantsIds = team.UserParticipantIds;
+        var userParticipants =
+            await db.ProjectUsers.Find(_userFilter.In(x => x.Id, userParticipantsIds)).ToListAsync(ct);
 
-        return ProjectTeamParticipantDocument.ToDomain(team);
+        var projectsIdOfTeamParticipant =
+            await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId).ToListAsync(ct);
+        var projectIds = projectsIdOfTeamParticipant.Select(x => x.ProjectId);
+        var projectsList =
+            await db.Projects.Find(_projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
+
+        var teamParticipant = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId,
+            team.TeamAvatarUrl,
+            userParticipants.ToArray(), projectsList.ToArray());
+        await db.ProjectTeamsParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
+
+        return ProjectTeamParticipantDocument.ToDomain(teamParticipant);
     }
 
     public async Task<ProjectTeamParticipantEntity[]> GetProjectTeamParticipantsByProjectId(CancellationToken ct,
@@ -41,12 +61,13 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     }
 
     public async Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
-        string teamName)
+        string teamName, string? teamAvatarUrl)
     {
         var db = _dbFactory.Create();
         await db.ProjectTeamsParticipants.UpdateManyAsync(
-            _f.Eq(x => x.TeamId, teamId),
-            _u.Set(x => x.TeamName, teamName),
+            _teamParticipantFilter.Eq(x => x.TeamId, teamId),
+            _u.Set(x => x.TeamName, teamName)
+                .Set(x => x.TeamAvatarUrl, teamAvatarUrl),
             cancellationToken: ct
         );
     }
@@ -55,7 +76,19 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     {
         var db = _dbFactory.Create();
         await db.ProjectTeamsParticipants.DeleteManyAsync(
-            _f.Eq(x => x.ProjectId, projectId),
+            _teamParticipantFilter.Eq(x => x.ProjectId, projectId),
+            cancellationToken: ct
+        );
+    }
+
+    public async Task AddProjectTeamUserParticipant(CancellationToken ct, string teamId, string userId)
+    {
+        var db = _dbFactory.Create();
+        var user = await db.ProjectUsers.Find(x => x.Id == userId).FirstAsync(ct);
+
+        await db.ProjectTeamsParticipants.UpdateManyAsync(
+            _teamParticipantFilter.Eq(x => x.TeamId, teamId),
+            _u.AddToSet(x => x.UserParticipants, user),
             cancellationToken: ct
         );
     }
