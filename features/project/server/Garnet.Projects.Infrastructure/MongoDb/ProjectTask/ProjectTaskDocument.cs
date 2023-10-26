@@ -1,9 +1,9 @@
-﻿using Garnet.Projects.Application.Project;
+﻿using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.Application.ProjectTask;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 
-public record ProjectTaskDocument
+public record ProjectTaskDocument : DocumentBase
 {
     public string Id { get; init; } = null!;
     public string ProjectId { get; init; } = null!;
@@ -43,6 +43,7 @@ public record ProjectTaskDocument
 
     public static ProjectTaskEntity ToDomain(ProjectTaskDocument doc)
     {
+        var auditInfo = AuditInfoDocument.ToDomain(doc.AuditInfo);
         return new ProjectTaskEntity(
             doc.Id,
             doc.ProjectId,
@@ -52,7 +53,8 @@ public record ProjectTaskDocument
             doc.Status,
             doc.TeamExecutorId,
             doc.UserExecutorId,
-            doc.Tags
-            );
+            doc.Tags,
+            auditInfo
+        );
     }
 }

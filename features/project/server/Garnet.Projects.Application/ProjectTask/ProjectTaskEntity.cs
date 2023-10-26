@@ -1,4 +1,5 @@
-﻿using Garnet.Projects.Events.ProjectTask;
+﻿using Garnet.Common.Application;
+using Garnet.Projects.Events.ProjectTask;
 
 namespace Garnet.Projects.Application.ProjectTask;
 
@@ -11,7 +12,8 @@ public record ProjectTaskEntity(
     string Status,
     string? TeamExecutorId,
     string? UserExecutorId,
-    string[] Tags
+    string[] Tags,
+    AuditInfo AuditInfo
 );
 
 public static class ProjectTaskDocumentExtensions
