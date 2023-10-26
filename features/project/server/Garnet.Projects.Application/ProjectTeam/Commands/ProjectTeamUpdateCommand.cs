@@ -13,6 +13,6 @@ public class ProjectTeamUpdateCommand
 
     public async Task<ProjectTeamEntity?> Execute(CancellationToken ct, ProjectTeamUpdateArgs args)
     {
-        return await _projectTeamRepository.UpdateProjectTeam(ct, args.TeamId, args.TeamName, args.OwnerUserId);
+        return await _projectTeamRepository.UpdateProjectTeam(ct, args.TeamId, args.TeamName, args.OwnerUserId, args.TeamAvatarUrl);
     }
 }

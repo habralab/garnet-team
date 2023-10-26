@@ -69,8 +69,8 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
                 return Result.Fail(new TeamPendingJoinInvitationError(user.Id));
             }
 
-            var userTeams = await _participantRepository.GetMembershipOfUser(ct, user.Id);
-            if (userTeams.Any(x => x.TeamId == teamId))
+            var membership = await _participantRepository.IsParticipantInTeam(ct, user.Id, teamId);
+            if (membership is not null)
             {
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(user.Id));
             }
