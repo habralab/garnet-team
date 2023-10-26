@@ -6,6 +6,8 @@ using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Identity;
 using Garnet.Notifications.Infrastructure.MongoDB;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Notifications.Infrastructure.EventHandlers;
+using Garnet.Notifications.Events;
 
 namespace Garnet.Notifications
 {
@@ -37,7 +39,7 @@ namespace Garnet.Notifications
         {
             services.AddGarnetMessageBus(name, o =>
             {
-
+                o.RegisterConsumer<SendNotificationCommandMessageConsumer, SendNotificationCommandMessage>();
             });
         }
 
