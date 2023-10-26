@@ -10,7 +10,6 @@
     "@atls-ui-generators/input": "0.0.11",
     "@atls-ui-parts/conditional-render": "0.0.6",
     "@atls-ui-parts/input": "0.0.15",
-    "@atls-ui-parts/select": "0.0.15",
     "@ui/background": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
     "@ui/icon": "workspace:0.0.1",
