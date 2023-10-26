@@ -1,6 +1,7 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Notifications.Events;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
@@ -84,6 +85,16 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             var invitation = await _joinInvitationRepository.CreateInvitation(ct, args.UserId, args.TeamId);
             var @event = invitation.ToCreatedEvent();
             await _messageBus.Publish(@event);
+
+            var notification = new SendNotificationCommandMessage(
+                Title: "Приглашение в команду",
+                Body: $"Вас пригласили вступить в команду {team.Name}",
+                args.UserId,
+                Type: "TeamInvite",
+                invitation.AuditInfo.CreatedAt,
+                team.Id
+            );
+            await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }
     }
