@@ -4,6 +4,8 @@ using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.Common.Infrastructure.Identity;
+using Garnet.Notifications.Infrastructure.MongoDB;
+using Garnet.Common.Infrastructure.Support;
 
 namespace Garnet.Notifications
 {
@@ -22,6 +24,7 @@ namespace Garnet.Notifications
 
         private static void AddGarnetNotificationInternal(this IServiceCollection services)
         {
+            services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
             services.AddGarnetMongoSerializers();
         }
 

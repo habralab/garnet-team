@@ -4,8 +4,8 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
-using Garnet.Notifications;
 using SolidToken.SpecFlow.DependencyInjection;
+using Garnet.Notifications.Infrastructure.MongoDB;
 
 namespace Garnet.Notifications.AcceptanceTests
 {
@@ -36,6 +36,12 @@ namespace Garnet.Notifications.AcceptanceTests
         private static void AddMongoDb(IServiceCollection services)
         {
             services.AddScoped<MongoDbRunner>(_ => MongoDbRunner.Start());
+            services.AddScoped<DbFactory>(o =>
+            {
+                var mongo = o.GetRequiredService<MongoDbRunner>();
+                return new DbFactory(mongo.ConnectionString);
+            });
+            services.AddScoped<Db>(o => o.GetRequiredService<DbFactory>().Create());
         }
 
         private static void AddMessageBus(IServiceCollection services)
