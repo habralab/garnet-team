@@ -1,11 +1,11 @@
-import React                     from 'react'
-import { FC }                    from 'react'
-import { useIntl }               from 'react-intl'
+import React                 from 'react'
+import { FC }                from 'react'
+import { useIntl }           from 'react-intl'
 
 import { UserGroupIcon }     from '@ui/icon'
 
-import { CardWithLink }          from '../card-with-link'
-import { CardProjectsProps }     from './card-project.interfaces'
+import { CardWithLink }      from '../card-with-link'
+import { CardProjectsProps } from './card-project.interfaces'
 
 export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large' }) => {
   const { formatMessage } = useIntl()

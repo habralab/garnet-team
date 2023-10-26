@@ -7452,9 +7452,11 @@ const RAW_RUNTIME_STATE =
           "@types/emotion__styled",\
           "@types/react-dom",\
           "@types/react",\
+          "@types/styled-system",\
           "@types/styled-tools",\
           "react-dom",\
-          "react"\
+          "react",\
+          "styled-system"\
         ],\
         "linkType": "SOFT"\
       }],\
@@ -8502,11 +8504,11 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.14"],\
           ["@types/react-intl", null],\
           ["@types/styled-system", "npm:5.1.20"],\
-          ["@ui/link", "virtual:9e21cc93cbd78e776a5a38192f13d2de309c7cf3287ff4d7ed25cfd87d62526069d8b34c08816631914676a59f42c8abea987d69e311390a3cd7a698295f391f#workspace:ui/link"],\
-          ["next", "virtual:b6a76d36bc5f47ff8a4f0f8e011b307d4ab3065df46e0be4565369b820208134343c534328fdd9d583e5fce8c9bc072414bbf22aca3d15cf89527d279bf60b8b#npm:12.3.4"],\
-          ["react", "npm:18.2.0"],\
-          ["react-dom", "virtual:b6a76d36bc5f47ff8a4f0f8e011b307d4ab3065df46e0be4565369b820208134343c534328fdd9d583e5fce8c9bc072414bbf22aca3d15cf89527d279bf60b8b#npm:18.2.0"],\
-          ["react-intl", "virtual:b6a76d36bc5f47ff8a4f0f8e011b307d4ab3065df46e0be4565369b820208134343c534328fdd9d583e5fce8c9bc072414bbf22aca3d15cf89527d279bf60b8b#npm:6.0.8"],\
+          ["@ui/link", "virtual:8d40eec14e9d3bfd13f3d1ba8c8ddd5c6427e8d35b53f33d99905b2682c55fa45746f1ff70ae7b8d2fcd4841f0ad80e1de759e46c63ae6d63890cbad00893b2d#workspace:ui/link"],\
+          ["next", "virtual:8d40eec14e9d3bfd13f3d1ba8c8ddd5c6427e8d35b53f33d99905b2682c55fa45746f1ff70ae7b8d2fcd4841f0ad80e1de759e46c63ae6d63890cbad00893b2d#npm:12.3.4"],\
+          ["react", null],\
+          ["react-dom", null],\
+          ["react-intl", "virtual:8d40eec14e9d3bfd13f3d1ba8c8ddd5c6427e8d35b53f33d99905b2682c55fa45746f1ff70ae7b8d2fcd4841f0ad80e1de759e46c63ae6d63890cbad00893b2d#npm:6.0.8"],\
           ["styled-system", "npm:5.1.5"]\
         ],\
         "packagePeers": [\
@@ -8769,18 +8771,18 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.2.28"],\
           ["@types/react-dom", "npm:18.2.14"],\
           ["@types/react-intl", null],\
-          ["@types/styled-system", null],\
+          ["@types/styled-system", "npm:5.1.20"],\
           ["@ui/background", "virtual:f5ae6bbf9156dcd20a0cd286eeb55e170351e6f32fe174a9f5a6371ac3a11bcebe1214608ceb6bc2642cc98e915a15026468d08885e929d71c6942975f58eec2#workspace:ui/background"],\
           ["@ui/button", "virtual:cbd9720b32afd7b67d3541d8a77160842893df70111cdcd2078302629c1088570f6872da4c5b224aabbe2befad98d89d031a17b0847a2a4d71825b017c145709#workspace:ui/button"],\
           ["@ui/condition", "virtual:f5ae6bbf9156dcd20a0cd286eeb55e170351e6f32fe174a9f5a6371ac3a11bcebe1214608ceb6bc2642cc98e915a15026468d08885e929d71c6942975f58eec2#workspace:ui/condition"],\
           ["@ui/icon", "virtual:f5ae6bbf9156dcd20a0cd286eeb55e170351e6f32fe174a9f5a6371ac3a11bcebe1214608ceb6bc2642cc98e915a15026468d08885e929d71c6942975f58eec2#workspace:ui/icon"],\
-          ["@ui/layout", "virtual:f5ae6bbf9156dcd20a0cd286eeb55e170351e6f32fe174a9f5a6371ac3a11bcebe1214608ceb6bc2642cc98e915a15026468d08885e929d71c6942975f58eec2#workspace:ui/layout"],\
+          ["@ui/layout", "virtual:43c2abdf3fd7a9eaa947a11a1b6ca9e8fa94c8809d633bccc31a5968c7226ae572d6df28bb04d643ba52ee01b2ad2387c641a4611cb678ec1490849fd3333a3c#workspace:ui/layout"],\
           ["@ui/text", "virtual:f5ae6bbf9156dcd20a0cd286eeb55e170351e6f32fe174a9f5a6371ac3a11bcebe1214608ceb6bc2642cc98e915a15026468d08885e929d71c6942975f58eec2#workspace:ui/text"],\
           ["framer-motion", "virtual:8d40eec14e9d3bfd13f3d1ba8c8ddd5c6427e8d35b53f33d99905b2682c55fa45746f1ff70ae7b8d2fcd4841f0ad80e1de759e46c63ae6d63890cbad00893b2d#npm:10.16.1"],\
           ["react", null],\
           ["react-dom", null],\
           ["react-intl", "virtual:8d40eec14e9d3bfd13f3d1ba8c8ddd5c6427e8d35b53f33d99905b2682c55fa45746f1ff70ae7b8d2fcd4841f0ad80e1de759e46c63ae6d63890cbad00893b2d#npm:6.0.8"],\
-          ["styled-system", null]\
+          ["styled-system", "npm:5.1.5"]\
         ],\
         "packagePeers": [\
           "@emotion/react",\
@@ -8790,12 +8792,10 @@ const RAW_RUNTIME_STATE =
           "@types/react-dom",\
           "@types/react-intl",\
           "@types/react",\
-          "@types/styled-system",\
           "framer-motion",\
           "react-dom",\
           "react-intl",\
-          "react",\
-          "styled-system"\
+          "react"\
         ],\
         "linkType": "SOFT"\
       }],\
