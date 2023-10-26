@@ -4,6 +4,7 @@ using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Team;
 using Garnet.User;
 using Garnet.Project;
+using Garnet.Notifications;
 
 namespace Garnet;
 
@@ -35,6 +36,7 @@ public static class Program
             .AddMutationConventions(applyToAllMutations: true)
             .AddGarnetUsers()
             .AddGarnetTeams()
+            .AddGarnetNotification()
             .AddGarnetProjects();
 
         builder.Services.AddControllers();
