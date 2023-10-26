@@ -33,7 +33,9 @@ using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using Garnet.Teams.Events.Team;
+using Garnet.Teams.Events.TeamJoinInvitation;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
+using Garnet.Teams.Events.TeamUserJoinRequest;
 using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,8 +77,11 @@ public static class Startup
 
         services.AddScoped<ProjectTeamCreateCommand>();
         services.AddScoped<ProjectTeamUpdateCommand>();
+        services.AddScoped<ProjectTeamAddParticipantCommand>();
+
 
         services.AddScoped<ProjectUserCreateCommand>();
+        services.AddScoped<ProjectUserUpdateCommand>();
 
         services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
@@ -84,6 +89,7 @@ public static class Startup
         services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
         services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
         services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
+        services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
 
 
         services.AddScoped<ProjectGetQuery>();
@@ -105,12 +111,15 @@ public static class Startup
             o.RegisterMessage<ProjectDeletedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
+            o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
 
             o.RegisterConsumer<TeamCreatedEventConsumer, TeamCreatedEvent>();
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEvent>();
 
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
             o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
+            o.RegisterConsumer<TeamUserJoinRequestDecidedEventConsumer, TeamUserJoinRequestDecidedEvent>();
+            o.RegisterConsumer<TeamJoinInvitationDecidedEventConsumer, TeamJoinInvitationDecidedEvent>();
         });
     }
 

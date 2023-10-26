@@ -5,17 +5,21 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 public record ProjectUserDocument
 {
     public string Id { get; init; } = null!;
+    public string UserName { get; set; } = null!;
+    public string? UserAvatarUrl { get; set; } = null!;
 
-    public static ProjectUserDocument Create(string id)
+    public static ProjectUserDocument Create(string id, string userName, string? userAvatarUrl)
     {
         return new ProjectUserDocument
         {
-            Id = id
+            Id = id,
+            UserName = userName,
+            UserAvatarUrl = userAvatarUrl
         };
     }
 
     public static ProjectUserEntity ToDomain(ProjectUserDocument doc)
     {
-        return new ProjectUserEntity(doc.Id);
+        return new ProjectUserEntity(doc.Id, doc.UserName, doc.UserAvatarUrl);
     }
 }
