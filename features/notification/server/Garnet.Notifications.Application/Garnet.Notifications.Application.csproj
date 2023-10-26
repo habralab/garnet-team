@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Garnet.Notifications.Application</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Application\Garnet.Common.Application.csproj" />
+      <ProjectReference Include="..\Garnet.Notifications.Events\Garnet.Notifications.Events.csproj" />
+    </ItemGroup>
+
+</Project>
