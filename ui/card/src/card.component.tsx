@@ -1,5 +1,6 @@
 import React           from 'react'
 import { FC }          from 'react'
+import { useRouter }   from 'next/router'
 
 import { Avatar }      from '@ui/avatar'
 import { AvatarGroup } from '@ui/avatar'
@@ -10,7 +11,7 @@ import { Box }         from '@ui/layout'
 import { Column }      from '@ui/layout'
 import { Row }         from '@ui/layout'
 import { Layout }      from '@ui/layout'
-import { NextLink }    from '@ui/link'
+import { Link }        from '@ui/link'
 import { Text }        from '@ui/text'
 import { useHover }    from '@ui/utils'
 
@@ -114,11 +115,19 @@ export const CardComponent: FC<CardProps> = ({
 }
 
 export const Card: FC<CardProps> = ({ url, ...props }) => {
+  const router = useRouter()
+
   if (url) {
+    const handleClick = (event) => {
+      event.preventDefault()
+
+      router.push(url)
+    }
+
     return (
-      <NextLink path={url} href={url}>
+      <Link href={url} onClick={handleClick}>
         <CardComponent {...props} />
-      </NextLink>
+      </Link>
     )
   }
 
