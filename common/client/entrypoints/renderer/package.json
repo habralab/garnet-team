@@ -10,6 +10,10 @@
     "start": "node dist/index.js"
   },
   "dependencies": {
+    "@app/index-page": "workspace:0.0.1",
+    "@app/user-page": "workspace:0.0.1",
+    "@app/user-teams-page": "workspace:0.0.1",
+    "@emotion/css": "11.9.0",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "@ui/theme": "workspace:0.0.1",
@@ -21,6 +25,7 @@
     "styled-tools": "1.7.2"
   },
   "devDependencies": {
+    "@formatjs/cli": "4.8.4",
     "@types/node": "20.8.7",
     "@types/react": "18.2.28",
     "@types/react-dom": "18.2.14",

@@ -1,0 +1,21 @@
+{
+  "name": "@ui/wrapper",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@ui/background": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@types/react": "18.2.28",
+    "@types/react-dom": "18.2.14",
+    "@types/styled-system": "5.1.20"
+  },
+  "peerDependencies": {
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "react": "*",
+    "react-dom": "*",
+    "styled-system": "*"
+  }
+}

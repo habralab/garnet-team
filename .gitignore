@@ -107,6 +107,7 @@ $RECYCLE.BIN/
 
 # VS Code directories
 .vscode/
+.yarn/sdks
 
 # Dump file
 *.stackdump

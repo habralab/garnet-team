@@ -52,6 +52,30 @@ const appearanceSecondaryDisabledStyles = createAppearanceStyles({
   borderColor: prop('theme.colors.button.secondary.disabled.border'),
 })
 
+const appearanceLinkDefaultStyles = createAppearanceStyles({
+  fontColor: prop('theme.colors.button.link.default.font'),
+  backgroundColor: prop('theme.colors.button.link.default.background'),
+  borderColor: prop('theme.colors.button.link.default.border'),
+})
+
+const appearanceLinkHoverStyles = createAppearanceStyles({
+  fontColor: prop('theme.colors.button.link.hover.font'),
+  backgroundColor: prop('theme.colors.button.link.hover.background'),
+  borderColor: prop('theme.colors.button.link.hover.border'),
+})
+
+const appearanceLinkPressedStyles = createAppearanceStyles({
+  fontColor: prop('theme.colors.button.link.pressed.font'),
+  backgroundColor: prop('theme.colors.button.link.pressed.background'),
+  borderColor: prop('theme.colors.button.link.pressed.border'),
+})
+
+const appearanceLinkDisabledStyles = createAppearanceStyles({
+  fontColor: prop('theme.colors.button.link.disabled.font'),
+  backgroundColor: prop('theme.colors.button.link.disabled.background'),
+  borderColor: prop('theme.colors.button.link.disabled.border'),
+})
+
 const appearanceStyles = switchProp(prop('variant', 'primary'), {
   primary: ifProp(
     prop('disabled', false),
@@ -69,6 +93,15 @@ const appearanceStyles = switchProp(prop('variant', 'primary'), {
       prop('pressed', false),
       appearanceSecondaryPressedStyles,
       ifProp(prop('hover', false), appearanceSecondaryHoverStyles, appearanceSecondaryDefaultStyles)
+    )
+  ),
+  link: ifProp(
+    prop('disabled', false),
+    appearanceLinkDisabledStyles,
+    ifProp(
+      prop('pressed', false),
+      appearanceLinkPressedStyles,
+      ifProp(prop('hover', false), appearanceLinkHoverStyles, appearanceLinkDefaultStyles)
     )
   ),
 })
