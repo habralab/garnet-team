@@ -10,5 +10,7 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
         {
             _mongoDatabase = mongoDatabase;
         }
+
+        public IMongoCollection<NotificationDocument> Notifications => _mongoDatabase.GetCollection<NotificationDocument>("Notifications");
     }
 }
