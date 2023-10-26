@@ -9,7 +9,7 @@ namespace Garnet.Notifications.AcceptanceTests.Support
         private string _id = Uuid.NewMongo();
         private string _title = "Title";
         private string _body = "Body";
-        private DateTimeOffset _createdAt;
+        private DateTimeOffset _createdAt = DateTimeOffset.Now;
         private string _userId = "system";
         private string _type = "Type";
         private string? _linkedEntityId;
