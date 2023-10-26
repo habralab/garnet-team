@@ -9,8 +9,8 @@ public class ProjectUserCreateCommand
         _projectUserRepository = projectUserRepository;
     }
 
-    public async Task<ProjectUserEntity> Execute(CancellationToken ct, string userId)
+    public async Task<ProjectUserEntity> Execute(CancellationToken ct, string userId, string userName)
     {
-        return await _projectUserRepository.AddUser(ct, userId);
+        return await _projectUserRepository.AddUser(ct, userId, userName);
     }
 }

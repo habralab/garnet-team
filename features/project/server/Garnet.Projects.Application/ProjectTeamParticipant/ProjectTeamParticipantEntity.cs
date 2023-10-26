@@ -1,4 +1,5 @@
-﻿using Garnet.Projects.Application.ProjectUser;
+﻿using Garnet.Projects.Application.Project;
+using Garnet.Projects.Application.ProjectUser;
 
 namespace Garnet.Projects.Application.ProjectTeamParticipant;
 
@@ -7,5 +8,7 @@ public record ProjectTeamParticipantEntity(
     string TeamId,
     string TeamName,
     string ProjectId,
-    ProjectUserEntity[] UserParticipants
+    string? TeamAvatarUrl,
+    ProjectUserEntity[] UserParticipants,
+    ProjectEntity[] Projects
 );

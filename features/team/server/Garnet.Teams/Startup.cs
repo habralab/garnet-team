@@ -40,6 +40,8 @@ using Garnet.Teams.Application.TeamParticipant.Queries;
 using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
+using Garnet.Teams.Events.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Commands;
 
 namespace Garnet.Team
 {
@@ -85,12 +87,16 @@ namespace Garnet.Team
                 o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
                 o.RegisterConsumer<ProjectTeamJoinRequestDecidedEventConsumer, ProjectTeamJoinRequestDecidedEvent>();
                 o.RegisterConsumer<ProjectDeletedEventConsumer, ProjectDeletedEvent>();
+                o.RegisterMessage<TeamLeaveProjectEvent>();
                 o.RegisterMessage<TeamCreatedEvent>();
                 o.RegisterMessage<TeamDeletedEvent>();
+                o.RegisterMessage<TeamParticipantLeftTeamEvent>();
                 o.RegisterMessage<TeamUpdatedEvent>();
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationDecidedEvent>();
+                o.RegisterMessage<TeamUserJoinRequestCancelledEvent>();
+                o.RegisterMessage<TeamJoinInvitationCancelledEvent>();
                 o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamJoinProjectRequestCreatedEvent>();
             });
@@ -107,6 +113,7 @@ namespace Garnet.Team
             services.AddScoped<TeamEditOwnerCommand>();
             services.AddScoped<TeamUploadAvatarCommand>();
             services.AddScoped<TeamEditNameCommand>();
+            services.AddScoped<TeamLeaveProjectCommand>();
 
             services.AddScoped<TeamGetQuery>();
             services.AddScoped<TeamsFilterQuery>();
@@ -122,6 +129,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamParticipantRepository, TeamParticipantRepository>();
 
+            services.AddScoped<TeamParticipantLeaveTeamCommand>();
             services.AddScoped<TeamParticipantFilterQuery>();
         }
 
@@ -131,6 +139,7 @@ namespace Garnet.Team
 
             services.AddScoped<TeamUserJoinRequestCreateCommand>();
             services.AddScoped<TeamUserJoinRequestDecideCommand>();
+            services.AddScoped<TeamUserJoinRequestCancelCommand>();
 
             services.AddScoped<TeamUserJoinRequestsShowQuery>();
         }
@@ -138,8 +147,9 @@ namespace Garnet.Team
         public static void AddTeamJoinInvitationInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamJoinInvitationRepository, TeamJoinInvitationRepository>();
-            
+
             services.AddScoped<TeamJoinInviteCommand>();
+            services.AddScoped<TeamJoinInvitationCancelCommand>();
             services.AddScoped<TeamJoinInvitationDecideCommand>();
 
             services.AddScoped<TeamJoinInvitationsShowQuery>();

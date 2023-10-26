@@ -1,7 +1,6 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Projects.Application.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.EventHandlers.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
@@ -23,19 +22,21 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
     private readonly UpdateDefinitionBuilder<ProjectTeamDocument> _u =
         Builders<ProjectTeamDocument>.Update;
 
-    private readonly IProjectTeamJoinRequestRepository _repository;
-    public ProjectTeamJoinRequestSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake, IProjectTeamJoinRequestRepository repository, ProjectTeamJoinRequestCreatedConsumer projectTeamJoinRequestCreatedConsumer) : base(args)
+
+    public ProjectTeamJoinRequestSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake,
+        ProjectTeamJoinRequestCreatedConsumer projectTeamJoinRequestCreatedConsumer) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
-        _repository = repository;
         _projectTeamJoinRequestCreatedConsumer = projectTeamJoinRequestCreatedConsumer;
     }
 
     [Given(@"пользователь '([^']*)' является владельцем команды '([^']*)'")]
     public async Task GivenПользовательЯвляетсяВладельцемКоманды(string username, string teamName)
     {
-        await Db.ProjectTeams.FindOneAndUpdateAsync(_f.Eq(x => x.TeamName, teamName),
+        await Db.ProjectTeams.FindOneAndUpdateAsync(
+            _f.Eq(x => x.TeamName, teamName),
             _u.Set(x => x.OwnerUserId, _currentUserProviderFake.GetUserIdByUsername(username))
+                .AddToSet(x => x.UserParticipantIds, _currentUserProviderFake.GetUserIdByUsername(username))
         );
     }
 
@@ -46,7 +47,8 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         _currentUserProviderFake.LoginAs(username);
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
-        await _projectTeamJoinRequestCreatedConsumer.Consume(new TeamJoinProjectRequestCreatedEvent(Uuid.NewMongo(), project.Id, team.Id));
+        await _projectTeamJoinRequestCreatedConsumer.Consume(
+            new TeamJoinProjectRequestCreatedEvent(Uuid.NewMongo(), project.Id, team.Id));
     }
 
     [Then(@"в проекте '([^']*)' существует заявка на вступление от команды '([^']*)'")]

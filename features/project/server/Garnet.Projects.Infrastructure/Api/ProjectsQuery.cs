@@ -1,6 +1,4 @@
-﻿using System.Security.Claims;
-using Garnet.Common.Infrastructure.Identity;
-using Garnet.Common.Infrastructure.Support;
+﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Queries;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
@@ -28,7 +26,7 @@ public class ProjectsQuery
         ProjectsFilterQuery projectsFilterQuery,
         ProjectTeamParticipantFilterQuery projectTeamParticipantFilterQuery,
         ProjectTeamJoinRequestFilterQuery projectTeamJoinRequestFilterQuery
-        )
+    )
     {
         _projectGetQuery = projectGetQuery;
         _projectsFilterQuery = projectsFilterQuery;
@@ -78,11 +76,14 @@ public class ProjectsQuery
             x.TeamId,
             x.TeamName,
             x.ProjectId,
-            x.UserParticipants
+            x.TeamAvatarUrl,
+            x.UserParticipants,
+            x.Projects
         )).ToArray());
     }
 
-    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct, ProjectTeamJoinRequestGetInput input)
+    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
+        ProjectTeamJoinRequestGetInput input)
     {
         var result =
             await _projectTeamJoinRequestFilterQuery.Query(ct, input.ProjectId);

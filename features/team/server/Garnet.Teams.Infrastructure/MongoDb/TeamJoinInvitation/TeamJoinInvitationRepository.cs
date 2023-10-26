@@ -34,7 +34,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamJoinInvitation
             return TeamJoinInvitationDocument.ToDomain(invitation);
         }
 
-        public async Task<TeamJoinInvitationEntity?> DeleteInvitationsById(CancellationToken ct, string joinInvitationId)
+        public async Task<TeamJoinInvitationEntity?> DeleteInvitationById(CancellationToken ct, string joinInvitationId)
         {
             var db = _dbFactory.Create();
 
