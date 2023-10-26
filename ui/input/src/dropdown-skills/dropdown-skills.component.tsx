@@ -45,7 +45,7 @@ export const DropdownSkills: FC<DropdownSkillsProps> = ({
       <Row flexWrap='wrap' flex='auto' gap={10}>
         {options.map((item) => (
           <Tag key={item} onClick={() => onChangeOption?.(item)}>
-            <FormattedMessage id={item} />
+            {item}
           </Tag>
         ))}
       </Row>
