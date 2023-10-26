@@ -1,5 +1,6 @@
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Notifications.Application.Args;
 using Garnet.Notifications.Events;
 using Garnet.Notifications.Infrastructure.MongoDB;
 
@@ -28,7 +29,10 @@ namespace Garnet.Notifications.AcceptanceTests.Support
 
         public NotificationDocument Build()
         {
-            return NotificationDocument.Create(_id, _title, _body, _userId, _type, _createdAt, null);
+            return NotificationDocument.Create(
+                _id,
+                new NotificationCreateArgs(_title, _body, _type, _userId, _createdAt, null)
+            );
         }
 
         public static implicit operator NotificationDocument(NotificationDocumentBuilder builder)

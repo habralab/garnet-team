@@ -1,4 +1,5 @@
 using Garnet.Notifications.Application;
+using Garnet.Notifications.Application.Args;
 
 namespace Garnet.Notifications.Infrastructure.MongoDB
 {
@@ -12,17 +13,17 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
         public string Type { get; init; } = null!;
         public string? LinkedEntityId { get; init; }
 
-        public static NotificationDocument Create(string id, string title, string body, string userId, string type, DateTimeOffset createdAt, string? linkedEntityId)
+        public static NotificationDocument Create(string id, NotificationCreateArgs args)
         {
             return new NotificationDocument()
             {
                 Id = id,
-                Title = title,
-                Body = body,
-                UserId = userId,
-                Type = type,
-                CreatedAt = createdAt,
-                LinkedEntityId = linkedEntityId
+                Title = args.Title,
+                Body = args.Body,
+                UserId = args.UserId,
+                Type = args.Type,
+                CreatedAt = args.CreatedAt,
+                LinkedEntityId = args.LinkedEntityId
             };
         }
 
