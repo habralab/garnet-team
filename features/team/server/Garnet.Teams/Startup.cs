@@ -87,6 +87,7 @@ namespace Garnet.Team
                 o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
                 o.RegisterConsumer<ProjectTeamJoinRequestDecidedEventConsumer, ProjectTeamJoinRequestDecidedEvent>();
                 o.RegisterConsumer<ProjectDeletedEventConsumer, ProjectDeletedEvent>();
+                o.RegisterMessage<TeamLeaveProjectEvent>();
                 o.RegisterMessage<TeamCreatedEvent>();
                 o.RegisterMessage<TeamDeletedEvent>();
                 o.RegisterMessage<TeamParticipantLeftTeamEvent>();
@@ -112,6 +113,7 @@ namespace Garnet.Team
             services.AddScoped<TeamEditOwnerCommand>();
             services.AddScoped<TeamUploadAvatarCommand>();
             services.AddScoped<TeamEditNameCommand>();
+            services.AddScoped<TeamLeaveProjectCommand>();
 
             services.AddScoped<TeamGetQuery>();
             services.AddScoped<TeamsFilterQuery>();
