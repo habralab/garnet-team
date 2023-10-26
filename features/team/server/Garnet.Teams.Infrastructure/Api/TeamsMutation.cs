@@ -18,6 +18,7 @@ using Garnet.Teams.Infrastructure.Api.TeamEditTags;
 using Garnet.Teams.Infrastructure.Api.TeamEditName;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestDecide;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
+using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestCancel;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationCancel;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantLeaveTeam;
 using Garnet.Teams.Application.TeamParticipant.Commands;
@@ -40,6 +41,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamParticipantLeaveTeamCommand _teamParticipantLeaveTeamCommand;
         private readonly TeamEditTagsCommand _teamEditTagsCommand;
         private readonly TeamEditNameCommand _teamEditNameCommand;
+        private readonly TeamUserJoinRequestCancelCommand _teamUserJoinRequestCancelCommand;
         private readonly TeamJoinInvitationDecideCommand _teamJoinInvitationDecideCommand;
 
         public TeamsMutation(
@@ -49,6 +51,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamEditOwnerCommand teamEditOwnerCommand,
             TeamJoinInviteCommand joinInviteCommand,
             TeamEditNameCommand teamEditNameCommand,
+            TeamUserJoinRequestCancelCommand teamUserJoinRequestCancelCommand,
             TeamJoinInvitationDecideCommand teamJoinInvitationDecideCommand,
             TeamUserJoinRequestCreateCommand teamUserJoinRequestCreateCommand,
             TeamUserJoinRequestDecideCommand teamUserJoinRequestDecideCommand,
@@ -72,6 +75,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamEditNameCommand = teamEditNameCommand;
             _teamJoinInvitationDecideCommand = teamJoinInvitationDecideCommand;
             _teamEditTagsCommand = teamEditTagsCommand;
+            _teamUserJoinRequestCancelCommand = teamUserJoinRequestCancelCommand;
             _teamJoinInvitationCancelCommand = teamJoinInvitationCancelCommand;
         }
 
@@ -207,5 +211,15 @@ namespace Garnet.Teams.Infrastructure.Api
             var invitation = result.Value;
             return new TeamJoinInvitePayload(invitation.Id, invitation.UserId, invitation.TeamId, invitation.AuditInfo.CreatedAt);
         }
+
+        public async Task<TeamUserJoinRequestCancelPayload> TeamUserJoinRequestCancel(CancellationToken ct, string userJoinRequestId)
+        {
+            var result = await _teamUserJoinRequestCancelCommand.Execute(ct, userJoinRequestId);
+            result.ThrowQueryExceptionIfHasErrors();
+
+            var userJoinRequest = result.Value;
+            return new TeamUserJoinRequestCancelPayload(userJoinRequest.Id, userJoinRequest.UserId, userJoinRequest.TeamId, userJoinRequest.AuditInfo.CreatedAt);
+        }
+
     }
 }
