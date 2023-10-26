@@ -10,6 +10,8 @@ using Garnet.Notifications.Infrastructure.EventHandlers;
 using Garnet.Notifications.Events;
 using Garnet.Notifications.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Api;
+using Garnet.Notifications.Application;
+using Garnet.Notifications.Application.Queries;
 
 namespace Garnet.Notifications
 {
@@ -36,7 +38,8 @@ namespace Garnet.Notifications
 
         public static void AddNotificationInternal(this IServiceCollection services)
         {
-
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<NotificationGetQuery>();
         }
 
         public static void AddGarnetNotificationMessageBus(this IServiceCollection services, string name)

@@ -1,3 +1,5 @@
+using Garnet.Notifications.Application;
+
 namespace Garnet.Notifications.Infrastructure.MongoDB
 {
     public class NotificationDocument
@@ -22,6 +24,19 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
                 CreatedAt = createdAt,
                 LinkedEntityId = linkedEntityId
             };
+        }
+
+        public static NotificationEntity ToDomain(NotificationDocument doc)
+        {
+            return new NotificationEntity(
+                doc.Id,
+                doc.Title,
+                doc.Body,
+                doc.Type,
+                doc.UserId,
+                doc.CreatedAt,
+                doc.LinkedEntityId
+            );
         }
     }
 }
