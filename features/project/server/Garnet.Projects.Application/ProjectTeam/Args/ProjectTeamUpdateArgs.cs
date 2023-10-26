@@ -3,5 +3,6 @@
 public record ProjectTeamUpdateArgs(
     string TeamId,
     string TeamName,
-    string OwnerUserId
+    string OwnerUserId,
+    string? TeamAvatarUrl
 );

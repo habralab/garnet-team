@@ -1,10 +1,16 @@
-import React             from 'react'
+import { LoginFlow }  from '@atls/next-identity-integration'
 
-import { LoginFlow }     from '@fork/next-identity-integration'
-import { LoginPassword } from '@identity/login-password-fragment'
+import React          from 'react'
 
-export const LoginPage = () => (
-  <LoginFlow>
-    <LoginPassword />
+import { LoginForm }  from '@identity/auth-forms-fragment'
+import { Background } from '@ui/background'
+
+const LoginPage = () => (
+  <LoginFlow returnToUrl='/app'>
+    <Background fill color='lightGreyForty' justifyContent='center' alignItems='center'>
+      <LoginForm />
+    </Background>
   </LoginFlow>
 )
+
+export default LoginPage

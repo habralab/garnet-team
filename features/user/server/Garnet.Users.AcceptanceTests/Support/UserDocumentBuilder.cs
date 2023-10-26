@@ -8,7 +8,7 @@ namespace Garnet.Users.AcceptanceTests.Support;
 public class UserDocumentBuilder
 {
     private string _id = Uuid.NewMongo();
-    private AuditInfo _auditInfo = AuditInfo.Create(DateTimeOffset.UtcNow, "system");
+    private AuditInfoDocument _auditInfo = AuditInfoDocument.Create(DateTimeOffset.UtcNow, "system");
     private string _identityId = Uuid.NewGuid();
     private string _userName = "Username";
     private string _description = "Description";

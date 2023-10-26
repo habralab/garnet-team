@@ -13,7 +13,7 @@ public class ProjectTeamCreateCommand
 
     public async Task<ProjectTeamEntity> Execute(CancellationToken ct, ProjectTeamCreateArgs args)
     {
-        return await _projectTeamRepository.AddProjectTeam(ct, args.TeamId, args.TeamName, args.OwnerUserId);
+        return await _projectTeamRepository.AddProjectTeam(ct, args.TeamId, args.TeamName, args.OwnerUserId, args.TeamAvatarUrl);
     }
 
 }

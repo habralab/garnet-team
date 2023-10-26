@@ -26,7 +26,7 @@ public class ProjectRepository : IProjectRepository
             ownerUserId,
             args.ProjectName,
             args.Description,
-            args.AvatarUrl,
+            null,
             args.Tags);
         await db.Projects.InsertOneAsync(project, cancellationToken: ct);
         return ProjectDocument.ToDomain(project);

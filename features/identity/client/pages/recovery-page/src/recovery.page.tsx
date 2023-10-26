@@ -1,24 +1,16 @@
-import React                from 'react'
-import { useState }         from 'react'
+import { RecoveryFlow } from '@atls/next-identity-integration'
 
-import { RecoveryFlow }     from '@fork/next-identity-integration'
-import { RecoveryPassword } from '@identity/recovery-password-fragment'
-import { Complete }         from '@identity/recovery-password-fragment'
-import { Condition }        from '@ui/condition/src'
+import React            from 'react'
 
-export const RecoveryPage = () => {
-  const [isComplete, setIsComplete] = useState(false)
+import { RecoveryForm } from '@identity/auth-forms-fragment'
+import { Background }   from '@ui/background'
 
-  const setComplete = () => setIsComplete(true)
-
-  return (
-    <RecoveryFlow>
-      <Condition match={!isComplete}>
-        <RecoveryPassword setComplete={setComplete} />
-      </Condition>
-      <Condition match={isComplete}>
-        <Complete />
-      </Condition>
+const RecoveryPage = () => (
+  <Background color='lightGreyForty' fill justifyContent='center' alignItems='center'>
+    <RecoveryFlow returnToUrl='/auth/login'>
+      <RecoveryForm />
     </RecoveryFlow>
-  )
-}
+  </Background>
+)
+
+export default RecoveryPage

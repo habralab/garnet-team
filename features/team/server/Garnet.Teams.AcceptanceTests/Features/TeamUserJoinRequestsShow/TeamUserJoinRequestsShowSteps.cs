@@ -1,6 +1,8 @@
 using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
+using HotChocolate.Execution;
 using MongoDB.Driver;
 
 namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestsShow
@@ -9,10 +11,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestsShow
     public class TeamUserJoinRequestsShowSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly QueryExceptionsContext _queryExceptionsContext;
         private TeamUserJoinRequestsShowPayload _result = null!;
 
-        public TeamUserJoinRequestsShowSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamUserJoinRequestsShowSteps(
+            CurrentUserProviderFake currentUserProviderFake,
+            QueryExceptionsContext queryExceptionsContext,
+            StepsArgs args) : base(args)
         {
+            _queryExceptionsContext = queryExceptionsContext;
             _currentUserProviderFake = currentUserProviderFake;
         }
 
@@ -22,7 +29,14 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestsShow
             _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
-            _result = await Query.TeamUserJoinRequestsShow(CancellationToken.None, team.Id);
+            try
+            {
+                _result = await Query.TeamUserJoinRequestsShow(CancellationToken.None, team.Id);
+            }
+            catch (QueryException ex)
+            {
+                _queryExceptionsContext.QueryExceptions.Add(ex);
+            }
         }
 
         [Then(@"количество заявок в списке равно '(.*)'")]

@@ -1,3 +1,4 @@
+using Garnet.Common.Application;
 using Garnet.Teams.Events.TeamUserJoinRequest;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest
@@ -5,7 +6,8 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest
     public record TeamUserJoinRequestEntity(
         string Id,
         string UserId,
-        string TeamId
+        string TeamId,
+        AuditInfo AuditInfo
     );
 
     public static class TeamUserJoinRequestEntityExtensions
@@ -18,6 +20,11 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest
         public static TeamUserJoinRequestDecidedEvent ToDecidedEvent(this TeamUserJoinRequestEntity entity, bool IsApproved)
         {
             return new TeamUserJoinRequestDecidedEvent(entity.Id, entity.UserId, entity.TeamId, IsApproved);
+        }
+
+        public static TeamUserJoinRequestCancelledEvent ToCancelledEvent(this TeamUserJoinRequestEntity entity)
+        {
+            return new TeamUserJoinRequestCancelledEvent(entity.Id, entity.UserId, entity.TeamId);
         }
     }
 }

@@ -1,24 +1,16 @@
-import React                    from 'react'
-import { useState }             from 'react'
+import { RegistrationFlow } from '@atls/next-identity-integration'
 
-import { RegistrationFlow }     from '@fork/next-identity-integration'
-import { Complete }             from '@identity/registration-password-fragment'
-import { RegistrationPassword } from '@identity/registration-password-fragment'
-import { Condition }            from '@ui/condition/src'
+import React                from 'react'
 
-export const RegistrationPage = () => {
-  const [isComplete, setIsComplete] = useState(false)
+import { RegistrationForm } from '@identity/auth-forms-fragment'
+import { Background }       from '@ui/background'
 
-  const setComplete = () => setIsComplete(true)
+const RegistrationPage = () => (
+  <RegistrationFlow returnToUrl='/auth/confirmation'>
+    <Background fill color='lightGreyForty' justifyContent='center' alignItems='center'>
+      <RegistrationForm />
+    </Background>
+  </RegistrationFlow>
+)
 
-  return (
-    <RegistrationFlow>
-      <Condition match={!isComplete}>
-        <RegistrationPassword setComplete={setComplete} />
-      </Condition>
-      <Condition match={isComplete}>
-        <Complete />
-      </Condition>
-    </RegistrationFlow>
-  )
-}
+export default RegistrationPage

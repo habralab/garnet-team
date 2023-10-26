@@ -43,7 +43,8 @@ public class ProjectTeamJoinRequestGetSteps : BaseSteps
     public async Task GivenСуществуетЗаявкаОтКомандыНаУчастиеВПроекте(string teamName, string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        var teamJoinRequest = GiveMe.ProjectTeamJoinRequest().WithTeamName(teamName).WithProjectId(project.Id);
+        var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
+        var teamJoinRequest = GiveMe.ProjectTeamJoinRequest().WithTeamId(team.Id).WithTeamName(teamName).WithProjectId(project.Id);
         await Db.ProjectTeamJoinRequests.InsertOneAsync(teamJoinRequest);
     }
 

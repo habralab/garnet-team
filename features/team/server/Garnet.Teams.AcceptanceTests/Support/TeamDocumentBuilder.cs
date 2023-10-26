@@ -9,7 +9,7 @@ namespace Garnet.Teams.AcceptanceTests.Support
         private readonly string _id = Uuid.NewMongo();
         private string _name = "TeamName";
         private readonly string _description = "TeamDescription";
-        private readonly AuditInfo _auditInfo = AuditInfo.Create(DateTimeOffset.UtcNow, "system");
+        private readonly AuditInfoDocument _auditInfo = AuditInfoDocument.Create(DateTimeOffset.UtcNow, "system");
         private readonly string _ownerUserId = Uuid.NewMongo();
         private readonly string? _avatarUrl = null;
         private readonly string[] _tags = Array.Empty<string>();

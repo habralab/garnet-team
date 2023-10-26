@@ -380,7 +380,10 @@
     "id": 4000001,
     "text": "{reason}",
     "ru": "{reason}",
-    "type": "error"
+    "type": "error",
+    "context": {
+      "reason": "{reason}"
+    }
   },
   {
     "id": 4000002,
@@ -408,7 +411,7 @@
   {
     "id": 4000005,
     "text": "The password can not be used because {reason}.",
-    "ru": "Этот пароль не может быть использован потому что {reason}",
+    "ru": "Этот пароль не может быть использован потому что {reason}.",
     "type": "error",
     "context": {
       "reason": "{reason}"
@@ -416,7 +419,8 @@
   },
   {
     "id": 4000006,
-    "text": "Неверное имя пользователя или пароль",
+    "text": "The provided credentials are invalid, check for spelling mistakes in your password or username, email address, or phone number.",
+    "ru": "Неверное имя пользователя или пароль",
     "type": "error",
     "context": {}
   },
