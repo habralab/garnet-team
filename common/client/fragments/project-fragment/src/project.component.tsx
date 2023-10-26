@@ -92,6 +92,11 @@ export const Project: FC = () => {
                 <Layout flexBasis={60} flexShrink={0} />
               </Condition>
               <Condition match={filteredProjects.length > 0}>
+                <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
+                  <FormattedMessage id='project.projects_found' />
+                  {`: ${filteredProjects.length}`}
+                </Text>
+                <Layout flexBasis={42} flexShrink={0} />
                 <Grid gap={22} gridWrap='small' justifyContent='space-between'>
                   {filteredProjects.map((project) => (
                     <CardProject key={project.id} project={project} cardSize='small' />
