@@ -95,6 +95,7 @@ namespace Garnet.Team
                 o.RegisterMessage<TeamUserJoinRequestCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationCreatedEvent>();
                 o.RegisterMessage<TeamJoinInvitationDecidedEvent>();
+                o.RegisterMessage<TeamUserJoinRequestCancelledEvent>();
                 o.RegisterMessage<TeamJoinInvitationCancelledEvent>();
                 o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamJoinProjectRequestCreatedEvent>();
@@ -138,6 +139,7 @@ namespace Garnet.Team
 
             services.AddScoped<TeamUserJoinRequestCreateCommand>();
             services.AddScoped<TeamUserJoinRequestDecideCommand>();
+            services.AddScoped<TeamUserJoinRequestCancelCommand>();
 
             services.AddScoped<TeamUserJoinRequestsShowQuery>();
         }
