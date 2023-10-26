@@ -1,13 +1,12 @@
-import React                     from 'react'
-import { FC }                    from 'react'
-import { useRouter }             from 'next/router'
-import { useIntl }               from 'react-intl'
+import React             from 'react'
+import { FC }            from 'react'
+import { useRouter }     from 'next/router'
+import { useIntl }       from 'react-intl'
 
-import { Settings2Icon }         from '@ui/icon'
-import { getDependOfNumberWord } from '@utils/helpers'
+import { Settings2Icon } from '@ui/icon'
 
-import { Card }                  from '../card.component'
-import { CardTeamProps }         from './card-team.interfaces'
+import { Card }          from '../card.component'
+import { CardTeamProps } from './card-team.interfaces'
 
 export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
   const router = useRouter()
@@ -15,16 +14,7 @@ export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
   const { formatMessage } = useIntl()
 
   const countUsers = team.countUsers || 0
-  const countPeopleWord = `${countUsers} ${getDependOfNumberWord(
-    countUsers,
-    formatMessage({ id: 'shared_ui.card.people_words' }).split(' ')
-  )}`
-
   const countProjects = team.countProjects || 0
-  const countProjectsWord = `${countProjects} ${getDependOfNumberWord(
-    countProjects,
-    formatMessage({ id: 'shared_ui.card.project_words' }).split(' ')
-  )}`
 
   const mockAvatarsTeams = Array.from({ length: countProjects }, () => team.avatarUrl || '')
 
@@ -35,8 +25,11 @@ export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
       avatarUrl={team.avatarUrl}
       name={team.name}
       countItems={countProjects}
-      countItemsWord={countProjectsWord}
-      countPeopleWord={countPeopleWord}
+      countItemsWord={formatMessage(
+        { id: 'shared_ui.card.project_words' },
+        { count: countProjects }
+      )}
+      countPeopleWord={formatMessage({ id: 'shared_ui.card.people_words' }, { count: countUsers })}
       itemsAvatars={mockAvatarsTeams}
       itemsAvatarsShape='circle'
       cardSize={cardSize}
