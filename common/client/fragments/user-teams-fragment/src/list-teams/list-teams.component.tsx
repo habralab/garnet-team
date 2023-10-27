@@ -22,7 +22,13 @@ export const ListTeams: FC<ListTeamsProps> = ({ teams }) => {
   return (
     <>
       <Condition match={teams.length === 0}>
-        <Text fontSize='semiLarge' color='text.gray' style={{ justifyContent: 'center' }}>
+        <Text
+          fontSize='semiLarge'
+          fontWeight='semiBold'
+          color='text.gray'
+          opacity={0.6}
+          style={{ justifyContent: 'center' }}
+        >
           <FormattedMessage id='user_teams.no_teams' />
         </Text>
       </Condition>

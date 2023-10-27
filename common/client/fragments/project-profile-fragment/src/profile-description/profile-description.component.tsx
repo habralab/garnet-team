@@ -20,7 +20,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ project }) => 
       </Text>
       <Layout flexBasis={30} flexShrink={0} />
       <Text fontSize='semiMedium' color='text.gray'>
-        <FormattedMessage id='profile.about' />
+        <FormattedMessage id='profile.about_project' />
       </Text>
       <Layout flexBasis={10} flexShrink={0} />
       <Text fontSize='medium' color='text.secondary'>
@@ -30,7 +30,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ project }) => 
     <Column height='max-content' minWidth={300} maxWidth='100%' flex='1 0 47%'>
       <Layout flexBasis={[0, 0, 0, 60]} />
       <Text fontSize='semiMedium' color='text.gray'>
-        <FormattedMessage id='profile.skills' />
+        <FormattedMessage id='profile.required_skills' />
       </Text>
       <Layout flexBasis={10} flexShrink={0} />
       <Row flexWrap='wrap' maxHeight={72} overflow='hidden' gap={10}>
