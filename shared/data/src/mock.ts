@@ -92,6 +92,11 @@ export const mockUser: MockUser = {
   },
 }
 
+export const mockUsers: User[] = Array.from({ length: 10 }, (_, index) => [
+  { ...mockMyUser.userGet, id: `${mockMyUser.userGet?.id}${index}` },
+  { ...mockUser.userGet, id: `${mockUser.userGet?.id}${index}` },
+]).flat()
+
 export const getMockUser = (id: string) => {
   if (id === mockUser.userGet?.id)
     return {
