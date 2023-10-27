@@ -48,7 +48,13 @@ export const ProfileTeams: FC<ProfileTeamsProps> = ({ teams, isMyProject, ownerU
     </Condition>
     <Condition match={teams.length === 0}>
       <Column justifyContent='center' alignItems='center' height={284}>
-        <Text fontSize='semiLarge' fontWeight='semiBold' color='text.gray' textAlign='center'>
+        <Text
+          fontSize='semiLarge'
+          fontWeight='semiBold'
+          color='text.gray'
+          textAlign='center'
+          opacity={0.6}
+        >
           <FormattedMessage id='profile.no_teams_yet' />
         </Text>
         <Condition match={isMyProject}>
