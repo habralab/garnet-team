@@ -149,6 +149,20 @@ public class ProjectRepository : RepositoryBase, IProjectRepository
         return ProjectDocument.ToDomain(project);
     }
 
+    public async Task IncrementProjectTasksCounter(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Inc(x => x.TasksCounter, 1);
+
+        await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
+        );
+    }
+
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();

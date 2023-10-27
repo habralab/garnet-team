@@ -12,5 +12,6 @@ public interface IProjectRepository
     Task<ProjectEntity> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId);
     Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl);
     Task<ProjectEntity[]> FilterProjects(CancellationToken ct, ProjectFilterArgs args);
+    Task IncrementProjectTasksCounter(CancellationToken ct, string projectId);
     Task CreateIndexes(CancellationToken ct);
 }

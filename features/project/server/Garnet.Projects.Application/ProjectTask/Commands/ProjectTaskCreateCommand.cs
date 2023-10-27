@@ -1,6 +1,7 @@
 ﻿using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.ProjectTask.Args;
 using Garnet.Projects.Application.ProjectTask.Errors;
 using Garnet.Projects.Application.ProjectTeamParticipant;
@@ -12,18 +13,20 @@ public class ProjectTaskCreateCommand
     private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IProjectTaskRepository _projectTaskRepository;
     private readonly IProjectTeamParticipantRepository _projectTeamParticipantRepository;
+    private readonly IProjectRepository _projectRepository;
     private readonly IMessageBus _messageBus;
 
     public ProjectTaskCreateCommand(
         ICurrentUserProvider currentUserProvider,
         IProjectTaskRepository projectTaskRepository,
         IProjectTeamParticipantRepository projectTeamParticipantRepository,
-        IMessageBus messageBus)
+        IMessageBus messageBus, IProjectRepository projectRepository)
     {
         _currentUserProvider = currentUserProvider;
         _projectTaskRepository = projectTaskRepository;
         _projectTeamParticipantRepository = projectTeamParticipantRepository;
         _messageBus = messageBus;
+        _projectRepository = projectRepository;
     }
 
     public async Task<Result<ProjectTaskEntity>> Execute(CancellationToken ct, ProjectTaskCreateArgs args)
@@ -47,6 +50,7 @@ public class ProjectTaskCreateCommand
 
         var status = ProjectTaskStatuses.Open;
         var task = await _projectTaskRepository.CreateProjectTask(ct, currentUserId, status, args);
+        await _projectRepository.IncrementProjectTasksCounter(ct, args.ProjectId);
 
         await _messageBus.Publish(task.ToCreatedEvent());
         return Result.Ok(task);
