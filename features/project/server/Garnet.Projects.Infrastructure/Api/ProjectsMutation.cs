@@ -153,7 +153,8 @@ public class ProjectsMutation
             "To be completed",
             input.TeamExecutorId,
             input.UserExecutorId,
-            input.Tags);
+            input.Tags,
+            input.Labels);
 
         var result = await _projectTaskCreateCommand.Execute(ct, args);
         result.ThrowQueryExceptionIfHasErrors();

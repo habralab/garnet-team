@@ -14,6 +14,7 @@ public record ProjectTaskDocument : DocumentBase
     public string? TeamExecutorId { get; set; } = null!;
     public string? UserExecutorId { get; set; } = null!;
     public string[] Tags { get; set; } = null!;
+    public string[] Labels { get; init; } = null!;
 
     public static ProjectTaskDocument Create(
         string id,
@@ -24,7 +25,8 @@ public record ProjectTaskDocument : DocumentBase
         string status,
         string? teamExecutorId,
         string? userExecutorId,
-        string[] tags
+        string[] tags,
+        string[] labels
     )
     {
         return new ProjectTaskDocument
@@ -37,7 +39,8 @@ public record ProjectTaskDocument : DocumentBase
             Status = status,
             TeamExecutorId = teamExecutorId,
             UserExecutorId = userExecutorId,
-            Tags = tags
+            Tags = tags,
+            Labels = labels
         };
     }
 
@@ -54,6 +57,7 @@ public record ProjectTaskDocument : DocumentBase
             doc.TeamExecutorId,
             doc.UserExecutorId,
             doc.Tags,
+            doc.Labels,
             auditInfo
         );
     }

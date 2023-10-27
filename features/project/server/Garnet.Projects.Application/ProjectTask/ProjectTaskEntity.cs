@@ -13,6 +13,7 @@ public record ProjectTaskEntity(
     string? TeamExecutorId,
     string? UserExecutorId,
     string[] Tags,
+    string[] Labels,
     AuditInfo AuditInfo
 );
 

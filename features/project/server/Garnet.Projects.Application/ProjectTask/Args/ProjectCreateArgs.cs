@@ -7,5 +7,6 @@ public record ProjectTaskCreateArgs(
     string Status,
     string? TeamExecutorId,
     string? UserExecutorId,
-    string[] Tags
+    string[] Tags,
+    string[] Labels
     );

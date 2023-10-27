@@ -6,5 +6,6 @@ public record ProjectTaskCreateInput(
     string? Description,
     string? TeamExecutorId,
     string? UserExecutorId,
-    string[] Tags
+    string[] Tags,
+    string[] Labels
 );

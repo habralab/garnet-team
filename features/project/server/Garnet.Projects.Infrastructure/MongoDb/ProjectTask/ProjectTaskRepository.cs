@@ -32,7 +32,8 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             args.Status,
             args.TeamExecutorId,
             args.UserExecutorId,
-            args.Tags);
+            args.Tags,
+            args.Labels);
 
         task = await InsertOneDocument(
             ct,
