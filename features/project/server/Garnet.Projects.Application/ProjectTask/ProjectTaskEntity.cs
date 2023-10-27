@@ -16,7 +16,7 @@ public record ProjectTaskEntity(
     AuditInfo AuditInfo
 );
 
-public static class ProjectTaskDocumentExtensions
+public static class ProjectTaskEntityExtensions
 {
     public static ProjectTaskCreatedEvent ToCreatedEvent(this ProjectTaskEntity doc)
     {

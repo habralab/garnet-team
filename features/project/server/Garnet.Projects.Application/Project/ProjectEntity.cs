@@ -11,7 +11,7 @@ public record ProjectEntity(
     string[] Tags
 );
 
-public static class ProjectDocumentExtensions
+public static class ProjectEntityExtensions
 {
     public static ProjectUpdatedEvent ToUpdatedEvent(this ProjectEntity doc)
     {
