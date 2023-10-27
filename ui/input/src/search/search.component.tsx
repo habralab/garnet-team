@@ -59,10 +59,11 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
   const openMenu = () => setMenuOpen(true)
   const closeMenu = () => setMenuOpen(false)
 
-  const { renderLayer, layerProps, triggerProps } = useLayer({
+  const { renderLayer, layerProps, triggerProps, triggerBounds } = useLayer({
     isOpen: menuOpen,
     placement: 'bottom-center',
     onOutsideClick: closeMenu,
+    container: containerRef.current || undefined,
   })
 
   const changeValue = useChangeValue(disabled, onChange, onChangeNative)
@@ -105,8 +106,8 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
             {...layerProps}
             style={{
               ...layerProps.style,
-              // @ts-ignore
-              width: containerRef?.current?.offsetWidth || 600,
+              position: 'static',
+              width: triggerBounds?.width || 600,
               zIndex: 2000,
             }}
           >
