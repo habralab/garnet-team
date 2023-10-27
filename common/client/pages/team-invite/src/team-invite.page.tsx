@@ -1,17 +1,17 @@
 import React               from 'react'
 
 import { Header }          from '@app/header-fragment'
-import { TeamProfile }     from '@app/team-profile-fragment'
+import { TeamInvite }      from '@app/team-invite-fragment'
 import { Background }      from '@ui/background'
 import { WrapperMaxWidth } from '@ui/wrapper'
 
-const TeamProfilePage = () => (
+const TeamInvitePage = () => (
   <Background fill color='lightGreyTen' flexDirection='column' alignItems='center'>
     <Header />
     <WrapperMaxWidth>
-      <TeamProfile />
+      <TeamInvite />
     </WrapperMaxWidth>
   </Background>
 )
 
-export default TeamProfilePage
+export default TeamInvitePage
