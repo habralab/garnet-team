@@ -9,7 +9,7 @@ import { Layout }             from '@ui/layout'
 import { Modal }              from '@ui/modal'
 
 import { ModalEditTeamProps } from './modal-edit-team.interfaces'
-import { getFormValues }      from './helpers'
+import { getFormValues }      from '../helpers'
 
 export const ModalEditTeam: FC<ModalEditTeamProps> = ({ modalOpen = false, onClose, team }) => {
   const [formValues, setFormValues] = useState<FormTeamValues>(getFormValues(team))

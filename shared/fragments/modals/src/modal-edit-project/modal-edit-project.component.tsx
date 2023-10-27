@@ -9,7 +9,7 @@ import { Layout }                from '@ui/layout'
 import { Modal }                 from '@ui/modal'
 
 import { ModalEditProjectProps } from './modal-edit-project.interfaces'
-import { getFormValues }         from './helpers'
+import { getFormValues }         from '../helpers'
 
 export const ModalEditProject: FC<ModalEditProjectProps> = ({
   modalOpen = false,
