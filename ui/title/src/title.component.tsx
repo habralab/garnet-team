@@ -8,7 +8,7 @@ import { ArrowLeftIcon }    from '@ui/icon'
 import { Box }              from '@ui/layout'
 import { Column }           from '@ui/layout'
 import { Layout }           from '@ui/layout'
-import { NextLink }         from '@ui/link'
+import { Link }             from '@ui/link'
 import { Text }             from '@ui/text'
 
 import { TitleProps }       from './title.interfaces'
@@ -26,6 +26,18 @@ const BackJsx: FC = () => (
 export const Title: FC<TitleProps> = ({ backUrl, children, hasBack }) => {
   const router = useRouter()
 
+  const handleClickBack = (event) => {
+    event.preventDefault()
+
+    if (backUrl) {
+      router.push(backUrl)
+
+      return
+    }
+
+    router.back()
+  }
+
   return (
     <Column height='max-content'>
       <Layout flexBasis={32} flexShrink={0} />
@@ -35,16 +47,11 @@ export const Title: FC<TitleProps> = ({ backUrl, children, hasBack }) => {
         </Text>
         <Condition match={Boolean(hasBack)}>
           <Layout flexBasis={10} flexShrink={0} />
-          <Condition match={Boolean(backUrl)}>
-            <NextLink path={backUrl || '/'} href={backUrl || '/'}>
+          <Box>
+            <Link href={backUrl || '/'} onClick={handleClickBack}>
               <BackJsx />
-            </NextLink>
-          </Condition>
-          <Condition match={!backUrl}>
-            <NextLink onClick={() => router.back()}>
-              <BackJsx />
-            </NextLink>
-          </Condition>
+            </Link>
+          </Box>
         </Condition>
       </Column>
       <Layout flexBasis={32} flexShrink={0} />
