@@ -48,8 +48,10 @@ public class ProjectTaskCreateCommand
             return Result.Fail(new ProjectOnlyParticipantCanCreateTaskError());
         }
 
+        var taskNumber = await _projectRepository.GetProjectTasksCounter(ct, args.ProjectId);
+
         var status = ProjectTaskStatuses.Open;
-        var task = await _projectTaskRepository.CreateProjectTask(ct, currentUserId, status, args);
+        var task = await _projectTaskRepository.CreateProjectTask(ct, currentUserId, status, taskNumber, args);
         await _projectRepository.IncrementProjectTasksCounter(ct, args.ProjectId);
 
         await _messageBus.Publish(task.ToCreatedEvent());

@@ -1,3 +1,4 @@
+using Garnet.Common.Application;
 using Garnet.Projects.Events.Project;
 
 namespace Garnet.Projects.Application.Project;
@@ -9,7 +10,8 @@ public record ProjectEntity(
     string? Description,
     string? AvatarUrl,
     string[] Tags,
-    int TasksCounter
+    int TasksCounter,
+    AuditInfo AuditInfo
 );
 
 public static class ProjectEntityExtensions

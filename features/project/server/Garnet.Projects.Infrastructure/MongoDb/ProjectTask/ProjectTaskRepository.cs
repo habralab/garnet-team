@@ -20,11 +20,12 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
     }
 
     public async Task<ProjectTaskEntity> CreateProjectTask(CancellationToken ct, string userCreatorId,
-        string status, ProjectTaskCreateArgs args)
+        string status, int taskNumber, ProjectTaskCreateArgs args)
     {
         var db = _dbFactory.Create();
         var task = ProjectTaskDocument.Create(
             Uuid.NewMongo(),
+            taskNumber,
             args.ProjectId,
             userCreatorId,
             args.Name,

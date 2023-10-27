@@ -2,6 +2,7 @@
 
 public record ProjectTaskDeletedEvent(
     string Id,
+    int TaskNumber,
     string ProjectId,
     string UserCreatorId,
     string Name,

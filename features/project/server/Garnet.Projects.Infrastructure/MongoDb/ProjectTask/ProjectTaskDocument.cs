@@ -6,6 +6,7 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 public record ProjectTaskDocument : DocumentBase
 {
     public string Id { get; init; } = null!;
+    public int TaskNumber { get; init; } = 0;
     public string ProjectId { get; init; } = null!;
     public string UserCreatorId { get; init; } = null!;
     public string Name { get; init; } = null!;
@@ -18,6 +19,7 @@ public record ProjectTaskDocument : DocumentBase
 
     public static ProjectTaskDocument Create(
         string id,
+        int taskNumber,
         string projectId,
         string userCreatorId,
         string name,
@@ -32,6 +34,7 @@ public record ProjectTaskDocument : DocumentBase
         return new ProjectTaskDocument
         {
             Id = id,
+            TaskNumber = taskNumber,
             ProjectId = projectId,
             UserCreatorId = userCreatorId,
             Name = name,
@@ -49,6 +52,7 @@ public record ProjectTaskDocument : DocumentBase
         var auditInfo = AuditInfoDocument.ToDomain(doc.AuditInfo);
         return new ProjectTaskEntity(
             doc.Id,
+            doc.TaskNumber,
             doc.ProjectId,
             doc.UserCreatorId,
             doc.Name,

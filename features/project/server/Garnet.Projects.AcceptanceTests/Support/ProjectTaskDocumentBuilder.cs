@@ -7,6 +7,7 @@ namespace Garnet.Projects.AcceptanceTests.Support;
 public class ProjectTaskDocumentBuilder
 {
     private string _id = Uuid.NewMongo();
+    private int _taskNumber = 0;
     private string _projectId = Uuid.NewMongo();
     private string _userCreatorId = Uuid.NewMongo();
     private string _name = "TaskName";
@@ -21,6 +22,12 @@ public class ProjectTaskDocumentBuilder
     public ProjectTaskDocumentBuilder WithId(string id)
     {
         _id = id;
+        return this;
+    }
+
+    public ProjectTaskDocumentBuilder WithTaskNumber(int taskNumber)
+    {
+        _taskNumber = taskNumber;
         return this;
     }
 
@@ -80,7 +87,7 @@ public class ProjectTaskDocumentBuilder
 
     public ProjectTaskDocument Build()
     {
-        return ProjectTaskDocument.Create(_id, _projectId, _userCreatorId, _name, _description, _status,
+        return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _userCreatorId, _name, _description, _status,
             _teamExecutorId, _userExecutorIds, _tags, _labels);
     }
 
