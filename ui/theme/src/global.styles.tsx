@@ -15,6 +15,7 @@ export const GlobalStyles = () => (
 
     body {
       overflow: auto;
+      position: relative;
     }
   `}
   />

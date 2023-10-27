@@ -60,10 +60,11 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
 
   const localizedSkills = mockSkills.map((item) => formatMessage({ id: item }))
 
-  const { renderLayer, layerProps, triggerProps } = useLayer({
+  const { renderLayer, layerProps, triggerProps, triggerBounds } = useLayer({
     isOpen: menuOpen,
     placement: 'bottom-center',
     onOutsideClick: closeMenu,
+    container: containerRef.current || undefined,
   })
 
   // eslint-disable-next-line
@@ -127,8 +128,8 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
             {...layerProps}
             style={{
               ...layerProps.style,
-              // @ts-ignore
-              width: containerRef?.current?.offsetWidth || 600,
+              position: 'static',
+              width: triggerBounds?.width || 600,
               zIndex: 2000,
             }}
           >
