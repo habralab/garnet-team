@@ -8,23 +8,27 @@ public record ProjectEntity(
     string ProjectName,
     string? Description,
     string? AvatarUrl,
-    string[] Tags
+    string[] Tags,
+    int TasksCounter
 );
 
 public static class ProjectEntityExtensions
 {
     public static ProjectUpdatedEvent ToUpdatedEvent(this ProjectEntity doc)
     {
-        return new ProjectUpdatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl, doc.Tags);
+        return new ProjectUpdatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl,
+            doc.Tags, doc.TasksCounter);
     }
 
     public static ProjectCreatedEvent ToCreatedEvent(this ProjectEntity doc)
     {
-        return new ProjectCreatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl, doc.Tags);
+        return new ProjectCreatedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl,
+            doc.Tags, doc.TasksCounter);
     }
 
     public static ProjectDeletedEvent ToDeletedEvent(this ProjectEntity doc)
     {
-        return new ProjectDeletedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl, doc.Tags);
+        return new ProjectDeletedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl,
+            doc.Tags, doc.TasksCounter);
     }
 }

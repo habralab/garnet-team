@@ -12,6 +12,7 @@ public class ProjectDocumentBuilder
     private string? _description = "Description";
     private string? _avatarUrl = "AvatarUrl";
     private string[] _tags = Array.Empty<string>();
+    private int _tasksCounter = 0;
 
     public ProjectDocumentBuilder WithId(string id)
     {
@@ -48,11 +49,17 @@ public class ProjectDocumentBuilder
         _tags = tags;
         return this;
     }
-    
-    
+
+    public ProjectDocumentBuilder WithTasksCounter(int tasksCounter)
+    {
+        _tasksCounter = tasksCounter;
+        return this;
+    }
+
+
     public ProjectDocument Build()
     {
-        return ProjectDocument.Create(_id, _ownerUserId, _projectName, _description, _avatarUrl, _tags);
+        return ProjectDocument.Create(_id, _ownerUserId, _projectName, _description, _avatarUrl, _tags, _tasksCounter);
     }
 
     public static implicit operator ProjectDocument(ProjectDocumentBuilder builder)
