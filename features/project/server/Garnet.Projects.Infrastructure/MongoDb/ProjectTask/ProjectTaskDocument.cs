@@ -8,12 +8,12 @@ public record ProjectTaskDocument : DocumentBase
     public string Id { get; init; } = null!;
     public string ProjectId { get; init; } = null!;
     public string UserCreatorId { get; init; } = null!;
-    public string Name { get; set; } = null!;
-    public string? Description { get; set; } = null!;
-    public string Status { get; set; } = null!;
-    public string? TeamExecutorId { get; set; } = null!;
-    public string? UserExecutorId { get; set; } = null!;
-    public string[] Tags { get; set; } = null!;
+    public string Name { get; init; } = null!;
+    public string? Description { get; init; } = null!;
+    public string Status { get; init; } = null!;
+    public string? TeamExecutorId { get; init; } = null!;
+    public string? UserExecutorId { get; init; } = null!;
+    public string[] Tags { get; init; } = null!;
     public string[] Labels { get; init; } = null!;
 
     public static ProjectTaskDocument Create(
