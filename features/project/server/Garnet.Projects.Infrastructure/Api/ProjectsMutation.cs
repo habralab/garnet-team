@@ -150,7 +150,6 @@ public class ProjectsMutation
             input.ProjectId,
             input.Name,
             input.Description,
-            "To be completed",
             input.TeamExecutorId,
             input.UserExecutorIds,
             input.Tags,

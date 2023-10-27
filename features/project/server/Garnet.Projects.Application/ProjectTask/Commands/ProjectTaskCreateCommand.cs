@@ -44,8 +44,9 @@ public class ProjectTaskCreateCommand
         {
             return Result.Fail(new ProjectOnlyParticipantCanCreateTaskError());
         }
-        
-        var task = await _projectTaskRepository.CreateProjectTask(ct, currentUserId, args);
+
+        var status = ProjectTaskStatuses.Open;
+        var task = await _projectTaskRepository.CreateProjectTask(ct, currentUserId, status, args);
 
         await _messageBus.Publish(task.ToCreatedEvent());
         return Result.Ok(task);

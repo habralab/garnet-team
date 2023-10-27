@@ -20,7 +20,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
     }
 
     public async Task<ProjectTaskEntity> CreateProjectTask(CancellationToken ct, string userCreatorId,
-        ProjectTaskCreateArgs args)
+        string status, ProjectTaskCreateArgs args)
     {
         var db = _dbFactory.Create();
         var task = ProjectTaskDocument.Create(
@@ -29,7 +29,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             userCreatorId,
             args.Name,
             args.Description,
-            args.Status,
+            status,
             args.TeamExecutorId,
             args.UserExecutorIds,
             args.Tags,
