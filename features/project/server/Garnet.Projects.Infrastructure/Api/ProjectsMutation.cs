@@ -152,7 +152,7 @@ public class ProjectsMutation
             input.Description,
             "To be completed",
             input.TeamExecutorId,
-            input.UserExecutorId,
+            input.UserExecutorIds,
             input.Tags,
             input.Labels);
 
@@ -162,6 +162,6 @@ public class ProjectsMutation
         var task = result.Value;
         return new ProjectTaskCreatePayload(
             task.Id, task.ProjectId, task.UserCreatorId, task.Name, task.Description,
-            task.Status, task.TeamExecutorId, task.UserExecutorId, task.Tags, task.Labels);
+            task.Status, task.TeamExecutorId, task.UserExecutorIds, task.Tags, task.Labels);
     }
 }

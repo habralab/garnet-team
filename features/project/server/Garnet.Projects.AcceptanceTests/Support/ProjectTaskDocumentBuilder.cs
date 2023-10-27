@@ -14,7 +14,7 @@ public class ProjectTaskDocumentBuilder
     private string? _description = "Description";
     private string _status = "Status";
     private string? _teamExecutorId = "TeamExecutorId";
-    private string? _userExecutorId = "UserExecutorId";
+    private string[] _userExecutorIds = Array.Empty<string>();
     private string[] _tags = Array.Empty<string>();
     private string[] _labels = Array.Empty<string>();
 
@@ -61,9 +61,9 @@ public class ProjectTaskDocumentBuilder
         return this;
     }
 
-    public ProjectTaskDocumentBuilder WithUserExecutorId(string? userExecutorId)
+    public ProjectTaskDocumentBuilder WithUserExecutorId(string[] userExecutorIds)
     {
-        _userExecutorId = userExecutorId;
+        _userExecutorIds = userExecutorIds;
         return this;
     }
 
@@ -82,7 +82,7 @@ public class ProjectTaskDocumentBuilder
     public ProjectTaskDocument Build()
     {
         return ProjectTaskDocument.Create(_id, _projectId, _userCreatorId, _name, _description, _status,
-            _teamExecutorId, _userExecutorId, _tags, _labels);
+            _teamExecutorId, _userExecutorIds, _tags, _labels);
     }
 
     public static implicit operator ProjectTaskDocument(ProjectTaskDocumentBuilder builder)

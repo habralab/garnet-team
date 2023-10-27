@@ -31,7 +31,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             args.Description,
             args.Status,
             args.TeamExecutorId,
-            args.UserExecutorId,
+            args.UserExecutorIds,
             args.Tags,
             args.Labels);
 

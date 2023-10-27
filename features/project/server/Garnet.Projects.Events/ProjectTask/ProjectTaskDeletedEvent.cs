@@ -8,6 +8,7 @@ public record ProjectTaskDeletedEvent(
     string? Description,
     string Status,
     string? TeamExecutorId,
-    string? UserExecutorId,
-    string[] Tags
+    string[] UserExecutorIds,
+    string[] Tags,
+    string[] Labels
 );
