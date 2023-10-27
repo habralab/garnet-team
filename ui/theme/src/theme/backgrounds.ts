@@ -6,4 +6,5 @@ export const backgrounds = {
   lightBlue: 'rgba(225, 244, 255, 1)',
   darkBlue: 'rgba(152, 193, 255, 1)',
   white: 'rgba(255, 255, 255, 1)',
+  red: 'rgba(216, 57, 57, 1)',
 }
