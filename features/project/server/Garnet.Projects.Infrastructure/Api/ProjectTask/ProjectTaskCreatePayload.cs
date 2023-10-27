@@ -9,5 +9,6 @@ public record ProjectTaskCreatePayload(
     string Status,
     string? TeamExecutorId,
     string? UserExecutorId,
-    string[] Tags
+    string[] Tags,
+    string[] Labels
 );

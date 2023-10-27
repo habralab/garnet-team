@@ -159,9 +159,9 @@ public class ProjectsMutation
         var result = await _projectTaskCreateCommand.Execute(ct, args);
         result.ThrowQueryExceptionIfHasErrors();
 
-        var project = result.Value;
+        var task = result.Value;
         return new ProjectTaskCreatePayload(
-            project.Id, project.ProjectId, project.UserCreatorId, project.Name, project.Description,
-            project.Status, project.TeamExecutorId, project.UserExecutorId, project.Tags);
+            task.Id, task.ProjectId, task.UserCreatorId, task.Name, task.Description,
+            task.Status, task.TeamExecutorId, task.UserExecutorId, task.Tags, task.Labels);
     }
 }
