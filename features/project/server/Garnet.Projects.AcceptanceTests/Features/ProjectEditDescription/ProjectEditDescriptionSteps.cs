@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using HotChocolate.Execution;
@@ -13,14 +14,18 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectEditDescription;
 public class ProjectEditDescriptionSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
-    private QueryExceptionsContext _errorStepContext = null!;
+    private QueryExceptionsContext _errorStepContext;
     private ProjectEditDescriptionPayload? _response;
+    private readonly DateTimeServiceFake _dateTimeServiceFake;
 
-    public ProjectEditDescriptionSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake,
-        StepsArgs args) : base(args)
+
+    public ProjectEditDescriptionSteps(QueryExceptionsContext errorStepContext,
+        CurrentUserProviderFake currentUserProviderFake,
+        StepsArgs args, DateTimeServiceFake dateTimeServiceFake) : base(args)
     {
         _errorStepContext = errorStepContext;
         _currentUserProviderFake = currentUserProviderFake;
+        _dateTimeServiceFake = dateTimeServiceFake;
     }
 
 
@@ -29,8 +34,10 @@ public class ProjectEditDescriptionSteps : BaseSteps
         string description)
     {
         _currentUserProviderFake.LoginAs(ownerUserName);
+        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
+
         var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(_currentUserProviderFake.UserId)
-            .WithDescription(description);
+            .WithDescription(description).WithAuditInfo(audit);
         await Db.Projects.InsertOneAsync(project);
     }
 

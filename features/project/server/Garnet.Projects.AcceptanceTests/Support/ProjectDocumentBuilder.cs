@@ -1,4 +1,5 @@
 using Garnet.Common.AcceptanceTests.Support;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 
@@ -13,6 +14,7 @@ public class ProjectDocumentBuilder
     private string? _avatarUrl = "AvatarUrl";
     private string[] _tags = Array.Empty<string>();
     private int _tasksCounter = 0;
+    public AuditInfoDocument? _auditInfo;
 
     public ProjectDocumentBuilder WithId(string id)
     {
@@ -53,6 +55,12 @@ public class ProjectDocumentBuilder
     public ProjectDocumentBuilder WithTasksCounter(int tasksCounter)
     {
         _tasksCounter = tasksCounter;
+        return this;
+    }
+
+    public ProjectDocumentBuilder WithAuditInfo(AuditInfoDocument auditInfo)
+    {
+        _auditInfo = auditInfo;
         return this;
     }
 

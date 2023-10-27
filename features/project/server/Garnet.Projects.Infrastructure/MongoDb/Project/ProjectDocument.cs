@@ -30,7 +30,8 @@ public record ProjectDocument : DocumentBase
 
     public static ProjectEntity ToDomain(ProjectDocument doc)
     {
+        var auditInfo = AuditInfoDocument.ToDomain(doc.AuditInfo);
         return new ProjectEntity(doc.Id, doc.OwnerUserId, doc.ProjectName, doc.Description, doc.AvatarUrl, doc.Tags,
-            doc.TasksCounter);
+            doc.TasksCounter, auditInfo);
     }
 }
