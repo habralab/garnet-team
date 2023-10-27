@@ -37,7 +37,10 @@ public class ProjectEditDescriptionSteps : BaseSteps
         var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
 
         var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(_currentUserProviderFake.UserId)
-            .WithDescription(description).WithAuditInfo(audit);
+            .WithDescription(description).Build();
+
+        project = project with { AuditInfo = audit };
+
         await Db.Projects.InsertOneAsync(project);
     }
 

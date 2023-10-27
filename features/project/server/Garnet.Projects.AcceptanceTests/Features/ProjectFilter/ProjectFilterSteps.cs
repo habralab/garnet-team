@@ -1,10 +1,11 @@
 ﻿using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
-using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
 namespace Garnet.Projects.AcceptanceTests.Features.ProjectFilter;
@@ -13,20 +14,27 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectFilter;
 public class ProjectFilterSteps : BaseSteps
 {
     private ProjectFilterPayload? _response;
-    private readonly FilterDefinitionBuilder<ProjectDocument> _f = Builders<ProjectDocument>.Filter;
-    private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
+    private readonly DateTimeServiceFake _dateTimeServiceFake;
+    private readonly CurrentUserProviderFake _currentUserProviderFake;
 
 
-    public ProjectFilterSteps(StepsArgs args) : base(args)
+    public ProjectFilterSteps(StepsArgs args, DateTimeServiceFake dateTimeServiceFake,
+        CurrentUserProviderFake currentUserProviderFake) : base(args)
     {
+        _dateTimeServiceFake = dateTimeServiceFake;
+        _currentUserProviderFake = currentUserProviderFake;
     }
 
 
     [Given(@"существует проект '([^']*)'")]
     public async Task GivenСуществуетПроект(string projectName)
     {
+        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
         var user = ProjectUserDocument.Create(Uuid.NewMongo(), "username", null!);
-        var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id);
+        var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id).Build();
+
+        project = project with { AuditInfo = audit };
+
         await Db.Projects.InsertOneAsync(project);
     }
 
@@ -35,7 +43,12 @@ public class ProjectFilterSteps : BaseSteps
     {
         var user = ProjectUserDocument.Create(Uuid.NewMongo(), "username", null!);
         var tagList = tags.Split(", ");
-        var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id).WithTags(tagList);
+
+        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
+        var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id).WithTags(tagList).Build();
+
+        project = project with { AuditInfo = audit };
+
         await Db.Projects.InsertOneAsync(project);
     }
 

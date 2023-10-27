@@ -1,8 +1,10 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectDelete;
+using Garnet.Projects.Infrastructure.MongoDb.Project;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
@@ -15,20 +17,26 @@ public class ProjectDeleteSteps : BaseSteps
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private ProjectDeletePayload? _response;
     private QueryExceptionsContext _errorStepContext;
+    private readonly DateTimeServiceFake _dateTimeServiceFake;
 
     public ProjectDeleteSteps(CurrentUserProviderFake currentUserProviderFake, QueryExceptionsContext errorStepContext,
-        StepsArgs args) : base(args)
+        StepsArgs args, DateTimeServiceFake dateTimeServiceFake) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
         _errorStepContext = errorStepContext;
+        _dateTimeServiceFake = dateTimeServiceFake;
     }
 
 
     [Given(@"существует проект '([^']*)' с владельцем '([^']*)'")]
     public async Task GivenСуществуетПроектСНазваниемИВладельцем(string projectName, string username)
     {
+        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
         var project = GiveMe.Project().WithProjectName(projectName)
-            .WithOwnerUserId(_currentUserProviderFake.GetUserIdByUsername(username));
+            .WithOwnerUserId(_currentUserProviderFake.GetUserIdByUsername(username)).Build();
+
+        project = project with { AuditInfo = audit };
+
         await Db.Projects.InsertOneAsync(project);
     }
 

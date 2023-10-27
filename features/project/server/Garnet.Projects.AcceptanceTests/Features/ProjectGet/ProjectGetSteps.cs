@@ -1,8 +1,9 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Common.Infrastructure.Support;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
+using Garnet.Projects.Infrastructure.MongoDb.Project;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
@@ -13,17 +14,24 @@ public class ProjectGetSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private ProjectPayload? _response;
+    private readonly DateTimeServiceFake _dateTimeServiceFake;
 
-    public ProjectGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+    public ProjectGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args,
+        DateTimeServiceFake dateTimeServiceFake) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
+        _dateTimeServiceFake = dateTimeServiceFake;
     }
 
 
     [Given(@"существует проект '(.*)' с описанием '(.*)'")]
     public async Task ThenСуществуетПроектСНазваниемИОписанием(string projectName, string description)
     {
-        var project = GiveMe.Project().WithProjectName(projectName).WithDescription(description);
+        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
+        var project = GiveMe.Project().WithProjectName(projectName).WithDescription(description).Build();
+
+        project = project with { AuditInfo = audit };
+
         await Db.Projects.InsertOneAsync(project);
     }
 

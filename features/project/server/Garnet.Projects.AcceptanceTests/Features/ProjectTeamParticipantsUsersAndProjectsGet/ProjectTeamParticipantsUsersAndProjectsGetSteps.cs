@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.AcceptanceTests.Support;
-using Garnet.Projects.Application.Project;
-using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -21,9 +21,13 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
         Builders<ProjectTeamParticipantDocument>.Update;
 
     private ProjectTeamParticipantPayload? _response;
+    private readonly DateTimeServiceFake _dateTimeServiceFake;
+    private readonly CurrentUserProviderFake _currentUserProviderFake;
 
-    public ProjectTeamParticipantsUsersAndProjectsGetSteps(StepsArgs args) : base(args)
+    public ProjectTeamParticipantsUsersAndProjectsGetSteps(StepsArgs args, DateTimeServiceFake dateTimeServiceFake, CurrentUserProviderFake currentUserProviderFake) : base(args)
     {
+        _dateTimeServiceFake = dateTimeServiceFake;
+        _currentUserProviderFake = currentUserProviderFake;
     }
 
     [Given(@"в команде '([^']*)' количество участников равно '([^']*)'")]
@@ -46,9 +50,12 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
     public async Task GivenВКомандеКоличествоПроектовРавно(string teamName, int projectsCount)
     {
         var projectList = new List<ProjectDocument>();
+        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
+
         for (var i = 0; i < projectsCount; i++)
         {
-            var project = GiveMe.Project().WithProjectName($"Project{i}");
+            var project = GiveMe.Project().WithProjectName($"Project{i}").Build();
+            project = project with { AuditInfo = audit };
             projectList.Add(project);
         }
 
