@@ -30,6 +30,12 @@ public class ProjectTaskCreateCommand
     {
         var currentUserId = _currentUserProvider.UserId;
 
+        args = args with { Name = args.Name.Trim() };
+        if (string.IsNullOrWhiteSpace(args.Name))
+        {
+            return Result.Fail(new ProjectTaskNameCanNotBeEmptyError());
+        }
+
         var teamParticipants =
             await _projectTeamParticipantRepository.GetProjectTeamParticipantsByProjectId(ct, args.ProjectId);
         var user = teamParticipants.FirstOrDefault(x => x.UserParticipants.Any(
@@ -38,15 +44,8 @@ public class ProjectTaskCreateCommand
         {
             return Result.Fail(new ProjectOnlyParticipantCanCreateTaskError());
         }
-
-        args = args with { Name = args.Name.Trim() };
-        if (string.IsNullOrWhiteSpace(args.Name))
-        {
-            return Result.Fail(new ProjectTaskNameCanNotBeEmptyError());
-        }
-
+        
         var task = await _projectTaskRepository.CreateProjectTask(ct, currentUserId, args);
-
 
         await _messageBus.Publish(task.ToCreatedEvent());
         return Result.Ok(task);
