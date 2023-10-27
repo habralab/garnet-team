@@ -5,9 +5,7 @@ import { switchProp } from 'styled-tools'
 
 export const containerBaseStyles: styleFn = () =>
   ({ theme }) => ({
-    height: 31,
     alignItems: 'center',
-    padding: '6px 10px',
     border: theme.borders.blue,
     borderRadius: theme.radii.medium,
   })
@@ -29,9 +27,24 @@ const appearanceHoverStyles: styleFn = () =>
     },
   })
 
+const shapeNormalStyles: styleFn = () => () => ({
+  height: 31,
+  padding: '6px 10px',
+})
+
+const shapeSmallStyles: styleFn = () => () => ({
+  height: 22,
+  padding: '6px 8px',
+})
+
 export const hoverStyles = ifProp(prop('hover', false), appearanceHoverStyles)
 
 export const appearanceStyles = switchProp(prop('variant', 'primary'), {
   primary: appearancePrimaryStyles,
   secondary: appearanceSecondaryStyles,
+})
+
+export const shapeStyles = switchProp(prop('size', 'normal'), {
+  normal: shapeNormalStyles,
+  small: shapeSmallStyles,
 })
