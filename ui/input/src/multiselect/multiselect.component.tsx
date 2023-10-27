@@ -15,6 +15,7 @@ import { useIntl }                  from 'react-intl'
 import { Condition }                from '@ui/condition'
 import { Box }                      from '@ui/layout'
 import { Layout }                   from '@ui/layout'
+import { Column }                   from '@ui/layout'
 import { Row }                      from '@ui/layout'
 import { Tag }                      from '@ui/tag'
 import { Text }                     from '@ui/text'
@@ -34,10 +35,9 @@ const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, trans
 
 const { containerProps } = createTextareaProps()
 
-const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
+const Container = styled(Column)(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
   width: '100%',
-  flexDirection: 'column',
 }))
 
 type MultiselectProps = InputProps & { onChange: (values: string[]) => void }
