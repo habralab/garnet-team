@@ -14,6 +14,7 @@ import { Condition }                from '@ui/condition'
 import { SearchIcon }               from '@ui/icon'
 import { Box }                      from '@ui/layout'
 import { Layout }                   from '@ui/layout'
+import { Column }                   from '@ui/layout'
 import { Text }                     from '@ui/text'
 
 import { DropdownSkills }           from '../dropdown-skills'
@@ -26,10 +27,9 @@ import { appearanceStyles }         from '../input.styles'
 
 const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles)
 
-const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
+const Container = styled(Column)(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
   width: '100%',
-  flexDirection: 'column',
 }))
 
 type SearchProps = InputProps & {
