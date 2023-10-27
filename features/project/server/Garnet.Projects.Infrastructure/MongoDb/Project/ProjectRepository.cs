@@ -163,6 +163,13 @@ public class ProjectRepository : RepositoryBase, IProjectRepository
         );
     }
 
+    public async Task<int> GetProjectTasksCounter(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.Find(o => o.Id == projectId).FirstOrDefaultAsync(ct);
+        return project.TasksCounter;
+    }
+
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();

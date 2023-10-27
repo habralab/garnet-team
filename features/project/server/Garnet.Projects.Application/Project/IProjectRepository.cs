@@ -13,5 +13,6 @@ public interface IProjectRepository
     Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl);
     Task<ProjectEntity[]> FilterProjects(CancellationToken ct, ProjectFilterArgs args);
     Task IncrementProjectTasksCounter(CancellationToken ct, string projectId);
+    Task<int> GetProjectTasksCounter(CancellationToken ct, string projectId);
     Task CreateIndexes(CancellationToken ct);
 }
