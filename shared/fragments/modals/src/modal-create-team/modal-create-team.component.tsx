@@ -9,15 +9,14 @@ import { Layout }               from '@ui/layout'
 import { Modal }                from '@ui/modal'
 
 import { ModalCreateTeamProps } from './modal-create-team.interfaces'
-
-const defaultFormValues: FormTeamValues = { name: '', description: '', tags: [], avatar: '' }
+import { getFormValues }        from '../helpers'
 
 export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, onClose }) => {
-  const [formValues, setFormValues] = useState<FormTeamValues>(defaultFormValues)
+  const [formValues, setFormValues] = useState<FormTeamValues>(getFormValues())
   const { formatMessage } = useIntl()
 
   const closeModal = () => {
-    setFormValues(defaultFormValues)
+    setFormValues(getFormValues())
     onClose?.()
   }
 

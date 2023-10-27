@@ -9,15 +9,14 @@ import { Layout }                  from '@ui/layout'
 import { Modal }                   from '@ui/modal'
 
 import { ModalCreateProjectProps } from './modal-create-project.interfaces'
-
-const defaultFormValues: FormProjectValues = { name: '', description: '', tags: [], avatar: '' }
+import { getFormValues }           from '../helpers'
 
 export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = false, onClose }) => {
-  const [formValues, setFormValues] = useState<FormProjectValues>(defaultFormValues)
+  const [formValues, setFormValues] = useState<FormProjectValues>(getFormValues())
   const { formatMessage } = useIntl()
 
   const closeModal = () => {
-    setFormValues(defaultFormValues)
+    setFormValues(getFormValues())
     onClose?.()
   }
 
