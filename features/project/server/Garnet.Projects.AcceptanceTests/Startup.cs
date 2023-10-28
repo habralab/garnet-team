@@ -8,6 +8,8 @@ using Garnet.Project;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Commands;
 using Garnet.Projects.Application.Project.Queries;
+using Garnet.Projects.Application.ProjectTask;
+using Garnet.Projects.Application.ProjectTask.Commands;
 using Garnet.Projects.Application.ProjectTeam;
 using Garnet.Projects.Application.ProjectTeam.Commands;
 using Garnet.Projects.Application.ProjectTeam.Queries;
@@ -22,6 +24,7 @@ using Garnet.Projects.Application.ProjectUser.Commands;
 using Garnet.Projects.Infrastructure.Api;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -48,11 +51,15 @@ public static class Startup
         services.AddScoped<RemoteFileStorageFake>();
         services.AddScoped<IRemoteFileStorage>(o => o.GetRequiredService<RemoteFileStorageFake>());
 
+        services.AddScoped<DateTimeServiceFake>();
+        services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());
+
         services.AddScoped<IProjectRepository, ProjectRepository>();
         services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
         services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
         services.AddScoped<IProjectTeamJoinRequestRepository, ProjectTeamJoinRequestRepository>();
         services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
+        services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
 
         services.AddScoped<ProjectCreateCommand>();
         services.AddScoped<ProjectDeleteCommand>();
@@ -81,6 +88,8 @@ public static class Startup
         services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
 
         services.AddScoped<ProjectTeamGetQuery>();
+
+        services.AddScoped<ProjectTaskCreateCommand>();
 
         services.AddScoped<ProjectsMutation>();
         services.AddScoped<ProjectsQuery>();

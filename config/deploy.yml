@@ -41,11 +41,6 @@ traefik:
       - '443:443'
     volume:
       - traefik:/configuration
-  labels:
-    traefik.http.routers.garnet-backend-websecure-stage.entrypoints: websecure
-    traefik.http.routers.garnet-backend-websecure-stage.tls: true
-    traefik.http.routers.garnet-backend-websecure-prod.entrypoints: websecure
-    traefik.http.routers.garnet-backend-websecure-prod.tls: true
   args:
     entryPoints.web.address: ':80'
     entryPoints.websecure.address: ':443'

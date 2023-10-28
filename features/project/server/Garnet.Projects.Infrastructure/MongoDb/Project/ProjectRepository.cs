@@ -1,3 +1,5 @@
+using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Args;
@@ -5,14 +7,17 @@ using MongoDB.Driver;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Project;
 
-public class ProjectRepository : IProjectRepository
+public class ProjectRepository : RepositoryBase, IProjectRepository
 {
     private readonly DbFactory _dbFactory;
     private readonly FilterDefinitionBuilder<ProjectDocument> _f = Builders<ProjectDocument>.Filter;
     private readonly UpdateDefinitionBuilder<ProjectDocument> _u = Builders<ProjectDocument>.Update;
     private readonly IndexKeysDefinitionBuilder<ProjectDocument> _i = Builders<ProjectDocument>.IndexKeys;
 
-    public ProjectRepository(DbFactory dbFactory)
+    public ProjectRepository(
+        DbFactory dbFactory,
+        ICurrentUserProvider currentUserProvider,
+        IDateTimeService dateTimeService) : base(currentUserProvider, dateTimeService)
     {
         _dbFactory = dbFactory;
     }
@@ -27,8 +32,14 @@ public class ProjectRepository : IProjectRepository
             args.ProjectName,
             args.Description,
             null,
-            args.Tags);
-        await db.Projects.InsertOneAsync(project, cancellationToken: ct);
+            args.Tags,
+            0);
+
+        project = await InsertOneDocument(
+            ct,
+            db.Projects,
+            project
+        );
         return ProjectDocument.ToDomain(project);
     }
 
@@ -66,14 +77,14 @@ public class ProjectRepository : IProjectRepository
     public async Task<ProjectEntity> EditProjectDescription(CancellationToken ct, string projectId, string? description)
     {
         var db = _dbFactory.Create();
-        var project = await db.Projects.FindOneAndUpdateAsync(
-            _f.Eq(x => x.Id, projectId),
-            _u.Set(x => x.Description, description),
-            options: new FindOneAndUpdateOptions<ProjectDocument>
-            {
-                ReturnDocument = ReturnDocument.After
-            },
-            cancellationToken: ct
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Set(x => x.Description, description);
+
+        var project = await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
         );
 
         return ProjectDocument.ToDomain(project);
@@ -82,14 +93,14 @@ public class ProjectRepository : IProjectRepository
     public async Task<ProjectEntity> EditProjectName(CancellationToken ct, string projectId, string newName)
     {
         var db = _dbFactory.Create();
-        var project = await db.Projects.FindOneAndUpdateAsync(
-            _f.Eq(x => x.Id, projectId),
-            _u.Set(x => x.ProjectName, newName),
-            options: new FindOneAndUpdateOptions<ProjectDocument>
-            {
-                ReturnDocument = ReturnDocument.After
-            },
-            cancellationToken: ct
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Set(x => x.ProjectName, newName);
+
+        var project = await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
         );
 
         return ProjectDocument.ToDomain(project);
@@ -114,14 +125,14 @@ public class ProjectRepository : IProjectRepository
     public async Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl)
     {
         var db = _dbFactory.Create();
-        var project = await db.Projects.FindOneAndUpdateAsync(
-            _f.Eq(x => x.Id, projectId),
-            _u.Set(x => x.AvatarUrl, avatarUrl),
-            options: new FindOneAndUpdateOptions<ProjectDocument>
-            {
-                ReturnDocument = ReturnDocument.After
-            },
-            cancellationToken: ct
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Set(x => x.AvatarUrl, avatarUrl);
+
+        var project = await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
         );
 
         return ProjectDocument.ToDomain(project);
@@ -141,17 +152,38 @@ public class ProjectRepository : IProjectRepository
     public async Task<ProjectEntity> EditProjectOwner(CancellationToken ct, string projectId, string newOwnerUserId)
     {
         var db = _dbFactory.Create();
-        var project = await db.Projects.FindOneAndUpdateAsync(
-            _f.Eq(x => x.Id, projectId),
-            _u.Set(x => x.OwnerUserId, newOwnerUserId),
-            options: new FindOneAndUpdateOptions<ProjectDocument>
-            {
-                ReturnDocument = ReturnDocument.After
-            },
-            cancellationToken: ct
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Set(x => x.OwnerUserId, newOwnerUserId);
+
+        var project = await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
         );
 
         return ProjectDocument.ToDomain(project);
+    }
+
+    public async Task IncrementProjectTasksCounter(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Inc(x => x.TasksCounter, 1);
+
+        await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
+        );
+    }
+
+    public async Task<int> GetProjectTasksCounter(CancellationToken ct, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var project = await db.Projects.Find(o => o.Id == projectId).FirstOrDefaultAsync(ct);
+        return project.TasksCounter;
     }
 
     public async Task CreateIndexes(CancellationToken ct)
@@ -161,6 +193,7 @@ public class ProjectRepository : IProjectRepository
             new CreateIndexModel<ProjectDocument>(
                 _i.Text(o => o.ProjectName)
                     .Text(o => o.Description)
+                    .Text(o => o.Tags)
             ),
             cancellationToken: ct);
     }

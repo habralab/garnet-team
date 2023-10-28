@@ -1,9 +1,7 @@
 version: '3.3'
 
 networks:
-  internal:
-    external: false
-  habralab-stage:
+  bridge:
     external: true
 
 services:
@@ -15,22 +13,7 @@ services:
     entrypoint: yarn
     labels:
       - 'traefik.enable=false'
-    networks:
-      - internal
-
-  proxy:
-    image: traefik:v3.0
-    ports:
-      - '443:443'
-      - '8080:8080'
-    volumes:
-      - '/var/run/docker.sock:/var/run/docker.sock:ro'
-      - type: bind
-        source: ./config/traefik/traefik.yml
-        target: /traefik.yml
-    networks:
-      - habralab-stage
-      - internal
+    network_mode: bridge
 
   oathkeeper:
     image: oryd/oathkeeper:v0.40.6
@@ -39,22 +22,18 @@ services:
       - ./config/ory/oathkeeper/oathkeeper.yaml:/config/oathkeeper/oathkeeper.yaml
       - ./config/ory/oathkeeper/jwks.json:/config/oathkeeper/jwks.json
       - ./config/ory/oathkeeper/access-rules.yaml:/config/oathkeeper/access-rules.yaml
-    networks:
-      - internal
+    network_mode: bridge
     ports:
       - '4455:4455'
       - '4456:4456'
     labels:
       - 'traefik.enable=true'
-      - 'traefik.http.middlewares.redirect-identity.redirectscheme.scheme=https'
-      - 'traefik.http.middlewares.redirect-identity.redirectscheme.permanent=true'
-      - 'traefik.http.routers.identity.entrypoints=websecure'
-      - 'traefik.http.routers.identity.rule=Host(`stage.garnet.pet-project.habr.com`)'
-      - 'traefik.http.routers.identity.tls=true'
-      - 'traefik.port=443'
+      - 'traefik.http.routers.oathkeeper-app.entrypoints=websecure'
+      - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/oath`)'
+      - 'traefik.http.routers.oathkeeper-app.tls=true'
+      - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
-      - 'traefik.http.routers.identity.middlewares=cor,redirect-identity'
 
   identity:
     restart: unless-stopped
@@ -68,17 +47,19 @@ services:
     depends_on:
       - yarn
       - kratos
-    networks:
-      - internal
+    network_mode: bridge
     labels:
-      - 'traefik.enable=false'
+      - 'traefik.enable=true'
+      - 'traefik.http.routers.identity-app.entrypoints=websecure'
+      - 'traefik.http.routers.identity-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
+      - 'traefik.http.routers.identity-app.tls=true'
 
   app:
     restart: unless-stopped
     image: node:18.13
     working_dir: /workspace
     labels:
-      - 'traefik.enable=false'
+      - 'traefik.enable=true'
     volumes:
       - ./:/workspace
     entrypoint: yarn workspace @app/renderer-entrypoint dev
@@ -86,8 +67,7 @@ services:
       - '3020:3020'
     depends_on:
       - yarn
-    networks:
-      - internal
+    network_mode: bridge
 
   kratos:
     depends_on:
@@ -95,15 +75,13 @@ services:
       - db
     image: oryd/kratos:v1.0.0
     labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.app.entrypoints=websecure'
-      - 'traefik.http.routers.app.rule=Host(`stage.garnet.pet-project.habr.com`)'
-      - 'traefik.http.routers.app.tls=true'
-      - 'traefik.port=443'
+      - 'traefik.enable=false'
+      - 'traefik.http.routers.kratos-app.entrypoints=websecure'
+      - 'traefik.http.routers.kratos-app.rule=Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/kratos`)'
+      - 'traefik.http.routers.kratos-app.tls=true'
+      - 'traefik.http.routers.kratos-app.middlewares=cor'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
-      - 'traefik.http.routers.app.middlewares=cor,redirect-app'
-
     ports:
       - '4433:4433'
     restart: unless-stopped
@@ -115,8 +93,7 @@ services:
       - type: bind
         source: ./config/ory/kratos
         target: /config/kratos
-    networks:
-      - internal
+    network_mode: bridge
 
   kratos-migrate:
     depends_on:
@@ -132,8 +109,7 @@ services:
         target: /config/kratos
     command: -c /config/kratos/kratos.yaml migrate sql -e --yes
     restart: on-failure
-    networks:
-      - internal
+    network_mode: bridge
 
   db:
     image: bitnami/postgresql
@@ -146,5 +122,4 @@ services:
       - POSTGRESQL_USER=postgres
     ports:
       - '5432:5432'
-    networks:
-      - internal
+    network_mode: bridge
