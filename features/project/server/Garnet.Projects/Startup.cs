@@ -73,6 +73,7 @@ public static class Startup
         services.AddScoped<ProjectEditDescriptionCommand>();
         services.AddScoped<ProjectEditOwnerCommand>();
         services.AddScoped<ProjectEditNameCommand>();
+        services.AddScoped<ProjectEditTagsCommand>();
         services.AddScoped<ProjectUploadAvatarCommand>();
 
         services.AddScoped<ProjectTeamCreateCommand>();
