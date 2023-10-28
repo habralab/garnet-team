@@ -5,11 +5,11 @@ namespace Garnet.Teams.AcceptanceTests.FakeServices.NotificationFake
 {
     public class SendNotificationCommandMessageFakeConsumer : IMessageBusConsumer<SendNotificationCommandMessage>
     {
-        public SendNotificationCommandMessage Notification { get; private set; } = null!;
+        public List<SendNotificationCommandMessage> Notifications = new();
 
         public Task Consume(SendNotificationCommandMessage message)
         {
-            Notification = message;
+            Notifications.Add(message);
             return Task.CompletedTask;
         }
     }

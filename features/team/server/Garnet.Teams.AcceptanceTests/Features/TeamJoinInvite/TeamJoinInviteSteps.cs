@@ -72,14 +72,24 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
             await Db.TeamJoinInvitations.InsertOneAsync(invitation);
         }
 
-        [Then(@"пользователь '(.*)' получит уведомление c ссылкой на команду '(.*)'")]
-        public async Task ThenПользовательПолучитУведомлениеССсылкойНаКоманду(string username, string teamName)
+        [Then(@"для пользователя '(.*)' существует уведомление типа '(.*)'")]
+        public async Task ThenДляПользователяСуществуетУведомлениеТипа(string username, string eventType)
+        {
+            var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
+            var message = _sendNotificationCommandMessageFakeConsumer.Notifications
+            .FirstOrDefault(x=> x.UserId == user.Id);
+            message.Should().NotBeNull();
+            message!.Type.Should().Be(eventType);
+        }
+
+        [Then(@"в последнем уведомлении для пользователя '(.*)' связанной сущностью является команда '(.*)'")]
+        public async Task ThenВПоследнемУведомленииДляПользователяСвязаннойСущностьюЯвляетсяКоманда(string username, string teamName)
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
             var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
-            var message = _sendNotificationCommandMessageFakeConsumer.Notification;
-            message.UserId.Should().Be(user.Id);
-            message.LinkedEntityId.Should().Be(team.Id);
+            var message = _sendNotificationCommandMessageFakeConsumer.Notifications
+            .LastOrDefault(x=> x.UserId == user.Id);
+            message!.LinkedEntityId.Should().Be(team.Id);
         }
     }
 }
