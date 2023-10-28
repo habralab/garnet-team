@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "@atls-ui-proto/avatar": "0.0.10",
+    "@atls-ui-proto/avatar": "0.0.11",
     "@ui/background": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",

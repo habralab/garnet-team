@@ -4,9 +4,9 @@
   "license": "BSD-3-Clause",
   "scripts": {
     "build": "yarn next build src --no-lint && cp -r ./src/.next/standalone ./dist && cp -r ./src/.next/static ./dist/.next/static && mv ./dist/server.js ./dist/index.js",
-    "dev": "yarn next dev src",
+    "dev": "PORT=3010 yarn next dev src",
     "prepack": "run build",
-    "start": "node dist/index.js"
+    "start": "PORT=3010 node dist/index.js"
   },
   "dependencies": {
     "@atls/next-identity-integration": "0.0.16",

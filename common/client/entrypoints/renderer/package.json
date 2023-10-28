@@ -5,9 +5,9 @@
   "main": "src/index.ts",
   "scripts": {
     "build": "yarn next build src --no-lint && cp -r ./src/.next/standalone ./dist && cp -r ./src/.next/static ./dist/.next/static && mv ./dist/server.js ./dist/index.js",
-    "dev": "yarn next dev src -p 3001",
+    "dev": "PORT=3020 yarn next dev src",
     "prepack": "run build",
-    "start": "node dist/index.js"
+    "start": "PORT=3020 node dist/index.js"
   },
   "dependencies": {
     "@app/index-page": "workspace:0.0.1",

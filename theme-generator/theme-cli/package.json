@@ -1,0 +1,38 @@
+{
+  "name": "@atls/figma-theme-cli",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "bin": {
+    "figma-theme": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "yarn library build",
+    "buidl2": "tsc --project tsconfig.json",
+    "figma-theme": "FIGMA_TOKEN=figd_BGqX9t3pqc3rnEG1tsSV5hmtS69P-ipk_lXwKB36 ts-node src/index.ts 7nw0qsfWwSzRVl4B5WEwxt -v -o dist",
+    "prepack": "yarn run build",
+    "postpack": "rm -rf dist"
+  },
+  "dependencies": {
+    "@atls/figma-assets": "workspace:0.0.1",
+    "@atls/figma-file-loader": "workspace:0.0.1",
+    "@atls/figma-theme": "workspace:0.0.1",
+    "commander": "9.5.0",
+    "figma-js": "1.16.0",
+    "npmlog": "7.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "18.18.7",
+    "@yarnpkg/builder": "^4.0.0-rc.18",
+    "ts-node": "10.9.1",
+    "typescript": "4.6.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.js",
+    "typings": "dist/index.d.ts"
+  }
+}

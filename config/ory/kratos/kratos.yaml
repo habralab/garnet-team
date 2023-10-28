@@ -8,9 +8,9 @@ serve:
     cors:
       enabled: true
       allowed_origins:
-        - http://localhost:3000
-        - http://identity:3000
-        - http://app:3001
+        - http://localhost:3010
+        - http://identity:3010
+        - http://app:3020
         - http://localhost:4455
         - http://oathkeeper:4455
         - http://localhost:4466
@@ -40,9 +40,13 @@ session:
     domain: localhost
 
 selfservice:
-  default_browser_return_url: http://localhost:3000/app
+  default_browser_return_url: http://localhost:3020/
   allowed_return_urls:
+    - http://localhost:3020/
     - http://localhost:3000/
+    - http://localhost:3010/
+    - http://identity:3010/
+    - http://app:3020/
     - http://localhost:4455/
 
   methods:
