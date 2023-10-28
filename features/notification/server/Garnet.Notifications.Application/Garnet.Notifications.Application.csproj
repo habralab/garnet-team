@@ -4,12 +4,12 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <RootNamespace>Garnet.Notifications.Application</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Application\Garnet.Common.Application.csproj" />
-      <ProjectReference Include="..\Garnet.Teams.Events\Garnet.Teams.Events.csproj" />
-      <ProjectReference Include="..\..\..\notification\server\Garnet.Notifications.Events\Garnet.Notifications.Events.csproj" />
+      <ProjectReference Include="..\Garnet.Notifications.Events\Garnet.Notifications.Events.csproj" />
     </ItemGroup>
 
 </Project>

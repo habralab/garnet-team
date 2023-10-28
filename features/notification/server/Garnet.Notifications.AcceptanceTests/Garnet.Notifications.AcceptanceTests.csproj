@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Garnet.Notifications.AcceptanceTests</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Using Include="TechTalk.SpecFlow" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+        <PackageReference Include="NUnit" Version="3.13.3" />
+        <PackageReference Include="NUnit3TestAdapter" Version="4.4.2" />
+        <PackageReference Include="NUnit.Analyzers" Version="3.6.1" />
+        <PackageReference Include="coverlet.collector" Version="3.2.0" />
+        <PackageReference Include="SpecFlow.NUnit" Version="3.9.74" />
+        <PackageReference Include="SpecFlow.Plus.LivingDocPlugin" Version="3.9.57" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.AcceptanceTests\Garnet.Common.AcceptanceTests.csproj" />
+      <ProjectReference Include="..\Garnet.Notifications.Infrastructure\Garnet.Notifications.Infrastructure.csproj" />
+      <ProjectReference Include="..\Garnet.Notifications\Garnet.Notifications.csproj" />
+    </ItemGroup>
+
+</Project>
