@@ -16,5 +16,17 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
                 team.Id
             );
         }
+
+        public static SendNotificationCommandMessage CreateTeamInviteCancelNotification(this TeamJoinInvitationEntity invitation, TeamEntity team)
+        {
+            return new SendNotificationCommandMessage(
+                Title: "Отмена приглашения в команду",
+                Body: $"Владелец команды {team.Name} отменил приглашение на вступление",
+                invitation.UserId,
+                Type: "TeamJoinInvitationCancel",
+                DateTimeOffset.Now,
+                team.Id
+            );
+        }
     }
 }
