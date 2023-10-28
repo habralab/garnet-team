@@ -7,7 +7,7 @@ using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
 using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
-using Garnet.Teams.Events.TeamUserJoinRequest;
+using Garnet.Teams.Application.TeamUserJoinRequest.Notifications;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 {
@@ -22,10 +22,10 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 
         public TeamUserJoinRequestDecideCommand(
             ICurrentUserProvider currentUserProvider,
-            ITeamUserJoinRequestRepository userJoinRequestRepository, 
-            ITeamParticipantRepository participantRepository, 
-            ITeamUserRepository userRepository, 
-            ITeamRepository teamRepository, 
+            ITeamUserJoinRequestRepository userJoinRequestRepository,
+            ITeamParticipantRepository participantRepository,
+            ITeamUserRepository userRepository,
+            ITeamRepository teamRepository,
             IMessageBus messageBus)
         {
             _currentUserProvider = currentUserProvider;
@@ -70,6 +70,9 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 
             var @event = userJoinRequest.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
+
+            var notification = userJoinRequest.CreateTeamUserJoinRequestDecideNotification(team, isApproved);
+            await _messageBus.Publish(notification);
             return Result.Ok(userJoinRequest);
         }
     }
