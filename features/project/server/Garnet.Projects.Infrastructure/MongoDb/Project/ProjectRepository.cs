@@ -95,6 +95,22 @@ public class ProjectRepository : IProjectRepository
         return ProjectDocument.ToDomain(project);
     }
 
+    public async Task<ProjectEntity> EditProjectTags(CancellationToken ct, string projectId, string[] tags)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.Id, projectId);
+        var update = _u.Set(x => x.Tags, tags);
+
+        var project = await FindOneAndUpdateDocument(
+            ct,
+            db.Projects,
+            filter,
+            update
+        );
+
+        return ProjectDocument.ToDomain(project);
+    }
+
     public async Task<ProjectEntity> EditProjectAvatar(CancellationToken ct, string projectId, string avatarUrl)
     {
         var db = _dbFactory.Create();
