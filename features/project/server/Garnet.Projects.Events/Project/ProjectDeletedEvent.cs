@@ -6,5 +6,6 @@ public record ProjectDeletedEvent(
     string OwnerUserId,
     string? Description,
     string? AvatarUrl,
-    string[] Tags
+    string[] Tags,
+    int TasksCounter
 );
