@@ -10,11 +10,11 @@ public class ProjectTaskDocumentBuilder
     private string _id = Uuid.NewMongo();
     private int _taskNumber = 0;
     private string _projectId = Uuid.NewMongo();
-    private string _userCreatorId = Uuid.NewMongo();
+    private string _responsibleUserId = Uuid.NewMongo();
     private string _name = "TaskName";
     private string? _description = "Description";
     private string _status = "Status";
-    private string? _teamExecutorId = "TeamExecutorId";
+    private string[] _teamExecutorIds = Array.Empty<string>();
     private string[] _userExecutorIds = Array.Empty<string>();
     private string[] _tags = Array.Empty<string>();
     private string[] _labels = Array.Empty<string>();
@@ -39,9 +39,9 @@ public class ProjectTaskDocumentBuilder
         return this;
     }
 
-    public ProjectTaskDocumentBuilder WithUserCreatorId(string userCreatorId)
+    public ProjectTaskDocumentBuilder WithResponsibleUserId(string responsibleUserId)
     {
-        _userCreatorId = userCreatorId;
+        _responsibleUserId = responsibleUserId;
         return this;
     }
 
@@ -63,13 +63,13 @@ public class ProjectTaskDocumentBuilder
         return this;
     }
 
-    public ProjectTaskDocumentBuilder WithTeamExecutorId(string? teamExecutorId)
+    public ProjectTaskDocumentBuilder WithTeamExecutorIds(string[] teamExecutorIds)
     {
-        _teamExecutorId = teamExecutorId;
+        _teamExecutorIds = teamExecutorIds;
         return this;
     }
 
-    public ProjectTaskDocumentBuilder WithUserExecutorId(string[] userExecutorIds)
+    public ProjectTaskDocumentBuilder WithUserExecutorIds(string[] userExecutorIds)
     {
         _userExecutorIds = userExecutorIds;
         return this;
@@ -95,8 +95,8 @@ public class ProjectTaskDocumentBuilder
 
     public ProjectTaskDocument Build()
     {
-        return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _userCreatorId, _name, _description, _status,
-                _teamExecutorId, _userExecutorIds, _tags, _labels)
+        return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _responsibleUserId, _name, _description, _status,
+                _teamExecutorIds, _userExecutorIds, _tags, _labels)
             with
             {
                 AuditInfo = _auditInfo

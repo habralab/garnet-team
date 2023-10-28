@@ -12,7 +12,7 @@ public record ProjectTaskDocument : DocumentBase
     public string Name { get; init; } = null!;
     public string? Description { get; init; } = null!;
     public string Status { get; init; } = null!;
-    public string? TeamExecutorId { get; init; } = null!;
+    public string[] TeamExecutorIds { get; init; } = null!;
     public string[] UserExecutorIds { get; init; } = null!;
     public string[] Tags { get; init; } = null!;
     public string[] Labels { get; init; } = null!;
@@ -25,7 +25,7 @@ public record ProjectTaskDocument : DocumentBase
         string name,
         string? description,
         string status,
-        string? teamExecutorId,
+        string[] teamExecutorIds,
         string[] userExecutorIds,
         string[] tags,
         string[] labels
@@ -40,7 +40,7 @@ public record ProjectTaskDocument : DocumentBase
             Name = name,
             Description = description,
             Status = status,
-            TeamExecutorId = teamExecutorId,
+            TeamExecutorIds = teamExecutorIds,
             UserExecutorIds = userExecutorIds,
             Tags = tags,
             Labels = labels
@@ -58,7 +58,7 @@ public record ProjectTaskDocument : DocumentBase
             doc.Name,
             doc.Description,
             doc.Status,
-            doc.TeamExecutorId,
+            doc.TeamExecutorIds,
             doc.UserExecutorIds,
             doc.Tags,
             doc.Labels,

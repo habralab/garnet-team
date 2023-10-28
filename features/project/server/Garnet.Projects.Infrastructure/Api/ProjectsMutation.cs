@@ -150,7 +150,7 @@ public class ProjectsMutation
             input.ProjectId,
             input.Name,
             input.Description,
-            input.TeamExecutorId,
+            input.TeamExecutorIds,
             input.UserExecutorIds,
             input.Tags,
             input.Labels);
@@ -160,7 +160,7 @@ public class ProjectsMutation
 
         var task = result.Value;
         return new ProjectTaskCreatePayload(
-            task.Id, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
-            task.Status, task.TeamExecutorId, task.UserExecutorIds, task.Tags, task.Labels);
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
     }
 }

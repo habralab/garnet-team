@@ -8,7 +8,7 @@ public record ProjectTaskCreatedEvent(
     string Name,
     string? Description,
     string Status,
-    string? TeamExecutorId,
+    string[] TeamExecutorIds,
     string[] UserExecutorIds,
     string[] Tags,
     string[] Labels

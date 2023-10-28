@@ -11,7 +11,7 @@ public record ProjectTaskEntity(
     string Name,
     string? Description,
     string Status,
-    string? TeamExecutorId,
+    string[] TeamExecutorIds,
     string[] UserExecutorIds,
     string[] Tags,
     string[] Labels,
@@ -24,20 +24,20 @@ public static class ProjectTaskEntityExtensions
     {
         return new ProjectTaskCreatedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorId, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
     }
 
     public static ProjectTaskUpdatedEvent ToUpdatedEvent(this ProjectTaskEntity doc)
     {
         return new ProjectTaskUpdatedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorId, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
     }
 
     public static ProjectTaskDeletedEvent ToDeletedEvent(this ProjectTaskEntity doc)
     {
         return new ProjectTaskDeletedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorId, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
     }
 }
