@@ -1,4 +1,5 @@
 using Garnet.Projects.Infrastructure.MongoDb.Project;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -21,4 +22,5 @@ public class Db
     public IMongoCollection<ProjectTeamDocument> ProjectTeams => _mongoDatabase.GetCollection<ProjectTeamDocument>("ProjectTeams");
     public IMongoCollection<ProjectTeamParticipantDocument> ProjectTeamsParticipants => _mongoDatabase.GetCollection<ProjectTeamParticipantDocument>("ProjectTeamsParticipants");
     public IMongoCollection<ProjectTeamJoinRequestDocument> ProjectTeamJoinRequests => _mongoDatabase.GetCollection<ProjectTeamJoinRequestDocument>("ProjectTeamJoinRequests");
+    public IMongoCollection<ProjectTaskDocument> ProjectTasks => _mongoDatabase.GetCollection<ProjectTaskDocument>("ProjectTasks");
 }

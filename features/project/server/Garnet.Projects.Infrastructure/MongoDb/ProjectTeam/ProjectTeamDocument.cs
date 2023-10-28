@@ -6,9 +6,9 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam
     {
         public string Id { get; init; } = null!;
         public string TeamName { get; init; } = null!;
-        public string OwnerUserId { get; set; } = null!;
-        public string? TeamAvatarUrl { get; set; } = null!;
-        public string[] UserParticipantIds { get; set; } = null!;
+        public string OwnerUserId { get; init; } = null!;
+        public string? TeamAvatarUrl { get; init; } = null!;
+        public string[] UserParticipantIds { get; init; } = null!;
 
         public static ProjectTeamDocument Create(string id, string teamName, string ownerUserId, string? teamAvatarUrl, string[] userParticipants)
         {

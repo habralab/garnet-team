@@ -17,6 +17,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
             );
         }
 
+
         public static SendNotificationCommandMessage CreateTeamUserJoinRequestDecideNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, bool isApproved)
         {
             var decision = isApproved ? "принял" : "отклонил";
