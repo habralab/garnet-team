@@ -4,6 +4,6 @@ namespace Garnet.Projects.Application.ProjectTask;
 
 public interface IProjectTaskRepository
 {
-    Task<ProjectTaskEntity> CreateProjectTask(CancellationToken ct, string userCreatorId, string status, int taskNumber,
+    Task<ProjectTaskEntity> CreateProjectTask(CancellationToken ct, string responsibleUserId, string status, int taskNumber,
         ProjectTaskCreateArgs args);
 }

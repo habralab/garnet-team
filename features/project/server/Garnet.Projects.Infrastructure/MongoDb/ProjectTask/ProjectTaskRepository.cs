@@ -19,7 +19,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTaskEntity> CreateProjectTask(CancellationToken ct, string userCreatorId,
+    public async Task<ProjectTaskEntity> CreateProjectTask(CancellationToken ct, string responsibleUserId,
         string status, int taskNumber, ProjectTaskCreateArgs args)
     {
         var db = _dbFactory.Create();
@@ -27,7 +27,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             Uuid.NewMongo(),
             taskNumber,
             args.ProjectId,
-            userCreatorId,
+            responsibleUserId,
             args.Name,
             args.Description,
             status,

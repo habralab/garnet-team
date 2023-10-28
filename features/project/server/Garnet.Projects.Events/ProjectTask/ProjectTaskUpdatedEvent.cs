@@ -4,7 +4,7 @@ public record ProjectTaskUpdatedEvent(
     string Id,
     int TaskNumber,
     string ProjectId,
-    string UserCreatorId,
+    string ResponsibleUserId,
     string Name,
     string? Description,
     string Status,

@@ -8,7 +8,7 @@ public record ProjectTaskDocument : DocumentBase
     public string Id { get; init; } = null!;
     public int TaskNumber { get; init; } = 0;
     public string ProjectId { get; init; } = null!;
-    public string UserCreatorId { get; init; } = null!;
+    public string ResponsibleUserId { get; init; } = null!;
     public string Name { get; init; } = null!;
     public string? Description { get; init; } = null!;
     public string Status { get; init; } = null!;
@@ -21,7 +21,7 @@ public record ProjectTaskDocument : DocumentBase
         string id,
         int taskNumber,
         string projectId,
-        string userCreatorId,
+        string responsibleUserId,
         string name,
         string? description,
         string status,
@@ -36,7 +36,7 @@ public record ProjectTaskDocument : DocumentBase
             Id = id,
             TaskNumber = taskNumber,
             ProjectId = projectId,
-            UserCreatorId = userCreatorId,
+            ResponsibleUserId = responsibleUserId,
             Name = name,
             Description = description,
             Status = status,
@@ -54,7 +54,7 @@ public record ProjectTaskDocument : DocumentBase
             doc.Id,
             doc.TaskNumber,
             doc.ProjectId,
-            doc.UserCreatorId,
+            doc.ResponsibleUserId,
             doc.Name,
             doc.Description,
             doc.Status,
