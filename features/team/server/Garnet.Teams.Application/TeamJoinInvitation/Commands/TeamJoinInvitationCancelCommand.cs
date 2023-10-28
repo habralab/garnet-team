@@ -3,6 +3,7 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.TeamJoinInvitation.Errors;
+using Garnet.Teams.Application.TeamJoinInvitation.Notifications;
 
 namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
 {
@@ -43,6 +44,9 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
 
             var @event = invitation.ToCancelledEvent();
             await _messageBus.Publish(@event);
+
+            var notification = invitation.CreateTeamInviteCancelNotification(team);
+            await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }
     }
