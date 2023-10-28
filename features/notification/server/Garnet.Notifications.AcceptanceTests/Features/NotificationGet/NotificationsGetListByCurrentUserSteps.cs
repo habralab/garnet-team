@@ -9,13 +9,13 @@ using MongoDB.Driver;
 namespace Garnet.Notifications.AcceptanceTests.Features.NotificationGet
 {
     [Binding]
-    public class NotificationGetSteps : BaseSteps
+    public class NotificationsGetListByCurrentUserSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private readonly IMessageBus _messageBus;
         private NotificationGetPayload _result = null!;
 
-        public NotificationGetSteps(
+        public NotificationsGetListByCurrentUserSteps(
             IMessageBus messageBus,
             CurrentUserProviderFake currentUserProviderFake,
             StepsArgs args) : base(args)
@@ -36,18 +36,14 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationGet
         {
             var notification = GiveMe.Notification()
                 .WithUserId(_currentUserProviderFake.GetUserIdByUsername(username));
-
-            await Db.Notifications.InsertOneAsync(notification);
-        }
-
-        [When(@"появляется уведомление для пользователя '(.*)'")]
-        public async Task WhenПоявляетсяУведомлениеДляПользователя(string username)
-        {
-            var notification = GiveMe.Notification()
-                .WithUserId(_currentUserProviderFake.GetUserIdByUsername(username));
             var @event = GiveMe.EventFromNotification(notification);
 
             await _messageBus.Publish(@event);
+        }
+
+        [When(@"пользователь '(.*)' проверяет уведомления")]
+        public async Task WhenПользовательПроверяетУведомления(string username)
+        {
             _currentUserProviderFake.LoginAs(username);
             _result = await Query.NotificationsGetListByCurrentUser(CancellationToken.None);
         }
