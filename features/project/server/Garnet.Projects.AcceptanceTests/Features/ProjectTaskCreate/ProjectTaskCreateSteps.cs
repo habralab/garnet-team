@@ -49,7 +49,7 @@ public class ProjectTaskCreateSteps : BaseSteps
             project.Id,
             taskName,
             null,
-            null,
+            Array.Empty<string>(),
             Array.Empty<string>(),
             Array.Empty<string>(),
             Array.Empty<string>());
