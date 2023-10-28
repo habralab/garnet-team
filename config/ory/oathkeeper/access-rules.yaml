@@ -1,8 +1,9 @@
 - id: auth
   upstream:
-    url: http://identity:3000/
+    url: http://identity:3010/
   match:
-    url: https://stage.garnet.pet-project.habr.com/<(?!app|admin).*>
+    url: https://stage.garnet.pet-project.habr.com/<(?!app).*>
+#    url: http://localhost:4455/<(?!app).*>
     methods:
       - GET
       - POST
@@ -20,9 +21,10 @@
 
 - id: app
   upstream:
-    url: http://app:3001/
+    url: http://app:3020/
   match:
-    url: https://stage.garnet.pet-project.habr.com/<.*>
+    url: https://stage.garnet.pet-project.habr.com/app<.*>
+#    url: http://localhost:4455/app<.*>
     methods:
       - GET
       - POST

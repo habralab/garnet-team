@@ -4,7 +4,7 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "@atls-ui-proto/theme": "0.0.16"
+    "@atls-ui-proto/theme": "0.0.17"
   },
   "devDependencies": {
     "@emotion/react": "11.9.3",

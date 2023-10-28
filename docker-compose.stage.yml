@@ -34,11 +34,11 @@ services:
 
   oathkeeper:
     image: oryd/oathkeeper:v0.40.6
-    command: serve --config /config/oathkeeper/oathkeeper.yml
+    command: serve --config /config/oathkeeper/oathkeeper.yaml
     volumes:
-      - type: bind
-        source: ./config/ory/oathkeeper
-        target: /config/oathkeeper
+      - ./config/ory/oathkeeper/oathkeeper.yaml:/config/oathkeeper/oathkeeper.yaml
+      - ./config/ory/oathkeeper/jwks.json:/config/oathkeeper/jwks.json
+      - ./config/ory/oathkeeper/access-rules.yaml:/config/oathkeeper/access-rules.yaml
     networks:
       - internal
     ports:
@@ -49,8 +49,7 @@ services:
       - 'traefik.http.middlewares.redirect-identity.redirectscheme.scheme=https'
       - 'traefik.http.middlewares.redirect-identity.redirectscheme.permanent=true'
       - 'traefik.http.routers.identity.entrypoints=websecure'
-      - 'traefik.http.routers.identity.rule=Host(`stage.garnet.pet-project.habr.com`) && 
-      PathPrefix(`identity`)'
+      - 'traefik.http.routers.identity.rule=Host(`stage.garnet.pet-project.habr.com`)'
       - 'traefik.http.routers.identity.tls=true'
       - 'traefik.port=443'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
@@ -65,7 +64,7 @@ services:
     volumes:
       - ./:/workspace
     ports:
-      - '3000:3000'
+      - '3010:3010'
     depends_on:
       - yarn
       - kratos
@@ -84,7 +83,7 @@ services:
       - ./:/workspace
     entrypoint: yarn workspace @app/renderer-entrypoint dev
     ports:
-      - '3001:3001'
+      - '3020:3020'
     depends_on:
       - yarn
     networks:
