@@ -11,7 +11,7 @@ namespace Garnet.Teams.Application.TeamParticipant.Notifications
                 Title: "Участник покинул команду",
                 Body: $"Пользователь {username} вышел из состава команды {team.Name}",
                 team.OwnerUserId,
-                Type: "TeamInvite",
+                Type: "TeamParticipantLeaveTeam",
                 DateTimeOffset.Now,
                 participant.UserId
             );
