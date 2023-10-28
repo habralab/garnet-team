@@ -89,13 +89,14 @@ public class ProjectTaskDocumentBuilder
 
     public ProjectTaskDocumentBuilder WithCreatedBy(string username)
     {
-        _auditInfo = new AuditInfoDocument(DateTime.UtcNow, username, DateTime.UtcNow, username, 0);
+        _auditInfo = _auditInfo with { CreatedBy = username };
         return this;
     }
 
     public ProjectTaskDocument Build()
     {
-        return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _responsibleUserId, _name, _description, _status,
+        return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _responsibleUserId, _name, _description,
+                _status,
                 _teamExecutorIds, _userExecutorIds, _tags, _labels)
             with
             {

@@ -60,7 +60,7 @@ public class ProjectDocumentBuilder
 
     public ProjectDocumentBuilder WithCreatedBy(string username)
     {
-        _auditInfo = new AuditInfoDocument(DateTime.UtcNow, username, DateTime.UtcNow, username, 0);
+        _auditInfo = _auditInfo with { CreatedBy = username };
         return this;
     }
 
