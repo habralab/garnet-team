@@ -7,6 +7,7 @@ using Garnet.Projects.Infrastructure.Api.ProjectDelete;
 using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using Garnet.Projects.Infrastructure.Api.ProjectEditName;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
+using Garnet.Projects.Infrastructure.Api.ProjectEditTags;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using Garnet.Projects.Infrastructure.Api.ProjectUploadAvatar;
@@ -24,6 +25,7 @@ public class ProjectsMutation
     private readonly ProjectTeamJoinRequestDecideCommand _projectTeamJoinRequestDecideCommand;
     private readonly ProjectUploadAvatarCommand _projectUploadAvatarCommand;
     private readonly ProjectEditNameCommand _projectEditNameCommand;
+    private readonly ProjectEditTagsCommand _projectEditTagsCommand;
 
 
     public ProjectsMutation(
@@ -33,8 +35,8 @@ public class ProjectsMutation
         ProjectEditOwnerCommand projectEditOwnerCommand,
         ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand,
         ProjectUploadAvatarCommand projectUploadAvatarCommand,
-        ProjectEditNameCommand projectEditNameCommand
-    )
+        ProjectEditNameCommand projectEditNameCommand,
+        ProjectEditTagsCommand projectEditTagsCommand)
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
@@ -43,15 +45,18 @@ public class ProjectsMutation
         _projectTeamJoinRequestDecideCommand = projectTeamJoinRequestDecideCommand;
         _projectUploadAvatarCommand = projectUploadAvatarCommand;
         _projectEditNameCommand = projectEditNameCommand;
+        _projectEditTagsCommand = projectEditTagsCommand;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct,
         ProjectCreateInput input)
     {
-        var avatarFile = input.File is null ? null : new AvatarFileArgs(
-            input.File.Name,
-            input.File.ContentType,
-            input.File.OpenReadStream());
+        var avatarFile = input.File is null
+            ? null
+            : new AvatarFileArgs(
+                input.File.Name,
+                input.File.ContentType,
+                input.File.OpenReadStream());
         var args = new ProjectCreateArgs(input.ProjectName, input.Description,
             avatarFile, input.Tags);
 
@@ -121,6 +126,19 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectEditNamePayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
+            project.AvatarUrl,
+            project.Tags);
+    }
+
+    public async Task<ProjectEditTagsPayload> ProjectEditTags(CancellationToken ct,
+        ProjectEditTagsInput input)
+    {
+        var result = await _projectEditTagsCommand.Execute(ct, input.ProjectId,
+            input.Tags);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var project = result.Value;
+        return new ProjectEditTagsPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
             project.AvatarUrl,
             project.Tags);
     }
