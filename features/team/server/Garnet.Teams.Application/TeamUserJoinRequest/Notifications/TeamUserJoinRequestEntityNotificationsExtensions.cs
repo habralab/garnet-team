@@ -1,4 +1,3 @@
-using System;
 using Garnet.Notifications.Events;
 using Garnet.Teams.Application.Team;
 
