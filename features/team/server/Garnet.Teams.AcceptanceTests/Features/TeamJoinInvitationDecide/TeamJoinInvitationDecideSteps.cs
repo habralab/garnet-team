@@ -1,4 +1,6 @@
+using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Teams.AcceptanceTests.FakeServices.NotificationFake;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationDecide;
 using MongoDB.Driver;
 
@@ -8,10 +10,15 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationDecide
     public class TeamJoinInvitationDecideSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly SendNotificationCommandMessageFakeConsumer _sendNotificationCommandMessageFakeConsumer;
 
-        public TeamJoinInvitationDecideSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
+        public TeamJoinInvitationDecideSteps(
+            CurrentUserProviderFake currentUserProviderFake,
+            SendNotificationCommandMessageFakeConsumer sendNotificationCommandMessageFakeConsumer,
+            StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
+            _sendNotificationCommandMessageFakeConsumer = sendNotificationCommandMessageFakeConsumer;
         }
 
         [When(@"'(.*)' принимает приглашение в команду '(.*)'")]
@@ -38,6 +45,16 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationDecide
 
             var input = new TeamJoinInvitationDecideInput(invitation.Id, false);
             await Mutation.TeamJoinInvitationDecide(CancellationToken.None, input);
+        }
+
+        [Then(@"в последнем уведомлении для пользователя '(.*)' связанной сущностью является пользователь '(.*)'")]
+        public async Task ThenВПоследнемУведомленииДляПользователяСвязаннойСущностьюЯвляетсяПользователь(string ownerUsername, string username)
+        {
+            var owner = await Db.TeamUsers.Find(x => x.Username == ownerUsername).FirstAsync();
+            var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
+            var message = _sendNotificationCommandMessageFakeConsumer.Notifications
+            .Last(x => x.UserId == owner.Id);
+            message.LinkedEntityId.Should().Be(user.Id);
         }
     }
 }
