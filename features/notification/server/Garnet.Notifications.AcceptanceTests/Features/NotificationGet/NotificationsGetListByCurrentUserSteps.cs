@@ -12,16 +12,13 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationGet
     public class NotificationsGetListByCurrentUserSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private readonly IMessageBus _messageBus;
         private NotificationGetPayload _result = null!;
 
         public NotificationsGetListByCurrentUserSteps(
-            IMessageBus messageBus,
             CurrentUserProviderFake currentUserProviderFake,
             StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
-            _messageBus = messageBus;
         }
 
         [Given(@"существует пользователь '(.*)'")]
@@ -36,9 +33,8 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationGet
         {
             var notification = GiveMe.Notification()
                 .WithUserId(_currentUserProviderFake.GetUserIdByUsername(username));
-            var @event = GiveMe.EventFromNotification(notification);
 
-            await _messageBus.Publish(@event);
+            await Db.Notifications.InsertOneAsync(notification);
         }
 
         [When(@"пользователь '(.*)' проверяет уведомления")]

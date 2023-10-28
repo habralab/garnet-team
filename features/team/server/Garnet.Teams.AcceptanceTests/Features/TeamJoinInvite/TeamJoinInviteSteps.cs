@@ -77,8 +77,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
             var message = _sendNotificationCommandMessageFakeConsumer.Notifications
-            .FirstOrDefault(x=> x.UserId == user.Id);
-            message.Should().NotBeNull();
+            .First(x=> x.UserId == user.Id);
             message!.Type.Should().Be(eventType);
         }
 
@@ -88,8 +87,8 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
             var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
             var message = _sendNotificationCommandMessageFakeConsumer.Notifications
-            .LastOrDefault(x=> x.UserId == user.Id);
-            message!.LinkedEntityId.Should().Be(team.Id);
+            .Last(x=> x.UserId == user.Id);
+            message.LinkedEntityId.Should().Be(team.Id);
         }
     }
 }
