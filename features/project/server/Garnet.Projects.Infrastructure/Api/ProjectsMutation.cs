@@ -74,7 +74,7 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectEditDescriptionPayload(project.Id, project.OwnerUserId, project.ProjectName,
-            project.Description);
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectUploadAvatarPayload> ProjectUploadAvatar(CancellationToken ct,
@@ -97,7 +97,7 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectDeletePayload(project.Id, project.OwnerUserId, project.ProjectName,
-            project.Description);
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectEditOwnerPayload> ProjectEditOwner(CancellationToken ct,
@@ -108,7 +108,8 @@ public class ProjectsMutation
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
-        return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
+        return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName,
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectEditNamePayload> ProjectEditName(CancellationToken ct,
