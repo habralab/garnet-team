@@ -31,11 +31,8 @@ public class ProjectDeleteSteps : BaseSteps
     [Given(@"существует проект '([^']*)' с владельцем '([^']*)'")]
     public async Task GivenСуществуетПроектСНазваниемИВладельцем(string projectName, string username)
     {
-        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
         var project = GiveMe.Project().WithProjectName(projectName)
             .WithOwnerUserId(_currentUserProviderFake.GetUserIdByUsername(username)).Build();
-
-        project = project with { AuditInfo = audit };
 
         await Db.Projects.InsertOneAsync(project);
     }
