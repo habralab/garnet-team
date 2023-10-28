@@ -8,11 +8,11 @@ public record ProjectTeamParticipantDocument
 {
     public string Id { get; init; } = null!;
     public string TeamId { get; init; } = null!;
-    public string TeamName { get; set; } = null!;
+    public string TeamName { get; init; } = null!;
     public string ProjectId { get; init; } = null!;
-    public string? TeamAvatarUrl { get; set; } = null!;
-    public ProjectUserDocument[] UserParticipants { get; set; } = null!;
-    public ProjectDocument[] Projects { get; set; } = null!;
+    public string? TeamAvatarUrl { get; init; } = null!;
+    public ProjectUserDocument[] UserParticipants { get; init; } = null!;
+    public ProjectDocument[] Projects { get; init; } = null!;
 
     public static ProjectTeamParticipantDocument Create(string id, string teamId, string teamName, string projectId,
         string? teamAvatarUrl, ProjectUserDocument[] userParticipants, ProjectDocument[] projects)

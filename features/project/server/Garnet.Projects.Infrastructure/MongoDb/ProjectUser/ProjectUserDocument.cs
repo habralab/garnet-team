@@ -5,8 +5,8 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 public record ProjectUserDocument
 {
     public string Id { get; init; } = null!;
-    public string UserName { get; set; } = null!;
-    public string? UserAvatarUrl { get; set; } = null!;
+    public string UserName { get; init; } = null!;
+    public string? UserAvatarUrl { get; init; } = null!;
 
     public static ProjectUserDocument Create(string id, string userName, string? userAvatarUrl)
     {
