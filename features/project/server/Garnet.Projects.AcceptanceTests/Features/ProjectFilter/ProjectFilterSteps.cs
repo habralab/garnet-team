@@ -14,26 +14,17 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectFilter;
 public class ProjectFilterSteps : BaseSteps
 {
     private ProjectFilterPayload? _response;
-    private readonly DateTimeServiceFake _dateTimeServiceFake;
-    private readonly CurrentUserProviderFake _currentUserProviderFake;
 
-
-    public ProjectFilterSteps(StepsArgs args, DateTimeServiceFake dateTimeServiceFake,
-        CurrentUserProviderFake currentUserProviderFake) : base(args)
+    public ProjectFilterSteps(StepsArgs args) : base(args)
     {
-        _dateTimeServiceFake = dateTimeServiceFake;
-        _currentUserProviderFake = currentUserProviderFake;
     }
 
 
     [Given(@"существует проект '([^']*)'")]
     public async Task GivenСуществуетПроект(string projectName)
     {
-        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
         var user = ProjectUserDocument.Create(Uuid.NewMongo(), "username", null!);
         var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id).Build();
-
-        project = project with { AuditInfo = audit };
 
         await Db.Projects.InsertOneAsync(project);
     }
@@ -43,11 +34,7 @@ public class ProjectFilterSteps : BaseSteps
     {
         var user = ProjectUserDocument.Create(Uuid.NewMongo(), "username", null!);
         var tagList = tags.Split(", ");
-
-        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
         var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(user.Id).WithTags(tagList).Build();
-
-        project = project with { AuditInfo = audit };
 
         await Db.Projects.InsertOneAsync(project);
     }

@@ -21,13 +21,9 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
         Builders<ProjectTeamParticipantDocument>.Update;
 
     private ProjectTeamParticipantPayload? _response;
-    private readonly DateTimeServiceFake _dateTimeServiceFake;
-    private readonly CurrentUserProviderFake _currentUserProviderFake;
 
-    public ProjectTeamParticipantsUsersAndProjectsGetSteps(StepsArgs args, DateTimeServiceFake dateTimeServiceFake, CurrentUserProviderFake currentUserProviderFake) : base(args)
+    public ProjectTeamParticipantsUsersAndProjectsGetSteps(StepsArgs args) : base(args)
     {
-        _dateTimeServiceFake = dateTimeServiceFake;
-        _currentUserProviderFake = currentUserProviderFake;
     }
 
     [Given(@"в команде '([^']*)' количество участников равно '([^']*)'")]
@@ -50,12 +46,10 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
     public async Task GivenВКомандеКоличествоПроектовРавно(string teamName, int projectsCount)
     {
         var projectList = new List<ProjectDocument>();
-        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
 
         for (var i = 0; i < projectsCount; i++)
         {
-            var project = GiveMe.Project().WithProjectName($"Project{i}").Build();
-            project = project with { AuditInfo = audit };
+            var project = GiveMe.Project().WithProjectName($"Project{i}");
             projectList.Add(project);
         }
 

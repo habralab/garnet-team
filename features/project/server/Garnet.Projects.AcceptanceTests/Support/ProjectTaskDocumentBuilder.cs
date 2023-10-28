@@ -1,4 +1,5 @@
 ﻿using Garnet.Common.AcceptanceTests.Support;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 
@@ -17,6 +18,7 @@ public class ProjectTaskDocumentBuilder
     private string[] _userExecutorIds = Array.Empty<string>();
     private string[] _tags = Array.Empty<string>();
     private string[] _labels = Array.Empty<string>();
+    private AuditInfoDocument _auditInfo = new(DateTime.UtcNow, "CreatedByUser", DateTime.UtcNow, "UpdatedByUser", 0);
 
 
     public ProjectTaskDocumentBuilder WithId(string id)
@@ -85,10 +87,21 @@ public class ProjectTaskDocumentBuilder
         return this;
     }
 
+    public ProjectTaskDocumentBuilder WithCreatedBy(string username)
+    {
+        _auditInfo = new AuditInfoDocument(DateTime.UtcNow, username, DateTime.UtcNow, username, 0);
+        return this;
+    }
+
     public ProjectTaskDocument Build()
     {
         return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _userCreatorId, _name, _description, _status,
-            _teamExecutorId, _userExecutorIds, _tags, _labels);
+                _teamExecutorId, _userExecutorIds, _tags, _labels)
+            with
+            {
+                AuditInfo = _auditInfo
+            };
+        ;
     }
 
     public static implicit operator ProjectTaskDocument(ProjectTaskDocumentBuilder builder)

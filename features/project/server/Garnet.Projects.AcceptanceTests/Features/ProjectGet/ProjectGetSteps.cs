@@ -12,25 +12,17 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectGet;
 [Binding]
 public class ProjectGetSteps : BaseSteps
 {
-    private readonly CurrentUserProviderFake _currentUserProviderFake;
     private ProjectPayload? _response;
-    private readonly DateTimeServiceFake _dateTimeServiceFake;
 
-    public ProjectGetSteps(CurrentUserProviderFake currentUserProviderFake, StepsArgs args,
-        DateTimeServiceFake dateTimeServiceFake) : base(args)
+    public ProjectGetSteps(StepsArgs args) : base(args)
     {
-        _currentUserProviderFake = currentUserProviderFake;
-        _dateTimeServiceFake = dateTimeServiceFake;
     }
 
 
     [Given(@"существует проект '(.*)' с описанием '(.*)'")]
     public async Task ThenСуществуетПроектСНазваниемИОписанием(string projectName, string description)
     {
-        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
         var project = GiveMe.Project().WithProjectName(projectName).WithDescription(description).Build();
-
-        project = project with { AuditInfo = audit };
 
         await Db.Projects.InsertOneAsync(project);
     }

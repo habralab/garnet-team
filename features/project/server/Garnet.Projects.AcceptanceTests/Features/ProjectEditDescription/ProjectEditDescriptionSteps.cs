@@ -16,16 +16,13 @@ public class ProjectEditDescriptionSteps : BaseSteps
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private QueryExceptionsContext _errorStepContext;
     private ProjectEditDescriptionPayload? _response;
-    private readonly DateTimeServiceFake _dateTimeServiceFake;
-
 
     public ProjectEditDescriptionSteps(QueryExceptionsContext errorStepContext,
         CurrentUserProviderFake currentUserProviderFake,
-        StepsArgs args, DateTimeServiceFake dateTimeServiceFake) : base(args)
+        StepsArgs args) : base(args)
     {
         _errorStepContext = errorStepContext;
         _currentUserProviderFake = currentUserProviderFake;
-        _dateTimeServiceFake = dateTimeServiceFake;
     }
 
 
@@ -34,12 +31,8 @@ public class ProjectEditDescriptionSteps : BaseSteps
         string description)
     {
         _currentUserProviderFake.LoginAs(ownerUserName);
-        var audit = AuditInfoDocument.Create(_dateTimeServiceFake.UtcNow, _currentUserProviderFake.UserId);
-
         var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(_currentUserProviderFake.UserId)
             .WithDescription(description).Build();
-
-        project = project with { AuditInfo = audit };
 
         await Db.Projects.InsertOneAsync(project);
     }
