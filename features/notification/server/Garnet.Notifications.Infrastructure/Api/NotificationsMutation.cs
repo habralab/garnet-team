@@ -3,7 +3,7 @@ using HotChocolate.Types;
 namespace Garnet.Notifications.Infrastructure.Api
 {
     [ExtendObjectType("Mutation")]
-    public class NotificationMutation
+    public class NotificationsMutation
     {
 
     }

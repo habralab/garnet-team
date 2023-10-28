@@ -8,8 +8,8 @@ namespace Garnet.Notifications.AcceptanceTests
     {
         protected GiveMe GiveMe { get; }
         protected Db Db { get; }
-        public NotificationQuery Query { get; }
-        public NotificationMutation Mutation { get; }
+        public NotificationsQuery Query { get; }
+        public NotificationsMutation Mutation { get; }
 
         public BaseSteps(StepsArgs args)
         {

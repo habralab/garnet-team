@@ -19,11 +19,11 @@ namespace Garnet.Notifications
 
     public static class Startup
     {
-        public static IRequestExecutorBuilder AddGarnetNotification(this IRequestExecutorBuilder builder)
+        public static IRequestExecutorBuilder AddGarnetNotifications(this IRequestExecutorBuilder builder)
         {
             builder.Services.AddGarnetAuthorization();
-            builder.AddApiType<NotificationQuery>();
-            builder.AddApiType<NotificationMutation>();
+            builder.AddApiType<NotificationsQuery>();
+            builder.AddApiType<NotificationsMutation>();
             builder.Services.AddGarnetNotificationInternal();
             builder.Services.AddGarnetNotificationMessageBus(nameof(Notifications));
             builder.Services.AddRepeatableMigrations();
@@ -39,7 +39,7 @@ namespace Garnet.Notifications
         public static void AddNotificationInternal(this IServiceCollection services)
         {
             services.AddScoped<INotificationRepository, NotificationRepository>();
-            services.AddScoped<NotificationGetQuery>();
+            services.AddScoped<NotificationsGetListByCurrentUserQuery>();
         }
 
         public static void AddGarnetNotificationMessageBus(this IServiceCollection services, string name)

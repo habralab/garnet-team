@@ -7,15 +7,15 @@ namespace Garnet.Notifications.Infrastructure.Api
 {
     [ExtendObjectType("Query")]
 
-    public class NotificationQuery
+    public class NotificationsQuery
     {
-        private readonly NotificationGetQuery _notificationGetQuery;
-        public NotificationQuery(NotificationGetQuery notificationGetQuery)
+        private readonly NotificationsGetListByCurrentUserQuery _notificationGetQuery;
+        public NotificationsQuery(NotificationsGetListByCurrentUserQuery notificationGetQuery)
         {
             _notificationGetQuery = notificationGetQuery;
         }
 
-        public async Task<NotificationGetPayload> NotificationGet(CancellationToken ct)
+        public async Task<NotificationGetPayload> NotificationsGetListByCurrentUser(CancellationToken ct)
         {
             var result = await _notificationGetQuery.Query(ct);
 

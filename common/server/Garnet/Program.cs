@@ -36,7 +36,7 @@ public static class Program
             .AddMutationConventions(applyToAllMutations: true)
             .AddGarnetUsers()
             .AddGarnetTeams()
-            .AddGarnetNotification()
+            .AddGarnetNotifications()
             .AddGarnetProjects();
 
         builder.Services.AddControllers();

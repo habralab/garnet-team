@@ -49,7 +49,7 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationGet
 
             await _messageBus.Publish(@event);
             _currentUserProviderFake.LoginAs(username);
-            _result = await Query.NotificationGet(CancellationToken.None);
+            _result = await Query.NotificationsGetListByCurrentUser(CancellationToken.None);
         }
 
         [Then(@"количество полученных пользователем '(.*)' уведомлений равно '(.*)'")]

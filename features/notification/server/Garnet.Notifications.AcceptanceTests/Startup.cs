@@ -21,8 +21,8 @@ namespace Garnet.Notifications.AcceptanceTests
 
             services.AddNotificationInternal();
 
-            services.AddScoped<NotificationQuery>();
-            services.AddScoped<NotificationMutation>();
+            services.AddScoped<NotificationsQuery>();
+            services.AddScoped<NotificationsMutation>();
 
             services.AddScoped<CurrentUserProviderFake>();
             services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());

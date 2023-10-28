@@ -8,10 +8,10 @@ namespace Garnet.Notifications.AcceptanceTests
     {
         public GiveMe GiveMe { get; }
         public Db Db { get; }
-        public NotificationQuery Query { get; }
-        public NotificationMutation Mutation { get; }
+        public NotificationsQuery Query { get; }
+        public NotificationsMutation Mutation { get; }
 
-        public StepsArgs(GiveMe giveMe, Db db, NotificationQuery query, NotificationMutation mutation)
+        public StepsArgs(GiveMe giveMe, Db db, NotificationsQuery query, NotificationsMutation mutation)
         {
             GiveMe = giveMe;
             Db = db;
