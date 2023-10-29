@@ -12,6 +12,9 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
 {
     private readonly DbFactory _dbFactory;
 
+    private readonly FilterDefinitionBuilder<ProjectTaskDocument> _f = Builders<ProjectTaskDocument>.Filter;
+    private readonly IndexKeysDefinitionBuilder<ProjectTaskDocument> _i = Builders<ProjectTaskDocument>.IndexKeys;
+
     public ProjectTaskRepository(
         DbFactory dbFactory,
         ICurrentUserProvider currentUserProvider,
@@ -50,5 +53,20 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
         var db = _dbFactory.Create();
         var task = await db.ProjectTasks.Find(x => x.Id == taskId).FirstOrDefaultAsync(ct);
         return ProjectTaskDocument.ToDomain(task);
+    }
+
+    public async Task CreateIndexes(CancellationToken ct)
+    {
+        var db = _dbFactory.Create();
+        await db.ProjectTasks.Indexes.CreateOneAsync(
+            new CreateIndexModel<ProjectTaskDocument>(
+                _i.Text(o => o.Name)
+                    .Text(o => o.Description)
+                    .Text(o => o.Tags)
+                    .Text(o => o.Labels)
+                    .Text(o => o.TaskNumber)
+                    .Text(o => o.ProjectId)
+            ),
+            cancellationToken: ct);
     }
 }

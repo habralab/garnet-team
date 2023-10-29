@@ -7,4 +7,5 @@ public interface IProjectTeamParticipantRepository
     Task DeleteProjectTeamParticipantsByProjectId(CancellationToken ct, string projectId);
     Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId, string teamName, string? teamAvatarUrl);
     Task AddProjectTeamUserParticipant(CancellationToken ct, string teamId, string userId);
+    Task CreateIndexes(CancellationToken ct);
 }
