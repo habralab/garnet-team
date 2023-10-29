@@ -103,4 +103,9 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
             ),
             cancellationToken: ct);
     }
+
+    public Task<ProjectTeamParticipantEntity?> DeleteProjectTeamParticipantsByTeamId(CancellationToken ct, string teamId)
+    {
+        throw new NotImplementedException();
+    }
 }
