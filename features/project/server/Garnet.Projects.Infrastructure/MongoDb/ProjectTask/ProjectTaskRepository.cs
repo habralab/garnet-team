@@ -3,6 +3,7 @@ using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.ProjectTask;
 using Garnet.Projects.Application.ProjectTask.Args;
+using MongoDB.Driver;
 
 
 namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
@@ -41,6 +42,13 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             db.ProjectTasks,
             task);
 
+        return ProjectTaskDocument.ToDomain(task);
+    }
+
+    public async Task<ProjectTaskEntity?> GetProjectTaskById(CancellationToken ct, string taskId)
+    {
+        var db = _dbFactory.Create();
+        var task = await db.ProjectTasks.Find(x => x.Id == taskId).FirstOrDefaultAsync(ct);
         return ProjectTaskDocument.ToDomain(task);
     }
 }
