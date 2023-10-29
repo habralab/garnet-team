@@ -2,6 +2,7 @@ using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team.Errors;
+using Garnet.Teams.Application.Team.Notifications;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
@@ -60,6 +61,9 @@ namespace Garnet.Teams.Application.Team.Commands
 
             var @event = team!.ToUpdatedEvent();
             await _messageBus.Publish(@event);
+
+            var notification = team!.CreateTeamInviteNotification(user.Username);
+            await _messageBus.Publish(notification);
             return Result.Ok(team!);
         }
     }
