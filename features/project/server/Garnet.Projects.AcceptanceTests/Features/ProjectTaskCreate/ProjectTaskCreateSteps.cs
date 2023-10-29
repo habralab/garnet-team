@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Projects.Infrastructure.Api.ProjectTask;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskCreate;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using HotChocolate.Execution;
 using MongoDB.Driver;

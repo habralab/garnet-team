@@ -3,11 +3,11 @@ using Garnet.Projects.Application.Project;
 
 namespace Garnet.Projects.Infrastructure.MongoDb.Migrations;
 
-public class CreateIndexesMigration : IRepeatableMigration
+public class CreateIndexesProjectMigration : IRepeatableMigration
 {
     private readonly IProjectRepository _projectRepository;
 
-    public CreateIndexesMigration(IProjectRepository projectRepository)
+    public CreateIndexesProjectMigration(IProjectRepository projectRepository)
     {
         _projectRepository = projectRepository;
     }
