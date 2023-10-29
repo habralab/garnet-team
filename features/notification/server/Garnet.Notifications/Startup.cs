@@ -34,6 +34,7 @@ namespace Garnet.Notifications
         {
             services.AddScoped<DbFactory>(o => new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
             services.AddGarnetMongoSerializers();
+            services.AddNotificationInternal();
         }
 
         public static void AddNotificationInternal(this IServiceCollection services)
