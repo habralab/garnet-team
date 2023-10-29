@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Project.AcceptanceTests.FakeServices.NotificationFake;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using HotChocolate.Execution;
 using MongoDB.Driver;
@@ -12,14 +13,16 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectEditOwner;
 public class ProjectEditOwnerSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
-    private QueryExceptionsContext _errorStepContext;
-    private ProjectEditOwnerPayload? _response;
+    private readonly QueryExceptionsContext _errorStepContext;
+    private readonly SendNotificationCommandMessageFakeConsumer _sendNotificationCommandMessageFakeConsumer;
 
     public ProjectEditOwnerSteps(QueryExceptionsContext errorStepContext,
         CurrentUserProviderFake currentUserProviderFake,
+        SendNotificationCommandMessageFakeConsumer sendNotificationCommandMessageFakeConsumer,
         StepsArgs args) : base(args)
     {
         _errorStepContext = errorStepContext;
+        _sendNotificationCommandMessageFakeConsumer = sendNotificationCommandMessageFakeConsumer;
         _currentUserProviderFake = currentUserProviderFake;
     }
 
@@ -33,7 +36,7 @@ public class ProjectEditOwnerSteps : BaseSteps
 
         try
         {
-            _response = await Mutation.ProjectEditOwner(CancellationToken.None, input);
+            await Mutation.ProjectEditOwner(CancellationToken.None, input);
         }
         catch (QueryException ex)
         {
@@ -49,14 +52,21 @@ public class ProjectEditOwnerSteps : BaseSteps
     }
 
     [Then(@"для пользователя '(.*)' существует уведомление типа '(.*)'")]
-    public Task ThenДляПользователяСуществуетУведомлениеТипа(string маша, string projectEditOwner)
+    public async Task ThenДляПользователяСуществуетУведомлениеТипа(string username, string eventType)
     {
-        return Task.CompletedTask;
+        var user = await Db.ProjectUsers.Find(x => x.UserName == username).FirstAsync();
+        var notification = _sendNotificationCommandMessageFakeConsumer.Notifications
+            .First(x => x.UserId == user.Id);
+        notification.Type.Should().Be(eventType);
     }
 
     [Then(@"в последнем уведомлении для пользователя '(.*)' связанной сущностью является проект '(.*)'")]
-    public Task ThenВПоследнемУведомленииДляПользователяСвязаннойСущностьюЯвляетсяПроект(string маша0, string dummy)
+    public async Task ThenВПоследнемУведомленииДляПользователяСвязаннойСущностьюЯвляетсяПроект(string username, string projectName)
     {
-        return Task.CompletedTask;
+        var user = await Db.ProjectUsers.Find(x => x.UserName == username).FirstAsync();
+        var notification = _sendNotificationCommandMessageFakeConsumer.Notifications
+            .Last(x => x.UserId == user.Id);
+        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
+        notification.LinkedEntityId.Should().Be(project.Id);
     }
 }
