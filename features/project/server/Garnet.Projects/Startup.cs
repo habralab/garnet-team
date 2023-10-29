@@ -70,6 +70,7 @@ public static class Startup
         services.AddGarnetMongoSerializers();
 
         services.AddScoped<IDateTimeService, DateTimeService>();
+
         services.AddProjectsInternal();
         services.AddProjectUsersInternal();
         services.AddProjectTeamsInternal();

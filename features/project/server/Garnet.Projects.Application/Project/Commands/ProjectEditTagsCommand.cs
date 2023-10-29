@@ -2,32 +2,28 @@
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Projects.Application.Project.Errors;
-using Garnet.Projects.Application.Project.Notifications;
-using Garnet.Projects.Application.ProjectUser;
 
 namespace Garnet.Projects.Application.Project.Commands;
 
-public class ProjectEditOwnerCommand
+public class ProjectEditTagsCommand
 {
     private readonly ICurrentUserProvider _currentUserProvider;
     private readonly IProjectRepository _projectRepository;
-    private readonly IProjectUserRepository _projectUserRepository;
     private readonly IMessageBus _messageBus;
 
-    public ProjectEditOwnerCommand(
+    public ProjectEditTagsCommand(
         ICurrentUserProvider currentUserProvider,
         IProjectRepository projectRepository,
-        IProjectUserRepository projectUserRepository,
-        IMessageBus messageBus)
+        IMessageBus messageBus
+    )
     {
         _currentUserProvider = currentUserProvider;
         _projectRepository = projectRepository;
-        _projectUserRepository = projectUserRepository;
         _messageBus = messageBus;
     }
 
     public async Task<Result<ProjectEntity>> Execute(CancellationToken ct,
-        string projectId, string newOwnerUserId)
+        string projectId, string[] tags)
     {
         var project = await _projectRepository.GetProject(ct, projectId);
 
@@ -41,18 +37,9 @@ public class ProjectEditOwnerCommand
             return Result.Fail(new ProjectOnlyOwnerCanEditError());
         }
 
-        var user = await _projectUserRepository.GetUser(ct, newOwnerUserId);
-        if (user is null)
-        {
-            return Result.Fail(new ProjectUserNotFoundError(newOwnerUserId));
-        }
-
-        project = await _projectRepository.EditProjectOwner(ct, projectId, newOwnerUserId);
+        project = await _projectRepository.EditProjectTags(ct, projectId, tags);
 
         await _messageBus.Publish(project.ToUpdatedEvent());
-
-        var notification = project.CreateProjectEditOwnerNotification(user.UserName);
-        await _messageBus.Publish(notification);
         return Result.Ok(project);
     }
 }

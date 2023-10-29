@@ -1,6 +1,6 @@
-﻿namespace Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
+﻿namespace Garnet.Projects.Infrastructure.Api.ProjectEditTags;
 
-public record ProjectEditOwnerPayload(
+public record ProjectEditTagsPayload(
     string Id,
     string OwnerUserId,
     string ProjectName,

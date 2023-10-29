@@ -9,7 +9,10 @@ using Garnet.Projects.Infrastructure.Api;
 using Garnet.Projects.Infrastructure.MongoDb;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
+using Garnet.Common.Infrastructure.MessageBus;
 using SolidToken.SpecFlow.DependencyInjection;
+using Garnet.Project.AcceptanceTests.FakeServices.NotificationFake;
+using Garnet.Notifications.Events;
 
 namespace Garnet.Projects.AcceptanceTests;
 
@@ -66,5 +69,9 @@ public static class Startup
     private static void AddMessageBus(IServiceCollection services)
     {
         services.AddGarnetProjectsMessageBus(Uuid.NewGuid());
+        services.AddGarnetMessageBus(Uuid.NewGuid(), o =>
+        {
+            o.RegisterConsumer<SendNotificationCommandMessageFakeConsumer, SendNotificationCommandMessage>();
+        });
     }
 }

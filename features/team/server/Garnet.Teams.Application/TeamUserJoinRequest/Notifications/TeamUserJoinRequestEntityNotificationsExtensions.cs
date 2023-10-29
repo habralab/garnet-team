@@ -16,5 +16,19 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
                 team.Id
             );
         }
+
+
+        public static SendNotificationCommandMessage CreateTeamUserJoinRequestDecideNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, bool isApproved)
+        {
+            var decision = isApproved ? "принял" : "отклонил";
+            return new SendNotificationCommandMessage(
+                Title: "Решение по заявке на вступление в команду",
+                Body: $"Владелец команды {team.Name} {decision} вашу заявку на вступление",
+                userJoinRequestEntity.UserId,
+                "TeamUserJoinRequestDecide",
+                DateTimeOffset.Now,
+                userJoinRequestEntity.TeamId
+            );
+        }
     }
 }
