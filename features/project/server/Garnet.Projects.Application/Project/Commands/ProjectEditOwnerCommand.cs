@@ -2,6 +2,7 @@
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Projects.Application.Project.Errors;
+using Garnet.Projects.Application.Project.Notifications;
 using Garnet.Projects.Application.ProjectUser;
 
 namespace Garnet.Projects.Application.Project.Commands;
@@ -49,6 +50,9 @@ public class ProjectEditOwnerCommand
         project = await _projectRepository.EditProjectOwner(ct, projectId, newOwnerUserId);
 
         await _messageBus.Publish(project.ToUpdatedEvent());
+
+        var notification = project.CreateProjectEditOwnerNotification(user.UserName);
+        await _messageBus.Publish(notification);
         return Result.Ok(project);
     }
 }
