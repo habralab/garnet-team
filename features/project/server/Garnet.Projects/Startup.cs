@@ -101,6 +101,7 @@ public static class Startup
             o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamUserJoinRequestDecidedEventConsumer, TeamUserJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamJoinInvitationDecidedEventConsumer, TeamJoinInvitationDecidedEvent>();
+            o.RegisterConsumer<ProjectTeamLeaveProjectConsumer, TeamLeaveProjectEvent>();
         });
     }
 
