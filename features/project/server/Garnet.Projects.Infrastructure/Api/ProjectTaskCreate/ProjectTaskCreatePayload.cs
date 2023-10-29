@@ -1,4 +1,4 @@
-﻿namespace Garnet.Projects.Infrastructure.Api.ProjectTask;
+﻿namespace Garnet.Projects.Infrastructure.Api.ProjectTaskCreate;
 
 public record ProjectTaskCreatePayload(
     string Id,

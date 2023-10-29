@@ -1,11 +1,13 @@
 ﻿using Garnet.Common.Infrastructure.Support;
 using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Queries;
+using Garnet.Projects.Application.ProjectTask.Queries;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Application.ProjectTeamParticipant.Queries;
 using Garnet.Projects.Infrastructure.Api.ProjectFilter;
 using Garnet.Projects.Infrastructure.Api.ProjectGet;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
@@ -20,18 +22,20 @@ public class ProjectsQuery
     private readonly ProjectsFilterQuery _projectsFilterQuery;
     private readonly ProjectTeamParticipantFilterQuery _projectTeamParticipantFilterQuery;
     private readonly ProjectTeamJoinRequestFilterQuery _projectTeamJoinRequestFilterQuery;
+    private readonly ProjectTaskGetQuery _projectTaskGetQuery;
 
     public ProjectsQuery(
         ProjectGetQuery projectGetQuery,
         ProjectsFilterQuery projectsFilterQuery,
         ProjectTeamParticipantFilterQuery projectTeamParticipantFilterQuery,
-        ProjectTeamJoinRequestFilterQuery projectTeamJoinRequestFilterQuery
-    )
+        ProjectTeamJoinRequestFilterQuery projectTeamJoinRequestFilterQuery,
+        ProjectTaskGetQuery projectTaskGetQuery)
     {
         _projectGetQuery = projectGetQuery;
         _projectsFilterQuery = projectsFilterQuery;
         _projectTeamParticipantFilterQuery = projectTeamParticipantFilterQuery;
         _projectTeamJoinRequestFilterQuery = projectTeamJoinRequestFilterQuery;
+        _projectTaskGetQuery = projectTaskGetQuery;
     }
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
@@ -96,5 +100,16 @@ public class ProjectsQuery
             x.TeamName,
             x.ProjectId
         )).ToArray());
+    }
+
+    public async Task<ProjectTaskGetPayload> ProjectTaskGetById(CancellationToken ct, string taskId)
+    {
+        var result = await _projectTaskGetQuery.Query(ct, taskId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskGetPayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
     }
 }
