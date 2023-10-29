@@ -62,7 +62,7 @@ namespace Garnet.Teams.Application.Team.Commands
             var @event = team!.ToUpdatedEvent();
             await _messageBus.Publish(@event);
 
-            var notification = team!.CreateTeamInviteNotification(user.Username);
+            var notification = team!.CreateTeamEditOwnerNotification(user.Username);
             await _messageBus.Publish(notification);
             return Result.Ok(team!);
         }

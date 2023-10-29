@@ -4,7 +4,7 @@ namespace Garnet.Teams.Application.Team.Notifications
 {
     public static class TeamEntityNotificationsExtensions
     {
-        public static SendNotificationCommandMessage CreateTeamInviteNotification(this TeamEntity team, string username)
+        public static SendNotificationCommandMessage CreateTeamEditOwnerNotification(this TeamEntity team, string username)
         {
             return new SendNotificationCommandMessage(
                 Title: "Смена владельца команды",
