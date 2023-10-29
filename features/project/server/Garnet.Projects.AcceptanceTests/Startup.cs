@@ -5,30 +5,8 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.S3;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Project;
-using Garnet.Projects.Application.Project;
-using Garnet.Projects.Application.Project.Commands;
-using Garnet.Projects.Application.Project.Queries;
-using Garnet.Projects.Application.ProjectTask;
-using Garnet.Projects.Application.ProjectTask.Commands;
-using Garnet.Projects.Application.ProjectTeam;
-using Garnet.Projects.Application.ProjectTeam.Commands;
-using Garnet.Projects.Application.ProjectTeam.Queries;
-using Garnet.Projects.Application.ProjectTeamJoinRequest;
-using Garnet.Projects.Application.ProjectTeamJoinRequest.Commands;
-using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
-using Garnet.Projects.Application.ProjectTeamParticipant;
-using Garnet.Projects.Application.ProjectTeamParticipant.Commands;
-using Garnet.Projects.Application.ProjectTeamParticipant.Queries;
-using Garnet.Projects.Application.ProjectUser;
-using Garnet.Projects.Application.ProjectUser.Commands;
 using Garnet.Projects.Infrastructure.Api;
 using Garnet.Projects.Infrastructure.MongoDb;
-using Garnet.Projects.Infrastructure.MongoDb.Project;
-using Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
-using Garnet.Projects.Infrastructure.MongoDb.ProjectTeam;
-using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamJoinRequest;
-using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
-using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
@@ -45,6 +23,13 @@ public static class Startup
         AddMongoDb(services);
         AddMessageBus(services);
 
+        services.AddProjectsInternal();
+        services.AddProjectUsersInternal();
+        services.AddProjectTeamsInternal();
+        services.AddProjectTeamParticipantsInternal();
+        services.AddProjectTeamJoinRequestsInternal();
+        services.AddProjectTasksInternal();
+
         services.AddScoped<CurrentUserProviderFake>();
         services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
 
@@ -53,42 +38,6 @@ public static class Startup
 
         services.AddScoped<DateTimeServiceFake>();
         services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());
-
-        services.AddScoped<IProjectRepository, ProjectRepository>();
-        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
-        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
-        services.AddScoped<IProjectTeamJoinRequestRepository, ProjectTeamJoinRequestRepository>();
-        services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
-        services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
-
-        services.AddScoped<ProjectCreateCommand>();
-        services.AddScoped<ProjectDeleteCommand>();
-        services.AddScoped<ProjectEditDescriptionCommand>();
-        services.AddScoped<ProjectEditOwnerCommand>();
-        services.AddScoped<ProjectEditNameCommand>();
-        services.AddScoped<ProjectUploadAvatarCommand>();
-
-        services.AddScoped<ProjectTeamCreateCommand>();
-
-        services.AddScoped<ProjectUserCreateCommand>();
-
-        services.AddScoped<ProjectTeamParticipantCreateCommand>();
-        services.AddScoped<ProjectTeamParticipantUpdateCommand>();
-
-        services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
-        services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
-        services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
-
-        services.AddScoped<ProjectGetQuery>();
-        services.AddScoped<ProjectsFilterQuery>();
-
-        services.AddScoped<ProjectTeamParticipantFilterQuery>();
-
-        services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
-
-        services.AddScoped<ProjectTeamGetQuery>();
-
-        services.AddScoped<ProjectTaskCreateCommand>();
 
         services.AddScoped<ProjectsMutation>();
         services.AddScoped<ProjectsQuery>();
