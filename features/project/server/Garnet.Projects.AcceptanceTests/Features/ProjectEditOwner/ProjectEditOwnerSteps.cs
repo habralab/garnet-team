@@ -47,4 +47,16 @@ public class ProjectEditOwnerSteps : BaseSteps
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         _currentUserProviderFake.GetUserName(project.OwnerUserId).Should().Be(newOwnerName);
     }
+
+    [Then(@"для пользователя '(.*)' существует уведомление типа '(.*)'")]
+    public Task ThenДляПользователяСуществуетУведомлениеТипа(string маша, string projectEditOwner)
+    {
+        return Task.CompletedTask;
+    }
+
+    [Then(@"в последнем уведомлении для пользователя '(.*)' связанной сущностью является проект '(.*)'")]
+    public Task ThenВПоследнемУведомленииДляПользователяСвязаннойСущностьюЯвляетсяПроект(string маша0, string dummy)
+    {
+        return Task.CompletedTask;
+    }
 }
