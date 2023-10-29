@@ -25,6 +25,7 @@
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.AcceptanceTests\Garnet.Common.AcceptanceTests.csproj" />
       <ProjectReference Include="..\Garnet.Projects\Garnet.Projects.csproj" />
+      <ProjectReference Include="..\..\..\notification\server\Garnet.Notifications.Events\Garnet.Notifications.Events.csproj" />
     </ItemGroup>
     
 
