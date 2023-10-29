@@ -9,6 +9,7 @@ using Garnet.Projects.Infrastructure.Api.ProjectDelete;
 using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using Garnet.Projects.Infrastructure.Api.ProjectEditName;
 using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
+using Garnet.Projects.Infrastructure.Api.ProjectEditTags;
 using Garnet.Projects.Infrastructure.Api.ProjectTask;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
@@ -27,6 +28,7 @@ public class ProjectsMutation
     private readonly ProjectTeamJoinRequestDecideCommand _projectTeamJoinRequestDecideCommand;
     private readonly ProjectUploadAvatarCommand _projectUploadAvatarCommand;
     private readonly ProjectEditNameCommand _projectEditNameCommand;
+    private readonly ProjectEditTagsCommand _projectEditTagsCommand;
     private readonly ProjectTaskCreateCommand _projectTaskCreateCommand;
 
 
@@ -37,7 +39,9 @@ public class ProjectsMutation
         ProjectEditOwnerCommand projectEditOwnerCommand,
         ProjectTeamJoinRequestDecideCommand projectTeamJoinRequestDecideCommand,
         ProjectUploadAvatarCommand projectUploadAvatarCommand,
-        ProjectEditNameCommand projectEditNameCommand, ProjectTaskCreateCommand projectTaskCreateCommand)
+        ProjectEditNameCommand projectEditNameCommand,
+        ProjectEditTagsCommand projectEditTagsCommand,
+        ProjectTaskCreateCommand projectTaskCreateCommand)
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
@@ -46,6 +50,7 @@ public class ProjectsMutation
         _projectTeamJoinRequestDecideCommand = projectTeamJoinRequestDecideCommand;
         _projectUploadAvatarCommand = projectUploadAvatarCommand;
         _projectEditNameCommand = projectEditNameCommand;
+        _projectEditTagsCommand = projectEditTagsCommand;
         _projectTaskCreateCommand = projectTaskCreateCommand;
     }
 
@@ -80,7 +85,7 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectEditDescriptionPayload(project.Id, project.OwnerUserId, project.ProjectName,
-            project.Description);
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectUploadAvatarPayload> ProjectUploadAvatar(CancellationToken ct,
@@ -103,7 +108,7 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectDeletePayload(project.Id, project.OwnerUserId, project.ProjectName,
-            project.Description);
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectEditOwnerPayload> ProjectEditOwner(CancellationToken ct,
@@ -114,7 +119,8 @@ public class ProjectsMutation
         result.ThrowQueryExceptionIfHasErrors();
 
         var project = result.Value;
-        return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description);
+        return new ProjectEditOwnerPayload(project.Id, project.OwnerUserId, project.ProjectName,
+            project.Description, project.AvatarUrl, project.Tags);
     }
 
     public async Task<ProjectEditNamePayload> ProjectEditName(CancellationToken ct,
@@ -126,6 +132,19 @@ public class ProjectsMutation
 
         var project = result.Value;
         return new ProjectEditNamePayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
+            project.AvatarUrl,
+            project.Tags);
+    }
+
+    public async Task<ProjectEditTagsPayload> ProjectEditTags(CancellationToken ct,
+        ProjectEditTagsInput input)
+    {
+        var result = await _projectEditTagsCommand.Execute(ct, input.ProjectId,
+            input.Tags);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var project = result.Value;
+        return new ProjectEditTagsPayload(project.Id, project.OwnerUserId, project.ProjectName, project.Description,
             project.AvatarUrl,
             project.Tags);
     }
