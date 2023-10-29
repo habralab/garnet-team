@@ -11,7 +11,7 @@ namespace Garnet.Teams.Application.Team.Notifications
                 Body: $"Владелец команды {team.Name} изменен на пользователя {username}",
                 team.OwnerUserId,
                 Type: "TeamEditOwner",
-                DateTimeOffset.Now,
+                team.AuditInfo.UpdatedAt,
                 team.Id
             );
         }
