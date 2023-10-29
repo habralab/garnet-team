@@ -62,10 +62,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             new CreateIndexModel<ProjectTaskDocument>(
                 _i.Text(o => o.Name)
                     .Text(o => o.Description)
-                    .Text(o => o.Tags)
-                    .Text(o => o.Labels)
                     .Text(o => o.TaskNumber)
-                    .Text(o => o.ProjectId)
             ),
             cancellationToken: ct);
     }

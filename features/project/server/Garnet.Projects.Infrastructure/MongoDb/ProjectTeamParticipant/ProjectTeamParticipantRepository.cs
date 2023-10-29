@@ -100,7 +100,6 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         await db.ProjectTeamsParticipants.Indexes.CreateOneAsync(
             new CreateIndexModel<ProjectTeamParticipantDocument>(
                 _i.Text(o => o.TeamName)
-                    .Text(o => o.ProjectId)
             ),
             cancellationToken: ct);
     }
