@@ -56,6 +56,7 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
   ref
 ) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [focus, setFocus] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
   const openMenu = () => setMenuOpen(true)
@@ -82,13 +83,7 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
         error={errorText !== ''}
         disabled={disabled}
       >
-        <SearchIcon
-          width={20}
-          height={20}
-          // @ts-ignore
-          // eslint-disable-next-line react/destructuring-assignment
-          color={ref?.current === document?.activeElement ? 'accent' : 'gray'}
-        />
+        <SearchIcon width={20} height={20} color={focus ? 'accent' : 'gray'} />
         <Layout flexBasis={10} flexShrink={0} />
         <RawInput
           id={id}
@@ -97,6 +92,8 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
           disabled={disabled}
           value={value}
           onChange={changeValue}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
           {...props}
         />
         <Condition match={Boolean(props.iconSvg)}>
