@@ -21,9 +21,9 @@ export const ButtonCreateTeam: FC<ButtonCreateTeamProps> = () => {
         variant='secondary'
         size='small'
         onClick={toggleModalOpen}
-        style={{ paddingLeft: 20 }}
+        horizontalLocation='left'
+        iconSvg={<AddIcon width={16} height={16} color='currentColor' />}
       >
-        <AddIcon width={16} height={16} color='currentColor' />
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.create_team' />
         </Text>

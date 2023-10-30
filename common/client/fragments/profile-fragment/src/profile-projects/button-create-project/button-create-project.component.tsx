@@ -22,11 +22,9 @@ export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ withIcon }) 
         variant='secondary'
         size='small'
         onClick={toggleModalOpen}
-        style={{ paddingLeft: withIcon ? 20 : '' }}
+        horizontalLocation={withIcon ? 'left' : undefined}
+        iconSvg={<AddIcon width={16} height={16} color='currentColor' />}
       >
-        <Condition match={Boolean(withIcon)}>
-          <AddIcon width={16} height={16} color='currentColor' />
-        </Condition>
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.create_project' />
         </Text>

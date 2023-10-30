@@ -15,8 +15,22 @@ const mediumPaddingMediumHeightStyles = createShapeStyles({
   size: 44,
 })
 
+const mediumPaddingMediumHeightWithIconStyles = createShapeStyles({
+  paddingLeft: 26,
+  paddingRight: 30,
+  rounding: 8,
+  size: 44,
+})
+
 const mediumPaddingSmallHeightStyles = createShapeStyles({
   paddingLeft: 26,
+  paddingRight: 26,
+  rounding: 8,
+  size: 36,
+})
+
+const mediumPaddingSmallHeightWithIconStyles = createShapeStyles({
+  paddingLeft: 20,
   paddingRight: 26,
   rounding: 8,
   size: 36,
@@ -32,8 +46,12 @@ const mediumPaddingMicroHeightStyles = createShapeStyles({
 const contentStyles = createContentStyles()
 
 const shapeStyles = switchProp(prop('size', 'normal'), {
-  normal: mediumPaddingMediumHeightStyles,
-  small: mediumPaddingSmallHeightStyles,
+  normal: ifProp(
+    'withIcon',
+    mediumPaddingMediumHeightWithIconStyles,
+    mediumPaddingMediumHeightStyles
+  ),
+  small: ifProp('withIcon', mediumPaddingSmallHeightWithIconStyles, mediumPaddingSmallHeightStyles),
   micro: mediumPaddingMicroHeightStyles,
 })
 
