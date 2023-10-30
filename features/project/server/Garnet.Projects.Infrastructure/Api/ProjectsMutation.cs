@@ -188,9 +188,9 @@ public class ProjectsMutation
     }
 
 
-    public async Task<ProjectTaskDeletePayload> ProjectTaskDelete(CancellationToken ct, string projectId, string taskId)
+    public async Task<ProjectTaskDeletePayload> ProjectTaskDelete(CancellationToken ct, string taskId)
     {
-        var result = await _projectTaskDeleteCommand.Execute(ct, projectId, taskId);
+        var result = await _projectTaskDeleteCommand.Execute(ct, taskId);
         result.ThrowQueryExceptionIfHasErrors();
 
         var task = result.Value;

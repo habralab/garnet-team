@@ -29,19 +29,20 @@ public class ProjectTaskDeleteCommand
         _projectTaskRepository = projectTaskRepository;
     }
 
-    public async Task<Result<ProjectTaskEntity>> Execute(CancellationToken ct, string projectId, string taskId)
+    public async Task<Result<ProjectTaskEntity>> Execute(CancellationToken ct, string taskId)
     {
         var currentUserId = _currentUserProvider.UserId;
-        var project = await _projectRepository.GetProject(ct, projectId);
-        if (project is null)
-        {
-            return Result.Fail(new ProjectNotFoundError(projectId));
-        }
 
         var task = await _projectTaskRepository.GetProjectTaskById(ct, taskId);
         if (task is null)
         {
             return Result.Fail(new ProjectTaskNotFoundError(taskId));
+        }
+
+        var project = await _projectRepository.GetProject(ct, task.ProjectId);
+        if (project is null)
+        {
+            return Result.Fail(new ProjectNotFoundError(task.ProjectId));
         }
 
         var teamParticipants =
