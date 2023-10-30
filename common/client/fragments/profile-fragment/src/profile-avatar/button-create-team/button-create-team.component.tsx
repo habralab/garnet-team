@@ -13,18 +13,22 @@ import { ButtonCreateTeamProps } from './button-create-team.interfaces'
 export const ButtonCreateTeam: FC<ButtonCreateTeamProps> = () => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   return (
     <>
-      <Button variant='secondary' size='small' onClick={openModal} style={{ paddingLeft: 20 }}>
+      <Button
+        variant='secondary'
+        size='small'
+        onClick={toggleModalOpen}
+        style={{ paddingLeft: 20 }}
+      >
         <AddIcon width={16} height={16} color='currentColor' />
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.create' />
         </Text>
       </Button>
-      <ModalCreateTeam modalOpen={modalOpen} onClose={closeModal} />
+      <ModalCreateTeam modalOpen={modalOpen} onClose={toggleModalOpen} />
     </>
   )
 }

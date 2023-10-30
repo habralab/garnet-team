@@ -12,17 +12,16 @@ import { ButtonEditProjectProps } from './button-edit-project.interfaces'
 export const ButtonEditProject: FC<ButtonEditProjectProps> = ({ project }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   return (
     <>
-      <Button variant='link' size='micro' onClick={openModal}>
+      <Button variant='link' size='micro' onClick={toggleModalOpen}>
         <Text fontSize='medium' color='currentColor'>
           <FormattedMessage id='profile.change' />
         </Text>
       </Button>
-      <ModalEditProject modalOpen={modalOpen} onClose={closeModal} project={project} />
+      <ModalEditProject modalOpen={modalOpen} onClose={toggleModalOpen} project={project} />
     </>
   )
 }

@@ -12,17 +12,16 @@ import { ButtonWatchAllSkillsProps } from './button-watch-all-skills.interfaces'
 export const ButtonWatchAllSkills: FC<ButtonWatchAllSkillsProps> = ({ skills }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   return (
     <>
-      <Button variant='link' size='micro' onClick={openModal}>
+      <Button variant='link' size='micro' onClick={toggleModalOpen}>
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.watch_all' />
         </Text>
       </Button>
-      <ModalWatchAllSkills modalOpen={modalOpen} onClose={closeModal} skills={skills} />
+      <ModalWatchAllSkills modalOpen={modalOpen} onClose={toggleModalOpen} skills={skills} />
     </>
   )
 }

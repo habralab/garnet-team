@@ -12,17 +12,16 @@ import { ButtonEditProfileProps } from './button-edit-profile.interfaces'
 export const ButtonEditProfile: FC<ButtonEditProfileProps> = ({ user }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   return (
     <>
-      <Button variant='link' size='micro' onClick={openModal}>
+      <Button variant='link' size='micro' onClick={toggleModalOpen}>
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.edit' />
         </Text>
       </Button>
-      <ModalEditUser modalOpen={modalOpen} onClose={closeModal} user={user} />
+      <ModalEditUser modalOpen={modalOpen} onClose={toggleModalOpen} user={user} />
     </>
   )
 }

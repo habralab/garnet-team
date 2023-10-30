@@ -17,17 +17,16 @@ export const ButtonExit: FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const { formatMessage } = useIntl()
 
-  const closeModal = () => setModalOpen(false)
-  const openModal = () => setModalOpen(true)
+  const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   const handleExit = () => {
     /** @todo logout user */
-    closeModal()
+    toggleModalOpen()
   }
 
   return (
     <Box fill justifyContent='flex-end'>
-      <Button variant='link' onClick={openModal}>
+      <Button variant='link' onClick={toggleModalOpen}>
         <Text fontSize='medium' color='currentColor'>
           <FormattedMessage id='header.exit' />
         </Text>
@@ -38,8 +37,8 @@ export const ButtonExit: FC = () => {
         open={modalOpen}
         okText={formatMessage({ id: 'header.exit' })}
         onOk={handleExit}
-        onCancel={closeModal}
-        onClose={closeModal}
+        onCancel={toggleModalOpen}
+        onClose={toggleModalOpen}
       >
         <Text fontSize='semiMedium' fontWeight='bold' color='text.secondary'>
           {mockUserName}

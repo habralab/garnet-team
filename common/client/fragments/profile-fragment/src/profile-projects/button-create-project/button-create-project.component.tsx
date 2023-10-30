@@ -14,15 +14,14 @@ import { ButtonCreateProjectProps } from './button-create-project.interfaces'
 export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ withIcon }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
-  const openModal = () => setModalOpen(true)
-  const closeModal = () => setModalOpen(false)
+  const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   return (
     <>
       <Button
         variant='secondary'
         size='small'
-        onClick={openModal}
+        onClick={toggleModalOpen}
         style={{ paddingLeft: withIcon ? 20 : '' }}
       >
         <Condition match={Boolean(withIcon)}>
@@ -32,7 +31,7 @@ export const ButtonCreateProject: FC<ButtonCreateProjectProps> = ({ withIcon }) 
           <FormattedMessage id='profile.create_project' />
         </Text>
       </Button>
-      <ModalCreateProject modalOpen={modalOpen} onClose={closeModal} />
+      <ModalCreateProject modalOpen={modalOpen} onClose={toggleModalOpen} />
     </>
   )
 }
