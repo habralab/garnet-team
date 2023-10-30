@@ -29,8 +29,7 @@ public class ProjectTaskEditNameCommand
         _projectRepository = projectRepository;
     }
 
-    public async Task<Result<ProjectTaskEntity>> Execute(CancellationToken ct,
-        string projectId, string taskName, string newTaskName)
+    public async Task<Result<ProjectTaskEntity>> Execute(CancellationToken ct, string taskId, string newTaskName)
     {
         var currentUserId = _currentUserProvider.UserId;
 
@@ -39,14 +38,20 @@ public class ProjectTaskEditNameCommand
             return Result.Fail(new ProjectTaskNameCanNotBeEmptyError());
         }
 
-        var project = await _projectRepository.GetProject(ct, projectId);
+        var task = await _projectTaskRepository.GetProjectTaskById(ct, taskId);
+        if (task is null)
+        {
+            return Result.Fail(new ProjectTaskNotFoundError(taskId));
+        }
+
+        var project = await _projectRepository.GetProject(ct, task.ProjectId);
         if (project is null)
         {
-            return Result.Fail(new ProjectNotFoundError(projectId));
+            return Result.Fail(new ProjectNotFoundError(task.ProjectId));
         }
 
         var teamParticipants =
-            await _projectTeamParticipantRepository.GetProjectTeamParticipantsByProjectId(ct, projectId);
+            await _projectTeamParticipantRepository.GetProjectTeamParticipantsByProjectId(ct, task.ProjectId);
         var user = teamParticipants.FirstOrDefault(x => x.UserParticipants.Any(
             o => o.Id == currentUserId));
         if (user is null)
@@ -54,7 +59,8 @@ public class ProjectTaskEditNameCommand
             return Result.Fail(new ProjectOnlyParticipantCanEditTaskError());
         }
 
-        var task = await _projectTaskRepository.EditProjectTaskName(ct, projectId, taskName, newTaskName);
+
+        task = await _projectTaskRepository.EditProjectTaskName(ct, taskId, newTaskName);
 
         await _messageBus.Publish(task.ToUpdatedEvent());
         return Result.Ok(task);

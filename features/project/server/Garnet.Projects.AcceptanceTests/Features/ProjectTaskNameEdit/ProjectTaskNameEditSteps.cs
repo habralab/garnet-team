@@ -38,7 +38,7 @@ public class ProjectTaskNameEditSteps : BaseSteps
 
         try
         {
-            await Mutation.ProjectTaskEditName(CancellationToken.None, task.ProjectId, task.Name, newTaskName);
+            await Mutation.ProjectTaskEditName(CancellationToken.None, task.Id, newTaskName);
         }
         catch (QueryException ex)
         {

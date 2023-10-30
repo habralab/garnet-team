@@ -188,9 +188,9 @@ public class ProjectsMutation
     }
 
     public async Task<ProjectTaskEditNamePayload> ProjectTaskEditName(CancellationToken ct,
-        string projectId, string taskName, string newTaskName)
+        string taskId, string newTaskName)
     {
-        var result = await _projectTaskEditNameCommand.Execute(ct, projectId, taskName, newTaskName);
+        var result = await _projectTaskEditNameCommand.Execute(ct, taskId, newTaskName);
         result.ThrowQueryExceptionIfHasErrors();
 
         var task = result.Value;
