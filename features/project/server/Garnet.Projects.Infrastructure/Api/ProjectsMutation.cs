@@ -12,6 +12,7 @@ using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using Garnet.Projects.Infrastructure.Api.ProjectEditTags;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskDelete;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskEditName;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using Garnet.Projects.Infrastructure.Api.ProjectUploadAvatar;
@@ -32,6 +33,7 @@ public class ProjectsMutation
     private readonly ProjectEditTagsCommand _projectEditTagsCommand;
     private readonly ProjectTaskCreateCommand _projectTaskCreateCommand;
     private readonly ProjectTaskDeleteCommand _projectTaskDeleteCommand;
+    private readonly ProjectTaskEditNameCommand _projectTaskEditNameCommand;
 
 
     public ProjectsMutation(
@@ -44,7 +46,8 @@ public class ProjectsMutation
         ProjectEditNameCommand projectEditNameCommand,
         ProjectEditTagsCommand projectEditTagsCommand,
         ProjectTaskCreateCommand projectTaskCreateCommand,
-        ProjectTaskDeleteCommand projectTaskDeleteCommand)
+        ProjectTaskDeleteCommand projectTaskDeleteCommand,
+        ProjectTaskEditNameCommand projectTaskEditNameCommand)
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
@@ -56,6 +59,7 @@ public class ProjectsMutation
         _projectEditTagsCommand = projectEditTagsCommand;
         _projectTaskCreateCommand = projectTaskCreateCommand;
         _projectTaskDeleteCommand = projectTaskDeleteCommand;
+        _projectTaskEditNameCommand = projectTaskEditNameCommand;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct,
@@ -195,6 +199,18 @@ public class ProjectsMutation
 
         var task = result.Value;
         return new ProjectTaskDeletePayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskEditNamePayload> ProjectTaskEditName(CancellationToken ct,
+        string taskId, string newTaskName)
+    {
+        var result = await _projectTaskEditNameCommand.Execute(ct, taskId, newTaskName);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskEditNamePayload(
             task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
             task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
     }
