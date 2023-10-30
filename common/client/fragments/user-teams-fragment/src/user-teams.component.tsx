@@ -69,7 +69,7 @@ export const UserTeams: FC = () => {
               <FormattedMessage id='user_teams.filter_by_skills' />
             </Text>
             <Layout flexBasis={20} flexShrink={0} />
-            <Row flexWrap='wrap' style={{ gap: 10 }}>
+            <Row flexWrap='wrap' gap={10}>
               {uniqueTags.map((tag) => (
                 <Tag
                   key={tag}

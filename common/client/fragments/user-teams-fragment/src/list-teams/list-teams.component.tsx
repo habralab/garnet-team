@@ -7,7 +7,7 @@ import { Button }           from '@ui/button'
 import { CardTeam }         from '@ui/card'
 import { Condition }        from '@ui/condition'
 import { Box }              from '@ui/layout'
-import { Row }              from '@ui/layout'
+import { Grid }             from '@ui/layout'
 import { Layout }           from '@ui/layout'
 import { Text }             from '@ui/text'
 
@@ -27,15 +27,11 @@ export const ListTeams: FC<ListTeamsProps> = ({ teams }) => {
         </Text>
       </Condition>
       <Condition match={teams.length > 0}>
-        <Row
-          display='grid'
-          style={{ gap: 22, gridTemplateColumns: 'repeat(auto-fill, 150px)' }}
-          justifyContent='space-between'
-        >
+        <Grid gap={22} gridWrap='small' justifyContent='space-between'>
           {teams.slice(0, itemPerPage * countPages).map((team) => (
             <CardTeam key={team.id} team={team} cardSize='small' />
           ))}
-        </Row>
+        </Grid>
         <Condition match={teams.slice(0, itemPerPage * countPages).length !== teams.length}>
           <Layout flexBasis={40} flexShrink={0} />
           <Box justifyContent='center'>

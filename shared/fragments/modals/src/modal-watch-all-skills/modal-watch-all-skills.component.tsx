@@ -25,7 +25,7 @@ export const ModalWatchAllSkills: FC<ModalWatchAllSkillsProps> = ({
       onClose={onClose}
       onOk={onClose}
     >
-      <Row flexWrap='wrap' style={{ gap: 10 }}>
+      <Row flexWrap='wrap' gap={10}>
         {skills?.map((tag) => (
           <Tag key={tag}>{tag}</Tag>
         ))}

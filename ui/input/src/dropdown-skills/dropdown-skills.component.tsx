@@ -42,7 +42,7 @@ export const DropdownSkills: FC<DropdownSkillsProps> = ({
         <FormattedMessage id='shared_ui.choose_skill' />:
       </Text>
       <Layout flexBasis={12} flexShrink={0} />
-      <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
+      <Row flexWrap='wrap' flex='auto' gap={10}>
         {options.map((item) => (
           <Tag key={item} onClick={() => onChangeOption?.(item)}>
             <FormattedMessage id={item} />

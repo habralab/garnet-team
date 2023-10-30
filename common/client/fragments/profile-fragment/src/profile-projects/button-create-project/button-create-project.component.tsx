@@ -5,7 +5,6 @@ import { useState }                 from 'react'
 
 import { ModalCreateProject }       from '@shared/modals-fragment'
 import { Button }                   from '@ui/button'
-import { Condition }                from '@ui/condition'
 import { AddIcon }                  from '@ui/icon'
 import { Text }                     from '@ui/text'
 

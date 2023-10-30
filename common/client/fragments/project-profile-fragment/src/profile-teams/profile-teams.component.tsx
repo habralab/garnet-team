@@ -8,6 +8,7 @@ import { Condition }         from '@ui/condition'
 import { Box }               from '@ui/layout'
 import { Column }            from '@ui/layout'
 import { Row }               from '@ui/layout'
+import { Grid }              from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { NextLink }          from '@ui/link'
 import { Text }              from '@ui/text'
@@ -36,15 +37,11 @@ export const ProfileTeams: FC<ProfileTeamsProps> = ({ teams, isMyProject, ownerU
     </Row>
     <Layout flexBasis={30} flexShrink={0} />
     <Condition match={teams.length > 0}>
-      <Row
-        display='grid'
-        style={{ gap: 32, gridTemplateColumns: `repeat(auto-fill, 284px)` }}
-        justifyContent='space-between'
-      >
+      <Grid gap={32} gridWrap='large' justifyContent='space-between'>
         {teams.map((team) => (
           <CardTeam key={team.id} team={team} cardSize='large' />
         ))}
-      </Row>
+      </Grid>
     </Condition>
     <Condition match={teams.length === 0}>
       <Column justifyContent='center' alignItems='center' height={284}>

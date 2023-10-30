@@ -13,7 +13,7 @@ import { ButtonWatchAllSkills }    from './button-watch-all-skills'
 import { ProfileDescriptionProps } from './profile-description.interfaces'
 
 export const ProfileDescription: FC<ProfileDescriptionProps> = ({ project }) => (
-  <Row fill flexWrap='wrap' style={{ gap: 32 }} justifyContent='space-between'>
+  <Row fill flexWrap='wrap' gap={32} justifyContent='space-between'>
     <Column height='max-content' minWidth={300} maxWidth='100%' flex='1 0 47%'>
       <Text fontSize='preLarge' fontWeight='bold' color='text.secondary'>
         {project?.name}
@@ -33,7 +33,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ project }) => 
         <FormattedMessage id='profile.skills' />
       </Text>
       <Layout flexBasis={10} flexShrink={0} />
-      <Row flexWrap='wrap' maxHeight={72} overflow='hidden' style={{ gap: 10 }}>
+      <Row flexWrap='wrap' maxHeight={72} overflow='hidden' gap={10}>
         {project?.tags?.map((tag) => (
           <Tag key={tag}>{tag}</Tag>
         ))}

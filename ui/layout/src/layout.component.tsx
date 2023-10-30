@@ -32,7 +32,9 @@ export const Column = styled(BaseColumn)<LayoutWithGap>(system(gapConfig))
 export const Grid = styled(BaseLayout)<LayoutWithGap & GridProps & { gridWrap?: string }>(
   ({ theme, gridWrap }) => ({
     display: 'grid',
-    gridTemplateColumns: gridWrap ? `repeat(auto-fill, ${theme.sizes?.[gridWrap]}px)` : 'none',
+    gridTemplateColumns: gridWrap
+      ? `repeat(auto-fill, ${theme.sizes?.[gridWrap] || gridWrap || 0}px)`
+      : 'none',
   }),
   system(gapConfig),
   grid

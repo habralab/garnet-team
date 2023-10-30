@@ -10,6 +10,7 @@ import { Search }           from '@ui/input'
 import { Box }              from '@ui/layout'
 import { Column }           from '@ui/layout'
 import { Row }              from '@ui/layout'
+import { Grid }             from '@ui/layout'
 import { Layout }           from '@ui/layout'
 import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
@@ -57,7 +58,7 @@ export const Project: FC = () => {
               placeholder={formatMessage({ id: 'project.enter_tag_name_description' })}
             />
             <Layout flexBasis={20} flexShrink={0} />
-            <Row flexWrap='wrap' style={{ gap: 10 }}>
+            <Row flexWrap='wrap' gap={10}>
               {selectedTags.map((tag) => (
                 <Tag key={tag} close variant='primary' onClick={handleRemoveTag(tag)}>
                   {tag}
@@ -91,15 +92,11 @@ export const Project: FC = () => {
                 <Layout flexBasis={60} flexShrink={0} />
               </Condition>
               <Condition match={filteredProjects.length > 0}>
-                <Row
-                  display='grid'
-                  style={{ gap: 22, gridTemplateColumns: 'repeat(auto-fill, 150px)' }}
-                  justifyContent='space-between'
-                >
+                <Grid gap={22} gridWrap='small' justifyContent='space-between'>
                   {filteredProjects.map((project) => (
                     <CardProject key={project.id} project={project} cardSize='small' />
                   ))}
-                </Row>
+                </Grid>
               </Condition>
             </Condition>
           </WrapperWhite>
