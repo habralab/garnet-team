@@ -46,8 +46,7 @@ public class ProjectsMutation
         ProjectEditNameCommand projectEditNameCommand,
         ProjectEditTagsCommand projectEditTagsCommand,
         ProjectTaskCreateCommand projectTaskCreateCommand,
-        ProjectTaskDeleteCommand projectTaskDeleteCommand)
-        ProjectTaskCreateCommand projectTaskCreateCommand,
+        ProjectTaskDeleteCommand projectTaskDeleteCommand,
         ProjectTaskEditNameCommand projectTaskEditNameCommand)
     {
         _projectCreateCommand = projectCreateCommand;
