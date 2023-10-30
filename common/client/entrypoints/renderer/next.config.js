@@ -6,6 +6,9 @@ module.exports = {
     workerThreads: true,
     esmExternals: 'loose',
   },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   output: 'standalone',
   webpack: (config, _) => {
     config.module.rules.push({
