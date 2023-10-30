@@ -1,4 +1,5 @@
-﻿using Garnet.Common.AcceptanceTests.Contexts;
+﻿using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskDelete;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -36,11 +37,18 @@ public class ProjectTaskDeleteSteps : BaseSteps
         var task = await Db.ProjectTasks.Find(x => x.ProjectId == project.Id & x.Name == taskName).FirstAsync();
         try
         {
-            _response = await Mutation.ProjectTaskDelete(CancellationToken.None, task.ProjectId, task.Id);
+            _response = await Mutation.ProjectTaskDelete(CancellationToken.None, task.Id);
         }
         catch (QueryException ex)
         {
             _errorStepContext.QueryExceptions.Add(ex);
         }
+    }
+
+    [Then(@"в системе не существует задачи с названием '(.*)'")]
+    public async Task ThenВСистемеНеСуществуетЗадачи(string taskName)
+    {
+        var task = await Db.ProjectTasks.Find(x => x.Name == taskName).FirstOrDefaultAsync();
+        task.Should().BeNull();
     }
 }
