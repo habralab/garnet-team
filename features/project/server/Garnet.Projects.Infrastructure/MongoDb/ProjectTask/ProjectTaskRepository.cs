@@ -13,6 +13,7 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
     private readonly DbFactory _dbFactory;
 
     private readonly FilterDefinitionBuilder<ProjectTaskDocument> _f = Builders<ProjectTaskDocument>.Filter;
+    private readonly UpdateDefinitionBuilder<ProjectTaskDocument> _u = Builders<ProjectTaskDocument>.Update;
     private readonly IndexKeysDefinitionBuilder<ProjectTaskDocument> _i = Builders<ProjectTaskDocument>.IndexKeys;
 
     public ProjectTaskRepository(
@@ -52,6 +53,23 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
     {
         var db = _dbFactory.Create();
         var task = await db.ProjectTasks.Find(x => x.Id == taskId).FirstOrDefaultAsync(ct);
+        return ProjectTaskDocument.ToDomain(task);
+    }
+
+    public async Task<ProjectTaskEntity> EditProjectTaskName(CancellationToken ct, string projectId, string taskName,
+        string newTaskName)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.ProjectId, projectId) & _f.Eq(x => x.Name, taskName);
+        var update = _u.Set(x => x.Name, newTaskName);
+
+        var task = await FindOneAndUpdateDocument(
+            ct,
+            db.ProjectTasks,
+            filter,
+            update
+        );
+
         return ProjectTaskDocument.ToDomain(task);
     }
 
