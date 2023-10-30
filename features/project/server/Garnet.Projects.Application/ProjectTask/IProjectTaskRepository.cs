@@ -9,6 +9,7 @@ public interface IProjectTaskRepository
         ProjectTaskCreateArgs args);
 
     Task<ProjectTaskEntity?> GetProjectTaskById(CancellationToken ct, string taskId);
+    Task<ProjectTaskEntity> DeleteProjectTask(CancellationToken ct, string taskId);
     Task<ProjectTaskEntity> EditProjectTaskName(CancellationToken ct, string taskId, string newTaskName);
     Task CreateIndexes(CancellationToken ct);
 }

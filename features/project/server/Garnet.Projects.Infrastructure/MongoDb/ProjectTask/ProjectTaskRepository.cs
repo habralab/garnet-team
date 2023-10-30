@@ -56,6 +56,16 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
         return ProjectTaskDocument.ToDomain(task);
     }
 
+    public async Task<ProjectTaskEntity> DeleteProjectTask(CancellationToken ct, string taskId)
+    {
+        var db = _dbFactory.Create();
+        var task = await db.ProjectTasks.FindOneAndDeleteAsync(
+            _f.Eq(x => x.Id, taskId),
+            cancellationToken: ct);
+
+        return ProjectTaskDocument.ToDomain(task);
+    }
+
     public async Task<ProjectTaskEntity> EditProjectTaskName(CancellationToken ct, string taskId, string newTaskName)
     {
         var db = _dbFactory.Create();
