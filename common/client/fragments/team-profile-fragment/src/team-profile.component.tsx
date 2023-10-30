@@ -78,11 +78,12 @@ export const TeamProfile: FC = () => {
           <WrapperWhite maxWidth={410} style={{ height: 'max-content' }}>
             <Column>
               <ProfileParticipants
+                team={team}
+                isMyTeam={isMyTeam}
+                ownerUser={ownerUser}
                 participants={teamParticipants}
                 applicationParticipants={applicationParticipants}
                 invitedParticipants={invitedParticipants}
-                ownerUser={ownerUser}
-                isMyTeam={isMyTeam}
               />
             </Column>
           </WrapperWhite>
