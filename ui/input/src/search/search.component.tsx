@@ -33,6 +33,7 @@ const Container = styled(Column)(({ type }: { type?: HTMLInputTypeAttribute }) =
 }))
 
 type SearchProps = InputProps & {
+  showDropdown?: boolean
   options?: string[]
   onChangeOptions?: (option: string) => void
   value?: string
@@ -41,6 +42,7 @@ type SearchProps = InputProps & {
 export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, SearchProps> = (
   {
     value = '',
+    showDropdown = true,
     options = [],
     type,
     disabled,
@@ -80,7 +82,13 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
         error={errorText !== ''}
         disabled={disabled}
       >
-        <SearchIcon width={20} height={20} color='gray' />
+        <SearchIcon
+          width={20}
+          height={20}
+          // @ts-ignore
+          // eslint-disable-next-line react/destructuring-assignment
+          color={ref?.current === document?.activeElement ? 'accent' : 'gray'}
+        />
         <Layout flexBasis={10} flexShrink={0} />
         <RawInput
           id={id}
@@ -107,6 +115,7 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
             style={{
               ...layerProps.style,
               position: 'static',
+              display: showDropdown ? 'flex' : 'none',
               width: triggerBounds?.width || 600,
               zIndex: 2000,
             }}
