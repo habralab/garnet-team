@@ -174,6 +174,7 @@ public static class Startup
         services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
 
         services.AddScoped<ProjectTaskCreateCommand>();
+        services.AddScoped<ProjectTaskDeleteCommand>();
 
         services.AddScoped<ProjectTaskGetQuery>();
     }
