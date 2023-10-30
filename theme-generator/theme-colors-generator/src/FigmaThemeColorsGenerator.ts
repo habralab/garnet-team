@@ -1,6 +1,3 @@
-import camelCase                     from 'camelcase'
-import { FileResponse }              from 'figma-js'
-
 import { FigmaThemeGenerator }       from '@atls/figma-theme-generator-common'
 import { FigmaThemeGeneratorResult } from '@atls/figma-theme-generator-common'
 import { clearStringOfSpecialChars } from '@atls/figma-utils'
@@ -10,6 +7,9 @@ import { toAverage }                 from '@atls/figma-utils'
 import { toColorName }               from '@atls/figma-utils'
 import { toColorString }             from '@atls/figma-utils'
 import { walk }                      from '@atls/figma-utils'
+
+import camelCase                     from 'camelcase'
+import { FileResponse }              from 'figma-js'
 
 import { ButtonState }               from './Interfaces'
 

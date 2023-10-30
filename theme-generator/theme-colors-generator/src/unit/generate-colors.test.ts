@@ -1,9 +1,9 @@
+import { FigmaTheme }                from '@atls/figma-theme'
+
 import path                          from 'path'
 import { existsSync }                from 'fs'
 import { mkdirSync }                 from 'fs'
 import { readFileSync }              from 'fs'
-
-import { FigmaTheme }                from '@atls/figma-theme'
 
 import { FigmaThemeColorsGenerator } from '../FigmaThemeColorsGenerator'
 

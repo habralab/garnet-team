@@ -1,9 +1,9 @@
+import { FigmaFileLoader } from '@atls/figma-file-loader'
+
 import fs                  from 'fs-extra'
 import fetch               from 'node-fetch'
 import path                from 'path'
 import { Node }            from 'figma-js'
-
-import { FigmaFileLoader } from '@atls/figma-file-loader'
 
 export class FigmaAssets {
   fileId: string

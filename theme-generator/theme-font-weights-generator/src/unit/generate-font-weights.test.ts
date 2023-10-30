@@ -1,9 +1,9 @@
+import { FigmaTheme }                     from '@atls/figma-theme'
+
 import path                               from 'path'
 import { readFileSync }                   from 'fs'
 import { mkdirSync }                      from 'fs'
 import { existsSync }                     from 'fs'
-
-import { FigmaTheme }                     from '@atls/figma-theme'
 
 import { FigmaThemeFontWeightsGenerator } from '../FigmaThemeFontWeightsGenerator'
 

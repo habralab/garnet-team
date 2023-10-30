@@ -1,10 +1,10 @@
-import { FileResponse }              from 'figma-js'
-import { Text }                      from 'figma-js'
-
 import { FigmaThemeGenerator }       from '@atls/figma-theme-generator-common'
 import { FigmaThemeGeneratorResult } from '@atls/figma-theme-generator-common'
 import { isText }                    from '@atls/figma-utils'
 import { walk }                      from '@atls/figma-utils'
+
+import { FileResponse }              from 'figma-js'
+import { Text }                      from 'figma-js'
 
 import { SimpleMappingStrategy }     from './strategy'
 

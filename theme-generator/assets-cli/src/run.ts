@@ -1,7 +1,7 @@
-import { Node }            from 'figma-js'
-
 import { FigmaAssets }     from '@atls/figma-assets'
 import { FigmaFileLoader } from '@atls/figma-file-loader'
+
+import { Node }            from 'figma-js'
 
 export const run = async (fileId, documentId, output) => {
   const loader = new FigmaFileLoader()

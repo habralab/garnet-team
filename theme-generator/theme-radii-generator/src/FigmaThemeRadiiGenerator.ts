@@ -1,9 +1,9 @@
-import { FileResponse }              from 'figma-js'
-
 import { FigmaThemeGenerator }       from '@atls/figma-theme-generator-common'
 import { FigmaThemeGeneratorResult } from '@atls/figma-theme-generator-common'
 import { toRadiiString }             from '@atls/figma-utils'
 import { walk }                      from '@atls/figma-utils'
+
+import { FileResponse }              from 'figma-js'
 
 export class FigmaThemeRadiiGenerator extends FigmaThemeGenerator {
   readonly name = 'radii'

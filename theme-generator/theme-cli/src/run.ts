@@ -1,7 +1,7 @@
-import { FileResponse }    from 'figma-js'
-
 import { FigmaFileLoader } from '@atls/figma-file-loader'
 import { FigmaTheme }      from '@atls/figma-theme'
+
+import { FileResponse }    from 'figma-js'
 
 export const run = async (fileId, output) => {
   const loader = new FigmaFileLoader()

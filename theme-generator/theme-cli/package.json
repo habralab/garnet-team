@@ -10,8 +10,8 @@
     "dist"
   ],
   "scripts": {
-    "build": "yarn library build",
     "buidl2": "tsc --project tsconfig.json",
+    "build": "yarn library build",
     "figma-theme": "FIGMA_TOKEN=figd_BGqX9t3pqc3rnEG1tsSV5hmtS69P-ipk_lXwKB36 ts-node src/index.ts 7nw0qsfWwSzRVl4B5WEwxt -v -o dist",
     "prepack": "yarn run build",
     "postpack": "rm -rf dist"
