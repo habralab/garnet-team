@@ -1,21 +1,23 @@
+import { theme }      from '@ui/theme'
+
 import { CardSize }   from './card.interfaces'
 import { SizeConfig } from './card.interfaces'
 
 export const sizeConfig: Record<CardSize, SizeConfig> = {
   large: {
-    size: 284,
+    size: theme.sizes.large,
     fontSize: 'regular',
     statisticGap: 20,
     avatarGroupShow: true,
   },
   normal: {
-    size: 180,
+    size: theme.sizes.normal,
     fontSize: 'medium',
     statisticGap: 10,
     avatarGroupShow: true,
   },
   small: {
-    size: 150,
+    size: theme.sizes.small,
     fontSize: 'semiMedium',
     statisticGap: 8,
     avatarGroupShow: false,

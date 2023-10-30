@@ -70,7 +70,7 @@ export const Card: FC<CardProps> = ({
               justifyContent='center'
               flexWrap='wrap'
               paddingX={`${sizeConfig[cardSize].statisticGap}px`}
-              style={{ gap: sizeConfig[cardSize].statisticGap }}
+              gap={sizeConfig[cardSize].statisticGap}
             >
               <Box alignItems='center'>
                 <Background
