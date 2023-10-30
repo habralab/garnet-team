@@ -2283,6 +2283,7 @@ const RAW_RUNTIME_STATE =
           ["@atls-ui-proto/core", "virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:0.1.3"],\
           ["@emotion/styled", "virtual:b6a76d36bc5f47ff8a4f0f8e011b307d4ab3065df46e0be4565369b820208134343c534328fdd9d583e5fce8c9bc072414bbf22aca3d15cf89527d279bf60b8b#npm:11.9.3"],\
           ["@radix-ui/react-avatar", "virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:1.0.3"],\
+          ["@stitches/react", "virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:1.2.8"],\
           ["@types/emotion__styled", null],\
           ["@types/react", "npm:18.2.28"],\
           ["@types/styled-system", "npm:5.1.20"],\
@@ -2310,6 +2311,7 @@ const RAW_RUNTIME_STATE =
           ["@atls-ui-proto/core", "virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:0.1.3"],\
           ["@emotion/styled", null],\
           ["@radix-ui/react-avatar", "virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:1.0.3"],\
+          ["@stitches/react", "virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:1.2.8"],\
           ["@types/emotion__styled", null],\
           ["@types/react", "npm:18.2.28"],\
           ["@types/styled-system", null],\
@@ -2343,7 +2345,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@atls-ui-proto-core-virtual-003f4bc116/0/cache/@atls-ui-proto-core-npm-0.1.3-e46c7b7bee-bb93d2e59a.zip/node_modules/@atls-ui-proto/core/",\
         "packageDependencies": [\
           ["@atls-ui-proto/core", "virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:0.1.3"],\
-          ["@stitches/react", "virtual:003f4bc11656eab50b04ab5eda5be19be8574584e89108f0e668123c48371420821139de379231737483f46fcfab5b07485d5e90646fff20a747968280bd4efe#npm:1.2.8"],\
+          ["@stitches/react", "virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:1.2.8"],\
           ["@types/react", "npm:18.2.28"],\
           ["react", "npm:18.2.0"]\
         ],\
@@ -2357,7 +2359,7 @@ const RAW_RUNTIME_STATE =
         "packageLocation": "./.yarn/__virtual__/@atls-ui-proto-core-virtual-93e3390649/0/cache/@atls-ui-proto-core-npm-0.1.3-e46c7b7bee-bb93d2e59a.zip/node_modules/@atls-ui-proto/core/",\
         "packageDependencies": [\
           ["@atls-ui-proto/core", "virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:0.1.3"],\
-          ["@stitches/react", "virtual:93e3390649a04e3c1c3fd8d2ee1b48b938da997b0c7593e19bc2f4f3cc158f1adc5538a837fb433825896661d12c2db2dbb8b77b870ef9a3f55abb57fd5dccaf#npm:1.2.8"],\
+          ["@stitches/react", "virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:1.2.8"],\
           ["@types/react", "npm:18.2.28"],\
           ["react", null]\
         ],\
@@ -6191,10 +6193,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:003f4bc11656eab50b04ab5eda5be19be8574584e89108f0e668123c48371420821139de379231737483f46fcfab5b07485d5e90646fff20a747968280bd4efe#npm:1.2.8", {\
-        "packageLocation": "./.yarn/__virtual__/@stitches-react-virtual-3ed81bb9e3/0/cache/@stitches-react-npm-1.2.8-445a1042b8-234e307b9e.zip/node_modules/@stitches/react/",\
+      ["virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:1.2.8", {\
+        "packageLocation": "./.yarn/__virtual__/@stitches-react-virtual-aea931eb7b/0/cache/@stitches-react-npm-1.2.8-445a1042b8-234e307b9e.zip/node_modules/@stitches/react/",\
         "packageDependencies": [\
-          ["@stitches/react", "virtual:003f4bc11656eab50b04ab5eda5be19be8574584e89108f0e668123c48371420821139de379231737483f46fcfab5b07485d5e90646fff20a747968280bd4efe#npm:1.2.8"],\
+          ["@stitches/react", "virtual:45bac709d176ffaa2c3bb70f82de9f3e50248aec2947c75b1ad38313c6d0c4e9d1981b7373a28e1d0742f7b83a297244e7f065b108a7e4e6548894845c5e5832#npm:1.2.8"],\
           ["@types/react", "npm:18.2.28"],\
           ["react", "npm:18.2.0"]\
         ],\
@@ -6204,10 +6206,10 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "HARD"\
       }],\
-      ["virtual:93e3390649a04e3c1c3fd8d2ee1b48b938da997b0c7593e19bc2f4f3cc158f1adc5538a837fb433825896661d12c2db2dbb8b77b870ef9a3f55abb57fd5dccaf#npm:1.2.8", {\
-        "packageLocation": "./.yarn/__virtual__/@stitches-react-virtual-3c6bf7e67d/0/cache/@stitches-react-npm-1.2.8-445a1042b8-234e307b9e.zip/node_modules/@stitches/react/",\
+      ["virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:1.2.8", {\
+        "packageLocation": "./.yarn/__virtual__/@stitches-react-virtual-beda3ebd75/0/cache/@stitches-react-npm-1.2.8-445a1042b8-234e307b9e.zip/node_modules/@stitches/react/",\
         "packageDependencies": [\
-          ["@stitches/react", "virtual:93e3390649a04e3c1c3fd8d2ee1b48b938da997b0c7593e19bc2f4f3cc158f1adc5538a837fb433825896661d12c2db2dbb8b77b870ef9a3f55abb57fd5dccaf#npm:1.2.8"],\
+          ["@stitches/react", "virtual:b723d90af48aa33dba0cd23b58add5ce1bfb2fff3c77c638284a0b493fc85330e295a3a2514db285b27c5eadfd1024ba374f7f3cbb3f8c6b74b5b69f9bd0726f#npm:1.2.8"],\
           ["@types/react", "npm:18.2.28"],\
           ["react", null]\
         ],\
