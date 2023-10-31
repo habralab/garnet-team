@@ -2,20 +2,19 @@
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Projects.AcceptanceTests.Support;
-using Garnet.Projects.Infrastructure.Api.ProjectTaskEditName;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
 
-namespace Garnet.Projects.AcceptanceTests.Features.ProjectTaskNameEdit;
+namespace Garnet.Projects.AcceptanceTests.Features.ProjectTaskEditName;
 
 [Binding]
-public class ProjectTaskNameEditSteps : BaseSteps
+public class ProjectTaskEditNameSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private QueryExceptionsContext _errorStepContext;
 
-    public ProjectTaskNameEditSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake,
+    public ProjectTaskEditNameSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake,
         QueryExceptionsContext errorStepContext) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
@@ -23,7 +22,7 @@ public class ProjectTaskNameEditSteps : BaseSteps
     }
 
     [Given(@"существует задача '(.*)' в проекте '(.*)'")]
-    public async Task ThenСуществуетЗадачаВПроекте(string taskName, string projectName)
+    public async Task GivenСуществуетЗадачаВПроекте(string taskName, string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var task = GiveMe.ProjectTask().WithName(taskName).WithProjectId(project.Id).Build();
