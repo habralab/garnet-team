@@ -96,6 +96,7 @@
   "shared_ui.modal.close": "Закрыть",
   "shared_ui.modal.create_project": "Создание проекта",
   "shared_ui.modal.create_team": "Создание команды",
+  "shared_ui.modal.edit_photo": "Редактирование фото",
   "shared_ui.modal.edit_profile": "Редактирование профиля",
   "shared_ui.modal.edit_project": "Редактирование проекта",
   "shared_ui.modal.edit_team": "Редактирование команды",
