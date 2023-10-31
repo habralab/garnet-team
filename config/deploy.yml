@@ -2,6 +2,11 @@ service: garnet-backend
 
 image: picolino/garnet-backend
 
+servers:
+  web:
+    options:
+      network: app_garnet
+
 env:
   secret:
     - MONGO_CONNSTRING
@@ -34,6 +39,8 @@ accessories:
         - MONGO_INITDB_ROOT_PASSWORD
     directories:
       - data:/data/db
+    options:
+      network: app_garnet
 
 traefik:
   options:
@@ -41,6 +48,7 @@ traefik:
       - '443:443'
     volume:
       - traefik:/configuration
+    network: app_garnet
   args:
     entryPoints.web.address: ':80'
     entryPoints.websecure.address: ':443'

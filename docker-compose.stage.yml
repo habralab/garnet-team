@@ -1,8 +1,9 @@
 version: '3.3'
 
 networks:
-  bridge:
-    external: true
+  internal:
+    internal: true
+  garnet:
 
 services:
   yarn:
@@ -11,7 +12,8 @@ services:
     volumes:
       - ./:/workspace
     entrypoint: yarn
-    network_mode: bridge
+    networks:
+      - internal
 
   oathkeeper:
     image: oryd/oathkeeper:v0.40.6
@@ -20,7 +22,6 @@ services:
       - ./config/ory/oathkeeper/oathkeeper.yaml:/config/oathkeeper/oathkeeper.yaml
       - ./config/ory/oathkeeper/jwks.json:/config/oathkeeper/jwks.json
       - ./config/ory/oathkeeper/access-rules.yaml:/config/oathkeeper/access-rules.yaml
-    network_mode: bridge
     ports:
       - '4455:4455'
       - '4456:4456'
@@ -31,6 +32,9 @@ services:
       - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
+    networks:
+      - garnet
+      - internal
 
   identity:
     restart: unless-stopped
@@ -44,7 +48,8 @@ services:
     depends_on:
       - yarn
       - kratos
-    network_mode: bridge
+    networks:
+      - internal
 
   app:
     restart: unless-stopped
@@ -57,7 +62,8 @@ services:
       - '3020:3020'
     depends_on:
       - yarn
-    network_mode: bridge
+    networks:
+      - internal
 
   kratos:
     depends_on:
@@ -75,7 +81,8 @@ services:
       - type: bind
         source: ./config/ory/kratos
         target: /config/kratos
-    network_mode: bridge
+    networks:
+      - internal
 
   kratos-migrate:
     depends_on:
@@ -89,7 +96,8 @@ services:
         target: /config/kratos
     command: -c /config/kratos/kratos.yaml migrate sql -e --yes
     restart: on-failure
-    network_mode: bridge
+    networks:
+      - internal
 
   db:
     image: bitnami/postgresql
@@ -100,4 +108,5 @@ services:
       - POSTGRESQL_USER=postgres
     ports:
       - '5432:5432'
-    network_mode: bridge
+    networks:
+      - internal

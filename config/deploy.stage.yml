@@ -1,5 +1,7 @@
 servers:
-  - 85.92.110.73
+  web:
+    hosts:
+      - 85.92.110.73
 
 accessories:
   db:
