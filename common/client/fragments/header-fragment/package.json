@@ -5,6 +5,7 @@
   "dependencies": {
     "@ui/background": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
+    "@ui/condition": "workspace:0.0.1",
     "@ui/icon": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
     "@ui/link": "workspace:0.0.1",
