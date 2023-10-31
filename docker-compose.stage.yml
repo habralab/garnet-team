@@ -11,8 +11,6 @@ services:
     volumes:
       - ./:/workspace
     entrypoint: yarn
-    labels:
-      - 'traefik.enable=false'
     network_mode: bridge
 
   oathkeeper:
@@ -27,7 +25,6 @@ services:
       - '4455:4455'
       - '4456:4456'
     labels:
-      - 'traefik.enable=true'
       - 'traefik.http.routers.oathkeeper-app.entrypoints=websecure'
       - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/oath`)'
       - 'traefik.http.routers.oathkeeper-app.tls=true'
@@ -48,18 +45,11 @@ services:
       - yarn
       - kratos
     network_mode: bridge
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.identity-app.entrypoints=websecure'
-      - 'traefik.http.routers.identity-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
-      - 'traefik.http.routers.identity-app.tls=true'
 
   app:
     restart: unless-stopped
     image: node:18.13
     working_dir: /workspace
-    labels:
-      - 'traefik.enable=true'
     volumes:
       - ./:/workspace
     entrypoint: yarn workspace @app/renderer-entrypoint dev
@@ -74,14 +64,6 @@ services:
       - kratos-migrate
       - db
     image: oryd/kratos:v1.0.0
-    labels:
-      - 'traefik.enable=false'
-      - 'traefik.http.routers.kratos-app.entrypoints=websecure'
-      - 'traefik.http.routers.kratos-app.rule=Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/kratos`)'
-      - 'traefik.http.routers.kratos-app.tls=true'
-      - 'traefik.http.routers.kratos-app.middlewares=cor'
-      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
-      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
     ports:
       - '4433:4433'
     restart: unless-stopped
@@ -99,8 +81,6 @@ services:
     depends_on:
       - db
     image: docker.io/oryd/kratos:v1.0.0
-    labels:
-      - 'traefik.enable=false'
     environment:
       - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
     volumes:
@@ -114,8 +94,6 @@ services:
   db:
     image: bitnami/postgresql
     restart: unless-stopped
-    labels:
-      - 'traefik.enable=false'
     environment:
       - POSTGRESQL_PASSWORD=password
       - POSTGRESQL_DATABASE=db
