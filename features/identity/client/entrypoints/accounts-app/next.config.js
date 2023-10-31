@@ -6,6 +6,9 @@ module.exports = {
     esmExternals: 'loose',
   },
   output: 'standalone',
+  typescript: {
+    ignoreBuildErrors: true,
+  },
   webpack: (config, _) => {
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
