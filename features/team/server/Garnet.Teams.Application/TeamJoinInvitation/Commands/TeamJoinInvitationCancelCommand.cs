@@ -45,7 +45,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             var @event = invitation.ToCancelledEvent();
             await _messageBus.Publish(@event);
 
-            var notification = invitation.CreateTeamInviteCancelNotification(team);
+            var notification = invitation.DeleteTeamInviteNotification();
             await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }

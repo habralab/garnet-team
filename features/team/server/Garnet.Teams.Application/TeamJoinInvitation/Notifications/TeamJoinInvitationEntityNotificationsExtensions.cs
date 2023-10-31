@@ -18,16 +18,13 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
         }
 
 
-        public static SendNotificationCommandMessage CreateTeamInviteCancelNotification(this TeamJoinInvitationEntity invitation, TeamEntity team)
+        public static DeleteNotificationCommandMessage DeleteTeamInviteNotification(this TeamJoinInvitationEntity invitation)
         {
-             return new SendNotificationCommandMessage(
-                Title: "Отмена приглашения в команду",
-                Body: $"Владелец команды {team.Name} отменил приглашение на вступление",
-                invitation.UserId,
-                Type: "TeamJoinInvitationCancel",
-                DateTimeOffset.Now,
-                team.Id
-            );
+            return new DeleteNotificationCommandMessage(
+               invitation.UserId,
+               Type: "TeamJoinInvitation",
+               invitation.TeamId
+           );
         }
 
         public static SendNotificationCommandMessage CreateTeamInviteDecideNotification(this TeamJoinInvitationEntity invitation, TeamEntity team, string username, bool isApproved)
