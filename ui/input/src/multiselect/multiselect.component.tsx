@@ -110,7 +110,6 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
             onChange={changeSearchValue}
             value={search}
             {...props}
-            style={{ ...props.style, height: '100%' }}
           />
         </Row>
         <Condition match={Boolean(props.iconSvg)}>
