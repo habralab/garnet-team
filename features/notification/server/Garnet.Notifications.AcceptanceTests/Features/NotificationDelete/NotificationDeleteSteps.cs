@@ -1,16 +1,29 @@
+using Garnet.Common.AcceptanceTests.Fakes;
+using MongoDB.Driver;
+
 namespace Garnet.Notifications.AcceptanceTests.Features.NotificationDelete
 {
     [Binding]
     public class NotificationDeleteSteps : BaseSteps
     {
-        public NotificationDeleteSteps(StepsArgs args) : base(args)
+        private readonly CurrentUserProviderFake _currentUserProviderFake;
+
+        public NotificationDeleteSteps(
+            CurrentUserProviderFake currentUserProviderFake,
+            StepsArgs args) : base(args)
         {
+            _currentUserProviderFake = currentUserProviderFake;
         }
 
         [When(@"пользователь '(.*)' отмечает уведомление как прочитанное")]
-        public Task WhenПользовательОтмечаетУведомлениеКакПрочитанное(string username)
+        public async Task WhenПользовательОтмечаетУведомлениеКакПрочитанное(string username)
         {
-            return Task.CompletedTask;
+            var notification = await Db.Notifications
+                .Find(x => x.UserId == _currentUserProviderFake.GetUserIdByUsername(username))
+                .FirstAsync();
+
+            _currentUserProviderFake.LoginAs(username);
+            await Mutation.NotificationDelete(CancellationToken.None, notification.Id);
         }
     }
 }
