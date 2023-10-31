@@ -12,6 +12,7 @@ using Garnet.Notifications.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Api;
 using Garnet.Notifications.Application;
 using Garnet.Notifications.Application.Queries;
+using Garnet.Notifications.Application.Commands;
 
 namespace Garnet.Notifications
 {
@@ -40,6 +41,7 @@ namespace Garnet.Notifications
         {
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<NotificationsGetListByCurrentUserQuery>();
+            services.AddScoped<NotificationDeleteCommand>();
         }
 
         public static void AddGarnetNotificationMessageBus(this IServiceCollection services, string name)

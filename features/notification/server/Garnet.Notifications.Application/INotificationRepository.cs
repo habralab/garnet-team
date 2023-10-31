@@ -6,5 +6,6 @@ namespace Garnet.Notifications.Application
     {
         Task<NotificationEntity[]> GetNotificationsByUser(CancellationToken ct, string userId);
         Task CreateNotification(CancellationToken ct, NotificationCreateArgs args);
+        Task DeleteNotification(CancellationToken ct, NotificationDeleteArgs args);
     }
 }

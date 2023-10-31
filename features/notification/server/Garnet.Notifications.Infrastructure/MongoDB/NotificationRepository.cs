@@ -23,6 +23,11 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
             await db.Notifications.InsertOneAsync(notification, cancellationToken: ct);
         }
 
+        public Task DeleteNotification(CancellationToken ct, NotificationDeleteArgs args)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<NotificationEntity[]> GetNotificationsByUser(CancellationToken ct, string userId)
         {
             var db = _dbFactory.Create();
