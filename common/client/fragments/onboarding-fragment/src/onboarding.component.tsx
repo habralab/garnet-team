@@ -9,13 +9,8 @@ import { mockAuthUserId }   from '@shared/data'
 
 import { EnterDescription } from './enter-description'
 import { EnterSkills }      from './enter-skills'
+import { PageState }        from './onboarding.interfaces'
 import { UploadPhoto }      from './upload-photo'
-
-enum PageState {
-  UPLOAD_PHOTO,
-  ENTER_DESCRIPTION,
-  ENTER_SKILLS,
-}
 
 export const Onboarding: FC = () => {
   const [pageState, setPageState] = useState<PageState>(PageState.UPLOAD_PHOTO)

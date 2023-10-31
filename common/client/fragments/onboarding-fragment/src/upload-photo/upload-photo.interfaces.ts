@@ -1,3 +1,3 @@
 export interface UploadPhotoProps {
-  onSubmit?: () => void
+  onSubmit?: (url?: string) => void
 }
