@@ -40,4 +40,11 @@ public static class ProjectTaskEntityExtensions
             doc.Description,
             doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
     }
+
+    public static ProjectTaskClosedEvent ToClosedEvent(this ProjectTaskEntity doc)
+    {
+        return new ProjectTaskClosedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
+            doc.Description,
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
+    }
 }
