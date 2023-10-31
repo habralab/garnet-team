@@ -9,6 +9,7 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepository
 {
     private readonly DbFactory _dbFactory;
+    private readonly IndexKeysDefinitionBuilder<ProjectTeamParticipantDocument> _i = Builders<ProjectTeamParticipantDocument>.IndexKeys;
 
     private readonly UpdateDefinitionBuilder<ProjectTeamParticipantDocument> _u =
         Builders<ProjectTeamParticipantDocument>.Update;
@@ -91,5 +92,15 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
             _u.AddToSet(x => x.UserParticipants, user),
             cancellationToken: ct
         );
+    }
+
+    public async Task CreateIndexes(CancellationToken ct)
+    {
+        var db = _dbFactory.Create();
+        await db.ProjectTeamsParticipants.Indexes.CreateOneAsync(
+            new CreateIndexModel<ProjectTeamParticipantDocument>(
+                _i.Text(o => o.TeamName)
+            ),
+            cancellationToken: ct);
     }
 }

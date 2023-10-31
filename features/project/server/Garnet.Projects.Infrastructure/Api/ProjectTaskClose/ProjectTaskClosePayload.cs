@@ -1,6 +1,6 @@
-﻿namespace Garnet.Projects.Infrastructure.Api.ProjectTask;
+﻿namespace Garnet.Projects.Infrastructure.Api.ProjectTaskClose;
 
-public record ProjectTaskCreatePayload(
+public record ProjectTaskClosePayload(
     string Id,
     int TaskNumber,
     string ProjectId,

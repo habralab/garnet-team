@@ -1,6 +1,7 @@
 ﻿using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application.ProjectTask.Args;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 
 namespace Garnet.Projects.AcceptanceTests.Support;
@@ -13,7 +14,7 @@ public class ProjectTaskDocumentBuilder
     private string _responsibleUserId = Uuid.NewMongo();
     private string _name = "TaskName";
     private string? _description = "Description";
-    private string _status = "Status";
+    private string _status = ProjectTaskStatuses.Open;
     private string[] _teamExecutorIds = Array.Empty<string>();
     private string[] _userExecutorIds = Array.Empty<string>();
     private string[] _tags = Array.Empty<string>();

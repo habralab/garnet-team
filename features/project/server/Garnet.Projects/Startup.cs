@@ -11,6 +11,7 @@ using Garnet.Projects.Application.Project.Commands;
 using Garnet.Projects.Application.Project.Queries;
 using Garnet.Projects.Application.ProjectTask;
 using Garnet.Projects.Application.ProjectTask.Commands;
+using Garnet.Projects.Application.ProjectTask.Queries;
 using Garnet.Projects.Application.ProjectTeam;
 using Garnet.Projects.Application.ProjectTeam.Commands;
 using Garnet.Projects.Application.ProjectTeam.Queries;
@@ -68,47 +69,14 @@ public static class Startup
             new DbFactory(EnvironmentEx.GetRequiredEnvironmentVariable("MONGO_CONNSTRING")));
         services.AddGarnetMongoSerializers();
 
-        services.AddScoped<IProjectRepository, ProjectRepository>();
-        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
-        services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
-        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
-        services.AddScoped<IProjectTeamJoinRequestRepository, ProjectTeamJoinRequestRepository>();
-        services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
-
         services.AddScoped<IDateTimeService, DateTimeService>();
 
-        services.AddScoped<ProjectCreateCommand>();
-        services.AddScoped<ProjectDeleteCommand>();
-        services.AddScoped<ProjectEditDescriptionCommand>();
-        services.AddScoped<ProjectEditOwnerCommand>();
-        services.AddScoped<ProjectEditNameCommand>();
-        services.AddScoped<ProjectUploadAvatarCommand>();
-
-        services.AddScoped<ProjectTeamCreateCommand>();
-        services.AddScoped<ProjectTeamUpdateCommand>();
-        services.AddScoped<ProjectTeamAddParticipantCommand>();
-
-        services.AddScoped<ProjectUserCreateCommand>();
-        services.AddScoped<ProjectUserUpdateCommand>();
-
-        services.AddScoped<ProjectTeamParticipantCreateCommand>();
-        services.AddScoped<ProjectTeamParticipantUpdateCommand>();
-
-        services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
-        services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
-        services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
-        services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
-
-        services.AddScoped<ProjectGetQuery>();
-        services.AddScoped<ProjectsFilterQuery>();
-
-        services.AddScoped<ProjectTeamParticipantFilterQuery>();
-
-        services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
-
-        services.AddScoped<ProjectTeamGetQuery>();
-
-        services.AddScoped<ProjectTaskCreateCommand>();
+        services.AddProjectsInternal();
+        services.AddProjectUsersInternal();
+        services.AddProjectTeamsInternal();
+        services.AddProjectTeamParticipantsInternal();
+        services.AddProjectTeamJoinRequestsInternal();
+        services.AddProjectTasksInternal();
     }
 
     public static void AddGarnetProjectsMessageBus(this IServiceCollection services, string name)
@@ -122,6 +90,7 @@ public static class Startup
             o.RegisterMessage<ProjectTaskCreatedEvent>();
             o.RegisterMessage<ProjectTaskUpdatedEvent>();
             o.RegisterMessage<ProjectTaskDeletedEvent>();
+            o.RegisterMessage<ProjectTaskClosedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
             o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
@@ -138,6 +107,79 @@ public static class Startup
 
     public static void AddRepeatableMigrations(this IServiceCollection services)
     {
-        services.AddScoped<IRepeatableMigration, CreateIndexesMigration>();
+        services.AddScoped<IRepeatableMigration, CreateIndexesProjectMigration>();
+        services.AddScoped<IRepeatableMigration, CreateIndexesProjectTeamParticipantMigration>();
+        services.AddScoped<IRepeatableMigration, CreateIndexesProjectTaskMigration>();
+    }
+
+    public static void AddProjectsInternal(this IServiceCollection services)
+    {
+        services.AddScoped<IProjectRepository, ProjectRepository>();
+
+        services.AddScoped<ProjectCreateCommand>();
+        services.AddScoped<ProjectDeleteCommand>();
+        services.AddScoped<ProjectEditDescriptionCommand>();
+        services.AddScoped<ProjectEditOwnerCommand>();
+        services.AddScoped<ProjectEditNameCommand>();
+        services.AddScoped<ProjectEditTagsCommand>();
+        services.AddScoped<ProjectUploadAvatarCommand>();
+
+        services.AddScoped<ProjectGetQuery>();
+        services.AddScoped<ProjectsFilterQuery>();
+    }
+
+    public static void AddProjectUsersInternal(this IServiceCollection services)
+    {
+        services.AddScoped<IProjectUserRepository, ProjectUserRepository>();
+
+        services.AddScoped<ProjectUserCreateCommand>();
+        services.AddScoped<ProjectUserUpdateCommand>();
+    }
+
+    public static void AddProjectTeamsInternal(this IServiceCollection services)
+    {
+        services.AddScoped<IProjectTeamRepository, ProjectTeamRepository>();
+
+        services.AddScoped<ProjectTeamCreateCommand>();
+        services.AddScoped<ProjectTeamUpdateCommand>();
+        services.AddScoped<ProjectTeamAddParticipantCommand>();
+
+        services.AddScoped<ProjectTeamGetQuery>();
+    }
+
+    public static void AddProjectTeamParticipantsInternal(this IServiceCollection services)
+    {
+        services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
+
+        services.AddScoped<ProjectTeamParticipantCreateCommand>();
+        services.AddScoped<ProjectTeamParticipantUpdateCommand>();
+        services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
+
+
+        services.AddScoped<ProjectTeamParticipantFilterQuery>();
+    }
+
+    public static void AddProjectTeamJoinRequestsInternal(this IServiceCollection services)
+    {
+        services.AddScoped<IProjectTeamJoinRequestRepository, ProjectTeamJoinRequestRepository>();
+
+        services.AddScoped<ProjectTeamJoinRequestCreateCommand>();
+        services.AddScoped<ProjectTeamJoinRequestDecideCommand>();
+        services.AddScoped<ProjectTeamJoinRequestUpdateCommand>();
+
+        services.AddScoped<ProjectTeamJoinRequestFilterQuery>();
+    }
+
+    public static void AddProjectTasksInternal(this IServiceCollection services)
+    {
+        services.AddScoped<IProjectTaskRepository, ProjectTaskRepository>();
+
+        services.AddScoped<ProjectTaskCreateCommand>();
+        services.AddScoped<ProjectTaskDeleteCommand>();
+        services.AddScoped<ProjectTaskEditNameCommand>();
+        services.AddScoped<ProjectTaskEditDescriptionCommand>();
+        services.AddScoped<ProjectTaskCloseCommand>();
+
+        services.AddScoped<ProjectTaskGetQuery>();
     }
 }

@@ -27,7 +27,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
         public static TeamEntity ToDomain(TeamDocument doc)
         {
-            return new TeamEntity(doc.Id, doc.Name, doc.Description, doc.OwnerUserId, doc.AvatarUrl, doc.Tags);
+            var audit = AuditInfoDocument.ToDomain(doc.AuditInfo);
+            return new TeamEntity(doc.Id, doc.Name, doc.Description, doc.OwnerUserId, doc.AvatarUrl, doc.Tags, audit);
         }
     }
 }

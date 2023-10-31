@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Projects.Infrastructure.Api.ProjectTask;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskCreate;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 using HotChocolate.Execution;
 using MongoDB.Driver;
@@ -30,7 +30,7 @@ public class ProjectTaskCreateSteps : BaseSteps
     }
 
     [Given(@"пользователь '(.*)' является участником команды '(.*)'")]
-    public async Task ThenПользовательЯвляетсяУчастникомКоманды(string username, string teamName)
+    public async Task GivenПользовательЯвляетсяУчастникомКоманды(string username, string teamName)
     {
         var user = await Db.ProjectUsers.Find(x => x.Id == _currentUserProviderFake.GetUserIdByUsername(username))
             .FirstAsync();
