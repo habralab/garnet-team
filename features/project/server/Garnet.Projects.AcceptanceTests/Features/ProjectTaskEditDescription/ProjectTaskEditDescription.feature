@@ -10,13 +10,14 @@
         И существует команда 'DreamTeam'
         И команда 'DreamTeam' является участником проекта 'FooBar'
         И пользователь 'Вася' является участником команды 'DreamTeam'
-        И в проекте 'FooBar' существует задача 'DoSomething' c описанием 'Lorem'
+        И в проекте 'FooBar' существует задача 'DoSomething'
+        И у задачи 'DoSomething' есть описание 'Lorem'
 
     Сценарий: Редактирование задачи
         Когда пользователь 'Вася' редактирует описание задачи с названием 'DoSomething' на 'Lorem ipsum'
-        Тогда в проекте 'FooBar' существует задача 'DoSomething' c описанием 'Lorem ipsum'
+        Тогда в проекте 'FooBar' у задачи 'DoSomething' описание 'Lorem ipsum'
 
     Сценарий: Редактирование задачи возможно только участником проекта
         Когда пользователь 'Маша' редактирует описание задачи с названием 'DoSomething' на 'qweasdqwe'
         Тогда пользователь получает ошибку, что 'ProjectOnlyParticipantCanEditTaskError'
-        И в проекте 'FooBar' существует задача 'DoSomething' c описанием 'Lorem'
+        И в проекте 'FooBar' у задачи 'DoSomething' описание 'Lorem'
