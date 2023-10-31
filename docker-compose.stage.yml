@@ -26,7 +26,7 @@ services:
       - '4456:4456'
     labels:
       - 'traefik.http.routers.oathkeeper-app.entrypoints=websecure'
-      - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/oath`)'
+      - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
       - 'traefik.http.routers.oathkeeper-app.tls=true'
       - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
       - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
