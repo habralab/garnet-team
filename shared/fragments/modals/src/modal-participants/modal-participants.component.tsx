@@ -37,8 +37,8 @@ export const ModalParticipants: FC<ModalParticipantsProps> = ({
       showCancel={isMyTeam}
       onClose={onClose}
       onCancel={onClose}
-      onOk={handleSubmit}
-      okText={formatMessage({ id: isMyTeam ? 'shared_ui.save' : 'shared_ui.modal.close' })}
+      onConfirm={handleSubmit}
+      confirmText={formatMessage({ id: isMyTeam ? 'shared_ui.save' : 'shared_ui.modal.close' })}
     >
       <Layout flexBasis={18} flexShrink={0} />
       <Condition match={isMyTeam && applicationParticipants.length > 0}>

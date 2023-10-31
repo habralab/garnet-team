@@ -3,11 +3,11 @@ import { PropsWithChildren } from 'react'
 export interface ModalProps extends PropsWithChildren {
   theme?: 'primary' | 'exit'
   title?: string
-  okText?: string
+  confirmText?: string
   cancelText?: string
-  showOk?: boolean
+  showConfirm?: boolean
   showCancel?: boolean
-  onOk?: () => void
+  onConfirm?: () => void
   onCancel?: () => void
   onClose?: () => void
   open?: boolean

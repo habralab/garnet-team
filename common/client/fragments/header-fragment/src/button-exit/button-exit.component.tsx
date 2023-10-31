@@ -35,8 +35,8 @@ export const ButtonExit: FC = () => {
       <Modal
         theme='exit'
         open={modalOpen}
-        okText={formatMessage({ id: 'header.exit' })}
-        onOk={handleExit}
+        confirmText={formatMessage({ id: 'header.exit' })}
+        onConfirm={handleExit}
         onCancel={toggleModalOpen}
         onClose={toggleModalOpen}
       >

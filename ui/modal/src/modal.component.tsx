@@ -24,18 +24,18 @@ export const Modal: FC<ModalProps> = ({
   open,
   theme = 'primary',
   title,
-  okText,
+  confirmText,
   cancelText,
-  showOk = true,
+  showConfirm = true,
   showCancel = true,
-  onOk,
+  onConfirm,
   onCancel,
   onClose,
 }) => {
   const { formatMessage } = useIntl()
 
   const defaultCancelText = cancelText ?? formatMessage({ id: 'shared_ui.cancel' })
-  const defaultOkText = okText ?? formatMessage({ id: 'shared_ui.save' })
+  const defaultConfirmText = confirmText ?? formatMessage({ id: 'shared_ui.save' })
 
   return (
     <AnimatePresence>
@@ -82,10 +82,10 @@ export const Modal: FC<ModalProps> = ({
                         </Button>
                         <Layout flexBasis={24} flexShrink={0} />
                       </Condition>
-                      <Condition match={showOk}>
-                        <Button variant='primary' onClick={onOk}>
+                      <Condition match={showConfirm}>
+                        <Button variant='primary' onClick={onConfirm}>
                           <Text fontSize='medium' color='currentColor'>
-                            {defaultOkText}
+                            {defaultConfirmText}
                           </Text>
                         </Button>
                       </Condition>
@@ -122,10 +122,10 @@ export const Modal: FC<ModalProps> = ({
                         </Text>
                       </Button>
                     </Condition>
-                    <Condition match={showOk}>
-                      <Button variant='secondary' onClick={onOk}>
+                    <Condition match={showConfirm}>
+                      <Button variant='secondary' onClick={onConfirm}>
                         <Text fontSize='medium' color='currentColor'>
-                          {defaultOkText}
+                          {defaultConfirmText}
                         </Text>
                       </Button>
                     </Condition>

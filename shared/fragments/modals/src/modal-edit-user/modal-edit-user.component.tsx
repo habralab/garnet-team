@@ -35,7 +35,7 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({ modalOpen = false, onClo
       title={formatMessage({ id: 'shared_ui.modal.edit_profile' })}
       onClose={closeModal}
       onCancel={closeModal}
-      onOk={handleSubmit}
+      onConfirm={handleSubmit}
     >
       <FormUser formValues={formValues} handleChange={handleChange} />
       <Layout flexBasis={50} flexShrink={0} />

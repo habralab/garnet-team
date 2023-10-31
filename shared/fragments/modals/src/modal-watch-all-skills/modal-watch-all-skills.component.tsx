@@ -20,10 +20,10 @@ export const ModalWatchAllSkills: FC<ModalWatchAllSkillsProps> = ({
     <Modal
       open={modalOpen}
       title={formatMessage({ id: 'shared_ui.modal.skills' })}
-      okText={formatMessage({ id: 'shared_ui.modal.close' })}
+      confirmText={formatMessage({ id: 'shared_ui.modal.close' })}
       showCancel={false}
       onClose={onClose}
-      onOk={onClose}
+      onConfirm={onClose}
     >
       <Row flexWrap='wrap' gap={10}>
         {skills?.map((tag) => (

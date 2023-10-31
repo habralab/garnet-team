@@ -39,7 +39,7 @@ export const ModalEditProject: FC<ModalEditProjectProps> = ({
       title={formatMessage({ id: 'shared_ui.modal.edit_project' })}
       onClose={closeModal}
       onCancel={closeModal}
-      onOk={handleSubmit}
+      onConfirm={handleSubmit}
     >
       <FormProject formValues={formValues} handleChange={handleChange} />
       <Layout flexBasis={50} flexShrink={0} />
