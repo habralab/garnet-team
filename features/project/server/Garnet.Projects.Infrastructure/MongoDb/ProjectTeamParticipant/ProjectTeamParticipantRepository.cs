@@ -103,4 +103,14 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
             ),
             cancellationToken: ct);
     }
+
+    public async Task<ProjectTeamParticipantEntity?> DeleteProjectTeamParticipantsByTeamId(CancellationToken ct, string teamId)
+    {
+        var db = _dbFactory.Create();
+        var teamParticipant = await db.ProjectTeamsParticipants.FindOneAndDeleteAsync(
+            _teamParticipantFilter.Eq(x => x.TeamId, teamId)
+        );
+
+        return teamParticipant is null ? null : ProjectTeamParticipantDocument.ToDomain(teamParticipant);
+    }
 }
