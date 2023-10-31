@@ -13,7 +13,7 @@ public class ProjectTaskDocumentBuilder
     private string _responsibleUserId = Uuid.NewMongo();
     private string _name = "TaskName";
     private string? _description = "Description";
-    private string _status = "Status";
+    private string _status = "Open";
     private string[] _teamExecutorIds = Array.Empty<string>();
     private string[] _userExecutorIds = Array.Empty<string>();
     private string[] _tags = Array.Empty<string>();
