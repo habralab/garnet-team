@@ -177,6 +177,7 @@ public static class Startup
         services.AddScoped<ProjectTaskCreateCommand>();
         services.AddScoped<ProjectTaskDeleteCommand>();
         services.AddScoped<ProjectTaskEditNameCommand>();
+        services.AddScoped<ProjectTaskEditDescriptionCommand>();
         services.AddScoped<ProjectTaskCloseCommand>();
 
         services.AddScoped<ProjectTaskGetQuery>();
