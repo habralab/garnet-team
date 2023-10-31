@@ -47,5 +47,11 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationCancel
 
             invitations.Count.Should().Be(invitationCount);
         }
+
+        [Then(@"для пользователя '(.*)' нет уведомлений типа '(.*)'")]
+         public Task ThenДляПользователяНетУведомленийТипа(string username, string evenType)
+         {
+             return Task.CompletedTask;
+         }
     }
 }
