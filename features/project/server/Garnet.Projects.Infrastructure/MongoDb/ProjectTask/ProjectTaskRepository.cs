@@ -97,6 +97,22 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
         return ProjectTaskDocument.ToDomain(task);
     }
 
+    public async Task<ProjectTaskEntity> CloseProjectTask(CancellationToken ct, string taskId, string status)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.Id, taskId);
+        var update = _u.Set(x => x.Status, status);
+
+        var task = await FindOneAndUpdateDocument(
+            ct,
+            db.ProjectTasks,
+            filter,
+            update
+        );
+
+        return ProjectTaskDocument.ToDomain(task);
+    }
+
     public async Task CreateIndexes(CancellationToken ct)
     {
         var db = _dbFactory.Create();
