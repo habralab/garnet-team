@@ -47,6 +47,7 @@ namespace Garnet.Notifications
             services.AddGarnetMessageBus(name, o =>
             {
                 o.RegisterConsumer<SendNotificationCommandMessageConsumer, SendNotificationCommandMessage>();
+                o.RegisterConsumer<DeleteNotificationCommandMessageConsumer, DeleteNotificationCommandMessage>();
             });
         }
 
