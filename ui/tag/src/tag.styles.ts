@@ -29,11 +29,13 @@ const appearanceHoverStyles: styleFn = () =>
 
 const shapeNormalStyles: styleFn = () => () => ({
   height: 31,
+  width: 'max-content',
   padding: '6px 10px',
 })
 
 const shapeSmallStyles: styleFn = () => () => ({
   height: 22,
+  width: 'max-content',
   padding: '6px 8px',
 })
 
