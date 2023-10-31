@@ -1,6 +1,8 @@
 export const backgrounds = {
   blackTransparent: 'rgba(53, 53, 53, 0.5)',
+  black: 'rgba(53, 53, 53, 1)',
   accentPressedTransparent: 'rgba(62, 41, 120, 0.8)',
+  accentHover: 'rgba(183, 159, 249, 1)',
   lightGreyTen: 'rgba(252, 252, 255, 1)',
   lightGreyForty: 'rgba(230, 229, 234, 1)',
   lightBlue: 'rgba(225, 244, 255, 1)',
