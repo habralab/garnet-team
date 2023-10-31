@@ -17,9 +17,7 @@ import { Tag }                   from '@ui/tag'
 import { Text }                  from '@ui/text'
 
 import { UserRequestBlockProps } from './user-request-block.interfaces'
-
-const getDaysAgo = (date: string): number =>
-  Math.round((Date.now() - new Date(date).getTime()) / (1000 * 60 * 60 * 24))
+import { getDaysAgo }            from './helpers'
 
 export const UserRequestBlock: FC<UserRequestBlockProps> = ({ user, size = 'normal' }) => {
   const { id, avatarUrl, tags = [], userName, requestType, date = '' } = user
