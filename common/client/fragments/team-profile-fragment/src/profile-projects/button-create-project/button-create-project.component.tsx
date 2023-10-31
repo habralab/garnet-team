@@ -18,8 +18,13 @@ export const ButtonCreateProject: FC<ButtonCreateProjectProps> = () => {
 
   return (
     <>
-      <Button variant='secondary' size='small' onClick={openModal} style={{ paddingLeft: 20 }}>
-        <AddIcon width={16} height={16} color='currentColor' />
+      <Button
+        variant='secondary'
+        size='small'
+        onClick={openModal}
+        horizontalLocation='left'
+        iconSvg={<AddIcon width={16} height={16} color='currentColor' />}
+      >
         <Text fontSize='normal' color='currentColor'>
           <FormattedMessage id='profile.create_project' />
         </Text>

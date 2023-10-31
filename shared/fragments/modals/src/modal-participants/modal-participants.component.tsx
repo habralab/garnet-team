@@ -48,12 +48,9 @@ export const ModalParticipants: FC<ModalParticipantsProps> = ({
             {`: ${applicationParticipants.length}`}
           </Text>
           <Layout flexBasis={20} flexShrink={0} />
-          <Column fill id='custom-scrollbar' maxHeight={412} overflow='auto'>
+          <Column fill id='custom-scrollbar' maxHeight={412} gap={20} overflow='auto'>
             {applicationParticipants.map((user) => (
-              <>
-                <UserRequestBlock user={user} size='large' />
-                <Layout flexBasis={20} flexShrink={0} />
-              </>
+              <UserRequestBlock key={user.id} user={user} size='large' />
             ))}
           </Column>
         </Column>
@@ -66,12 +63,9 @@ export const ModalParticipants: FC<ModalParticipantsProps> = ({
             {`: ${invitedParticipants.length}`}
           </Text>
           <Layout flexBasis={20} flexShrink={0} />
-          <Column fill id='custom-scrollbar' maxHeight={412} overflow='auto'>
+          <Column fill id='custom-scrollbar' maxHeight={412} gap={20} overflow='auto'>
             {invitedParticipants.map((user) => (
-              <>
-                <UserRequestBlock user={user} size='large' />
-                <Layout flexBasis={20} flexShrink={0} />
-              </>
+              <UserRequestBlock key={user.id} user={user} size='large' />
             ))}
           </Column>
         </Column>

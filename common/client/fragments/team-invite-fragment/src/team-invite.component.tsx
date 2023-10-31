@@ -8,6 +8,7 @@ import { Avatar }           from '@ui/avatar'
 import { Condition }        from '@ui/condition'
 import { Search }           from '@ui/input'
 import { Box }              from '@ui/layout'
+import { Grid }             from '@ui/layout'
 import { Column }           from '@ui/layout'
 import { Row }              from '@ui/layout'
 import { Layout }           from '@ui/layout'
@@ -57,7 +58,7 @@ export const TeamInvite: FC = () => {
               placeholder={formatMessage({ id: 'team.invite.enter_tag_name_surname' })}
             />
             <Layout flexBasis={20} flexShrink={0} />
-            <Row flexWrap='wrap' style={{ gap: 10 }}>
+            <Row flexWrap='wrap' gap={10}>
               {selectedTags.map((tag) => (
                 <Tag key={tag} close variant='primary' onClick={handleRemoveTag(tag)}>
                   {tag}
@@ -96,11 +97,7 @@ export const TeamInvite: FC = () => {
                   {`: ${filteredUsers.length}`}
                 </Text>
                 <Layout flexBasis={42} flexShrink={0} />
-                <Row
-                  display='grid'
-                  style={{ gap: 22, gridTemplateColumns: 'repeat(auto-fill, 150px)' }}
-                  justifyContent='space-between'
-                >
+                <Grid display='grid' gap={22} gridWrap='small' justifyContent='space-between'>
                   {filteredUsers.map(({ id, avatarUrl, userName }) => (
                     <Column alignItems='center'>
                       <Avatar
@@ -121,7 +118,7 @@ export const TeamInvite: FC = () => {
                       </Text>
                     </Column>
                   ))}
-                </Row>
+                </Grid>
               </Condition>
             </Condition>
           </WrapperWhite>

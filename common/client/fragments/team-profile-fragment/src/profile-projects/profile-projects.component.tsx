@@ -6,6 +6,7 @@ import { Button }               from '@ui/button'
 import { CardProject }          from '@ui/card'
 import { Condition }            from '@ui/condition'
 import { Box }                  from '@ui/layout'
+import { Grid }                 from '@ui/layout'
 import { Column }               from '@ui/layout'
 import { Row }                  from '@ui/layout'
 import { Layout }               from '@ui/layout'
@@ -35,15 +36,11 @@ export const ProfileProjects: FC<ProfileProjectsProps> = ({ projects, isMyTeam, 
     </Row>
     <Layout flexBasis={30} flexShrink={0} />
     <Condition match={projects.length > 0}>
-      <Row
-        display='grid'
-        style={{ gap: 22, gridTemplateColumns: `repeat(auto-fill, 180px)` }}
-        justifyContent='space-between'
-      >
+      <Grid gap={22} gridWrap='normal' justifyContent='space-between'>
         {projects.map((project) => (
           <CardProject key={project.id} project={project} cardSize='normal' />
         ))}
-      </Row>
+      </Grid>
     </Condition>
     <Condition match={projects.length === 0}>
       <Column justifyContent='center' alignItems='center' height={284}>

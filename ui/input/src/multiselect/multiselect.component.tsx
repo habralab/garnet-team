@@ -94,7 +94,7 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
         error={errorText !== ''}
         disabled={disabled}
       >
-        <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
+        <Row flexWrap='wrap' flex='auto' gap={10}>
           {(value as string[]).map((tag) => (
             <Box key={tag}>
               <Tag onClick={() => handleRemoveTag(tag)} close>

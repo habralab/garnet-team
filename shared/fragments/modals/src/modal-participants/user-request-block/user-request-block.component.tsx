@@ -34,7 +34,7 @@ export const UserRequestBlock: FC<UserRequestBlockProps> = ({ user, size = 'norm
         url={`/user/${id}`}
       />
       <Layout flexBasis={size === 'large' ? 24 : 16} flexShrink={0} />
-      <Column width='100%' height='auto' justifyContent='center'>
+      <Column fill justifyContent='center'>
         <Text
           fontSize={size === 'large' ? 'regular' : 'medium'}
           fontWeight='bold'
@@ -44,7 +44,7 @@ export const UserRequestBlock: FC<UserRequestBlockProps> = ({ user, size = 'norm
         </Text>
         <Condition match={size === 'large' && tags.length > 0}>
           <Layout flexBasis={8} flexShrink={0} />
-          <Row flexWrap='wrap' maxHeight={22} overflow='hidden' style={{ gap: 10 }}>
+          <Row flexWrap='wrap' maxHeight={22} overflow='hidden' gap={10}>
             {tags.map((tag) => (
               <Tag key={tag} size='small'>
                 {tag}

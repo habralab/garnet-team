@@ -10,6 +10,7 @@ import { Condition }                from '@ui/condition'
 import { Box }                      from '@ui/layout'
 import { Column }                   from '@ui/layout'
 import { Row }                      from '@ui/layout'
+import { Grid }                     from '@ui/layout'
 import { Layout }                   from '@ui/layout'
 import { NextLink }                 from '@ui/link'
 import { Text }                     from '@ui/text'
@@ -54,15 +55,11 @@ export const ProfileParticipants: FC<ProfileParticipantsProps> = (props) => {
       </Row>
       <Layout flexBasis={30} flexShrink={0} />
       <Condition match={participants.length > 0}>
-        <Row
-          display='grid'
-          style={{ gap: 17, gridTemplateColumns: `repeat(auto-fill, 74px)` }}
-          justifyContent='space-between'
-        >
+        <Grid gap={17} gridWrap='mini' justifyContent='space-between'>
           {participants.slice(0, 12).map(({ id, avatarUrl, userName }) => (
             <Avatar key={id} image={avatarUrl} size={74} title={userName} url={`/user/${id}`} />
           ))}
-        </Row>
+        </Grid>
         <Condition match={participants.length > 12}>
           <Layout flexBasis={20} flexShrink={0} />
           <Box justifyContent='flex-end'>
@@ -102,7 +99,7 @@ export const ProfileParticipants: FC<ProfileParticipantsProps> = (props) => {
         </Text>
         <Layout flexBasis={12} flexShrink={0} />
         {applicationParticipants.slice(0, 1).map((user) => (
-          <UserRequestBlock user={user} />
+          <UserRequestBlock key={user.id} user={user} />
         ))}
         <Condition match={applicationParticipants.length > 1}>
           <Layout flexBasis={20} flexShrink={0} />
@@ -123,7 +120,7 @@ export const ProfileParticipants: FC<ProfileParticipantsProps> = (props) => {
         </Text>
         <Layout flexBasis={16} flexShrink={0} />
         {invitedParticipants.slice(0, 1).map((user) => (
-          <UserRequestBlock user={user} />
+          <UserRequestBlock key={user.id} user={user} />
         ))}
         <Condition match={invitedParticipants.length > 1}>
           <Layout flexBasis={20} flexShrink={0} />
