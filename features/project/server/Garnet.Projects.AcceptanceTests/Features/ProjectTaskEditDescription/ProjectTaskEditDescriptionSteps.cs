@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
-using Garnet.Projects.AcceptanceTests.Support;
+using Garnet.Projects.Infrastructure.MongoDb.ProjectTask;
 using HotChocolate.Execution;
 using MongoDB.Driver;
 using TechTalk.SpecFlow;
@@ -14,6 +14,12 @@ public class ProjectTaskEditDescriptionSteps : BaseSteps
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private QueryExceptionsContext _errorStepContext;
 
+    private readonly FilterDefinitionBuilder<ProjectTaskDocument> _f =
+        Builders<ProjectTaskDocument>.Filter;
+
+    private readonly UpdateDefinitionBuilder<ProjectTaskDocument> _u =
+        Builders<ProjectTaskDocument>.Update;
+
     public ProjectTaskEditDescriptionSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake,
         QueryExceptionsContext errorStepContext) : base(args)
     {
@@ -21,13 +27,12 @@ public class ProjectTaskEditDescriptionSteps : BaseSteps
         _errorStepContext = errorStepContext;
     }
 
-    [Given(@"в проекте '([^']*)' существует задача '([^']*)'  с описанием '([^']*)'")]
-    public async Task ThenВПроектеСуществуетЗадачаСОписанием(string projectName, string taskName, string description)
+    [Given(@"у задачи '(.*)' есть описание '(.*)'")]
+    public async Task GivenУЗадачиЕстьОписание(string taskName, string description)
     {
-        var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        var task = GiveMe.ProjectTask().WithName(taskName).WithProjectId(project.Id).WithDescription(description)
-            .Build();
-        await Db.ProjectTasks.InsertOneAsync(task);
+        await Db.ProjectTasks.UpdateOneAsync(
+            _f.Eq(x => x.Name, taskName),
+            _u.Set(x => x.Description, description));
     }
 
     [When(@"пользователь '(.*)' редактирует описание задачи с названием '(.*)' на '(.*)'")]
@@ -46,8 +51,8 @@ public class ProjectTaskEditDescriptionSteps : BaseSteps
         }
     }
 
-    [Then(@"в проекте '(.*)' существует задача '(.*)' с описанием '(.*)'")]
-    public async Task ThenВСистемеСуществуетЗадачаСОписанием(string projectName, string taskName, string description)
+    [Then(@"в проекте '(.*)' у задачи '(.*)' описание '(.*)'")]
+    public async Task ThenВПроектеУЗадачиОписание(string projectName, string taskName, string description)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var task = await Db.ProjectTasks.Find(x => x.ProjectId == project.Id & x.Name == taskName)
