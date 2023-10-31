@@ -22,7 +22,7 @@ public class ProjectTaskEditNameSteps : BaseSteps
     }
 
     [Given(@"существует задача '(.*)' в проекте '(.*)'")]
-    public async Task ThenСуществуетЗадачаВПроекте(string taskName, string projectName)
+    public async Task GivenСуществуетЗадачаВПроекте(string taskName, string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
         var task = GiveMe.ProjectTask().WithName(taskName).WithProjectId(project.Id).Build();

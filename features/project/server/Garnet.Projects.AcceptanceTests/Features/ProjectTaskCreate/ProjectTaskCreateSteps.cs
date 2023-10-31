@@ -30,7 +30,7 @@ public class ProjectTaskCreateSteps : BaseSteps
     }
 
     [Given(@"пользователь '(.*)' является участником команды '(.*)'")]
-    public async Task ThenПользовательЯвляетсяУчастникомКоманды(string username, string teamName)
+    public async Task GivenПользовательЯвляетсяУчастникомКоманды(string username, string teamName)
     {
         var user = await Db.ProjectUsers.Find(x => x.Id == _currentUserProviderFake.GetUserIdByUsername(username))
             .FirstAsync();
