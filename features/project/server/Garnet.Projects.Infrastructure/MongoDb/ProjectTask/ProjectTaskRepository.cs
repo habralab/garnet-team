@@ -81,11 +81,29 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
 
         return ProjectTaskDocument.ToDomain(task);
     }
-    public async Task<ProjectTaskEntity> EditProjectTaskDescription(CancellationToken ct, string taskId, string description)
+
+    public async Task<ProjectTaskEntity> EditProjectTaskDescription(CancellationToken ct, string taskId,
+        string description)
     {
         var db = _dbFactory.Create();
         var filter = _f.Eq(x => x.Id, taskId);
         var update = _u.Set(x => x.Description, description);
+
+        var task = await FindOneAndUpdateDocument(
+            ct,
+            db.ProjectTasks,
+            filter,
+            update
+        );
+
+        return ProjectTaskDocument.ToDomain(task);
+    }
+
+    public async Task<ProjectTaskEntity> EditProjectTaskLabels(CancellationToken ct, string taskId, string[] labels)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.Id, taskId);
+        var update = _u.Set(x => x.Labels, labels);
 
         var task = await FindOneAndUpdateDocument(
             ct,
