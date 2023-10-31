@@ -90,6 +90,7 @@ public static class Startup
             o.RegisterMessage<ProjectTaskCreatedEvent>();
             o.RegisterMessage<ProjectTaskUpdatedEvent>();
             o.RegisterMessage<ProjectTaskDeletedEvent>();
+            o.RegisterMessage<ProjectTaskClosedEvent>();
 
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
             o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
@@ -176,6 +177,7 @@ public static class Startup
         services.AddScoped<ProjectTaskCreateCommand>();
         services.AddScoped<ProjectTaskDeleteCommand>();
         services.AddScoped<ProjectTaskEditNameCommand>();
+        services.AddScoped<ProjectTaskCloseCommand>();
 
         services.AddScoped<ProjectTaskGetQuery>();
     }
