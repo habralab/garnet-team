@@ -28,8 +28,8 @@ public class ProjectTaskEditResponsibleUserSteps : BaseSteps
         _errorStepContext = errorStepContext;
     }
 
-    [When(@"пользователь '(.*)' меняет отвественного по задаче '(.*)' на пользователя '(.*)'")]
-    public async Task WhenПользовательМеняетОтветственногоЗадачи(string username, string taskName, string newResponsibleUserName)
+    [When(@"пользователь '(.*)' меняет ответственного по задаче '(.*)' на пользователя '(.*)'")]
+    public async Task WhenПользовательМеняетОтветтственногоЗадачи(string username, string taskName, string newResponsibleUserName)
     {
         _currentUserProviderFake.LoginAs(username);
         var task = await Db.ProjectTasks.Find(o => o.Name == taskName).FirstAsync();
@@ -45,8 +45,8 @@ public class ProjectTaskEditResponsibleUserSteps : BaseSteps
         }
     }
 
-    [Then(@"отвественным по задаче '(.*)' является пользователь '(.*)'")]
-    public async Task ThenОтвественнымЗадачиЯвляется(string taskName, string responsibleUserName)
+    [Then(@"ответственным по задаче '(.*)' является пользователь '(.*)'")]
+    public async Task ThenОтветственнымЗадачиЯвляется(string taskName, string responsibleUserName)
     {
         var user = await Db.ProjectUsers.Find(x => x.UserName == responsibleUserName).FirstOrDefaultAsync();
         var task = await Db.ProjectTasks.Find(x => x.Name == taskName).FirstOrDefaultAsync();
