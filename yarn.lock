@@ -3014,6 +3014,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shared/modals-fragment@workspace:shared/fragments/modals"
   dependencies:
+    "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@shared/data": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
