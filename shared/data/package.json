@@ -3,9 +3,13 @@
   "version": "0.0.1",
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
+  "devDependencies": {
+    "@apollo/client": "3.8.6"
+  },
   "peerDependencies": {
     "@emotion/react": "*",
     "@emotion/styled": "*",
+    "graphql": "*",
     "react": "*"
   }
 }

@@ -1,16 +1,25 @@
-import * as messages     from '../../locales/ru.json'
+import * as messages      from '../../locales/ru.json'
 
-import React             from 'react'
-import { IntlProvider }  from 'react-intl'
+import { ApolloProvider } from '@apollo/client'
 
-import { ThemeProvider } from '@ui/theme'
+import React              from 'react'
+import { IntlProvider }   from 'react-intl'
 
-const App = ({ Component, pageProps, ...props }) => (
-  <ThemeProvider>
-    <IntlProvider locale='ru' defaultLocale='ru' messages={messages}>
-      <Component {...pageProps} {...props} />
-    </IntlProvider>
-  </ThemeProvider>
-)
+import { ThemeProvider }  from '@ui/theme'
+import { getClient }      from '@shared/data'
+
+const App = ({ Component, pageProps, ...props }) => {
+  const client = getClient()
+
+  return (
+    <ApolloProvider client={client}>
+      <ThemeProvider>
+        <IntlProvider locale='ru' defaultLocale='ru' messages={messages}>
+          <Component {...pageProps} {...props} />
+        </IntlProvider>
+      </ThemeProvider>
+    </ApolloProvider>
+  )
+}
 
 export default App
