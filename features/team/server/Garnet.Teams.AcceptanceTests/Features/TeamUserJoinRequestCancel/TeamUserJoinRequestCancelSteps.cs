@@ -52,7 +52,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestCancel
         {
             var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
                .First(x => x.UserId == _currentUserProviderFake.GetUserIdByUsername(username));
-            message.LinkedEntityId!.Should().Be(linkedUsername);
+            message.LinkedEntityId!.Should().Be(_currentUserProviderFake.GetUserIdByUsername(linkedUsername));
             return Task.CompletedTask;
         }
     }
