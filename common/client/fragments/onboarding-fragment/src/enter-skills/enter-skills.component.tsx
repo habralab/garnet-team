@@ -12,6 +12,7 @@ import { Text }             from '@ui/text'
 
 import { EnterSkillsProps } from './enter-skills.interfaces'
 import { sizes }            from './enter-skills.config'
+import { validateValue }    from './helpers'
 
 export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
   const [value, setValue] = useState<string[]>([])
@@ -27,17 +28,11 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
     }
   }
 
-  const validateValue = () => {
-    if (value.length < sizes.min) {
-      setErrorText(formatMessage({ id: 'onboarding.minimum_skills' }, { number: sizes.min }))
-    } //
-    else if (value.length >= sizes.max) {
-      setErrorText(formatMessage({ id: 'onboarding.maximum_skills' }, { number: sizes.max }))
-    } //
-    else {
-      setErrorText('')
-    }
+  const updateErrorText = () => {
+    validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
   }
+
+  const isSubmitDisabled = value.length < sizes.min || value.length > sizes.max
 
   const handleSubmit = () => onSubmit?.(value)
 
@@ -54,18 +49,13 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
           value={value}
           placeholder={formatMessage({ id: 'onboarding.enter_skill' })}
           onChange={handleChange}
-          onBlur={validateValue}
+          onBlur={updateErrorText}
           errorText={errorText}
         />
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <Button
-          variant='primary'
-          size='normal'
-          disabled={value.length < sizes.min || value.length > sizes.max}
-          onClick={handleSubmit}
-        >
+        <Button variant='primary' size='normal' disabled={isSubmitDisabled} onClick={handleSubmit}>
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.save' />
           </Text>

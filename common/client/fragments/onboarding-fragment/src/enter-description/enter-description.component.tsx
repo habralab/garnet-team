@@ -12,6 +12,7 @@ import { Text }                  from '@ui/text'
 
 import { EnterDescriptionProps } from './enter-description.interfaces'
 import { sizes }                 from './enter-description.config'
+import { validateValue }         from './helpers'
 
 export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
   const [value, setValue] = useState<string>('')
@@ -27,20 +28,11 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
     }
   }
 
-  const validateValue = () => {
-    if (value.length === 0) {
-      setErrorText(formatMessage({ id: 'onboarding.provide_information_about_yourself' }))
-    } //
-    else if (value.length < sizes.min) {
-      setErrorText(formatMessage({ id: 'onboarding.minimum_symbols' }, { number: sizes.min }))
-    } //
-    else if (value.length >= sizes.max) {
-      setErrorText(formatMessage({ id: 'onboarding.maximum_symbols' }, { number: sizes.max }))
-    } //
-    else {
-      setErrorText('')
-    }
+  const updateErrorText = () => {
+    validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
   }
+
+  const isSubmitDisabled = value.length < sizes.min || value.length > sizes.max
 
   const handleSubmit = () => onSubmit?.(value)
 
@@ -56,7 +48,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
         value={value}
         placeholder={formatMessage({ id: 'onboarding.information_about_yourself' })}
         onChange={handleChange}
-        onBlur={validateValue}
+        onBlur={updateErrorText}
         style={{ height: 152, resize: 'none' }}
         errorText={errorText}
       />
@@ -68,12 +60,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <Button
-          variant='primary'
-          size='normal'
-          disabled={value.length < sizes.min || value.length > sizes.max}
-          onClick={handleSubmit}
-        >
+        <Button variant='primary' size='normal' disabled={isSubmitDisabled} onClick={handleSubmit}>
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.further' />
           </Text>
