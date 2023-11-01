@@ -48,6 +48,20 @@ public class ProjectTaskCreateCommand
             return Result.Fail(new ProjectOnlyParticipantCanCreateTaskError());
         }
 
+        var teamParticipantIds = teamParticipants.Select(x => x.TeamId).ToArray();
+        if (args.TeamExecutorIds.Any(team => teamParticipantIds.Contains(team) is false))
+        {
+            return Result.Fail(new ProjectOnlyTeamParticipantCanSetAsTaskExecutorError());
+        }
+
+        var userParticipants =
+            teamParticipants.SelectMany(x => x.UserParticipants).Select(u => u.Id).Distinct().ToArray();
+        if (args.UserExecutorIds.Any(userId => userParticipants.Contains(userId) is false))
+        {
+            return Result.Fail(new ProjectOnlyParticipantCanSetAsTaskExecutorError());
+        }
+
+
         var taskNumber = await _projectRepository.GetProjectTasksCounter(ct, args.ProjectId);
 
         var status = ProjectTaskStatuses.Open;

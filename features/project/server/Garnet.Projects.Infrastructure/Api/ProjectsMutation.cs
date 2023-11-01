@@ -17,6 +17,7 @@ using Garnet.Projects.Infrastructure.Api.ProjectTaskEditName;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskClose;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskEditTags;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskEditLabels;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskEditResponsibleUser;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using Garnet.Projects.Infrastructure.Api.ProjectUploadAvatar;
@@ -40,6 +41,7 @@ public class ProjectsMutation
     private readonly ProjectTaskEditNameCommand _projectTaskEditNameCommand;
     private readonly ProjectTaskEditDescriptionCommand _projectTaskEditDescriptionCommand;
     private readonly ProjectTaskCloseCommand _projectTaskCloseCommand;
+    private readonly ProjectTaskEditResponsibleUserCommand _projectTaskEditResponsibleUserCommand;
     private readonly ProjectTaskEditTagsCommand _projectTaskEditTagsCommand;
     private readonly ProjectTaskEditLabelsCommand _projectTaskEditLabelsCommand;
 
@@ -56,6 +58,7 @@ public class ProjectsMutation
         ProjectTaskCreateCommand projectTaskCreateCommand,
         ProjectTaskDeleteCommand projectTaskDeleteCommand,
         ProjectTaskEditNameCommand projectTaskEditNameCommand,
+        ProjectTaskEditResponsibleUserCommand projectTaskEditResponsibleUserCommand,
         ProjectTaskEditDescriptionCommand projectTaskEditDescriptionCommand,
         ProjectTaskCloseCommand projectTaskCloseCommand,
         ProjectTaskEditTagsCommand projectTaskEditTagsCommand,
@@ -72,6 +75,7 @@ public class ProjectsMutation
         _projectTaskCreateCommand = projectTaskCreateCommand;
         _projectTaskDeleteCommand = projectTaskDeleteCommand;
         _projectTaskEditNameCommand = projectTaskEditNameCommand;
+        _projectTaskEditResponsibleUserCommand = projectTaskEditResponsibleUserCommand;
         _projectTaskEditDescriptionCommand = projectTaskEditDescriptionCommand;
         _projectTaskCloseCommand = projectTaskCloseCommand;
         _projectTaskEditTagsCommand = projectTaskEditTagsCommand;
@@ -263,6 +267,18 @@ public class ProjectsMutation
 
         var task = result.Value;
         return new ProjectTaskEditLabelsPayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskEditResponsibleUserPayload> ProjectTaskEditResponsibleUser(CancellationToken ct,
+string taskId, string newResponsibleUserId)
+    {
+        var result = await _projectTaskEditResponsibleUserCommand.Execute(ct, taskId, newResponsibleUserId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskEditResponsibleUserPayload(
             task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
             task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
     }
