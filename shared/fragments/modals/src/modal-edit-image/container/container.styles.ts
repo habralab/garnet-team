@@ -24,8 +24,8 @@ export const containerBaseStyle: styleFn = () =>
     '.cropper-point': {
       backgroundColor: theme.backgrounds.accentHover,
       border: theme.borders.white,
-      height: 6,
-      width: 6,
+      height: '6px !important',
+      width: '6px !important',
     },
   })
 
