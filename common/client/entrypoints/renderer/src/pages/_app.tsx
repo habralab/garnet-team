@@ -1,6 +1,7 @@
 import * as messages            from '../../locales/ru.json'
 
 import { KratosClientProvider } from '@atls/next-identity-integration'
+import { ApolloProvider }       from '@apollo/client'
 
 import React                    from 'react'
 import { IntlProvider }         from 'react-intl'
@@ -25,3 +26,5 @@ const App = ({ Component, pageProps, ...props }) => {
     </ApolloProvider>
   )
 }
+
+export default App
