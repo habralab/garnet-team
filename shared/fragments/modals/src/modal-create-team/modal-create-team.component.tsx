@@ -35,7 +35,7 @@ export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, o
       title={formatMessage({ id: 'shared_ui.modal.create_team' })}
       onClose={closeModal}
       onCancel={closeModal}
-      onOk={handleSubmit}
+      onConfirm={handleSubmit}
     >
       <FormTeam formValues={formValues} handleChange={handleChange} />
       <Layout flexBasis={50} flexShrink={0} />

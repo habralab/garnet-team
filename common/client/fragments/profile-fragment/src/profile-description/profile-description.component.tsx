@@ -19,7 +19,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ user }) => (
     </Text>
     <Layout flexBasis={10} flexShrink={0} />
     <Text fontSize='semiMedium' color='text.gray'>
-      <FormattedMessage id='profile.about' />
+      <FormattedMessage id='profile.about_user' />
     </Text>
     <Layout flexBasis={10} flexShrink={0} />
     <Text fontSize='medium' color='text.secondary'>

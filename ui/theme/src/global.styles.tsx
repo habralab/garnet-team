@@ -8,14 +8,32 @@ import React      from 'react'
 export const GlobalStyles = () => (
   <Global
     styles={css`
-    @font-face {
-      font-family: 'Inter';
-      src: url(${fonts.InterVariable}) format('truetype');
-    }
+      @font-face {
+        font-family: 'Inter';
+        src: url(${fonts.InterVariable}) format('truetype');
+      }
 
-    body {
-      overflow: auto;
-    }
-  `}
+      body {
+        overflow: auto;
+        position: relative;
+      }
+
+      #custom-scrollbar {
+        scrollbar-color: rgba(53, 53, 53, 0.1) transparent;
+
+        &::-webkit-scrollbar {
+          width: 4px;
+          height: 4px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+          background: rgba(53, 53, 53, 0.1);
+        }
+
+        &::-webkit-scrollbar-track {
+          background: transparent;
+        }
+      }
+    `}
   />
 )

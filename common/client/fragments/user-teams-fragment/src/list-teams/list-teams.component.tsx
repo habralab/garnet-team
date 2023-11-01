@@ -22,9 +22,11 @@ export const ListTeams: FC<ListTeamsProps> = ({ teams }) => {
   return (
     <>
       <Condition match={teams.length === 0}>
-        <Text fontSize='semiLarge' color='text.gray' style={{ justifyContent: 'center' }}>
-          <FormattedMessage id='user_teams.no_teams' />
-        </Text>
+        <Box justifyContent='center'>
+          <Text fontSize='semiLarge' fontWeight='semiBold' color='text.gray' opacity={0.6}>
+            <FormattedMessage id='user_teams.no_teams' />
+          </Text>
+        </Box>
       </Condition>
       <Condition match={teams.length > 0}>
         <Grid gap={22} gridWrap='small' justifyContent='space-between'>

@@ -32,9 +32,11 @@ export const DropdownSkills: FC<DropdownSkillsProps> = ({
     </Box>
     <Condition match={options.length === 0}>
       <Layout flexBasis={30} flexShrink={0} />
-      <Text fontSize='semiLarge' color='text.gray' style={{ justifyContent: 'center' }}>
-        <FormattedMessage id='shared_ui.skills_not_found' />
-      </Text>
+      <Box justifyContent='center'>
+        <Text fontSize='semiLarge' color='text.gray'>
+          <FormattedMessage id='shared_ui.skills_not_found' />
+        </Text>
+      </Box>
       <Layout flexBasis={30} flexShrink={0} />
     </Condition>
     <Condition match={options.length > 0}>
@@ -45,7 +47,7 @@ export const DropdownSkills: FC<DropdownSkillsProps> = ({
       <Row flexWrap='wrap' flex='auto' gap={10}>
         {options.map((item) => (
           <Tag key={item} onClick={() => onChangeOption?.(item)}>
-            <FormattedMessage id={item} />
+            {item}
           </Tag>
         ))}
       </Row>

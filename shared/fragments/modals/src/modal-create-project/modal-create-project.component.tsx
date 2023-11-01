@@ -35,7 +35,7 @@ export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = fa
       title={formatMessage({ id: 'shared_ui.modal.create_project' })}
       onClose={closeModal}
       onCancel={closeModal}
-      onOk={handleSubmit}
+      onConfirm={handleSubmit}
     >
       <FormProject formValues={formValues} handleChange={handleChange} />
       <Layout flexBasis={50} flexShrink={0} />

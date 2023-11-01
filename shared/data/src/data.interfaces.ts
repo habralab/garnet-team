@@ -6,6 +6,11 @@ export interface User {
   avatarUrl?: string
 }
 
+export interface UserWithRequest extends User {
+  requestType?: 'invite' | 'application'
+  date?: string
+}
+
 export interface Team {
   id?: string
   name?: string

@@ -1,7 +1,6 @@
 import styled                       from '@emotion/styled'
 import { RawInput }                 from '@atls-ui-parts/input'
 import { useChangeValue }           from '@atls-ui-parts/input'
-import { useSelect }                from '@atls-ui-parts/select'
 
 import React                        from 'react'
 import { HTMLInputTypeAttribute }   from 'react'
@@ -9,6 +8,7 @@ import { ForwardRefRenderFunction } from 'react'
 import { useState }                 from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
+import { useLayer }                 from 'react-laag'
 
 import { Condition }                from '@ui/condition'
 import { SearchIcon }               from '@ui/icon'
@@ -33,6 +33,7 @@ const Container = styled(Column)(({ type }: { type?: HTMLInputTypeAttribute }) =
 }))
 
 type SearchProps = InputProps & {
+  showDropdown?: boolean
   options?: string[]
   onChangeOptions?: (option: string) => void
   value?: string
@@ -41,6 +42,7 @@ type SearchProps = InputProps & {
 export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, SearchProps> = (
   {
     value = '',
+    showDropdown = true,
     options = [],
     type,
     disabled,
@@ -54,11 +56,17 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
   ref
 ) => {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [focus, setFocus] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const { buttonProps, menuProps, renderMenu } = useSelect({
-    items: options,
+  const openMenu = () => setMenuOpen(true)
+  const closeMenu = () => setMenuOpen(false)
+
+  const { renderLayer, layerProps, triggerProps, triggerBounds } = useLayer({
     isOpen: menuOpen,
+    placement: 'bottom-center',
+    onOutsideClick: closeMenu,
+    container: containerRef.current || undefined,
   })
 
   const changeValue = useChangeValue(disabled, onChange, onChangeNative)
@@ -66,23 +74,16 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
   // eslint-disable-next-line
   if (!ref) ref = useRef(null)
 
-  const closeMenu = () => setMenuOpen(false)
-  const openMenu = (e) => {
-    if (e.target.nodeName !== 'svg' && e.target.nodeName !== 'path') {
-      setMenuOpen(true)
-    }
-  }
-
   return (
-    <Container ref={containerRef} type={type}>
+    <Container ref={containerRef} type={type} onClick={() => (ref as any).current.focus()}>
       <InputElement
-        {...buttonProps}
+        {...triggerProps}
         {...props}
         onClick={openMenu}
         error={errorText !== ''}
         disabled={disabled}
       >
-        <SearchIcon width={20} height={20} color='gray' />
+        <SearchIcon width={20} height={20} color={focus ? 'accent' : 'gray'} />
         <Layout flexBasis={10} flexShrink={0} />
         <RawInput
           id={id}
@@ -91,26 +92,10 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
           disabled={disabled}
           value={value}
           onChange={changeValue}
+          onFocus={() => setFocus(true)}
+          onBlur={() => setFocus(false)}
           {...props}
         />
-        {renderMenu(
-          <Box
-            {...menuProps}
-            style={{
-              ...menuProps.style,
-              // @ts-ignore
-              width: containerRef?.current?.offsetWidth || 600,
-              zIndex: 2000,
-            }}
-          >
-            <DropdownSkills
-              // @ts-ignore
-              options={options.filter((item) => item.toLowerCase().includes(value.toLowerCase()))}
-              onChangeOption={onChangeOptions}
-              onClick={closeMenu}
-            />
-          </Box>
-        )}
         <Condition match={Boolean(props.iconSvg)}>
           <IconAttachment
             iconSvg={props.iconSvg}
@@ -120,6 +105,26 @@ export const SearchWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Search
           />
         </Condition>
       </InputElement>
+      <Condition match={menuOpen}>
+        {renderLayer(
+          <Box
+            {...layerProps}
+            style={{
+              ...layerProps.style,
+              position: 'static',
+              display: showDropdown ? 'flex' : 'none',
+              width: triggerBounds?.width || 600,
+              zIndex: 2000,
+            }}
+          >
+            <DropdownSkills
+              options={options.filter((item) => item.toLowerCase().includes(value.toLowerCase()))}
+              onChangeOption={onChangeOptions}
+              onClick={closeMenu}
+            />
+          </Box>
+        )}
+      </Condition>
       <Condition match={Boolean(errorText) && typeof errorText === 'string'}>
         <Layout flexBasis={5} />
         <Text color='text.error' fontSize='normal'>

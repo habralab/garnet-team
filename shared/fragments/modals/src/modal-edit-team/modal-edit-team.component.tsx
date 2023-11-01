@@ -35,7 +35,7 @@ export const ModalEditTeam: FC<ModalEditTeamProps> = ({ modalOpen = false, onClo
       title={formatMessage({ id: 'shared_ui.modal.edit_team' })}
       onClose={closeModal}
       onCancel={closeModal}
-      onOk={handleSubmit}
+      onConfirm={handleSubmit}
     >
       <FormTeam formValues={formValues} handleChange={handleChange} />
       <Layout flexBasis={50} flexShrink={0} />

@@ -2,7 +2,6 @@ import styled                       from '@emotion/styled'
 import { RawInput }                 from '@atls-ui-parts/input'
 import { useChangeValue }           from '@atls-ui-parts/input'
 import { createTextareaProps }      from '@atls-ui-parts/input'
-import { useSelect }                from '@atls-ui-parts/select'
 
 import React                        from 'react'
 import { HTMLInputTypeAttribute }   from 'react'
@@ -11,6 +10,7 @@ import { useState }                 from 'react'
 import { forwardRef }               from 'react'
 import { useRef }                   from 'react'
 import { useIntl }                  from 'react-intl'
+import { useLayer }                 from 'react-laag'
 
 import { Condition }                from '@ui/condition'
 import { Box }                      from '@ui/layout'
@@ -52,27 +52,25 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
 
   const { formatMessage } = useIntl()
 
+  const openMenu = () => setMenuOpen(true)
+  const closeMenu = () => setMenuOpen(false)
+
   const handleChangeSearch = (searchValue: string) => setSearch(searchValue)
   const changeSearchValue = useChangeValue(disabled, handleChangeSearch, onChangeNative)
 
   const localizedSkills = mockSkills.map((item) => formatMessage({ id: item }))
 
-  const { buttonProps, menuProps, renderMenu } = useSelect({
-    items: localizedSkills,
+  const { renderLayer, layerProps, triggerProps, triggerBounds } = useLayer({
     isOpen: menuOpen,
+    placement: 'bottom-center',
+    onOutsideClick: closeMenu,
+    container: containerRef.current || undefined,
   })
 
   // eslint-disable-next-line
   if (!ref) ref = useRef(null)
 
   if (!Array.isArray(value)) return null
-
-  const closeMenu = () => setMenuOpen(false)
-  const openMenu = (e) => {
-    if (e.target.nodeName !== 'svg' && e.target.nodeName !== 'path') {
-      setMenuOpen(true)
-    }
-  }
 
   const handleRemoveTag = (removedValue: string) => {
     onChange?.(value.filter((item) => item !== removedValue))
@@ -87,52 +85,34 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
   )
 
   return (
-    <Container ref={containerRef} type={type}>
+    <Container ref={containerRef} type={type} onClick={() => (ref as any).current.focus()}>
       <InputElement
         {...containerProps}
-        {...buttonProps}
-        onClick={openMenu}
+        {...triggerProps}
         {...props}
+        onClick={openMenu}
         error={errorText !== ''}
+        disabled={disabled}
       >
-        <Condition match={Array.isArray(value)}>
-          <Row flexWrap='wrap' flex='auto' style={{ gap: 10 }}>
-            {(value as string[]).map((tag) => (
-              <Box>
-                <Tag key={tag} onClick={() => handleRemoveTag(tag)} close>
-                  {tag}
-                </Tag>
-              </Box>
-            ))}
-            <RawInput
-              id={id}
-              ref={ref}
-              type={type}
-              disabled={disabled}
-              onChange={changeSearchValue}
-              value={search}
-              {...props}
-              style={{ ...props.style, height: '100%' }}
-            />
-          </Row>
-          {renderMenu(
-            <Box
-              {...menuProps}
-              style={{
-                ...menuProps.style,
-                // @ts-ignore
-                width: containerRef?.current?.offsetWidth || 600,
-                zIndex: 2000,
-              }}
-            >
-              <DropdownSkills
-                options={filteredItems}
-                onChangeOption={handleAddTag}
-                onClick={closeMenu}
-              />
+        <Row flexWrap='wrap' flex='auto' gap={10}>
+          {(value as string[]).map((tag) => (
+            <Box key={tag}>
+              <Tag onClick={() => handleRemoveTag(tag)} close>
+                {tag}
+              </Tag>
             </Box>
-          )}
-        </Condition>
+          ))}
+          <RawInput
+            id={id}
+            ref={ref}
+            type={type}
+            disabled={disabled}
+            onChange={changeSearchValue}
+            value={search}
+            {...props}
+            style={{ ...props.style, height: '100%' }}
+          />
+        </Row>
         <Condition match={Boolean(props.iconSvg)}>
           <IconAttachment
             iconSvg={props.iconSvg}
@@ -142,6 +122,25 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
           />
         </Condition>
       </InputElement>
+      <Condition match={menuOpen}>
+        {renderLayer(
+          <Box
+            {...layerProps}
+            style={{
+              ...layerProps.style,
+              position: 'static',
+              width: triggerBounds?.width || 600,
+              zIndex: 2000,
+            }}
+          >
+            <DropdownSkills
+              options={filteredItems}
+              onChangeOption={handleAddTag}
+              onClick={closeMenu}
+            />
+          </Box>
+        )}
+      </Condition>
       <Condition match={Boolean(errorText) && typeof errorText === 'string'}>
         <Layout flexBasis={5} />
         <Text color='text.error' fontSize='normal'>

@@ -86,7 +86,7 @@ export const UserTeams: FC = () => {
           <WrapperWhite>
             <Condition match={teams.length === 0}>
               <Box height={52} justifyContent='center' alignItems='center'>
-                <Text fontSize='semiLarge' color='text.gray'>
+                <Text fontSize='semiLarge' fontWeight='semiBold' color='text.gray' opacity={0.6}>
                   <Condition match={isMyProfile}>
                     <FormattedMessage id='user_teams.you_do_not_have_teams' />
                   </Condition>

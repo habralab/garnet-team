@@ -50,7 +50,13 @@ export const ProfileProjects: FC<ProfileProjectsProps> = ({ projects, isMyProfil
     </Condition>
     <Condition match={projects.length === 0}>
       <Column justifyContent='center' alignItems='center' height={284}>
-        <Text fontSize='semiLarge' fontWeight='semiBold' color='text.gray' textAlign='center'>
+        <Text
+          fontSize='semiLarge'
+          fontWeight='semiBold'
+          color='text.gray'
+          textAlign='center'
+          opacity={0.6}
+        >
           <FormattedMessage id='profile.no_projects' />
         </Text>
         <Condition match={isMyProfile}>

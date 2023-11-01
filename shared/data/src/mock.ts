@@ -1,6 +1,8 @@
-import { MockUser } from './data.interfaces'
-import { Team }     from './data.interfaces'
-import { Project }  from './data.interfaces'
+import { MockUser }        from './data.interfaces'
+import { UserWithRequest } from './data.interfaces'
+import { User }            from './data.interfaces'
+import { Team }            from './data.interfaces'
+import { Project }         from './data.interfaces'
 
 export const mockAuthUserId = '6516e88d723450ac19495148'
 export const mockNotAuthUserId = '6516e88d723450ac19495abc'
@@ -90,6 +92,11 @@ export const mockUser: MockUser = {
   },
 }
 
+export const mockUsers: User[] = Array.from({ length: 10 }, (_, index) => [
+  { ...mockMyUser.userGet, id: `${mockMyUser.userGet?.id}${index}` },
+  { ...mockUser.userGet, id: `${mockUser.userGet?.id}${index}` },
+]).flat()
+
 export const getMockUser = (id: string) => {
   if (id === mockUser.userGet?.id)
     return {
@@ -141,4 +148,41 @@ export const mockTeams: Team[] = Array.from({ length: 20 }, (_, index) => ({
 export const getMockProject = (id: string) => ({
   project: mockProjects.find((project) => project.id === id),
   projectTeams: mockTeams,
+})
+
+export const getMockTeam = (id: string) => ({
+  team: mockTeams.find((team) => team.id === id),
+  teamProjects: mockProjects,
+  teamParticipants: Array.from({ length: 10 }, (_, index) => [
+    { ...mockMyUser.userGet, id: `${mockMyUser.userGet?.id}${index}` },
+    { ...mockUser.userGet, id: `${mockUser.userGet?.id}${index}` },
+  ]).flat() as User[],
+  applicationParticipants: Array.from({ length: 3 }, (_, index) => [
+    {
+      ...mockMyUser.userGet,
+      id: `${mockMyUser.userGet?.id}${index}`,
+      requestType: 'application',
+      date: new Date(new Date().setDate(new Date().getDate() - index)).toISOString(),
+    },
+    {
+      ...mockUser.userGet,
+      id: `${mockUser.userGet?.id}${index}`,
+      requestType: 'application',
+      date: new Date(new Date().setDate(new Date().getDate() - index)).toISOString(),
+    },
+  ]).flat() as UserWithRequest[],
+  invitedParticipants: Array.from({ length: 3 }, (_, index) => [
+    {
+      ...mockMyUser.userGet,
+      id: `${mockMyUser.userGet?.id}${index}`,
+      requestType: 'invite',
+      date: new Date(new Date().setDate(new Date().getDate() - index)).toISOString(),
+    },
+    {
+      ...mockUser.userGet,
+      id: `${mockUser.userGet?.id}${index}`,
+      requestType: 'invite',
+      date: new Date(new Date().setDate(new Date().getDate() - index)).toISOString(),
+    },
+  ]).flat() as UserWithRequest[],
 })

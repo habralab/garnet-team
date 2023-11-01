@@ -8,6 +8,8 @@ import { ifProp }              from 'styled-tools'
 
 const fillStyles: styleFn = ifProp(prop('fill', false), { width: '100%' })
 
+const eventsStyles: styleFn = ifProp(prop('disabled', false), { cursor: 'not-allowed' })
+
 const mediumPaddingMediumHeightStyles = createShapeStyles({
   paddingLeft: 30,
   paddingRight: 30,
@@ -37,8 +39,8 @@ const mediumPaddingSmallHeightWithIconStyles = createShapeStyles({
 })
 
 const mediumPaddingMicroHeightStyles = createShapeStyles({
-  paddingLeft: 2,
-  paddingRight: 2,
+  paddingLeft: 0.01,
+  paddingRight: 0.01,
   rounding: 0,
   size: 20,
 })
@@ -55,4 +57,4 @@ const shapeStyles = switchProp(prop('size', 'normal'), {
   micro: mediumPaddingMicroHeightStyles,
 })
 
-export { fillStyles, contentStyles, shapeStyles }
+export { eventsStyles, fillStyles, contentStyles, shapeStyles }
