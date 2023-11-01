@@ -1,22 +1,22 @@
-import React                from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useIntl }          from 'react-intl'
+import React                 from 'react'
+import { FC }                from 'react'
+import { FormattedMessage }  from 'react-intl'
+import { useIntl }           from 'react-intl'
 
-import { Avatar }           from '@ui/avatar'
-import { Button }           from '@ui/button'
-import { Condition }        from '@ui/condition'
-import { Input }            from '@ui/input'
-import { Multiselect }      from '@ui/input'
-import { Label }            from '@ui/input'
-import { Textarea }         from '@ui/input'
-import { Box }              from '@ui/layout'
-import { Column }           from '@ui/layout'
-import { Layout }           from '@ui/layout'
-import { Row }              from '@ui/layout'
-import { Text }             from '@ui/text'
+import { Avatar }            from '@ui/avatar'
+import { Condition }         from '@ui/condition'
+import { Input }             from '@ui/input'
+import { Multiselect }       from '@ui/input'
+import { Label }             from '@ui/input'
+import { Textarea }          from '@ui/input'
+import { Box }               from '@ui/layout'
+import { Column }            from '@ui/layout'
+import { Layout }            from '@ui/layout'
+import { Row }               from '@ui/layout'
+import { Text }              from '@ui/text'
 
-import { FormTeamProps }    from './form-team.interfaces'
+import { ButtonUploadPhoto } from '../button-upload-photo'
+import { FormTeamProps }     from './form-team.interfaces'
 
 export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
   const { formatMessage } = useIntl()
@@ -94,19 +94,19 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
           <Condition match={Boolean(formValues?.avatar)}>
             <Avatar image={formValues?.avatar} shape='square' size={150} />
             <Layout flexBasis={10} flexShrink={0} />
-            <Button variant='link' size='micro'>
+            <ButtonUploadPhoto onChange={handleChange('avatar')} shape='square'>
               <Text fontSize='normal' color='currentColor'>
                 <FormattedMessage id='shared_ui.form.change' />
               </Text>
-            </Button>
+            </ButtonUploadPhoto>
           </Condition>
           <Condition match={!formValues?.avatar}>
             <Box height={50} justifyContent='center' alignItems='center'>
-              <Button variant='link' size='micro'>
+              <ButtonUploadPhoto onChange={handleChange('avatar')} shape='square'>
                 <Text fontSize='medium' color='currentColor'>
                   <FormattedMessage id='shared_ui.form.load' />
                 </Text>
-              </Button>
+              </ButtonUploadPhoto>
             </Box>
           </Condition>
           <Layout flexBasis={10} flexShrink={0} />
