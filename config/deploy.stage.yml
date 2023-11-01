@@ -12,3 +12,6 @@ traefik:
     traefik.http.routers.garnet-backend-websecure-stage.rule: Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/api`)
     traefik.http.routers.garnet-backend-websecure-stage.entrypoints: websecure
     traefik.http.routers.garnet-backend-websecure-stage.tls: true
+    traefik.http.routers.garnet-backend-websecure-stage.middlewares: disabled-cors
+    traefik.http.middlewares.disabled-cors.headers.customResponseHeaders.Access-Control-Allow-Methods: "POST, GET, OPTIONS"
+    traefik.http.middlewares.disabled-cors.headers.customResponseHeaders.Access-Control-Allow-Origin: "*"
