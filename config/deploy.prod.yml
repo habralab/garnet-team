@@ -1,5 +1,7 @@
 servers:
-  - 188.225.36.16
+  web:
+    hosts:
+      - 188.225.36.16
 
 accessories:
   db:
