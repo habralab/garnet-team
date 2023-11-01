@@ -47,11 +47,6 @@ public class ProjectTaskEditResponsibleUserCommand
             return Result.Fail(new ProjectNotFoundError(task.ProjectId));
         }
 
-        if (newResponsibleUserId == task.ResponsibleUserId)
-        {
-            return Result.Fail(new ProjectTaskThisUserIsAlreadySetTaskResponsibleUserError());
-        }
-
         if (currentUserId != task.ResponsibleUserId && currentUserId != project.OwnerUserId)
         {
             return Result.Fail(new ProjectTaskResponsiblePersonOnlyCanEditResponsibleUserError());
