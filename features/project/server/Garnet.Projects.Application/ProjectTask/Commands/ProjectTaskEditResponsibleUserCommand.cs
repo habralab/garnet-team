@@ -49,7 +49,7 @@ public class ProjectTaskEditResponsibleUserCommand
 
         if (currentUserId != task.ResponsibleUserId && currentUserId != project.OwnerUserId)
         {
-            return Result.Fail(new ProjectTaskResponsiblePersonOnlyCanCloseTaskError());
+            return Result.Fail(new ProjectTaskResponsiblePersonOnlyCanEditResponsibleUserError());
         }
 
         task = await _projectTaskRepository.EditProjectTaskResponsibleUser(ct, taskId, newResponsibleUserId);
