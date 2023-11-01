@@ -1,21 +1,22 @@
-import React                from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useIntl }          from 'react-intl'
+import React                 from 'react'
+import { FC }                from 'react'
+import { FormattedMessage }  from 'react-intl'
+import { useIntl }           from 'react-intl'
 
-import { Avatar }           from '@ui/avatar'
-import { Button }           from '@ui/button'
-import { Input }            from '@ui/input'
-import { Label }            from '@ui/input'
-import { Textarea }         from '@ui/input'
-import { Multiselect }      from '@ui/input'
-import { Box }              from '@ui/layout'
-import { Column }           from '@ui/layout'
-import { Layout }           from '@ui/layout'
-import { Row }              from '@ui/layout'
-import { Text }             from '@ui/text'
+import { Avatar }            from '@ui/avatar'
+import { Button }            from '@ui/button'
+import { Input }             from '@ui/input'
+import { Label }             from '@ui/input'
+import { Textarea }          from '@ui/input'
+import { Multiselect }       from '@ui/input'
+import { Box }               from '@ui/layout'
+import { Column }            from '@ui/layout'
+import { Layout }            from '@ui/layout'
+import { Row }               from '@ui/layout'
+import { Text }              from '@ui/text'
 
-import { FormUserProps }    from './form-user.interfaces'
+import { ButtonUploadPhoto } from '../button-upload-photo'
+import { FormUserProps }     from './form-user.interfaces'
 
 export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
   const { formatMessage } = useIntl()
@@ -98,11 +99,11 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange }) => {
         <Column fill maxWidth={170} alignItems='center'>
           <Avatar image={formValues?.avatar} size={150} />
           <Layout flexBasis={10} flexShrink={0} />
-          <Button variant='link' size='micro'>
+          <ButtonUploadPhoto onChange={handleChange('avatar')}>
             <Text fontSize='normal' color='currentColor'>
               <FormattedMessage id='shared_ui.form.change' />
             </Text>
-          </Button>
+          </ButtonUploadPhoto>
           <Layout flexBasis={10} flexShrink={0} />
           <Text fontSize='normal' textAlign='center' color='text.gray'>
             <FormattedMessage id='shared_ui.form.minimum_size' />

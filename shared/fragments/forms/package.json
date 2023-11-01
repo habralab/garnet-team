@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {
+    "@shared/modals-fragment": "workspace:0.0.1",
     "@ui/avatar": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
@@ -19,6 +20,7 @@
     "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
+    "graphql": "*",
     "next": "*",
     "react": "*",
     "react-dom": "*",
