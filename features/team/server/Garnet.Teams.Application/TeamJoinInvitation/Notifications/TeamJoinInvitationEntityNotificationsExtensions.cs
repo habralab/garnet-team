@@ -22,7 +22,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
         {
             return new DeleteNotificationCommandMessage(
                invitation.UserId,
-               Type: "TeamJoinInvitation",
+               Type: "TeamInvite",
                invitation.TeamId
            );
         }
