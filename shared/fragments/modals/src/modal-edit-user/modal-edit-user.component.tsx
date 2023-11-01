@@ -3,8 +3,8 @@ import { FC }                 from 'react'
 import { useState }           from 'react'
 import { useIntl }            from 'react-intl'
 
-import { FormUser }           from '@ui/form'
-import { FormUserValues }     from '@ui/form'
+import { FormUser }           from '@shared/forms-fragment'
+import { FormUserValues }     from '@shared/forms-fragment'
 import { Layout }             from '@ui/layout'
 import { Modal }              from '@ui/modal'
 

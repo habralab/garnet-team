@@ -1,5 +1,5 @@
 import { User }           from '@shared/data'
-import { FormUserValues } from '@ui/form'
+import { FormUserValues } from '@shared/forms-fragment'
 
 export const getFormValues = (user?: User): FormUserValues => ({
   name: user?.userName?.split(' ')[0] ?? '',

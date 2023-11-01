@@ -1,7 +1,7 @@
 import { Project }           from '@shared/data'
 import { Team }              from '@shared/data'
-import { FormProjectValues } from '@ui/form'
-import { FormTeamValues }    from '@ui/form'
+import { FormProjectValues } from '@shared/forms-fragment'
+import { FormTeamValues }    from '@shared/forms-fragment'
 
 export const getFormValues = <T extends Team | Project>(
   item?: T
