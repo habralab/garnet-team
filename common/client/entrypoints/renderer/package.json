@@ -10,6 +10,7 @@
     "start": "PORT=3020 node dist/index.js"
   },
   "dependencies": {
+    "@apollo/client": "3.8.6",
     "@app/index-page": "workspace:0.0.1",
     "@app/onboarding-page": "workspace:0.0.1",
     "@app/project-page": "workspace:0.0.1",
@@ -24,7 +25,9 @@
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "@shared/kratos-client": "workspace:0.0.1",
+    "@shared/data": "workspace:0.0.1",
     "@ui/theme": "workspace:0.0.1",
+    "graphql": "16.8.1",
     "next": "12.3.4",
     "react": "18.2.0",
     "react-dom": "18.2.0",
