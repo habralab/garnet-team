@@ -48,8 +48,8 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             await _messageBus.Publish(@event);
 
             var team = await _teamRepository.GetTeamById(ct, userJoinRequest.TeamId);
-            var user = await _teamUserRepository.GetUser(ct, userJoinRequest.UserId);
-            var notification = userJoinRequest.CreateTeamUserJoinRequestCancelNotification(team!, user!.Username);
+
+            var notification = userJoinRequest.DeleteTeamUserJoinRequestNotification(team!.OwnerUserId);
             await _messageBus.Publish(notification);
             return Result.Ok(userJoinRequest);
         }

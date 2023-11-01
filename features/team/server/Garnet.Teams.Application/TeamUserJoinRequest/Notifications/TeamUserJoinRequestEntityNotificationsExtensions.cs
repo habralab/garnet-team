@@ -17,16 +17,13 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
             );
         }
 
-        public static SendNotificationCommandMessage CreateTeamUserJoinRequestCancelNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, string username)
+        public static DeleteNotificationCommandMessage DeleteTeamUserJoinRequestNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, string teamOwnerUserId)
         {
-            return new SendNotificationCommandMessage(
-                Title: "Отмена заявки на вступление в команду",
-                Body: $"Пользователь {username} отменил заявку на вступление в команду {team.Name}",
-                team.OwnerUserId,
-                "TeamUserJoinRequestCancel",
-                DateTimeOffset.Now,
-                userJoinRequestEntity.UserId
-            );
+            return new DeleteNotificationCommandMessage(
+               teamOwnerUserId,
+               Type: "TeamUserJoinRequest",
+               userJoinRequestEntity.UserId
+           );
         }
 
         public static SendNotificationCommandMessage CreateTeamUserJoinRequestDecideNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, bool isApproved)
