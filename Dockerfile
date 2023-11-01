@@ -9,6 +9,7 @@ COPY ["common/server", "common/server"]
 COPY ["features/project/server", "features/project/server"]
 COPY ["features/team/server", "features/team/server"]
 COPY ["features/user/server", "features/user/server"]
+COPY ["features/notification/server", "features/notification/server"]
 RUN dotnet restore "common/server/Garnet/Garnet.csproj"
 RUN dotnet build "common/server/Garnet/Garnet.csproj" -c Release -o /app/build --no-restore
 

@@ -79,6 +79,7 @@ namespace Garnet.Teams.AcceptanceTests
                 o.RegisterConsumer<ProjectTeamJoinRequestFakeConsumer, TeamJoinProjectRequestCreatedEvent>();
                 o.RegisterConsumer<ProjectTeamLeaveFakeConsumer, TeamLeaveProjectEvent>();
                 o.RegisterConsumer<SendNotificationCommandMessageFakeConsumer, SendNotificationCommandMessage>();
+                o.RegisterConsumer<DeleteNotificationCommandMessageFakeConsumer, DeleteNotificationCommandMessage>();
             });
         }
     }

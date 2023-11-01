@@ -12,7 +12,12 @@ using Garnet.Projects.Infrastructure.Api.ProjectEditOwner;
 using Garnet.Projects.Infrastructure.Api.ProjectEditTags;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskCreate;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskDelete;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskEditDescription;
 using Garnet.Projects.Infrastructure.Api.ProjectTaskEditName;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskClose;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskEditTags;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskEditLabels;
+using Garnet.Projects.Infrastructure.Api.ProjectTaskEditResponsibleUser;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using Garnet.Projects.Infrastructure.Api.ProjectUploadAvatar;
@@ -34,6 +39,11 @@ public class ProjectsMutation
     private readonly ProjectTaskCreateCommand _projectTaskCreateCommand;
     private readonly ProjectTaskDeleteCommand _projectTaskDeleteCommand;
     private readonly ProjectTaskEditNameCommand _projectTaskEditNameCommand;
+    private readonly ProjectTaskEditDescriptionCommand _projectTaskEditDescriptionCommand;
+    private readonly ProjectTaskCloseCommand _projectTaskCloseCommand;
+    private readonly ProjectTaskEditResponsibleUserCommand _projectTaskEditResponsibleUserCommand;
+    private readonly ProjectTaskEditTagsCommand _projectTaskEditTagsCommand;
+    private readonly ProjectTaskEditLabelsCommand _projectTaskEditLabelsCommand;
 
 
     public ProjectsMutation(
@@ -47,7 +57,12 @@ public class ProjectsMutation
         ProjectEditTagsCommand projectEditTagsCommand,
         ProjectTaskCreateCommand projectTaskCreateCommand,
         ProjectTaskDeleteCommand projectTaskDeleteCommand,
-        ProjectTaskEditNameCommand projectTaskEditNameCommand)
+        ProjectTaskEditNameCommand projectTaskEditNameCommand,
+        ProjectTaskEditResponsibleUserCommand projectTaskEditResponsibleUserCommand,
+        ProjectTaskEditDescriptionCommand projectTaskEditDescriptionCommand,
+        ProjectTaskCloseCommand projectTaskCloseCommand,
+        ProjectTaskEditTagsCommand projectTaskEditTagsCommand,
+        ProjectTaskEditLabelsCommand projectTaskEditLabelsCommand)
     {
         _projectCreateCommand = projectCreateCommand;
         _projectDeleteCommand = projectDeleteCommand;
@@ -60,6 +75,11 @@ public class ProjectsMutation
         _projectTaskCreateCommand = projectTaskCreateCommand;
         _projectTaskDeleteCommand = projectTaskDeleteCommand;
         _projectTaskEditNameCommand = projectTaskEditNameCommand;
+        _projectTaskEditResponsibleUserCommand = projectTaskEditResponsibleUserCommand;
+        _projectTaskEditDescriptionCommand = projectTaskEditDescriptionCommand;
+        _projectTaskCloseCommand = projectTaskCloseCommand;
+        _projectTaskEditTagsCommand = projectTaskEditTagsCommand;
+        _projectTaskEditLabelsCommand = projectTaskEditLabelsCommand;
     }
 
     public async Task<ProjectCreatePayload> ProjectCreate(CancellationToken ct,
@@ -211,6 +231,65 @@ public class ProjectsMutation
 
         var task = result.Value;
         return new ProjectTaskEditNamePayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskEditDescriptionPayload> ProjectTaskEditDescription(CancellationToken ct,
+        string taskId, string description)
+    {
+        var result = await _projectTaskEditDescriptionCommand.Execute(ct, taskId, description);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskEditDescriptionPayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskEditTagsPayload> ProjectTaskEditTags(CancellationToken ct,
+        ProjectTaskEditTagsInput input)
+    {
+        var result = await _projectTaskEditTagsCommand.Execute(ct, input.TaskId, input.Tags);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskEditTagsPayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskEditLabelsPayload> ProjectTaskEditLabels(CancellationToken ct,
+        ProjectTaskEditLabelsInput input)
+    {
+        var result = await _projectTaskEditLabelsCommand.Execute(ct, input.TaskId, input.Labels);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskEditLabelsPayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskEditResponsibleUserPayload> ProjectTaskEditResponsibleUser(CancellationToken ct,
+string taskId, string newResponsibleUserId)
+    {
+        var result = await _projectTaskEditResponsibleUserCommand.Execute(ct, taskId, newResponsibleUserId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskEditResponsibleUserPayload(
+            task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
+            task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
+    }
+
+    public async Task<ProjectTaskClosePayload> ProjectTaskClose(CancellationToken ct, string taskId)
+    {
+        var result = await _projectTaskCloseCommand.Execute(ct, taskId);
+        result.ThrowQueryExceptionIfHasErrors();
+
+        var task = result.Value;
+        return new ProjectTaskClosePayload(
             task.Id, task.TaskNumber, task.ProjectId, task.ResponsibleUserId, task.Name, task.Description,
             task.Status, task.TeamExecutorIds, task.UserExecutorIds, task.Tags, task.Labels);
     }
