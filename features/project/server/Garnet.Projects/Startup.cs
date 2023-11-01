@@ -102,6 +102,7 @@ public static class Startup
             o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamUserJoinRequestDecidedEventConsumer, TeamUserJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamJoinInvitationDecidedEventConsumer, TeamJoinInvitationDecidedEvent>();
+            o.RegisterConsumer<ProjectTeamLeaveProjectConsumer, TeamLeaveProjectEvent>();
         });
     }
 
@@ -154,6 +155,7 @@ public static class Startup
         services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
         services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
+        services.AddScoped<ProjectTeamParticipantLeaveCommand>();
 
 
         services.AddScoped<ProjectTeamParticipantFilterQuery>();
@@ -177,6 +179,7 @@ public static class Startup
         services.AddScoped<ProjectTaskCreateCommand>();
         services.AddScoped<ProjectTaskDeleteCommand>();
         services.AddScoped<ProjectTaskEditNameCommand>();
+        services.AddScoped<ProjectTaskEditResponsibleUserCommand>();
         services.AddScoped<ProjectTaskEditDescriptionCommand>();
         services.AddScoped<ProjectTaskEditTagsCommand>();
         services.AddScoped<ProjectTaskEditLabelsCommand>();

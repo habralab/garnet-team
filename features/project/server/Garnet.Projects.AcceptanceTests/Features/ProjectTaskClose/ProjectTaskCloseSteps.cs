@@ -27,8 +27,8 @@ public class ProjectTaskCloseSteps : BaseSteps
         _errorStepContext = errorStepContext;
     }
 
-    [Given(@"пользователь '(.*)' является отвественным по задаче '(.*)'")]
-    public async Task GivenПользовательЯвляетсяОтвественнымПоЗадаче(string username, string taskName)
+    [Given(@"пользователь '(.*)' является ответственным по задаче '(.*)'")]
+    public async Task GivenПользовательЯвляетсяОтветственнымПоЗадаче(string username, string taskName)
     {
         var user = await Db.ProjectUsers.Find(x => x.UserName == username).FirstAsync();
         await Db.ProjectTasks.UpdateOneAsync(

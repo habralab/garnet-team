@@ -43,6 +43,7 @@ namespace Garnet.Notifications
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<NotificationsGetListByCurrentUserQuery>();
             services.AddScoped<NotificationDeleteAsReadCommand>();
+            services.AddScoped<NotificationDeleteCommand>();
         }
 
         public static void AddGarnetNotificationMessageBus(this IServiceCollection services, string name)
@@ -50,6 +51,7 @@ namespace Garnet.Notifications
             services.AddGarnetMessageBus(name, o =>
             {
                 o.RegisterConsumer<SendNotificationCommandMessageConsumer, SendNotificationCommandMessage>();
+                o.RegisterConsumer<DeleteNotificationCommandMessageConsumer, DeleteNotificationCommandMessage>();
             });
         }
 
