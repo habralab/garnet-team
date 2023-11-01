@@ -24,7 +24,12 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
-  const handleClickUpload = () => inputRef.current?.click()
+  const handleClickUpload = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ''
+      inputRef.current.click()
+    }
+  }
 
   const handleUploadImage = (event) => {
     setFile(event.target?.files[0])
