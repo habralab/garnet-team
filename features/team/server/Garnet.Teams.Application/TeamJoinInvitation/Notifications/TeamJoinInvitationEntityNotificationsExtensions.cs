@@ -17,6 +17,16 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
             );
         }
 
+
+        public static DeleteNotificationCommandMessage DeleteTeamInviteNotification(this TeamJoinInvitationEntity invitation)
+        {
+            return new DeleteNotificationCommandMessage(
+               invitation.UserId,
+               Type: "TeamInvite",
+               invitation.TeamId
+           );
+        }
+
         public static SendNotificationCommandMessage CreateTeamInviteDecideNotification(this TeamJoinInvitationEntity invitation, TeamEntity team, string username, bool isApproved)
         {
             var decision = isApproved ? "принял" : "отклонил";
