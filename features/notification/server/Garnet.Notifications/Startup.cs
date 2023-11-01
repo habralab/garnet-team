@@ -42,6 +42,7 @@ namespace Garnet.Notifications
         {
             services.AddScoped<INotificationRepository, NotificationRepository>();
             services.AddScoped<NotificationsGetListByCurrentUserQuery>();
+            services.AddScoped<NotificationDeleteAsReadCommand>();
             services.AddScoped<NotificationDeleteCommand>();
         }
 

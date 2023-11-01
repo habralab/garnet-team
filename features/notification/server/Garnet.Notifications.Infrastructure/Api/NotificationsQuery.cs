@@ -20,6 +20,7 @@ namespace Garnet.Notifications.Infrastructure.Api
             var result = await _notificationGetQuery.Query(ct);
 
             var notifications = result.Select(x => new NotificationPayload(
+                x.Id,
                 x.Title,
                 x.Body,
                 x.Type,
