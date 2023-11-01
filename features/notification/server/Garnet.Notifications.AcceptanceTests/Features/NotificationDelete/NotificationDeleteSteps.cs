@@ -1,5 +1,6 @@
 using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Notifications.Infrastructure.MongoDB;
 using MongoDB.Driver;
 
 namespace Garnet.Notifications.AcceptanceTests.Features.NotificationDelete
@@ -8,6 +9,7 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationDelete
     public class NotificationDeleteSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly UpdateDefinitionBuilder<NotificationDocument> _u = Builders<NotificationDocument>.Update;
 
         public NotificationDeleteSteps(
             CurrentUserProviderFake currentUserProviderFake,
@@ -16,11 +18,26 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationDelete
             _currentUserProviderFake = currentUserProviderFake;
         }
 
-        [When(@"пользователь '(.*)' отмечает уведомление как прочитанное")]
-        public async Task WhenПользовательОтмечаетУведомлениеКакПрочитанное(string username)
+        [Given(@"уведомление для пользователя '(.*)' имеет тип '(.*)' и ссылкой на '(.*)'")]
+        public async Task GivenНазваниеУведомления(string username, string notificationType, string notificationLinkedEntityId)
+        {
+            await Db.Notifications.UpdateOneAsync(
+                x => x.UserId == _currentUserProviderFake.GetUserIdByUsername(username),
+                _u
+                    .Set(x => x.Type, notificationType)
+                    .Set(x => x.LinkedEntityId, notificationLinkedEntityId)
+            );
+        }
+
+        [When(@"пользователь '(.*)' отмечает уведомление с типом '(.*)' и ссылкой на '(.*)' как прочитанное")]
+        public async Task WhenПользовательОтмечаетУведомлениеКакПрочитанное(string username, string notificationType, string notificationLinkedEntityId)
         {
             var notification = await Db.Notifications
-                .Find(x => x.UserId == _currentUserProviderFake.GetUserIdByUsername(username))
+               .Find(x =>
+                   x.UserId == _currentUserProviderFake.GetUserIdByUsername(username)
+                   & x.Type == notificationType
+                   & x.LinkedEntityId == notificationLinkedEntityId
+                )
                 .FirstAsync();
 
             _currentUserProviderFake.LoginAs(username);
@@ -34,6 +51,19 @@ namespace Garnet.Notifications.AcceptanceTests.Features.NotificationDelete
                 .Find(x => x.UserId == _currentUserProviderFake.GetUserIdByUsername(username))
                 .ToListAsync();
             notifications.Count.Should().Be(notificationCount);
+        }
+
+        [Then(@"у пользователя '(.*)' нет уведомления с типом '(.*)' и ссылкой на '(.*)'")]
+        public async Task ThenУПользователяНетУведомленияСНазванием(string username, string notificationType, string notificationLinkedEntityId)
+        {
+            var notification = await Db.Notifications
+                .Find(x =>
+                    x.UserId == _currentUserProviderFake.GetUserIdByUsername(username)
+                    & x.Type == notificationType
+                    & x.LinkedEntityId == notificationLinkedEntityId
+                )
+                .FirstOrDefaultAsync();
+            notification.Should().BeNull();
         }
     }
 }
