@@ -10,9 +10,9 @@ namespace Garnet.Notifications.Application.Commands
             _notificationRepository = notificationRepository;
         }
 
-        public Task Execute(CancellationToken ct, NotificationDeleteArgs args)
+        public async Task Execute(CancellationToken ct, NotificationDeleteArgs args)
         {
-            return Task.CompletedTask;
+            await _notificationRepository.DeleteNotification(ct, args);
         }
     }
 }
