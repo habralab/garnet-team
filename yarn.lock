@@ -429,7 +429,6 @@ __metadata:
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/theme": "workspace:0.0.1"
-    cropperjs: "npm:1.6.1"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -6131,7 +6130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cropperjs@npm:1.6.1, cropperjs@npm:^1.5.13":
+"cropperjs@npm:^1.5.13":
   version: 1.6.1
   resolution: "cropperjs@npm:1.6.1"
   checksum: 4865c5c8831c0de152c4fd88aaf6d279829a32f2581dc2a0beff273809a2fd69f300b0351cfa564a52b0057a986bc3a1af890fd97617114500674b16d13ad63d
