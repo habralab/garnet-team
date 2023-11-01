@@ -1,5 +1,3 @@
-import 'cropperjs/dist/cropper.css'
-
 import * as messages     from '../../locales/ru.json'
 
 import React             from 'react'

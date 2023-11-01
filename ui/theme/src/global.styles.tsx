@@ -1,9 +1,11 @@
-import * as fonts from './fonts'
+import * as fonts        from './fonts'
 
-import { Global } from '@emotion/react'
-import { css }    from '@emotion/react'
+import { Global }        from '@emotion/react'
+import { css }           from '@emotion/react'
 
-import React      from 'react'
+import React             from 'react'
+
+import { CropperStyles } from './cropperjs'
 
 export const GlobalStyles = () => (
   <Global
@@ -34,6 +36,8 @@ export const GlobalStyles = () => (
           background: transparent;
         }
       }
+
+      ${CropperStyles}
     `}
   />
 )
