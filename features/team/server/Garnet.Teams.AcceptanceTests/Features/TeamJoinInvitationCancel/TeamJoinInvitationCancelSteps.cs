@@ -56,7 +56,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationCancel
         public async Task ThenДляПользователяНетУведомленийТипа(string username, string evenType)
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
-            var message = _deleteNotificationCommandMessageFakeConsumer.Notifications
+            var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
                .First(x => x.UserId == user.Id);
             message.Type.Should().Be(evenType);
         }
@@ -65,7 +65,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationCancel
         public async Task ThenДляПользователяНетУведомленийСоСвязаннойСущностьюКомандой(string username, string teamName)
         {
             var user = await Db.TeamUsers.Find(x => x.Username == username).FirstAsync();
-            var message = _deleteNotificationCommandMessageFakeConsumer.Notifications
+            var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
                .First(x => x.UserId == user.Id);
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
             message.LinkedEntityId.Should().Be(team.Id);

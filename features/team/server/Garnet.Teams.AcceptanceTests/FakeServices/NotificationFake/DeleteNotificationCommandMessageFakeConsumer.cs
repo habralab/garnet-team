@@ -5,10 +5,10 @@ namespace Garnet.Teams.AcceptanceTests.FakeServices.NotificationFake
 {
     public class DeleteNotificationCommandMessageFakeConsumer : IMessageBusConsumer<DeleteNotificationCommandMessage>
     {
-        public List<DeleteNotificationCommandMessage> Notifications = new();
+        public List<DeleteNotificationCommandMessage> DeletedNotifications = new();
         public Task Consume(DeleteNotificationCommandMessage message)
         {
-            Notifications.Add(message);
+            DeletedNotifications.Add(message);
             return Task.CompletedTask;
         }
     }
