@@ -19,7 +19,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ user }) => (
     </Text>
     <Layout flexBasis={10} flexShrink={0} />
     <Text fontSize='semiMedium' color='text.gray'>
-      <FormattedMessage id='profile.about' />
+      <FormattedMessage id='profile.about_user' />
     </Text>
     <Layout flexBasis={10} flexShrink={0} />
     <Text fontSize='medium' color='text.secondary'>
@@ -30,7 +30,7 @@ export const ProfileDescription: FC<ProfileDescriptionProps> = ({ user }) => (
       <FormattedMessage id='profile.skills' />
     </Text>
     <Layout flexBasis={10} flexShrink={0} />
-    <Row flexWrap='wrap' maxHeight={72} overflow='hidden' style={{ gap: 10 }}>
+    <Row flexWrap='wrap' maxHeight={72} overflow='hidden' gap={10}>
       {user?.tags?.map((tag) => (
         <Tag key={tag}>{tag}</Tag>
       ))}

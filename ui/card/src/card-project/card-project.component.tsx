@@ -1,16 +1,13 @@
 import React                 from 'react'
 import { FC }                from 'react'
-import { useRouter }         from 'next/router'
 import { useIntl }           from 'react-intl'
 
 import { UserGroupIcon }     from '@ui/icon'
 
-import { Card }              from '../card.component'
+import { CardWithLink }      from '../card-with-link'
 import { CardProjectsProps } from './card-project.interfaces'
 
 export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large' }) => {
-  const router = useRouter()
-
   const { formatMessage } = useIntl()
 
   const countUsers = project.countUsers || 0
@@ -18,10 +15,8 @@ export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large'
 
   const mockAvatarsTeams = Array.from({ length: countTeams }, () => project.avatarUrl || '')
 
-  const handleClick = () => router.push(`/project/${project.id}`)
-
   return (
-    <Card
+    <CardWithLink
       avatarUrl={project.avatarUrl}
       name={project.name}
       countItems={countTeams}
@@ -30,7 +25,7 @@ export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large'
       itemsAvatars={mockAvatarsTeams}
       itemsAvatarsShape='square'
       cardSize={cardSize}
-      onClick={handleClick}
+      url={`/project/${project.id}`}
       itemsIcon={<UserGroupIcon width={14} height={14} color='accentPressed' />}
     />
   )

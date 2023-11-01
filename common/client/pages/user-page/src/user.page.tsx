@@ -6,7 +6,7 @@ import { Background }      from '@ui/background'
 import { WrapperMaxWidth } from '@ui/wrapper'
 
 const UserPage = () => (
-  <Background color='lightGreyTen' flexDirection='column' alignItems='center'>
+  <Background fill color='lightGreyTen' flexDirection='column' alignItems='center'>
     <Header />
     <WrapperMaxWidth>
       <Profile />

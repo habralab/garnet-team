@@ -92,7 +92,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange }) => {
         <Layout flexBasis={24} flexShrink={0} />
         <Column fill maxWidth={170} alignItems='center'>
           <Condition match={Boolean(formValues?.avatar)}>
-            <Avatar image={formValues?.avatar} size={150} />
+            <Avatar image={formValues?.avatar} shape='square' size={150} />
             <Layout flexBasis={10} flexShrink={0} />
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>

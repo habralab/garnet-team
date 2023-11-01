@@ -26,18 +26,11 @@ export const Card: FC<CardProps> = ({
   itemsAvatars = [],
   itemsAvatarsShape = 'circle',
   itemsIcon,
-  onClick,
 }) => {
   const [hover, hoverProps] = useHover()
 
   return (
-    <Box
-      position='relative'
-      title={name}
-      style={{ cursor: 'pointer' }}
-      onClick={onClick}
-      {...hoverProps}
-    >
+    <Box position='relative' title={name} style={{ cursor: 'pointer' }} {...hoverProps}>
       <Avatar title={name} image={avatarUrl} shape='square' size={sizeConfig[cardSize].size} />
       <Condition match={!hover && countItems > 0 && sizeConfig[cardSize].avatarGroupShow}>
         <Box position='absolute' bottom={20} left={20} borderRadius='medium' height={50}>
@@ -77,7 +70,7 @@ export const Card: FC<CardProps> = ({
               justifyContent='center'
               flexWrap='wrap'
               paddingX={`${sizeConfig[cardSize].statisticGap}px`}
-              style={{ gap: sizeConfig[cardSize].statisticGap }}
+              gap={sizeConfig[cardSize].statisticGap}
             >
               <Box alignItems='center'>
                 <Background

@@ -9,6 +9,7 @@ import { useHover }         from '@ui/utils'
 
 import { ButtonProps }      from './button.interfaces'
 import { IconAttachment }   from './icon-attachment'
+import { eventsStyles }     from './styles'
 import { getBaseStyles }    from './styles'
 import { contentStyles }    from './styles'
 import { shapeStyles }      from './styles'
@@ -20,7 +21,8 @@ const ButtonElement = styled('button')<any>(
   contentStyles,
   shapeStyles,
   appearanceStyles,
-  fillStyles
+  fillStyles,
+  eventsStyles
 )
 
 export const Button = forwardRef<HTMLElement, ButtonProps>((
@@ -37,17 +39,20 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((
         pressed={pressed || active}
         onMouseDown={() => setPressed(true)}
         onMouseUp={() => setPressed(false)}
+        withIcon
         fill={fill}
         {...hoverProps}
         {...props}
         ref={ref}
       >
-        <Content divider={8}>{children}</Content>
-        <IconAttachment
-          iconSvg={props.iconSvg}
-          valueWidth={props.valueWidth}
-          valueHeight={props.valueHeight}
-        />
+        <Content divider={4}>
+          {children}
+          <IconAttachment
+            iconSvg={props.iconSvg}
+            valueWidth={props.valueWidth}
+            valueHeight={props.valueHeight}
+          />
+        </Content>
       </ButtonElement>
     )
   }
@@ -58,16 +63,19 @@ export const Button = forwardRef<HTMLElement, ButtonProps>((
         pressed={pressed || active}
         onMouseDown={() => setPressed(true)}
         onMouseUp={() => setPressed(false)}
+        withIcon
         {...hoverProps}
         {...props}
         ref={ref}
       >
-        <IconAttachment
-          iconSvg={props.iconSvg}
-          valueWidth={props.valueWidth}
-          valueHeight={props.valueHeight}
-        />
-        <Content divider={8}>{children}</Content>
+        <Content divider={4}>
+          <IconAttachment
+            iconSvg={props.iconSvg}
+            valueWidth={props.valueWidth}
+            valueHeight={props.valueHeight}
+          />
+          {children}
+        </Content>
       </ButtonElement>
     )
   }

@@ -20,7 +20,7 @@ export const Logo: FC = () => {
   }
 
   return (
-    <NextLink path='/' width='100%'>
+    <NextLink path='/' href='/' width='100%'>
       <Icon />
     </NextLink>
   )

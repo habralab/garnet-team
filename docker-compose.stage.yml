@@ -108,5 +108,5 @@ services:
       - POSTGRESQL_USER=postgres
     ports:
       - '5432:5432'
-    networks:
-      - internal
+    network_mode: bridge
+    
