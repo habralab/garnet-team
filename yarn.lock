@@ -3059,6 +3059,32 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@shared/forms-fragment@workspace:0.0.1, @shared/forms-fragment@workspace:shared/fragments/forms":
+  version: 0.0.0-use.local
+  resolution: "@shared/forms-fragment@workspace:shared/fragments/forms"
+  dependencies:
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/avatar": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/condition": "workspace:0.0.1"
+    "@ui/input": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    react-intl: "npm:6.0.8"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@shared/helpers@workspace:0.0.1, @shared/helpers@workspace:shared/helpers":
   version: 0.0.0-use.local
   resolution: "@shared/helpers@workspace:shared/helpers"
@@ -3086,13 +3112,13 @@ __metadata:
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@shared/data": "workspace:0.0.1"
+    "@shared/forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
-    "@ui/form": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
     "@ui/input": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -3926,32 +3952,6 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     react: "*"
-  languageName: unknown
-  linkType: soft
-
-"@ui/form@workspace:0.0.1, @ui/form@workspace:ui/form":
-  version: 0.0.0-use.local
-  resolution: "@ui/form@workspace:ui/form"
-  dependencies:
-    "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
-    "@ui/avatar": "workspace:0.0.1"
-    "@ui/button": "workspace:0.0.1"
-    "@ui/condition": "workspace:0.0.1"
-    "@ui/input": "workspace:0.0.1"
-    "@ui/layout": "workspace:0.0.1"
-    "@ui/text": "workspace:0.0.1"
-    react-intl: "npm:6.0.8"
-  peerDependencies:
-    "@emotion/css": "*"
-    "@emotion/react": "*"
-    "@emotion/styled": "*"
-    next: "*"
-    react: "*"
-    react-dom: "*"
-    react-intl: "*"
-    styled-system: "*"
-    styled-tools: "*"
   languageName: unknown
   linkType: soft
 
