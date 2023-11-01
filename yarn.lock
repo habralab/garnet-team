@@ -146,6 +146,42 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@apollo/client@npm:3.8.6":
+  version: 3.8.6
+  resolution: "@apollo/client@npm:3.8.6"
+  dependencies:
+    "@graphql-typed-document-node/core": "npm:^3.1.1"
+    "@wry/context": "npm:^0.7.3"
+    "@wry/equality": "npm:^0.5.6"
+    "@wry/trie": "npm:^0.4.3"
+    graphql-tag: "npm:^2.12.6"
+    hoist-non-react-statics: "npm:^3.3.2"
+    optimism: "npm:^0.17.5"
+    prop-types: "npm:^15.7.2"
+    response-iterator: "npm:^0.2.6"
+    symbol-observable: "npm:^4.0.0"
+    ts-invariant: "npm:^0.10.3"
+    tslib: "npm:^2.3.0"
+    zen-observable-ts: "npm:^1.2.5"
+  peerDependencies:
+    graphql: ^14.0.0 || ^15.0.0 || ^16.0.0
+    graphql-ws: ^5.5.5
+    react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
+    subscriptions-transport-ws: ^0.9.0 || ^0.11.0
+  peerDependenciesMeta:
+    graphql-ws:
+      optional: true
+    react:
+      optional: true
+    react-dom:
+      optional: true
+    subscriptions-transport-ws:
+      optional: true
+  checksum: f9f4577fa3e1da2b59368b5c1cec51e2f753e84bd5dfc0c29ff98aa9b5af4d5e645694c1079fe63d212eb639d8990ff1378c3dbec06d7e06e488f55192a51cbf
+  languageName: node
+  linkType: hard
+
 "@app/header-fragment@workspace:0.0.1, @app/header-fragment@workspace:common/client/fragments/header-fragment":
   version: 0.0.0-use.local
   resolution: "@app/header-fragment@workspace:common/client/fragments/header-fragment"
@@ -175,6 +211,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -219,6 +256,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -242,6 +280,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -278,6 +317,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -312,6 +352,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -336,6 +377,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -372,6 +414,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -396,6 +439,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -409,6 +453,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/renderer-entrypoint@workspace:common/client/entrypoints/renderer"
   dependencies:
+    "@apollo/client": "npm:3.8.6"
     "@app/index-page": "workspace:0.0.1"
     "@app/onboarding-page": "workspace:0.0.1"
     "@app/project-page": "workspace:0.0.1"
@@ -429,6 +474,7 @@ __metadata:
     "@types/react-dom": "npm:18.2.14"
     "@types/styled-system": "npm:5.1.20"
     "@ui/theme": "workspace:0.0.1"
+    graphql: "npm:16.8.1"
     next: "npm:12.3.4"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -443,6 +489,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/team-fragment@workspace:common/client/fragments/team-fragment"
   dependencies:
+    "@apollo/client": "npm:3.8.6"
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -464,6 +511,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -498,6 +546,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -522,6 +571,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -546,6 +596,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -583,6 +634,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -607,6 +659,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -631,6 +684,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -664,6 +718,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -688,6 +743,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -2038,6 +2094,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@graphql-typed-document-node/core@npm:^3.1.1":
+  version: 3.2.0
+  resolution: "@graphql-typed-document-node/core@npm:3.2.0"
+  peerDependencies:
+    graphql: ^0.8.0 || ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0 || ^17.0.0
+  checksum: 9775c4e54324d6ce6ad505940a0c351ee42899088f436702476b3b93eaa60f7f646c459657d08a9e8793a91067cd55c18e1091bf2045b346f2e55fb37a1e8baa
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.9.2":
   version: 0.9.5
   resolution: "@humanwhocodes/config-array@npm:0.9.5"
@@ -3028,9 +3093,12 @@ __metadata:
 "@shared/data@workspace:0.0.1, @shared/data@workspace:shared/data":
   version: 0.0.0-use.local
   resolution: "@shared/data@workspace:shared/data"
+  dependencies:
+    "@apollo/client": "npm:3.8.6"
   peerDependencies:
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    graphql: "*"
     react: "*"
   languageName: unknown
   linkType: soft
@@ -4610,6 +4678,33 @@ __metadata:
     "@webassemblyjs/ast": "npm:1.11.6"
     "@xtuc/long": "npm:4.2.2"
   checksum: 5e797fe94d0c54a99d7220562cf8f9d945a32a14a16e7f5e4184c6e5b4cad8c3f639e8b5f6b2f13fb63f9631fc360bfa0d1c9d23c88c5d0b9781076bf61a581e
+  languageName: node
+  linkType: hard
+
+"@wry/context@npm:^0.7.0, @wry/context@npm:^0.7.3":
+  version: 0.7.4
+  resolution: "@wry/context@npm:0.7.4"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  checksum: 2460c011fa3ab464d891df5b89191f0359197373553472a3bffcaede74381b86f0f6c9e9a0f565ba616a186b2576092f4b6f66cbaf8855035e24793bffb2e06e
+  languageName: node
+  linkType: hard
+
+"@wry/equality@npm:^0.5.6":
+  version: 0.5.7
+  resolution: "@wry/equality@npm:0.5.7"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  checksum: d847f6ce07c62f4866e35bfe8273a81eb4985d8bab769a0fd99c866e64f5fcd8ab4792bbb1a9e03b9fedd7c560aecd3b7852fc0070a2fcde0af41264a65dc0d7
+  languageName: node
+  linkType: hard
+
+"@wry/trie@npm:^0.4.3":
+  version: 0.4.3
+  resolution: "@wry/trie@npm:0.4.3"
+  dependencies:
+    tslib: "npm:^2.3.0"
+  checksum: 8e5abacf2668e1c8196a47eb5e442d35b661b12e1a8e876606ddf1d550b67a94dd8b4f22f3912882c6c95083104990a8dad296b8ec81d92264744fb3189105ef
   languageName: node
   linkType: hard
 
@@ -7287,6 +7382,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"graphql-tag@npm:^2.12.6":
+  version: 2.12.6
+  resolution: "graphql-tag@npm:2.12.6"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  peerDependencies:
+    graphql: ^0.9.0 || ^0.10.0 || ^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0 || ^15.0.0 || ^16.0.0
+  checksum: 35c9fbdc43bb9eddfa4223c19ce9a34370ee89c77e00e1b797d864e5eebac2551a52c42850d68a3be5fe7540d99cfa009e1f43cb79d2170f96bcce8eb7fc86cf
+  languageName: node
+  linkType: hard
+
+"graphql@npm:16.8.1":
+  version: 16.8.1
+  resolution: "graphql@npm:16.8.1"
+  checksum: e3a95625d233c1d13c6f1df659f66955f582cb95dddb8407558090376088abcc414f39ed387a549541fca8cee681f3a5976253b6f53a5d47930dd129a5030143
+  languageName: node
+  linkType: hard
+
 "har-schema@npm:^2.0.0":
   version: 2.0.0
   resolution: "har-schema@npm:2.0.0"
@@ -9031,6 +9144,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"optimism@npm:^0.17.5":
+  version: 0.17.5
+  resolution: "optimism@npm:0.17.5"
+  dependencies:
+    "@wry/context": "npm:^0.7.0"
+    "@wry/trie": "npm:^0.4.3"
+    tslib: "npm:^2.3.0"
+  checksum: 3e6f21051449e546bc6a210852c42d608ff4c7e2aed64678c14e13d0ee17cdb30d0716f54de827f3f6b5b4ab75e4d660a658b6dfccb2b978533d09c77b38ee46
+  languageName: node
+  linkType: hard
+
 "optionator@npm:^0.9.1":
   version: 0.9.1
   resolution: "optionator@npm:0.9.1"
@@ -9315,7 +9439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.6.2":
+"prop-types@npm:^15.6.2, prop-types@npm:^15.7.2":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -9697,6 +9821,13 @@ __metadata:
   bin:
     resolve: bin/resolve
   checksum: 2135af62a270eb839cf13ae6b0ba00be5c12eb1f27bf14902ec9b469fca4d6937cfc6d8acb939a292004cfaeaf43c6ddca649aa62316a731cfc0dc9b22e15c0b
+  languageName: node
+  linkType: hard
+
+"response-iterator@npm:^0.2.6":
+  version: 0.2.6
+  resolution: "response-iterator@npm:0.2.6"
+  checksum: 4eda14b5b4a9b52ece22a128fe24cc4fa21a070baa016eb3ef6e0136334b6be2c97e8b9a4d206b296da90b2cd77c27a422ac44d58a69158645027773593fe4f8
   languageName: node
   linkType: hard
 
@@ -10280,6 +10411,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"symbol-observable@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "symbol-observable@npm:4.0.0"
+  checksum: ca21ea188b8a454d2bd570b7704bac4b113cfcabd5999adf874d1076cf805bd6f98915f5389a0fa32e2f9173617a1c62f310a0def00f406bcf0737ad952e529a
+  languageName: node
+  linkType: hard
+
 "tapable@npm:^2.1.1, tapable@npm:^2.2.0":
   version: 2.2.1
   resolution: "tapable@npm:2.2.1"
@@ -10504,6 +10642,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ts-invariant@npm:^0.10.3":
+  version: 0.10.3
+  resolution: "ts-invariant@npm:0.10.3"
+  dependencies:
+    tslib: "npm:^2.1.0"
+  checksum: cb1991baa5a01b4f7cdb717edf677fb1cf8a414dcae14304aa82698b40e6f64753fd347a1690a5e88cfa0d6bcc3c045ddea58f9d0ecc6a9572498256d9395ddc
+  languageName: node
+  linkType: hard
+
 "ts-jest@npm:^28.0.4":
   version: 28.0.8
   resolution: "ts-jest@npm:28.0.8"
@@ -10559,7 +10706,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.1.0":
+"tslib@npm:^2.1.0, tslib@npm:^2.3.0":
   version: 2.6.2
   resolution: "tslib@npm:2.6.2"
   checksum: e5654691294dfbc49d7f37c8476b11a90ab8a0af4ad8cc968af1d013600e84ecfcd9a68e1cb89f5dcfe5c88872e3fbacea830d237cfa063498115a88f4bd2de6
@@ -11078,5 +11225,21 @@ __metadata:
   dependencies:
     "@types/yoga-layout": "npm:1.9.2"
   checksum: 12d24d35f8f6db885b0e10132df54c57001972c67cf923784801c7da145025bea07334b7cf1988e0560c3596dfd2d7ce908fb967463ce1a2792fa840187042ef
+  languageName: node
+  linkType: hard
+
+"zen-observable-ts@npm:^1.2.5":
+  version: 1.2.5
+  resolution: "zen-observable-ts@npm:1.2.5"
+  dependencies:
+    zen-observable: "npm:0.8.15"
+  checksum: 1086ac8f3a91eee4437f99e79b61f7f8c2b6040471d9a4356ee4e3b6e5b2627c4ab59a2ae7962f2f3c48d6816f2458f77d7e778d91a4a2e80102e36a0242643f
+  languageName: node
+  linkType: hard
+
+"zen-observable@npm:0.8.15":
+  version: 0.8.15
+  resolution: "zen-observable@npm:0.8.15"
+  checksum: 82d09c1bb61fdaef03edb3b96f2af90ec9ddcdb35616df249f9d7aaef3aa4e061c7ab8733678b184639a914d47ba6f77741072c1d1ebea93dcd299d85fcf969d
   languageName: node
   linkType: hard
