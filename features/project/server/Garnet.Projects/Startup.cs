@@ -162,6 +162,7 @@ public static class Startup
 
         services.AddScoped<ProjectTeamParticipantFilterQuery>();
         services.AddScoped<ProjectFilterByUserParticipantIdQuery>();
+        services.AddScoped<ProjectFilterByTeamParticipantIdQuery>();
     }
 
     public static void AddProjectTeamJoinRequestsInternal(this IServiceCollection services)
