@@ -79,6 +79,20 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         return projectEntities.Select(ProjectDocument.ToDomain).ToArray();
     }
 
+
+    public async Task<ProjectEntity[]> GetProjectsOfTeamParticipantByTeamId(CancellationToken ct, string teamId)
+    {
+        var db = _dbFactory.Create();
+        var teamParticipants = await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId)
+            .ToListAsync(cancellationToken: ct);
+        var projectIds = teamParticipants.Select(x => x.ProjectId).ToArray();
+
+        var projectEntities = await db.Projects.Find(
+            _projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
+
+        return projectEntities.Select(ProjectDocument.ToDomain).ToArray();
+    }
+
     public async Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
         string teamName, string? teamAvatarUrl)
     {
