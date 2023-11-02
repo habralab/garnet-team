@@ -5,6 +5,7 @@ using Garnet.Common.Application.S3;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
 
@@ -38,7 +39,7 @@ namespace Garnet.Teams.Application.Team.Commands
         public async Task<Result<TeamEntity>> Execute(CancellationToken ct, TeamCreateArgs args)
         {
             var currentUserId = _currentUserProvider.UserId;
-            
+
             var user = await _usersRepository.GetUser(ct, currentUserId);
             if (user is null)
             {
@@ -52,7 +53,8 @@ namespace Garnet.Teams.Application.Team.Commands
             }
 
             var team = await _teamRepository.CreateTeam(ct, currentUserId, args);
-            await _participantRepository.CreateTeamParticipant(ct, user.Id, user.Username, team.Id);
+            var participantArgs = new TeamParticipantCreateArgs(user.Id, user.Username, user.AvatarUrl, team.Id);
+            await _participantRepository.CreateTeamParticipant(ct, participantArgs);
 
             if (args.Avatar is not null)
             {
