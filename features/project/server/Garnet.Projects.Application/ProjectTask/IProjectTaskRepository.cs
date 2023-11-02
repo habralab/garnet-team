@@ -15,6 +15,7 @@ public interface IProjectTaskRepository
     Task<ProjectTaskEntity> EditProjectTaskDescription(CancellationToken ct, string taskId, string description);
     Task<ProjectTaskEntity> EditProjectTaskTags(CancellationToken ct, string taskId, string[] tags);
     Task<ProjectTaskEntity> EditProjectTaskLabels(CancellationToken ct, string taskId, string[] labels);
+    Task<ProjectTaskEntity> EditProjectTeamExecutor(CancellationToken ct, string taskId, string[] teamIds);
     Task<ProjectTaskEntity> CloseProjectTask(CancellationToken ct, string taskId, string status);
     Task CreateIndexes(CancellationToken ct);
 }
