@@ -6,7 +6,10 @@ export interface FormUserValues {
   avatar: string
 }
 
+export type FormUserErrorsText = Record<keyof FormUserValues, string>
+
 export interface FormUserProps {
   formValues: FormUserValues
   handleChange: (field: keyof FormUserValues) => (value: string | string[]) => void
+  handleDisabled?: (disabled: boolean) => void
 }
