@@ -205,12 +205,12 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
             return team is null ? null : TeamDocument.ToDomain(team);
         }
 
-        public async Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string teamId, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl)
+        public async Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string[] teamIds, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl)
         {
             var db = _dbFactory.Create();
 
             var team = await db.Teams.FindOneAndUpdateAsync(
-                _f.Eq(x => x.Id, teamId),
+                _f.In(x => x.Id, teamIds),
                 _u
                     .Push(x => x.ParticipantAvatarUrls, oldParticipantAvatarUrl)
                     .Pull(x => x.ParticipantAvatarUrls, newParticipantAvatarUrl),

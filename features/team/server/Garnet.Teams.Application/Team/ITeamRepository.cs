@@ -17,6 +17,6 @@ namespace Garnet.Teams.Application.Team
         Task CreateIndexes(CancellationToken ct);
         Task<TeamEntity?> IncreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl);
         Task<TeamEntity?> DecreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl);
-        Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string teamId, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl);
+        Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string[] teamIds, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl);
     }
 }
