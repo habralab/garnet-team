@@ -23,10 +23,12 @@ using Garnet.Projects.Application.ProjectTeamParticipant.Commands;
 using Garnet.Projects.Application.ProjectTeamParticipant.Queries;
 using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Application.ProjectUser.Commands;
+using Garnet.Projects.Application.ProjectUser.Queries;
 using Garnet.Projects.Events.Project;
 using Garnet.Projects.Events.ProjectTask;
 using Garnet.Projects.Events.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api;
+using Garnet.Projects.Infrastructure.Api.ProjectFilterByUserParticipantId;
 using Garnet.Projects.Infrastructure.EventHandlers.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.EventHandlers.Team;
 using Garnet.Projects.Infrastructure.EventHandlers.User;
@@ -159,6 +161,7 @@ public static class Startup
 
 
         services.AddScoped<ProjectTeamParticipantFilterQuery>();
+        services.AddScoped<ProjectFilterByUserParticipantIdQuery>();
     }
 
     public static void AddProjectTeamJoinRequestsInternal(this IServiceCollection services)
