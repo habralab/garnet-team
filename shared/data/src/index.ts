@@ -1,3 +1,4 @@
 export * from './data.interfaces'
-export * from './mock'
+export * from './get-user'
 export * from './helpers'
+export * from './mock'
