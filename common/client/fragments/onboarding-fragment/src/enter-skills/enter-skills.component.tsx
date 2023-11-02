@@ -1,18 +1,19 @@
-import React                from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useState }         from 'react'
-import { useIntl }          from 'react-intl'
+import React                 from 'react'
+import { FC }                from 'react'
+import { FormattedMessage }  from 'react-intl'
+import { useState }          from 'react'
+import { useIntl }           from 'react-intl'
 
-import { Button }           from '@ui/button'
-import { Multiselect }      from '@ui/input'
-import { Box }              from '@ui/layout'
-import { Layout }           from '@ui/layout'
-import { Text }             from '@ui/text'
+import { Button }            from '@ui/button'
+import { Multiselect }       from '@ui/input'
+import { Box }               from '@ui/layout'
+import { Layout }            from '@ui/layout'
+import { Text }              from '@ui/text'
 
-import { EnterSkillsProps } from './enter-skills.interfaces'
-import { validateValue }    from './helpers'
-import { useSkillsState }   from './hooks'
+import { useSkillsState }    from './hooks'
+import { EnterSkillsProps }  from './enter-skills.interfaces'
+import { useUpdateUserTags } from '../data'
+import { validateValue }     from './helpers'
 
 export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
   const [errorText, setErrorText] = useState<string>('')
@@ -21,11 +22,22 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
 
   const { formatMessage } = useIntl()
 
+  const { updateUserTags } = useUpdateUserTags()
+
   const updateErrorText = () => {
     validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
   }
 
-  const handleSubmit = () => onSubmit?.(value)
+  const handleSubmit = async () => {
+    try {
+      if (value) {
+        await updateUserTags({ variables: { tags: value } })
+        onSubmit?.()
+      }
+    } catch (error) {
+      /** @todo error notification */
+    }
+  }
 
   return (
     <>

@@ -1,18 +1,19 @@
-import React                     from 'react'
-import { FC }                    from 'react'
-import { FormattedMessage }      from 'react-intl'
-import { useState }              from 'react'
-import { useIntl }               from 'react-intl'
+import React                        from 'react'
+import { FC }                       from 'react'
+import { FormattedMessage }         from 'react-intl'
+import { useState }                 from 'react'
+import { useIntl }                  from 'react-intl'
 
-import { Button }                from '@ui/button'
-import { Textarea }              from '@ui/input'
-import { Box }                   from '@ui/layout'
-import { Layout }                from '@ui/layout'
-import { Text }                  from '@ui/text'
+import { Button }                   from '@ui/button'
+import { Textarea }                 from '@ui/input'
+import { Box }                      from '@ui/layout'
+import { Layout }                   from '@ui/layout'
+import { Text }                     from '@ui/text'
 
-import { EnterDescriptionProps } from './enter-description.interfaces'
-import { validateValue }         from './helpers'
-import { useDescriptionState }   from './hooks'
+import { useDescriptionState }      from './hooks'
+import { EnterDescriptionProps }    from './enter-description.interfaces'
+import { useUpdateUserDescription } from '../data'
+import { validateValue }            from './helpers'
 
 export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
   const [errorText, setErrorText] = useState<string>('')
@@ -20,11 +21,22 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
 
   const { formatMessage } = useIntl()
 
+  const { updateUserDescription } = useUpdateUserDescription()
+
   const updateErrorText = () => {
     validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
   }
 
-  const handleSubmit = () => onSubmit?.(value)
+  const handleSubmit = async () => {
+    try {
+      if (value) {
+        await updateUserDescription({ variables: { description: value } })
+        onSubmit?.()
+      }
+    } catch (error) {
+      /** @todo error notification */
+    }
+  }
 
   return (
     <>

@@ -1,26 +1,30 @@
-import React                from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useRef }           from 'react'
-import { useState }         from 'react'
+import React                   from 'react'
+import { FC }                  from 'react'
+import { FormattedMessage }    from 'react-intl'
+import { useRef }              from 'react'
+import { useState }            from 'react'
 
-import { ModalEditImage }   from '@shared/modals-fragment'
-import { Avatar }           from '@ui/avatar'
-import { Button }           from '@ui/button'
-import { Condition }        from '@ui/condition'
-import { Input }            from '@ui/input'
-import { Box }              from '@ui/layout'
-import { Layout }           from '@ui/layout'
-import { Text }             from '@ui/text'
+import { ModalEditImage }      from '@shared/modals-fragment'
+import { Avatar }              from '@ui/avatar'
+import { Button }              from '@ui/button'
+import { Condition }           from '@ui/condition'
+import { Input }               from '@ui/input'
+import { Box }                 from '@ui/layout'
+import { Layout }              from '@ui/layout'
+import { Text }                from '@ui/text'
 
-import { UploadPhotoProps } from './upload-photo.interfaces'
+import { UploadPhotoProps }    from './upload-photo.interfaces'
+import { useUploadUserAvatar } from '../data'
 
 export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
   const [file, setFile] = useState<File>()
+  const [blob, setBlob] = useState<Blob>()
   const [modalOpen, setModalOpen] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState<string>()
 
   const inputRef = useRef<HTMLInputElement>(null)
+
+  const { uploadUserAvatar } = useUploadUserAvatar()
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
@@ -36,11 +40,21 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
     toggleModalOpen()
   }
 
-  const handleSubmit = () => onSubmit?.(avatarUrl)
-
-  const handleConfirm = (url?: string) => {
+  const handleConfirm = (url?: string, blob?: Blob) => {
     setAvatarUrl(url)
+    setBlob(blob)
     toggleModalOpen()
+  }
+
+  const handleSubmit = async () => {
+    try {
+      if (blob) {
+        await uploadUserAvatar({ variables: { file: blob } })
+        onSubmit?.()
+      }
+    } catch (error) {
+      /** @todo error notification */
+    }
   }
 
   return (
