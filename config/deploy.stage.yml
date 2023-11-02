@@ -13,5 +13,7 @@ traefik:
     traefik.http.routers.garnet-backend-websecure-stage.entrypoints: websecure
     traefik.http.routers.garnet-backend-websecure-stage.tls: true
     traefik.http.routers.garnet-backend-websecure-stage.middlewares: disabled-cors
-    traefik.http.middlewares.disabled-cors.headers.customResponseHeaders.Access-Control-Allow-Methods: "POST, GET, OPTIONS"
-    traefik.http.middlewares.disabled-cors.headers.customResponseHeaders.Access-Control-Allow-Origin: "*"
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolallowmethods: [POST, GET, OPTIONS]
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolalloworiginlist: "*"
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolmaxage: 120
+    traefik.http.middlewares.disabled-cors.headers.addvaryheader: true
