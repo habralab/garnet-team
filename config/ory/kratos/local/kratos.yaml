@@ -4,34 +4,9 @@ dsn: memory
 
 serve:
   public:
-    base_url: https://https://stage.garnet.pet-project.habr.com:4433/
+    base_url: http://kratos:4433/
     cors:
-      enabled: true
-      allowed_origins:
-        - http://localhost:3010
-        - http://identity:3010
-        - http://app:3020
-        - http://localhost:4455
-        - http://oathkeeper:4455
-        - http://localhost:4466
-        - http://keto:4466
-      allowed_methods:
-        - POST
-        - GET
-        - PUT
-        - PATCH
-        - DELETE
-        - OPTIONS
-      allowed_headers:
-        - Authorization
-        - Cookie
-        - Content-Type
-        - X-Session-Token
-      exposed_headers:
-        - Content-Type
-        - Set-Cookie
-      allow_credentials: true
-      debug: true
+      enabled: false
   admin:
     base_url: http://kratos:4434
 
@@ -65,16 +40,16 @@ selfservice:
 
   flows:
     error:
-      ui_url: http://localhost:3000/auth/error
+      ui_url: http://localhost:3010/auth/error
 
     settings:
-      ui_url: http://localhost:3000/auth/recovery/new-password
+      ui_url: http://localhost:3010/auth/recovery/new-password
       privileged_session_max_age: 15m
       required_aal: aal1
 
     recovery:
       enabled: true
-      ui_url: http://localhost:3000/auth/recovery
+      ui_url: http://localhost:3010/auth/recovery
       use: link
       lifespan: 1h
 
@@ -83,15 +58,17 @@ selfservice:
 
     logout:
       after:
-        default_browser_return_url: http://localhost:3000/auth/login
+        default_browser_return_url: http://localhost:3010/auth/login
 
     login:
-      ui_url: http://localhost:3000/auth/login
+      ui_url: http://localhost:3010/auth/login
+      after:
+        default_browser_return_url: http://localhost:3020/app
 
     registration:
-      ui_url: http://localhost:3000/auth/registration
+      ui_url: http://localhost:3010/auth/registration
       after:
-        default_browser_return_url: http://localhost:3000/auth/confirmation
+        default_browser_return_url: http://localhost:3010/auth/confirmation
 
 log:
   level: debug
