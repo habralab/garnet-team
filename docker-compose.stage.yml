@@ -33,7 +33,7 @@ services:
       - "traefik.http.middlewares.cor.headers.accesscontrolallowmethods=POST,GET,OPTIONS"
       - "traefik.http.middlewares.cor.headers.accesscontrolallowheaders=*"
       - "traefik.http.middlewares.cor.headers.accesscontrolalloworiginlist=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolmaxage=120"
+      - "traefik.http.middlewares.cor.headers.accesscontrolmaxage=86400"
       - "traefik.http.middlewares.cor.headers.addvaryheader=true"
     networks:
       - garnet
