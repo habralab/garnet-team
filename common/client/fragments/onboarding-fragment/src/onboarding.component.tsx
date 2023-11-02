@@ -35,7 +35,7 @@ export const Onboarding: FC = () => {
     else if (user) {
       router.push(`/user/${mockAuthUserId}`)
     }
-  }, [user])
+  }, [router, user])
 
   const handleUploadPhoto = () => setPageState(PageState.ENTER_DESCRIPTION)
   const handleEnterDescription = () => setPageState(PageState.ENTER_SKILLS)
