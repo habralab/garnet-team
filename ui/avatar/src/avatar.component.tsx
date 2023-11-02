@@ -45,13 +45,16 @@ export const Avatar: FC<AvatarProps> = ({
         <Condition match={Boolean(url)}>
           <Link href={url} width='100%' height='100%' onClick={handleClick}>
             <AvatarImage src={image} />
+            <Condition match={Boolean(children)}>
+              <AvatarFallback>{children}</AvatarFallback>
+            </Condition>
           </Link>
         </Condition>
         <Condition match={!url}>
           <AvatarImage src={image} />
-        </Condition>
-        <Condition match={Boolean(children)}>
-          <AvatarFallback>{children}</AvatarFallback>
+          <Condition match={Boolean(children)}>
+            <AvatarFallback>{children}</AvatarFallback>
+          </Condition>
         </Condition>
       </AvatarRoot>
     </Box>
