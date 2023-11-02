@@ -9,7 +9,7 @@
     "start": "PORT=3010 node dist/index.js"
   },
   "dependencies": {
-    "@atls/next-identity-integration": "0.0.16",
+    "@atls/next-identity-integration": "0.0.17",
     "@emotion/css": "11.9.0",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
@@ -19,6 +19,7 @@
     "@identity/recovery-new-password-page": "workspace:0.0.1",
     "@identity/recovery-page": "workspace:0.0.1",
     "@identity/registration-page": "workspace:0.0.1",
+    "@shared/kratos-client": "workspace:0.0.1",
     "@ui/theme": "workspace:0.0.1",
     "next": "12.3.4",
     "react": "18.2.0",
