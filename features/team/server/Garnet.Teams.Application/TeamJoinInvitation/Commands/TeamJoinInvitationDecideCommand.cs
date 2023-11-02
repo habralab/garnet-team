@@ -66,12 +66,13 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             {
                 var args = new TeamParticipantCreateArgs(user.Id, user.Username, user.AvatarUrl, team.Id);
                 await _teamParticipantRepository.CreateTeamParticipant(ct, args);
+                await _teamRepository.IncreaseParticipantCount(ct, team.Id, user.AvatarUrl);
             }
             await _teamJoinInvitationRepository.DeleteInvitationById(ct, joinInvitationId);
 
             var @event = invitation.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
-            
+
             var notification = invitation.CreateTeamInviteDecideNotification(team, user.Username, isApproved);
             await _messageBus.Publish(notification);
             return Result.Ok(invitation);

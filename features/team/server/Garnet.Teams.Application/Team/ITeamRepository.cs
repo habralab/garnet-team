@@ -15,5 +15,8 @@ namespace Garnet.Teams.Application.Team
         Task<TeamEntity?> EditTeamOwner(CancellationToken ct, string teamId, string newOwnerUserId);
         Task<TeamEntity[]> GetTeamsById(CancellationToken ct, string[] teamIds, TeamsListArgs args);
         Task CreateIndexes(CancellationToken ct);
+        Task<TeamEntity?> IncreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl);
+        Task<TeamEntity?> DecreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl);
+        Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string teamId, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl);
     }
 }

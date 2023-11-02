@@ -55,6 +55,7 @@ namespace Garnet.Teams.Application.Team.Commands
             var team = await _teamRepository.CreateTeam(ct, currentUserId, args);
             var participantArgs = new TeamParticipantCreateArgs(user.Id, user.Username, user.AvatarUrl, team.Id);
             await _participantRepository.CreateTeamParticipant(ct, participantArgs);
+            await _teamRepository.IncreaseParticipantCount(ct, team.Id, user.AvatarUrl);
 
             if (args.Avatar is not null)
             {

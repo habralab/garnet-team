@@ -50,12 +50,13 @@ namespace Garnet.Teams.Application.TeamParticipant.Commands
                 return Result.Fail(new TeamUserNotATeamParticipantError(_currentUserProvider.UserId));
             }
 
+            var user = await _teamUserRepository.GetUser(ct, membership.UserId);
             await _teamParticipantRepository.DeleteParticipantById(ct, membership.Id);
+            await _teamRepository.DecreaseParticipantCount(ct, team.Id, user!.AvatarUrl);
 
             var @event = membership.ToLeftTeamEvent();
             await _messageBus.Publish(@event);
 
-            var user = await _teamUserRepository.GetUser(ct, membership.UserId);
             var notification = membership.CreateParticipantLeaveTeamNotification(team, user!.Username);
             await _messageBus.Publish(notification);
             return Result.Ok(membership);

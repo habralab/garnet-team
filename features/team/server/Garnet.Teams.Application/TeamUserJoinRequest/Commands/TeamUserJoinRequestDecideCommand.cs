@@ -62,6 +62,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             {
                 var args = new TeamParticipantCreateArgs(user!.Id, user.Username, user.AvatarUrl, team.Id);
                 await _participantRepository.CreateTeamParticipant(ct, args);
+                await _teamRepository.IncreaseParticipantCount(ct, team.Id, user.AvatarUrl);
             }
             await _userJoinRequestRepository.DeleteUserJoinRequestById(ct, userJoinRequestId);
 

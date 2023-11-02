@@ -172,5 +172,52 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
         }
+
+        public async Task<TeamEntity?> IncreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u
+                    .Inc(x => x.ParticipantCount, 1)
+                    .Push(x => x.ParticipantAvatarUrls, participantAvatarUrl)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> DecreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u
+                    .Inc(x => x.ParticipantCount, -1)
+                    .Pull(x => x.ParticipantAvatarUrls, participantAvatarUrl)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string teamId, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await db.Teams.FindOneAndUpdateAsync(
+                _f.Eq(x => x.Id, teamId),
+                _u
+                    .Push(x => x.ParticipantAvatarUrls, oldParticipantAvatarUrl)
+                    .Pull(x => x.ParticipantAvatarUrls, newParticipantAvatarUrl),
+                cancellationToken: ct
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
     }
 }
