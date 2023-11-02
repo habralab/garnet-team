@@ -31,6 +31,7 @@ export const Modal: FC<ModalProps> = ({
   onConfirm,
   onCancel,
   onClose,
+  confirmProps,
 }) => {
   const { formatMessage } = useIntl()
 
@@ -83,7 +84,7 @@ export const Modal: FC<ModalProps> = ({
                         <Layout flexBasis={24} flexShrink={0} />
                       </Condition>
                       <Condition match={showConfirm}>
-                        <Button variant='primary' onClick={onConfirm}>
+                        <Button variant='primary' onClick={onConfirm} {...confirmProps}>
                           <Text fontSize='medium' color='currentColor'>
                             {defaultConfirmText}
                           </Text>
@@ -123,7 +124,7 @@ export const Modal: FC<ModalProps> = ({
                       </Button>
                     </Condition>
                     <Condition match={showConfirm}>
-                      <Button variant='secondary' onClick={onConfirm}>
+                      <Button variant='secondary' onClick={onConfirm} {...confirmProps}>
                         <Text fontSize='medium' color='currentColor'>
                           {defaultConfirmText}
                         </Text>
