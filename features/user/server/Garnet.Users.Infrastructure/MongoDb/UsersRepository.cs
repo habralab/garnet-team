@@ -1,4 +1,5 @@
 using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.Api.Cancellation;
 using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application;
@@ -19,12 +20,12 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         DbFactory dbFactory,
         ICurrentUserProvider currentUserProvider,
         IDateTimeService dateTimeService,
-        CancellationToken ct
+        CancellationTokenProvider ctp
     )
         : base(currentUserProvider, dateTimeService)
     {
         _dbFactory = dbFactory;
-        _ct = ct;
+        _ct = ctp.Token;
     }
 
     public async Task<User?> GetUser(string id)

@@ -1,3 +1,4 @@
+using Garnet.Common.Infrastructure.Api.Cancellation;
 using HotChocolate.Execution.Configuration;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,13 +18,7 @@ public static class Startup
     public static IServiceCollection AddCancellationTokenProvider(this IServiceCollection services)
     {
         services.AddHttpContextAccessor();
-        services.AddScoped(
-            typeof(CancellationToken),
-            svc =>
-                svc.GetRequiredService<IHttpContextAccessor>()
-                    .HttpContext?.RequestAborted
-                ?? CancellationToken.None
-        );
+        services.AddScoped<CancellationTokenProvider>();
         return services;
     }
 }
