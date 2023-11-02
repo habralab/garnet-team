@@ -66,7 +66,13 @@ namespace Garnet.Teams.Infrastructure.Api
         {
             var args = new TeamParticipantFilterArgs(input.Search, input.TeamId, input.Skip, input.Take);
             var participants = await _teamParticipantFilterQuery.Query(ct, args);
-            var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
+            var payloadContent = participants.Select(x => new TeamParticipantPayload(
+                x.Id,
+                x.UserId,
+                x.Username,
+                x.TeamId,
+                x.AvatarUrl
+            )).ToArray();
 
             return new TeamParticipantFilterPayload(payloadContent);
         }
