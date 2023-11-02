@@ -15,7 +15,7 @@ import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
 import { mockAuthUserId }   from '@shared/data'
-import { getMockUser }      from '@shared/data'
+import { useGetUser }       from '@shared/data'
 import { getUniqueTags }    from '@shared/helpers'
 
 import { ListTeams }        from './list-teams/list-teams.component'
@@ -25,10 +25,10 @@ export const UserTeams: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
   const router = useRouter()
-  const userData = getMockUser(String(router.query.id) || '')
+  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
 
-  const user = userData?.user
-  const teams = userData?.teams || []
+  const { user, teams } = useGetUser({ id: queryId, skip: 0, take: 20 })
+
   const uniqueTags = getUniqueTags(teams)
 
   useEffect(() => {
