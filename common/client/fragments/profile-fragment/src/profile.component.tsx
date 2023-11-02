@@ -5,6 +5,7 @@ import { useRouter }          from 'next/router'
 import { useEffect }          from 'react'
 import { useState }           from 'react'
 
+import { User }               from '@shared/data'
 import { Button }             from '@ui/button'
 import { Condition }          from '@ui/condition'
 import { Box }                from '@ui/layout'
@@ -15,7 +16,7 @@ import { Text }               from '@ui/text'
 import { Title }              from '@ui/title'
 import { WrapperWhite }       from '@ui/wrapper'
 import { mockAuthUserId }     from '@shared/data'
-import { getMockUser }        from '@shared/data'
+import { useGetUser }         from '@shared/data'
 
 import { ButtonEditProfile }  from './button-edit-profile'
 import { ProfileAvatar }      from './profile-avatar'
@@ -24,17 +25,28 @@ import { ProfileProjects }    from './profile-projects'
 
 export const Profile: FC = () => {
   const router = useRouter()
+  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
+
+  const [user, setUser] = useState<User>()
   const [isMyProfile, setIsMyProfile] = useState(false)
 
-  const userData = getMockUser(String(router.query.id) || '')
-
-  const user = userData?.user
-  const teams = userData?.teams || []
-  const projects = userData?.projects || []
+  const { user: fetchedUser, teams, projects } = useGetUser({ id: queryId, skip: 0, take: 20 })
 
   useEffect(() => {
-    if (user?.id === mockAuthUserId) setIsMyProfile(true)
-  }, [user])
+    if (fetchedUser) {
+      const { avatarUrl, description, id, tags } = fetchedUser
+
+      if (!avatarUrl || !description || !tags || tags.length === 0) {
+        router.push('/onboarding')
+      }
+
+      if (id === mockAuthUserId) setIsMyProfile(true)
+
+      setUser(fetchedUser)
+    }
+  }, [router, fetchedUser])
+
+  const handleEditUser = (editedUser: User) => setUser(editedUser)
 
   return (
     <Column fill>
@@ -56,7 +68,7 @@ export const Profile: FC = () => {
             <ProfileDescription user={user} />
             <Box position='absolute' bottom={32} right={32}>
               <Condition match={isMyProfile}>
-                <ButtonEditProfile user={user} />
+                <ButtonEditProfile user={user} onEditUser={handleEditUser} />
               </Condition>
               <Condition match={!isMyProfile}>
                 <Button variant='primary' size='normal'>
