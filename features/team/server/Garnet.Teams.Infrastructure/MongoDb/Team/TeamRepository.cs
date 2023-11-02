@@ -219,5 +219,35 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             return team is null ? null : TeamDocument.ToDomain(team);
         }
+
+        public async Task<TeamEntity?> IncreaseProjectCount(CancellationToken ct, string teamId)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u
+                    .Inc(x => x.ParticipantCount, 1)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task<TeamEntity?> DecreaseProjectCount(CancellationToken ct, string teamId)
+        {
+            var db = _dbFactory.Create();
+
+            var team = await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u
+                    .Inc(x => x.ParticipantCount, -1)
+            );
+
+            return team is null ? null : TeamDocument.ToDomain(team);
+        }
     }
 }
