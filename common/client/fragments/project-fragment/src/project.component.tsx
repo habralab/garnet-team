@@ -42,7 +42,7 @@ export const Project: FC = () => {
     (project) =>
       selectedTags.some((tag) => project.tags?.includes(tag)) ||
       (searchValue.length > 2 &&
-        project.name?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
+        project.projectName?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
   )
 
   return (

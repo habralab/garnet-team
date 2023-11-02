@@ -24,7 +24,7 @@ export interface Team {
 
 export interface Project {
   id?: string
-  name?: string
+  projectName?: string
   description?: string
   tags?: string[]
   avatarUrl?: string
