@@ -31,7 +31,7 @@ public class UserGetSteps : BaseSteps
     public async Task WhenПользовательОткрываетПрофильПользователя(string username)
     {
         var user = await Db.Users.Find(o => o.UserName == username).FirstAsync();
-        _response = await Query.UserGet(CancellationToken.None, user.Id);
+        _response = await Query.UserGet(user.Id);
     }
 
     [Then(@"описание о себе открытой карточки пользователя состоит из '(.*)'")]
@@ -46,7 +46,7 @@ public class UserGetSteps : BaseSteps
         try
         {
             var id = ObjectId.GenerateNewId().ToString();
-            await Query.UserGet(CancellationToken.None, id!);
+            await Query.UserGet(id!);
         }
         catch (QueryException ex)
         {

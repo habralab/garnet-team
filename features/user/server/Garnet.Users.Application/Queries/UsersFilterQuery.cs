@@ -11,9 +11,9 @@ namespace Garnet.Users.Application.Queries
             _usersRepository = usersRepository;
         }
 
-        public async Task<User[]> Query(CancellationToken ct, UserFilterArgs args)
+        public async Task<User[]> Query(UserFilterArgs args)
         {
-            return await _usersRepository.FilterUsers(ct, args);
+            return await _usersRepository.FilterUsers(args);
         }
     }
 }

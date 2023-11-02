@@ -33,9 +33,9 @@ public class UsersMutation
         _userEditTagsCommand = userEditTagsCommand;
     }
 
-    public async Task<UserCreatePayload> UserCreate(CancellationToken ct, UserCreateInput input)
+    public async Task<UserCreatePayload> UserCreate(UserCreateInput input)
     {
-        var result = await _userCreateCommand.Execute(ct, input.IdentityId, input.UserName);
+        var result = await _userCreateCommand.Execute(input.IdentityId, input.UserName);
         result.ThrowQueryExceptionIfHasErrors();
 
         var user = result.Value;
@@ -44,18 +44,17 @@ public class UsersMutation
 
     public async Task<UserEditDescriptionPayload> UserEditDescription(CancellationToken ct, UserEditDescriptionInput input)
     {
-        var result = await _userEditDescriptionCommand.Execute(ct, input.Description);
+        var result = await _userEditDescriptionCommand.Execute(input.Description);
         result.ThrowQueryExceptionIfHasErrors();
 
         var user = result.Value;
         return new UserEditDescriptionPayload(user.Id, user.UserName, user.Description, user.AvatarUrl, user.Tags);
     }
 
-    public async Task<UserUploadAvatarPayload> UserUploadAvatar(CancellationToken ct, UserUploadAvatarInput input)
+    public async Task<UserUploadAvatarPayload> UserUploadAvatar(UserUploadAvatarInput input)
     {
         var result =
             await _userEditAvatarCommand.Execute(
-                ct,
                 input.File.Name,
                 input.File.ContentType,
                 input.File.OpenReadStream()
@@ -68,7 +67,7 @@ public class UsersMutation
 
     public async Task<UserEditTagsPayload> UserEditTags(CancellationToken ct, string[] tags)
     {
-        var result = await _userEditTagsCommand.Execute(ct, tags);
+        var result = await _userEditTagsCommand.Execute(tags);
         result.ThrowQueryExceptionIfHasErrors();
 
         var user = result.Value;
@@ -77,7 +76,7 @@ public class UsersMutation
 
     public async Task<UserEditUsernamePayload> UserEditUsername(CancellationToken ct, UserEditUsernameInput input)
     {
-        var result = await _userEditUsernameCommand.Execute(ct, input.NewUsername);
+        var result = await _userEditUsernameCommand.Execute(input.NewUsername);
         result.ThrowQueryExceptionIfHasErrors();
 
         var user = result.Value;

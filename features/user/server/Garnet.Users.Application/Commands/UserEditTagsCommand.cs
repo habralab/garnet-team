@@ -21,15 +21,15 @@ namespace Garnet.Users.Application.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result<User>> Execute(CancellationToken ct, string[] tags)
+        public async Task<Result<User>> Execute(string[] tags)
         {
-            var user = await _usersRepository.GetUser(ct, _currentUserProvider.UserId);
+            var user = await _usersRepository.GetUser(_currentUserProvider.UserId);
             if (user is null)
             {
                 return Result.Fail(new UserNotFoundError(_currentUserProvider.UserId));
             }
 
-            user = await _usersRepository.EditUserTags(ct, user.Id, tags);
+            user = await _usersRepository.EditUserTags(user.Id, tags);
             await _messageBus.Publish(user.ToUpdatedEvent());
             return Result.Ok(user);
         }

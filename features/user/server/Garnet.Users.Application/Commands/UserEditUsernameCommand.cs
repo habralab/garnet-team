@@ -21,20 +21,20 @@ namespace Garnet.Users.Application.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result<User>> Execute(CancellationToken ct, string newUsername)
+        public async Task<Result<User>> Execute(string newUsername)
         {
             if (string.IsNullOrWhiteSpace(newUsername))
             {
                 return Result.Fail(new UsernameCanNotBeEmptyError());
             }
 
-            var user = await _usersRepository.GetUser(ct, _currentUserProvider.UserId);
+            var user = await _usersRepository.GetUser(_currentUserProvider.UserId);
             if (user is null)
             {
                 return Result.Fail(new UserNotFoundError(_currentUserProvider.UserId));
             }
 
-            user = await _usersRepository.EditUsername(ct, user.Id, newUsername);
+            user = await _usersRepository.EditUsername(user.Id, newUsername);
             await _messageBus.Publish(user.ToUpdatedEvent());
             return Result.Ok(user);
         }

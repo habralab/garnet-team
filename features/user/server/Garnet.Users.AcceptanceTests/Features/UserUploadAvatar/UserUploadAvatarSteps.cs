@@ -28,7 +28,6 @@ public class UserUploadAvatarSteps : BaseSteps
     {
         _currentUserProviderFake.LoginAs(username);
         await Mutation.UserUploadAvatar(
-            CancellationToken.None,
             new UserUploadAvatarInput(
                 new StreamFile(
                     avatar,
