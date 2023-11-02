@@ -9,7 +9,7 @@ import { Text }                   from '@ui/text'
 
 import { ButtonEditProfileProps } from './button-edit-profile.interfaces'
 
-export const ButtonEditProfile: FC<ButtonEditProfileProps> = ({ user }) => {
+export const ButtonEditProfile: FC<ButtonEditProfileProps> = ({ user, onEditUser }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
@@ -21,7 +21,12 @@ export const ButtonEditProfile: FC<ButtonEditProfileProps> = ({ user }) => {
           <FormattedMessage id='profile.edit' />
         </Text>
       </Button>
-      <ModalEditUser modalOpen={modalOpen} onClose={toggleModalOpen} user={user} />
+      <ModalEditUser
+        modalOpen={modalOpen}
+        onClose={toggleModalOpen}
+        user={user}
+        onSubmit={onEditUser}
+      />
     </>
   )
 }
