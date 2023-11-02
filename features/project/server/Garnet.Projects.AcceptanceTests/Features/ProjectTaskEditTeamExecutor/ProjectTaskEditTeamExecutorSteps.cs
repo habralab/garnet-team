@@ -42,15 +42,14 @@ public class ProjectTaskEditTeamExecutorSteps : BaseSteps
     {
         _currentUserProviderFake.LoginAs(username);
         var teamList = teams.Split(", ");
-        var teamIdList = new List<string>();
-        foreach (var teamName in teamList)
-        {
-            var team = await Db.ProjectTeams.Find(o => o.TeamName == teamName).FirstAsync();
-            teamIdList.Add(team.Id);
-        }
+        var teamIds =
+            await Db.ProjectTeams
+                .Find(o => teamList.Any(t => o.TeamName == t))
+                .Project(o => o.Id)
+                .ToListAsync();
 
         var task = await Db.ProjectTasks.Find(o => o.Name == taskName).FirstAsync();
-        var input = new ProjectTaskEditTeamExecutorInput(task.Id, teamIdList.ToArray());
+        var input = new ProjectTaskEditTeamExecutorInput(task.Id, teamIds.ToArray());
         try
         {
             await Mutation.ProjectTaskEditTeamExecutor(CancellationToken.None, input);
@@ -65,14 +64,13 @@ public class ProjectTaskEditTeamExecutorSteps : BaseSteps
     public async Task ThenКомандамиИсполнителямиЗадачиЯвляются(string taskName, string teams)
     {
         var teamList = teams.Split(", ");
-        var teamIdList = new List<string>();
-        foreach (var teamName in teamList)
-        {
-            var team = await Db.ProjectTeamsParticipants.Find(o => o.TeamName == teamName).FirstAsync();
-            teamIdList.Add(team.TeamId);
-        }
+        var teamIds =
+            await Db.ProjectTeamsParticipants
+                .Find(o => teamList.Any(t => o.TeamName == t))
+                .Project(o => o.TeamId)
+                .ToListAsync();
 
         var task = await Db.ProjectTasks.Find(o => o.Name == taskName).FirstAsync();
-        task.TeamExecutorIds.Should().BeEquivalentTo(teamIdList);
+        task.TeamExecutorIds.Should().BeEquivalentTo(teamIds);
     }
 }
