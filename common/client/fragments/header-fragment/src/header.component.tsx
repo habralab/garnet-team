@@ -39,7 +39,7 @@ export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
             {navigationItems.map(({ id, url }) => (
               <Fragment key={id}>
                 <NextLink path={url} href={url} active>
-                  <TabItem active={url === currentPathname}>
+                  <TabItem active={`/${url.split('/')[1]}` === currentPathname}>
                     <FormattedMessage id={id} />
                   </TabItem>
                 </NextLink>
