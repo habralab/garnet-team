@@ -4,7 +4,7 @@ namespace Garnet.Teams.Application.TeamParticipant
 {
     public interface ITeamParticipantRepository
     {
-        Task<TeamParticipantEntity> CreateTeamParticipant(CancellationToken ct, string userId, string username, string teamId);
+        Task<TeamParticipantEntity> CreateTeamParticipant(CancellationToken ct, TeamParticipantCreateArgs args);
         Task<TeamParticipantEntity[]> GetParticipantsFromTeam(CancellationToken ct, string teamId);
         Task DeleteParticipantsByTeam(CancellationToken ct, string teamId);
         Task DeleteParticipantById(CancellationToken ct, string participantId);
