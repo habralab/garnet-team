@@ -11,6 +11,7 @@ using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
 using Garnet.Teams.Infrastructure.Api.TeamsList;
+using Garnet.Teams.Infrastructure.Api.TeamsListByUser;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
 using HotChocolate.Types;
@@ -90,7 +91,17 @@ namespace Garnet.Teams.Infrastructure.Api
         {
             var args = new TeamsListArgs(input.Skip, input.Take);
             var result = await _teamsListQuery.Query(ct, input.UserId, args);
-            var teams = result.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId));
+            var teams = result.Select(x => new TeamByUserPayload(
+                x.Id,
+                x.Name,
+                x.Description,
+                x.AvatarUrl,
+                x.Tags,
+                x.OwnerUserId,
+                x.ProjectCount,
+                x.ParticipantCount,
+                x.ParticipantsAvatarUrls ?? Array.Empty<string>()
+            ));
 
             return new TeamsListPayload(teams.ToArray());
         }

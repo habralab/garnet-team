@@ -9,8 +9,11 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
         public string Name { get; init; } = null!;
         public string Description { get; init; } = null!;
         public string OwnerUserId { get; init; } = null!;
-        public string? AvatarUrl {get; init;} = null!;
-        public string[] Tags {get;init;} = null!;
+        public string? AvatarUrl { get; init; } = null!;
+        public string[] Tags { get; init; } = null!;
+        public int ProjectCount { get; init; } = 0;
+        public int ParticipantCount { get; init; }
+        public string[] ParticipantAvatarUrls { get; init; } = Array.Empty<string>();
 
         public static TeamDocument Create(string id, string name, string description, string ownerUserId, string? avatarUrl, string[] tags)
         {
@@ -28,7 +31,18 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
         public static TeamEntity ToDomain(TeamDocument doc)
         {
             var audit = AuditInfoDocument.ToDomain(doc.AuditInfo);
-            return new TeamEntity(doc.Id, doc.Name, doc.Description, doc.OwnerUserId, doc.AvatarUrl, doc.Tags, audit);
+            return new TeamEntity(
+                doc.Id,
+                doc.Name,
+                doc.Description,
+                doc.OwnerUserId,
+                doc.AvatarUrl,
+                doc.Tags,
+                audit,
+                doc.ProjectCount,
+                doc.ParticipantCount,
+                doc.ParticipantAvatarUrls
+            );
         }
     }
 }

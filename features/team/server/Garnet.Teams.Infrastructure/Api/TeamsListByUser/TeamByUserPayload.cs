@@ -11,6 +11,7 @@ namespace Garnet.Teams.Infrastructure.Api.TeamsListByUser
        string[] Tags,
        string OwnerUserId,
        int ProjectCount,
-       TeamParticipantPayload[] TeamParticipants
+       int ParticipantCount,
+       string[] TeamParticipantAvatarUrls
    ) : TeamPayload(Id, Name, Description, AvatarUrl, Tags, OwnerUserId);
 }

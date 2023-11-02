@@ -10,7 +10,10 @@ namespace Garnet.Teams.Application.Team
         string OwnerUserId,
         string? AvatarUrl,
         string[] Tags,
-        AuditInfo AuditInfo
+        AuditInfo AuditInfo,
+        int ProjectCount,
+        int ParticipantCount,
+        string[]? ParticipantsAvatarUrls
     );
 
     public static class TeamEntityExtensions
