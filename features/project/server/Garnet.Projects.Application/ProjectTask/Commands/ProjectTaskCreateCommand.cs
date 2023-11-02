@@ -51,7 +51,7 @@ public class ProjectTaskCreateCommand
         var teamParticipantIds = teamParticipants.Select(x => x.TeamId).ToArray();
         if (args.TeamExecutorIds.Any(team => teamParticipantIds.Contains(team) is false))
         {
-            return Result.Fail(new ProjectOnlyTeamParticipantCanSetAsTaskExecutorError());
+            return Result.Fail(new ProjectTeamParticipantOnlyCanBeSetAsTeamExecutorError());
         }
 
         var userParticipants =

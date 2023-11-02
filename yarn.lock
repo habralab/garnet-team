@@ -929,9 +929,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@atls/next-identity-integration@npm:0.0.16":
-  version: 0.0.16
-  resolution: "@atls/next-identity-integration@npm:0.0.16"
+"@atls/next-identity-integration@npm:0.0.17":
+  version: 0.0.17
+  resolution: "@atls/next-identity-integration@npm:0.0.17"
   dependencies:
     "@ory/client": "npm:1.2.11"
     "@ory/integrations": "npm:1.1.5"
@@ -940,7 +940,7 @@ __metadata:
   peerDependencies:
     next: 12.3.4
     react: 18.2.0
-  checksum: e40baa169731a8fb2b0353f5fdd75a82870ddea1289958161e7fc3be35766ff1087225cf1b4754d61c3b91cf2ecfcdf1e61592e1e76dbda4c9df5c7f0b21186b
+  checksum: c31c5b4e09d5e4be206eccea9547c6e817bf870528e180f14783e2479e1c3e66754eac0e6995fc265d8fbbfae0bdf6cca11d988304b1cd52952f0f2a73c64bea
   languageName: node
   linkType: hard
 
@@ -2000,7 +2000,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/auth-forms-fragment@workspace:features/identity/client/fragments/auth-forms"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.16"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/messages-fragment": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -2087,7 +2087,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/login-page@workspace:features/identity/client/pages/login-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.16"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
@@ -2134,7 +2134,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/recovery-new-password-page@workspace:features/identity/client/pages/recovery-new-password-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.16"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
@@ -2156,7 +2156,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/recovery-page@workspace:features/identity/client/pages/recovery-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.16"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
@@ -2177,7 +2177,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/registration-page@workspace:features/identity/client/pages/registration-page"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.16"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
@@ -2198,7 +2198,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@identity/renderer-entrypoint@workspace:features/identity/client/entrypoints/accounts-app"
   dependencies:
-    "@atls/next-identity-integration": "npm:0.0.16"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@emotion/css": "npm:11.9.0"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
@@ -2209,6 +2209,7 @@ __metadata:
     "@identity/recovery-new-password-page": "workspace:0.0.1"
     "@identity/recovery-page": "workspace:0.0.1"
     "@identity/registration-page": "workspace:0.0.1"
+    "@shared/kratos-client": "workspace:0.0.1"
     "@types/node": "npm:16.18.36"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
@@ -2951,6 +2952,16 @@ __metadata:
     tldjs: "npm:2.3.1"
   peerDependencies:
     react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@shared/kratos-client@workspace:0.0.1, @shared/kratos-client@workspace:shared/kratos-client":
+  version: 0.0.0-use.local
+  resolution: "@shared/kratos-client@workspace:shared/kratos-client"
+  dependencies:
+    "@atls/next-identity-integration": "npm:0.0.17"
+  peerDependencies:
+    "@atls/next-identity-integration": "*"
   languageName: unknown
   linkType: soft
 

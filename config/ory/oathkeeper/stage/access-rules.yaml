@@ -2,8 +2,28 @@
   upstream:
     url: http://identity:3010/
   match:
-    url: https://stage.garnet.pet-project.habr.com/<(?!app).*>
-#    url: http://localhost:4455/<(?!app).*>
+    url: https://stage.garnet.pet-project.habr.com/<(?!app|kratos).*>
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors:
+    - handler: json
+
+- id: kratos
+  upstream:
+    url: http://kratos:4433/
+    strip_path: /kratos
+  match:
+    url: https://stage.garnet.pet-project.habr.com/kratos<.*>
     methods:
       - GET
       - POST
@@ -24,7 +44,6 @@
     url: http://app:3020/
   match:
     url: https://stage.garnet.pet-project.habr.com/app<.*>
-#    url: http://localhost:4455/app<.*>
     methods:
       - GET
       - POST

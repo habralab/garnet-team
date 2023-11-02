@@ -1,0 +1,12 @@
+{
+  "name": "@shared/kratos-client",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@atls/next-identity-integration": "0.0.17"
+  },
+  "peerDependencies": {
+    "@atls/next-identity-integration": "*"
+  }
+}
