@@ -11,6 +11,7 @@ namespace Garnet.Teams.Application.TeamParticipant
         Task<TeamParticipantEntity[]> GetMembershipOfUser(CancellationToken ct, string userId);
         Task<TeamParticipantEntity?> IsParticipantInTeam(CancellationToken ct, string userId, string teamId);
         Task<TeamParticipantEntity[]> FilterTeamParticipants(CancellationToken ct, TeamParticipantFilterArgs filter);
+        Task<TeamParticipantEntity[]> TeamParticipantListOfTeams(CancellationToken ct, string[] teamIds);
         Task UpdateTeamParticipant(CancellationToken ct, string userId, TeamParticipantUpdateArgs update);
         Task CreateIndexes(CancellationToken ct);
     }

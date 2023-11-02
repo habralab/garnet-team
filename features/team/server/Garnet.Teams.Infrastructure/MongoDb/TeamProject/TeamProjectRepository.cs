@@ -40,16 +40,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamProject
             );
         }
 
-        public async Task<TeamProjectEntity[]> GetTeamProjectByTeam(CancellationToken ct, string teamId)
-        {
-            var db = _dbFactory.Create();
-            var projects = await db.TeamProjects.Find(
-                _f.Eq(x => x.TeamId, teamId)
-            ).ToListAsync(ct);
-
-            return projects.Select(x => TeamProjectDocument.ToDomain(x)).ToArray();
-        }
-
         public async Task<TeamProjectEntity?> RemoveTeamProjectInTeam(CancellationToken ct, string projectId, string teamId)
         {
             var db = _dbFactory.Create();
@@ -62,6 +52,16 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamProject
             );
 
             return project is null ? null : TeamProjectDocument.ToDomain(project);
+        }
+
+        public async Task<TeamProjectEntity[]> TeamProjectListOfTeams(CancellationToken ct, string[] teamIds)
+        {
+            var db = _dbFactory.Create();
+            var projects = await db.TeamProjects.Find(
+                _f.In(x => x.TeamId, teamIds)
+            ).ToListAsync(ct);
+
+            return projects.Select(x => TeamProjectDocument.ToDomain(x)).ToArray();
         }
     }
 }

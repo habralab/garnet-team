@@ -138,7 +138,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamProjectRepository, TeamProjectRepository>();
             services.AddScoped<TeamProjectJoinedCommand>();
-            services.AddScoped<TeamProjectGetByTeamQuery>();
+            services.AddScoped<TeamProjectListByTeamsQuery>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)
@@ -147,6 +147,7 @@ namespace Garnet.Team
 
             services.AddScoped<TeamParticipantLeaveTeamCommand>();
             services.AddScoped<TeamParticipantFilterQuery>();
+            services.AddScoped<TeamParticipantListByTeamsQuery>();
         }
 
         public static void AddTeamUserJoinRequestInternal(this IServiceCollection services)
@@ -175,6 +176,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
             services.AddScoped<TeamJoinProjectRequestCreateCommand>();
+            services.AddScoped<TeamJoinProjectRequestDecidedCommand>();
         }
     }
 }

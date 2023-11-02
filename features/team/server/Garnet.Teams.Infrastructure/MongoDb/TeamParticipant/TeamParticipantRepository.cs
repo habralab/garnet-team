@@ -121,5 +121,16 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             await db.TeamParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
             return TeamParticipantDocument.ToDomain(teamParticipant);
         }
+
+        public async Task<TeamParticipantEntity[]> TeamParticipantListOfTeams(CancellationToken ct, string[] teamIds)
+        {
+            var db = _dbFactory.Create();
+
+            var participants = await db.TeamParticipants.Find(
+                _f.In(x => x.TeamId, teamIds)
+            ).ToListAsync(ct);
+
+            return participants.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
+        }
     }
 }
