@@ -17,6 +17,14 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
             );
         }
 
+        public static DeleteNotificationCommandMessage DeleteTeamUserJoinRequestNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, string teamOwnerUserId)
+        {
+            return new DeleteNotificationCommandMessage(
+               teamOwnerUserId,
+               Type: "TeamUserJoinRequest",
+               userJoinRequestEntity.UserId
+           );
+        }
 
         public static SendNotificationCommandMessage CreateTeamUserJoinRequestDecideNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, bool isApproved)
         {
