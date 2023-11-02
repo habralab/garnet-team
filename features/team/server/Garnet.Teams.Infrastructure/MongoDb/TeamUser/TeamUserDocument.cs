@@ -20,7 +20,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
 
         public static TeamUserEntity ToDomain(TeamUserDocument doc)
         {
-            return new TeamUserEntity(doc.Id, doc.Username);
+            return new TeamUserEntity(doc.Id, doc.Username, doc.AvatarUrl);
         }
     }
 }
