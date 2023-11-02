@@ -16,15 +16,17 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { mockProjects }     from '@shared/data'
 import { getUniqueTags }    from '@shared/helpers'
+
+import { useGetProjects }   from './data'
 
 export const Project: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const { formatMessage } = useIntl()
 
-  const projects = mockProjects
+  const { projects } = useGetProjects({ search: '', skip: 0, tags: [], take: 0 })
+
   const uniqueTags = getUniqueTags(projects)
 
   const handleAddTag = (tag: string) => {
@@ -35,6 +37,7 @@ export const Project: FC = () => {
     setSelectedTags(selectedTags.filter((item) => item !== tag))
   }
 
+  /** @todo search params to url query */
   const filteredProjects = projects.filter(
     (project) =>
       selectedTags.some((tag) => project.tags?.includes(tag)) ||
