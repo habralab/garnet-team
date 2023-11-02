@@ -10,7 +10,7 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectFilterByUserParticipan
 public class ProjectFilterByUserParticipantIdSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
-    private ProjectFilterByUserParticipantIdPayload _response;
+    private ProjectFilterByUserParticipantIdPayload? _response;
 
     public ProjectFilterByUserParticipantIdSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake) : base(args)
     {
@@ -29,7 +29,7 @@ public class ProjectFilterByUserParticipantIdSteps : BaseSteps
     [Then(@"в списке отображается '([^']*)' проекта")]
     public Task ThenВСпискеОтображаетсяПроект(int projectCount)
     {
-        _response.Projects.Count().Should().Be(projectCount);
+        _response!.Projects.Count().Should().Be(projectCount);
         return Task.CompletedTask;
     }
 }
