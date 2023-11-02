@@ -24,9 +24,9 @@ export const ModalEditImage: FC<ModalEditImageProps> = ({
   const cropperRef = useRef<ReactCropperElement>(null)
 
   const handleConfirm = () => {
-    cropperRef.current?.cropper.getCroppedCanvas().toBlob((blob) => {
-      blob && onConfirm?.(URL.createObjectURL(blob), blob)
-    })
+    cropperRef.current?.cropper
+      .getCroppedCanvas()
+      .toBlob((blob) => blob && onConfirm?.(URL.createObjectURL(blob), blob))
   }
 
   return (
