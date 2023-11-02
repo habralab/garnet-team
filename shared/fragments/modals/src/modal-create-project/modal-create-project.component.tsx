@@ -1,5 +1,6 @@
 import React                       from 'react'
 import { FC }                      from 'react'
+import { useRouter }               from 'next/router'
 import { useState }                from 'react'
 import { useIntl }                 from 'react-intl'
 
@@ -10,11 +11,16 @@ import { Modal }                   from '@ui/modal'
 
 import { ModalCreateProjectProps } from './modal-create-project.interfaces'
 import { getFormValues }           from '../helpers'
+import { useCreateProject }        from './data'
 
 export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = false, onClose }) => {
   const [formValues, setFormValues] = useState<FormProjectValues>(getFormValues())
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
+
+  const router = useRouter()
+
+  const { createProject } = useCreateProject()
 
   const closeModal = () => {
     setFormValues(getFormValues())
@@ -25,9 +31,26 @@ export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = fa
     setFormValues({ ...formValues, [field]: value })
   }
 
-  const handleSubmit = () => {
-    /** @todo submit form */
-    closeModal()
+  const handleSubmit = async () => {
+    try {
+      const { avatar, description, name, tags } = formValues
+
+      const avatarFile = await fetch(avatar).then((r) => r.blob())
+
+      const { data } = await createProject({
+        variables: {
+          description,
+          name,
+          tags,
+          avatar: avatarFile,
+        },
+      })
+
+      router.push(`/project/${data?.projectCreate.id}`)
+      closeModal?.()
+    } catch (error) {
+      /** @todo error notification */
+    }
   }
 
   return (
