@@ -5,7 +5,10 @@ export interface FormTeamValues {
   avatar: string
 }
 
+export type FormTeamErrorsText = Record<keyof FormTeamValues, string>
+
 export interface FormTeamProps {
   formValues: FormTeamValues
   handleChange: (field: keyof FormTeamValues) => (value: string | string[]) => void
+  handleDisabled?: (disabled: boolean) => void
 }
