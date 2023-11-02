@@ -31,7 +31,19 @@ export const Card: FC<CardProps> = ({
 
   return (
     <Box position='relative' title={name} style={{ cursor: 'pointer' }} {...hoverProps}>
-      <Avatar title={name} image={avatarUrl} shape='square' size={sizeConfig[cardSize].size} />
+      <Avatar
+        title={name}
+        image={avatarUrl}
+        shape='square'
+        color='gray'
+        size={sizeConfig[cardSize].size}
+      >
+        <Condition match={!avatarUrl}>
+          <Text fontSize='medium' color='text.white'>
+            {name}
+          </Text>
+        </Condition>
+      </Avatar>
       <Condition match={!hover && countItems > 0 && sizeConfig[cardSize].avatarGroupShow}>
         <Box position='absolute' bottom={20} left={20} borderRadius='medium' height={50}>
           <AvatarGroup
