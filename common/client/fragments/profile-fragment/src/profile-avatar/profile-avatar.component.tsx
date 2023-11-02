@@ -17,7 +17,13 @@ import { ProfileAvatarProps } from './profile-avatar.interfaces'
 
 export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile }) => (
   <Column>
-    <Avatar size={284} image={user?.avatarUrl} />
+    <Avatar size={284} image={user?.avatarUrl} color='gray'>
+      <Condition match={!user?.avatarUrl}>
+        <Text fontSize='preLarge' color='text.white'>
+          {user?.userName}
+        </Text>
+      </Condition>
+    </Avatar>
     <Layout flexBasis={30} flexShrink={0} />
     <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
       <Condition match={isMyProfile}>
@@ -58,13 +64,20 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
       <Row justifyContent='space-between'>
         {teams.slice(0, 4).map((team) => (
           <Avatar
+            key={team.id}
             shape='square'
             size={62}
             image={team?.avatarUrl}
             url={`/team/${team?.id}`}
             title={team?.name}
-            key={team.id}
-          />
+            color='gray'
+          >
+            <Condition match={!team?.avatarUrl}>
+              <Text fontSize='normal' color='text.white'>
+                {team?.name}
+              </Text>
+            </Condition>
+          </Avatar>
         ))}
       </Row>
     </Condition>
