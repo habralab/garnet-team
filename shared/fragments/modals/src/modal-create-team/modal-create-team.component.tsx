@@ -1,5 +1,6 @@
 import React                    from 'react'
 import { FC }                   from 'react'
+import { useRouter }            from 'next/router'
 import { useState }             from 'react'
 import { useIntl }              from 'react-intl'
 
@@ -10,11 +11,16 @@ import { Modal }                from '@ui/modal'
 
 import { ModalCreateTeamProps } from './modal-create-team.interfaces'
 import { getFormValues }        from '../helpers'
+import { useCreateTeam }        from './data'
 
 export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, onClose }) => {
   const [formValues, setFormValues] = useState<FormTeamValues>(getFormValues())
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
+
+  const router = useRouter()
+
+  const { createTeam } = useCreateTeam()
 
   const closeModal = () => {
     setFormValues(getFormValues())
@@ -25,9 +31,26 @@ export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, o
     setFormValues({ ...formValues, [field]: value })
   }
 
-  const handleSubmit = () => {
-    /** @todo submit form */
-    closeModal()
+  const handleSubmit = async () => {
+    try {
+      const { avatar, description, name, tags } = formValues
+
+      const avatarFile = await fetch(avatar).then((r) => r.blob())
+
+      const { data } = await createTeam({
+        variables: {
+          description,
+          name,
+          tags,
+          avatar: avatarFile,
+        },
+      })
+
+      router.push(`/team/${data?.teamCreate.id}`)
+      closeModal?.()
+    } catch (error) {
+      /** @todo error notification */
+    }
   }
 
   return (
