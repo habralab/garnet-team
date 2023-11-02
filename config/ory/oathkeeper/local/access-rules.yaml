@@ -1,0 +1,60 @@
+- id: auth
+  upstream:
+    url: http://identity:3010/
+  match:
+    url: http://localhost:4455/<(?!app|kratos).*>
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors:
+    - handler: json
+
+- id: kratos
+  upstream:
+    url: http://kratos:4433/
+    strip_path: /kratos
+  match:
+    url: http://localhost:4455/kratos<.*>
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: anonymous
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: noop
+  errors:
+    - handler: json
+
+- id: app
+  upstream:
+    url: http://app:3020/
+  match:
+    url: http://localhost:4455/app<.*>
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+      - PATCH
+  authenticators:
+    - handler: cookie_session
+  authorizer:
+    handler: allow
+  mutators:
+    - handler: id_token
+  errors:
+    - handler: redirect
