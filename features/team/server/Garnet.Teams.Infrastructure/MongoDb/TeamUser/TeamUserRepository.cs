@@ -23,7 +23,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
             var user = TeamUserDocument.Create(
                 args.UserId,
                 args.Username,
-                args.AvatarUrl);
+                null
+            );
             await db.TeamUsers.InsertOneAsync(
                 user,
                 cancellationToken: ct

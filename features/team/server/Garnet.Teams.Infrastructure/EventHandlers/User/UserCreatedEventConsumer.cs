@@ -1,5 +1,6 @@
 using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.TeamUser;
+using Garnet.Teams.Application.TeamUser.Args;
 using Garnet.Users.Events;
 
 namespace Garnet.Teams.Infrastructure.EventHandlers.User
@@ -14,7 +15,8 @@ namespace Garnet.Teams.Infrastructure.EventHandlers.User
 
         public async Task Consume(UserCreatedEvent message)
         {
-            await _teamUserRepository.AddUser(CancellationToken.None, message.UserId, message.UserName);
+            var args = new TeamUserCreateArgs(message.UserId, message.UserName);
+            await _teamUserRepository.AddUser(CancellationToken.None, args);
         }
     }
 }
