@@ -82,7 +82,8 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
         return ProjectTaskDocument.ToDomain(task);
     }
 
-    public async Task<ProjectTaskEntity> EditProjectTaskResponsibleUser(CancellationToken ct, string taskId, string newResponsibleUserId)
+    public async Task<ProjectTaskEntity> EditProjectTaskResponsibleUser(CancellationToken ct, string taskId,
+        string newResponsibleUserId)
     {
         var db = _dbFactory.Create();
         var filter = _f.Eq(x => x.Id, taskId);
@@ -136,6 +137,22 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
         var db = _dbFactory.Create();
         var filter = _f.Eq(x => x.Id, taskId);
         var update = _u.Set(x => x.Labels, labels);
+
+        var task = await FindOneAndUpdateDocument(
+            ct,
+            db.ProjectTasks,
+            filter,
+            update
+        );
+
+        return ProjectTaskDocument.ToDomain(task);
+    }
+
+    public async Task<ProjectTaskEntity> EditProjectTeamExecutor(CancellationToken ct, string taskId, string[] teamIds)
+    {
+        var db = _dbFactory.Create();
+        var filter = _f.Eq(x => x.Id, taskId);
+        var update = _u.Set(x => x.TeamExecutorIds, teamIds);
 
         var task = await FindOneAndUpdateDocument(
             ct,
