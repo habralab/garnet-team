@@ -30,8 +30,8 @@ public class ProjectFilterByTeamParticipantIdSteps : BaseSteps
     }
 
 
-    [Then(@"в списке отображается '([^']*)' проекта")]
-    public Task ThenВСпискеОтображаетсяКоманда(int projectCount)
+    [Then(@"в списке '([^']*)' проекта")]
+    public Task ThenВСпискеОтображаетсяПроект(int projectCount)
     {
         _response!.Projects.Count().Should().Be(projectCount);
         return Task.CompletedTask;
