@@ -19,9 +19,9 @@ services:
     image: oryd/oathkeeper:v0.40.6
     command: serve --config /config/oathkeeper/oathkeeper.yaml
     volumes:
-      - ./config/ory/oathkeeper/stage/oathkeeper.yaml:/config/oathkeeper/oathkeeper.yaml
-      - ./config/ory/oathkeeper/stage/jwks.json:/config/oathkeeper/jwks.json
-      - ./config/ory/oathkeeper/stage/access-rules.yaml:/config/oathkeeper/access-rules.yaml
+      - ./config/ory/oathkeeper/local/oathkeeper.yaml:/config/oathkeeper/oathkeeper.yaml
+      - ./config/ory/oathkeeper/local/jwks.json:/config/oathkeeper/jwks.json
+      - ./config/ory/oathkeeper/local/access-rules.yaml:/config/oathkeeper/access-rules.yaml
     ports:
       - '4455:4455'
       - '4456:4456'
@@ -30,11 +30,8 @@ services:
       - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
       - 'traefik.http.routers.oathkeeper-app.tls=true'
       - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
-      - "traefik.http.middlewares.cor.headers.accesscontrolallowmethods=POST,GET,OPTIONS"
-      - "traefik.http.middlewares.cor.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolalloworiginlist=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolmaxage=86400"
-      - "traefik.http.middlewares.cor.headers.addvaryheader=true"
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
     networks:
       - garnet
       - internal
@@ -45,7 +42,7 @@ services:
     working_dir: /workspace
     entrypoint: yarn workspace @identity/renderer-entrypoint dev
     environment:
-      - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
+      - NEXT_PUBLIC_KRATOS_URL=http://localhost:4455/kratos
     volumes:
       - ./:/workspace
     ports:
@@ -84,7 +81,7 @@ services:
     command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
     volumes:
       - type: bind
-        source: ./config/ory/kratos/stage
+        source: ./config/ory/kratos/local
         target: /config/kratos
     networks:
       - internal
@@ -97,7 +94,7 @@ services:
       - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
     volumes:
       - type: bind
-        source: ./config/ory/kratos/stage
+        source: ./config/ory/kratos/local
         target: /config/kratos
     command: -c /config/kratos/kratos.yaml migrate sql -e --yes
     restart: on-failure
@@ -113,4 +110,5 @@ services:
       - POSTGRESQL_USER=postgres
     ports:
       - '5432:5432'
-    network_mode: bridge
+    networks:
+      - internal
