@@ -9,6 +9,9 @@
     "ui/**/*",
     "utils/**/*"
   ],
+  "resolutions": {
+    "next": "12.3.4"
+  },
   "devDependencies": {
     "@atls/code-service": "0.0.23",
     "@atls/config-jest": "0.0.6",

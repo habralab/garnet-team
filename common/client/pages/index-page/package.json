@@ -1,0 +1,16 @@
+{
+  "name": "@app/index-page",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "devDependencies": {
+    "@types/react": "18.2.28",
+    "@types/react-dom": "18.2.14",
+    "next": "12.3.4"
+  },
+  "peerDependencies": {
+    "next": "*",
+    "react": "*",
+    "react-dom": "*"
+  }
+}

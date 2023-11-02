@@ -1,0 +1,98 @@
+version: v1.0.0
+
+dsn: memory
+
+serve:
+  public:
+    base_url: http://kratos:4433/
+    cors:
+      enabled: false
+  admin:
+    base_url: http://kratos:4434
+
+session:
+  cookie:
+    domain: localhost
+
+selfservice:
+  default_browser_return_url: http://localhost:3020/
+  allowed_return_urls:
+    - http://localhost:3020/
+    - http://localhost:3000/
+    - http://localhost:3010/
+    - http://identity:3010/
+    - http://app:3020/
+    - http://localhost:4455/
+
+  methods:
+    password:
+      enabled: true
+    link:
+      enabled: true
+    totp:
+      enabled: true
+      config:
+        issuer: localhost
+    lookup_secret:
+      enabled: true
+    oidc:
+      enabled: false
+
+  flows:
+    error:
+      ui_url: http://localhost:3010/auth/error
+
+    settings:
+      ui_url: http://localhost:3010/auth/recovery/new-password
+      privileged_session_max_age: 15m
+      required_aal: aal1
+
+    recovery:
+      enabled: true
+      ui_url: http://localhost:3010/auth/recovery
+      use: link
+      lifespan: 1h
+
+    verification:
+      enabled: false
+
+    logout:
+      after:
+        default_browser_return_url: http://localhost:3010/auth/login
+
+    login:
+      ui_url: http://localhost:3010/auth/login
+      after:
+        default_browser_return_url: http://localhost:3020/app
+
+    registration:
+      ui_url: http://localhost:3010/auth/registration
+      after:
+        default_browser_return_url: http://localhost:3010/auth/confirmation
+
+log:
+  level: debug
+  format: text
+  leak_sensitive_values: true
+
+secrets:
+  cookie:
+    - PLEASE-CHANGE-ME-I-AM-VERY-INSECURE
+
+hashers:
+  argon2:
+    parallelism: 1
+    memory: 128MB
+    iterations: 2
+    salt_length: 16
+    key_length: 16
+
+identity:
+  schemas:
+    - id: default
+      url: file:///config/kratos/identity.schema.json
+  default_schema_id: default
+
+courier:
+  smtp:
+    connection_uri: smtps://test:test@mailslurper:1025/?skip_ssl_verify=true&legacy_ssl=true

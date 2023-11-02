@@ -42,6 +42,7 @@ using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Commands;
+using Garnet.Notifications.Events;
 
 namespace Garnet.Team
 {
@@ -99,6 +100,7 @@ namespace Garnet.Team
                 o.RegisterMessage<TeamJoinInvitationCancelledEvent>();
                 o.RegisterMessage<TeamUserJoinRequestDecidedEvent>();
                 o.RegisterMessage<TeamJoinProjectRequestCreatedEvent>();
+                o.RegisterMessage<SendNotificationCommandMessage>();
             });
         }
 

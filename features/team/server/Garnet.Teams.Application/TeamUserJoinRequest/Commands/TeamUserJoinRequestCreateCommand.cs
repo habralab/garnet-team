@@ -11,6 +11,7 @@ using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
 using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
+using Garnet.Teams.Application.TeamUserJoinRequest.Notifications;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 {
@@ -79,6 +80,9 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 
             var @event = request.ToCreatedEvent();
             await _messageBus.Publish(@event);
+
+            var notification = request.CreateTeamUserJoinRequestNotification(team, user.Username);
+            await _messageBus.Publish(notification);
             return Result.Ok(request);
         }
     }

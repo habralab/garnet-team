@@ -1,5 +1,7 @@
 servers:
-  - 85.92.110.73
+  web:
+    hosts:
+      - 85.92.110.73
 
 accessories:
   db:
@@ -7,4 +9,12 @@ accessories:
 
 traefik:
   labels:
-    traefik.http.routers.garnet-backend-websecure-stage.rule: Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/api/`)
+    traefik.http.routers.garnet-backend-websecure-stage.rule: Host(`stage.garnet.pet-project.habr.com`) && PathPrefix(`/api`)
+    traefik.http.routers.garnet-backend-websecure-stage.entrypoints: websecure
+    traefik.http.routers.garnet-backend-websecure-stage.tls: true
+    traefik.http.routers.garnet-backend-websecure-stage.middlewares: disabled-cors
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolallowmethods: POST,GET,OPTIONS
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolallowheaders: "*"
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolalloworiginlist: "*"
+    traefik.http.middlewares.disabled-cors.headers.accesscontrolmaxage: 86400
+    traefik.http.middlewares.disabled-cors.headers.addvaryheader: true

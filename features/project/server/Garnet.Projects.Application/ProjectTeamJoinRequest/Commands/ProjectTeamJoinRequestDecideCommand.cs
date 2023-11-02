@@ -3,7 +3,9 @@ using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
 using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.Project.Errors;
+using Garnet.Projects.Application.ProjectTeam;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Errors;
+using Garnet.Projects.Application.ProjectTeamJoinRequest.Notifications;
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Events.ProjectTeamJoinRequest;
 
@@ -16,16 +18,19 @@ public class ProjectTeamJoinRequestDecideCommand
     private readonly IProjectTeamJoinRequestRepository _projectTeamJoinRequestRepository;
     private readonly IProjectTeamParticipantRepository _projectTeamParticipantRepository;
     private readonly IMessageBus _messageBus;
+    private readonly IProjectTeamRepository _projectTeamRepository;
 
     public ProjectTeamJoinRequestDecideCommand(
         ICurrentUserProvider currentUserProvider,
         IProjectRepository projectRepository,
+        IProjectTeamRepository projectTeamRepository,
         IProjectTeamJoinRequestRepository projectTeamJoinRequestRepository,
         IProjectTeamParticipantRepository projectTeamParticipantRepository,
         IMessageBus messageBus)
     {
         _currentUserProvider = currentUserProvider;
         _projectRepository = projectRepository;
+        _projectTeamRepository = projectTeamRepository;
         _projectTeamJoinRequestRepository = projectTeamJoinRequestRepository;
         _projectTeamParticipantRepository = projectTeamParticipantRepository;
         _messageBus = messageBus;
@@ -62,6 +67,10 @@ public class ProjectTeamJoinRequestDecideCommand
         var decideEvent = new ProjectTeamJoinRequestDecidedEvent(teamJoinRequest.Id, teamJoinRequest.TeamId,
             teamJoinRequest.ProjectId, isApproved);
         await _messageBus.Publish(decideEvent);
+
+        var team = await _projectTeamRepository.GetProjectTeamById(ct, teamJoinRequest.TeamId);
+        var notification = teamJoinRequest.CreateProjectTeamJoinRequestDecideNotification(project, team.OwnerUserId, isApproved);
+        await _messageBus.Publish(notification);
         return Result.Ok(teamJoinRequest);
     }
 }

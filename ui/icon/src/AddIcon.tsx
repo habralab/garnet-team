@@ -18,7 +18,7 @@ export const AddIcon = (props: IconProps) => {
     >
       <path
         d='M7 12L12 12M12 12L17 12M12 12V7M12 12L12 17'
-        stroke='#353535'
+        stroke={theme.colors[props.color || 0] || props.color || '#353535'}
         strokeWidth={2}
         strokeLinecap='round'
         strokeLinejoin='round'

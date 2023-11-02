@@ -2,4 +2,11 @@
 
 namespace Garnet.Projects.Infrastructure.Api.ProjectDelete;
 
-public record ProjectDeletePayload(string Id, string OwnerUserId, string ProjectName, string? Description);
+public record ProjectDeletePayload(
+    string Id,
+    string OwnerUserId,
+    string ProjectName,
+    string? Description,
+    string? AvatarUrl,
+    string[] Tags
+);

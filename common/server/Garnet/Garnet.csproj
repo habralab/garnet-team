@@ -9,13 +9,14 @@
 
     <ItemGroup>
         <PackageReference Include="DotNetEnv" Version="2.5.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\features\project\server\Garnet.Projects\Garnet.Projects.csproj" />
       <ProjectReference Include="..\..\..\features\team\server\Garnet.Teams\Garnet.Teams.csproj" />
       <ProjectReference Include="..\..\..\features\user\server\Garnet.Users\Garnet.Users.csproj" />
+      <ProjectReference Include="..\..\..\features\notification\server\Garnet.Notifications\Garnet.Notifications.csproj" />
     </ItemGroup>
     
 </Project>

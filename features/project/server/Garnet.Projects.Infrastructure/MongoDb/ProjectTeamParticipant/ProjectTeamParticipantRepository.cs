@@ -1,4 +1,5 @@
 ﻿using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Application.Project;
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
@@ -9,6 +10,9 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
 public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepository
 {
     private readonly DbFactory _dbFactory;
+
+    private readonly IndexKeysDefinitionBuilder<ProjectTeamParticipantDocument> _i =
+        Builders<ProjectTeamParticipantDocument>.IndexKeys;
 
     private readonly UpdateDefinitionBuilder<ProjectTeamParticipantDocument> _u =
         Builders<ProjectTeamParticipantDocument>.Update;
@@ -60,6 +64,35 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         return teams.Select(ProjectTeamParticipantDocument.ToDomain).ToArray();
     }
 
+    public async Task<ProjectEntity[]> GetProjectsOfUserParticipantByUserId(CancellationToken ct,
+        string userId)
+    {
+        var db = _dbFactory.Create();
+        var teamParticipants = await db.ProjectTeamsParticipants.Find(
+                _teamParticipantFilter.Where(x => x.UserParticipants.Any(user => user.Id == userId)))
+            .ToListAsync(cancellationToken: ct);
+        var projectIds = teamParticipants.Select(x => x.ProjectId).ToArray();
+
+        var projectEntities = await db.Projects.Find(
+            _projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
+
+        return projectEntities.Select(ProjectDocument.ToDomain).ToArray();
+    }
+
+
+    public async Task<ProjectEntity[]> GetProjectsOfTeamParticipantByTeamId(CancellationToken ct, string teamId)
+    {
+        var db = _dbFactory.Create();
+        var teamParticipants = await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId)
+            .ToListAsync(cancellationToken: ct);
+        var projectIds = teamParticipants.Select(x => x.ProjectId).ToArray();
+
+        var projectEntities = await db.Projects.Find(
+            _projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
+
+        return projectEntities.Select(ProjectDocument.ToDomain).ToArray();
+    }
+
     public async Task UpdateProjectTeamParticipant(CancellationToken ct, string teamId,
         string teamName, string? teamAvatarUrl)
     {
@@ -91,5 +124,26 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
             _u.AddToSet(x => x.UserParticipants, user),
             cancellationToken: ct
         );
+    }
+
+    public async Task CreateIndexes(CancellationToken ct)
+    {
+        var db = _dbFactory.Create();
+        await db.ProjectTeamsParticipants.Indexes.CreateOneAsync(
+            new CreateIndexModel<ProjectTeamParticipantDocument>(
+                _i.Text(o => o.TeamName)
+            ),
+            cancellationToken: ct);
+    }
+
+    public async Task<ProjectTeamParticipantEntity?> DeleteProjectTeamParticipantsByTeamId(CancellationToken ct,
+        string teamId)
+    {
+        var db = _dbFactory.Create();
+        var teamParticipant = await db.ProjectTeamsParticipants.FindOneAndDeleteAsync(
+            _teamParticipantFilter.Eq(x => x.TeamId, teamId)
+        );
+
+        return teamParticipant is null ? null : ProjectTeamParticipantDocument.ToDomain(teamParticipant);
     }
 }

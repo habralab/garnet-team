@@ -7,17 +7,23 @@
     "generate-styles": "generate-styles src/styles/appearance -t ../../ui/theme/src/theme/colors.ts"
   },
   "dependencies": {
-    "@atls-ui-generators/input": "0.0.11",
+    "@atls-ui-generators/input": "0.0.12",
     "@atls-ui-parts/conditional-render": "0.0.6",
-    "@atls-ui-parts/input": "0.0.15",
+    "@atls-ui-parts/input": "0.0.16",
+    "@ui/background": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
+    "@ui/icon": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
+    "@ui/tag": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1"
   },
   "devDependencies": {
     "@emotion/styled": "11.9.3",
     "@types/react": "18.2.28",
     "@types/react-dom": "18.2.14",
+    "framer-motion": "10.16.1",
+    "react-intl": "6.0.8",
+    "react-laag": "2.0.5",
     "styled-tools": "1.7.2"
   },
   "peerDependencies": {
@@ -25,6 +31,7 @@
     "@emotion/styled": "*",
     "react": "*",
     "react-dom": "*",
+    "react-intl": "*",
     "styled-system": "*",
     "styled-tools": "*"
   }

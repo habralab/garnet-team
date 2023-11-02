@@ -20,14 +20,14 @@ export const SearchIcon = (props: IconProps) => {
         cx={10}
         cy={10}
         r={6}
-        stroke='#353535'
+        stroke={theme.colors.text[props.color || 0] || props.color || '#353535'}
         strokeWidth={2}
         strokeLinecap='round'
         strokeLinejoin='round'
       />
       <path
         d='M14.5 14.5L19 19'
-        stroke='#353535'
+        stroke={theme.colors.text[props.color || 0] || props.color || '#353535'}
         strokeWidth={2}
         strokeLinecap='round'
         strokeLinejoin='round'

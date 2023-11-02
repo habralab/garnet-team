@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
+using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.AcceptanceTests.Support;
-using Garnet.Projects.Application.Project;
-using Garnet.Projects.Application.ProjectUser;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
 using Garnet.Projects.Infrastructure.MongoDb.Project;
 using Garnet.Projects.Infrastructure.MongoDb.ProjectTeamParticipant;
@@ -46,6 +46,7 @@ public class ProjectTeamParticipantsUsersAndProjectsGetSteps : BaseSteps
     public async Task GivenВКомандеКоличествоПроектовРавно(string teamName, int projectsCount)
     {
         var projectList = new List<ProjectDocument>();
+
         for (var i = 0; i < projectsCount; i++)
         {
             var project = GiveMe.Project().WithProjectName($"Project{i}");

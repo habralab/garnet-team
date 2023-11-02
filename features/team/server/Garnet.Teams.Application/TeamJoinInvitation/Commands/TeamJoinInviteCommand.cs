@@ -1,10 +1,12 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Notifications.Events;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
 using Garnet.Teams.Application.TeamJoinInvitation.Errors;
+using Garnet.Teams.Application.TeamJoinInvitation.Notifications;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
@@ -84,6 +86,9 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             var invitation = await _joinInvitationRepository.CreateInvitation(ct, args.UserId, args.TeamId);
             var @event = invitation.ToCreatedEvent();
             await _messageBus.Publish(@event);
+
+            var notification = invitation.CreateTeamInviteNotification(team);
+            await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }
     }

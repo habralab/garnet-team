@@ -14,12 +14,14 @@ import { Text }                     from '@ui/text'
 
 import { IconAttachment }           from './icon-attachment'
 import { InputProps }               from './input.interfaces'
-import { transitionStyles }         from './styles'
-import { shapeStyles }              from './styles'
-import { baseStyles }               from './styles'
-import { appearanceStyles }         from './styles'
+import { transitionStyles }         from './input.styles'
+import { shapeStyles }              from './input.styles'
+import { baseStyles }               from './input.styles'
+import { appearanceStyles }         from './input.styles'
 
 export const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles)
+
+export const Label = styled.label()
 
 const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
@@ -28,7 +30,7 @@ const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
 }))
 
 export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputProps> = (
-  { value, type, disabled, errorText = '', onChange, onChangeNative, ...props },
+  { value, type, disabled, id, errorText = '', onChange, onChangeNative, ...props },
   ref
 ) => {
   const changeValue = useChangeValue(disabled, onChange, onChangeNative)
@@ -38,8 +40,9 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
 
   return (
     <Container type={type} onClick={() => (ref as any).current.focus()}>
-      <InputElement {...props} error={errorText !== ''}>
+      <InputElement {...props} error={errorText !== ''} disabled={disabled}>
         <RawInput
+          id={id}
           ref={ref}
           type={type}
           disabled={disabled}
@@ -56,13 +59,16 @@ export const InputWithoutRef: ForwardRefRenderFunction<HTMLInputElement, InputPr
           />
         </Condition>
       </InputElement>
-      <Layout flexBasis={5} />
-      <Condition match={typeof errorText === 'string'}>
+      <Condition match={Boolean(errorText) && typeof errorText === 'string'}>
+        <Layout flexBasis={5} />
         <Text color='text.error' fontSize='normal'>
           {errorText}
         </Text>
       </Condition>
-      <Condition match={Boolean(errorText) && typeof errorText !== 'string'}>{errorText}</Condition>
+      <Condition match={Boolean(errorText) && typeof errorText !== 'string'}>
+        <Layout flexBasis={5} />
+        {errorText}
+      </Condition>
     </Container>
   )
 }
