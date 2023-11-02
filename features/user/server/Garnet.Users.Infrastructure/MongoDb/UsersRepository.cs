@@ -76,41 +76,6 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(userDocument);
     }
 
-    public async Task<User[]> FilterUsers(string? search, string[] tags, int skip, int take)
-    {
-        var db = _dbFactory.Create();
-
-        var searchFilter =
-            search is null
-                ? _f.Empty
-                : _f.Text(search);
-
-        var tagsFilter =
-            tags.Length > 0
-                ? _f.All(o => o.Tags, tags)
-                : _f.Empty;
-
-        var users =
-            await db.Users
-                .Find(searchFilter & tagsFilter)
-                .Skip(skip)
-                .Limit(take)
-                .ToListAsync(cancellationToken: _ct);
-        return users.Select(UserDocument.ToDomain).ToArray();
-    }
-
-    public async Task CreateIndexes()
-    {
-        var db = _dbFactory.Create();
-        await db.Users.Indexes.CreateOneAsync(
-            new CreateIndexModel<UserDocument>(
-                _i.Text(o => o.UserName)
-                    .Text(o => o.Description)
-                    .Text(o => o.Tags)
-            ),
-            cancellationToken: _ct);
-    }
-
     public async Task<User[]> FilterUsers(UserFilterArgs args)
     {
         var db = _dbFactory.Create();
@@ -154,5 +119,17 @@ public class UsersRepository : RepositoryBase, IUsersRepository
             _u.Set(o => o.UserName, username)
         );
         return UserDocument.ToDomain(user);
+    }
+
+    public async Task CreateIndexes()
+    {
+        var db = _dbFactory.Create();
+        await db.Users.Indexes.CreateOneAsync(
+            new CreateIndexModel<UserDocument>(
+                _i.Text(o => o.UserName)
+                    .Text(o => o.Description)
+                    .Text(o => o.Tags)
+            ),
+            cancellationToken: _ct);
     }
 }
