@@ -42,3 +42,10 @@ export interface MockUser {
     projects?: Project[]
   }
 }
+
+export interface FilterVariables {
+  search: string
+  tags: string[]
+  take: number
+  skip: number
+}

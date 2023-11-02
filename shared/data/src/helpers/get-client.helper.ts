@@ -1,12 +1,19 @@
-import { ApolloClient }  from '@apollo/client'
-import { InMemoryCache } from '@apollo/client'
+import { ApolloClient }     from '@apollo/client'
+import { InMemoryCache }    from '@apollo/client'
+
+import { createUploadLink } from 'apollo-upload-client'
+
+import { mockAuthHeader }   from '../mock'
 
 export const getClient = () =>
   new ApolloClient({
-    uri: 'https://stage.garnet.pet-project.habr.com/api/sandbox',
+    // uri: 'https://stage.garnet.pet-project.habr.com/api/sandbox',
     cache: new InMemoryCache(),
-    headers: {
-      Authorization: 'ASldWxUASDwey231d82DH2b1',
-      'Access-Control-Allow-Origin': '*',
-    },
+    link: createUploadLink({
+      uri: 'https://stage.garnet.pet-project.habr.com/api/sandbox',
+      headers: {
+        Authorization: mockAuthHeader,
+        'GraphQL-preflight': '1',
+      },
+    }),
   })
