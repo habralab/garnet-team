@@ -1,7 +1,9 @@
+import { mockAuthUserId } from '@shared/data'
+
 export const navigationItems = [
   {
     id: 'header.profile',
-    url: '/user',
+    url: `/user/${mockAuthUserId}`,
   },
   {
     id: 'header.teams',
