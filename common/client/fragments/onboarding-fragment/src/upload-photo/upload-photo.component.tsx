@@ -40,9 +40,9 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
     toggleModalOpen()
   }
 
-  const handleConfirm = (url?: string, blob?: Blob) => {
+  const handleConfirm = (url?: string, newBlob?: Blob) => {
     setAvatarUrl(url)
-    setBlob(blob)
+    setBlob(newBlob)
     toggleModalOpen()
   }
 
