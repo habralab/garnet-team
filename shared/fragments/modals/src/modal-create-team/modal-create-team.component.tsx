@@ -13,6 +13,7 @@ import { getFormValues }        from '../helpers'
 
 export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, onClose }) => {
   const [formValues, setFormValues] = useState<FormTeamValues>(getFormValues())
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
   const closeModal = () => {
@@ -36,8 +37,13 @@ export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, o
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormTeam formValues={formValues} handleChange={handleChange} />
+      <FormTeam
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )

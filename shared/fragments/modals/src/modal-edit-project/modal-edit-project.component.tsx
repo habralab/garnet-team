@@ -17,6 +17,7 @@ export const ModalEditProject: FC<ModalEditProjectProps> = ({
   project,
 }) => {
   const [formValues, setFormValues] = useState<FormProjectValues>(getFormValues(project))
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
   const closeModal = () => {
@@ -40,8 +41,13 @@ export const ModalEditProject: FC<ModalEditProjectProps> = ({
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormProject formValues={formValues} handleChange={handleChange} />
+      <FormProject
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )

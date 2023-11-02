@@ -13,6 +13,7 @@ import { getFormValues }      from './helpers'
 
 export const ModalEditUser: FC<ModalEditUserProps> = ({ modalOpen = false, onClose, user }) => {
   const [formValues, setFormValues] = useState<FormUserValues>(getFormValues(user))
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
   const closeModal = () => {
@@ -36,8 +37,13 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({ modalOpen = false, onClo
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormUser formValues={formValues} handleChange={handleChange} />
+      <FormUser
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )

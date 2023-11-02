@@ -13,6 +13,7 @@ import { getFormValues }           from '../helpers'
 
 export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = false, onClose }) => {
   const [formValues, setFormValues] = useState<FormProjectValues>(getFormValues())
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
   const closeModal = () => {
@@ -36,8 +37,13 @@ export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = fa
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormProject formValues={formValues} handleChange={handleChange} />
+      <FormProject
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )
