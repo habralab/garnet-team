@@ -8,7 +8,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
     {
         private readonly DbFactory _dbFactory;
         private readonly FilterDefinitionBuilder<TeamUserDocument> _f = Builders<TeamUserDocument>.Filter;
-        private readonly UpdateDefinitionBuilder<TeamUserDocument> __u = Builders<TeamUserDocument>.Update;
+        private readonly UpdateDefinitionBuilder<TeamUserDocument> _u = Builders<TeamUserDocument>.Update;
         private readonly IndexKeysDefinitionBuilder<TeamUserDocument> _i = Builders<TeamUserDocument>.IndexKeys;
 
         public TeamUserRepository(DbFactory dbFactory)
@@ -16,11 +16,14 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamUserEntity> AddUser(CancellationToken ct, string userId, string username)
+        public async Task<TeamUserEntity> AddUser(CancellationToken ct, TeamUserCreateArgs args)
         {
             var db = _dbFactory.Create();
 
-            var user = TeamUserDocument.Create(userId, username);
+            var user = TeamUserDocument.Create(
+                args.UserId,
+                args.Username,
+                args.AvatarUrl);
             await db.TeamUsers.InsertOneAsync(
                 user,
                 cancellationToken: ct
@@ -43,7 +46,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
             var updatedUser = await db.TeamUsers
                 .FindOneAndUpdateAsync(
                     _f.Eq(x => x.Id, userId),
-                    __u.Set(x => x.Username, update.Username),
+                    _u
+                        .Set(x => x.Username, update.Username)
+                        .Set(x => x.AvatarUrl, update.AvatarUrl),
                     options: new FindOneAndUpdateOptions<TeamUserDocument>
                     {
                         ReturnDocument = ReturnDocument.After,
