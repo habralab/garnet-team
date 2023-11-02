@@ -43,6 +43,7 @@ using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Commands;
 using Garnet.Notifications.Events;
+using Garnet.Teams.Application.TeamUser.Commands;
 
 namespace Garnet.Team
 {
@@ -125,6 +126,7 @@ namespace Garnet.Team
         public static void AddTeamUserInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
+            services.AddScoped<TeamUserUpdateCommand>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)

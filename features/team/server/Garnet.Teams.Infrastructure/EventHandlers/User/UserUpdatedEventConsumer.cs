@@ -1,33 +1,24 @@
 using Garnet.Common.Application.MessageBus;
-using Garnet.Teams.Application.TeamParticipant;
-using Garnet.Teams.Application.TeamParticipant.Args;
-using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Args;
+using Garnet.Teams.Application.TeamUser.Commands;
 using Garnet.Users.Events;
 
 namespace Garnet.Teams.Infrastructure.EventHandlers.User
 {
     public class UserUpdatedEventConsumer : IMessageBusConsumer<UserUpdatedEvent>
     {
-        private readonly ITeamUserRepository _teamUserRepository;
-        private readonly ITeamParticipantRepository _teamParticipantsRepository;
+        private readonly TeamUserUpdateCommand _teamUserUpdateCommand;
 
 
-        public UserUpdatedEventConsumer(
-            ITeamUserRepository teamUserRepository,
-            ITeamParticipantRepository teamParticipantsRepository)
+        public UserUpdatedEventConsumer(TeamUserUpdateCommand teamUserUpdateCommand)
         {
-            _teamUserRepository = teamUserRepository;
-            _teamParticipantsRepository = teamParticipantsRepository;
+            _teamUserUpdateCommand = teamUserUpdateCommand;
         }
 
         public async Task Consume(UserUpdatedEvent message)
         {
             var userUpdate = new TeamUserUpdateArgs(message.UserName, message.AvatarUrl);
-            var participantUpdate = new TeamParticipantUpdateArgs(message.UserName, message.AvatarUrl);
-
-            await _teamUserRepository.UpdateUser(CancellationToken.None, message.UserId, userUpdate);
-            await _teamParticipantsRepository.UpdateTeamParticipant(CancellationToken.None, message.UserId, participantUpdate);
+            await _teamUserUpdateCommand.Execute(CancellationToken.None, message.UserId, userUpdate);
         }
     }
 }
