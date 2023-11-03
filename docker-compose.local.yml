@@ -2,7 +2,6 @@ version: '3.3'
 
 networks:
   internal:
-    internal: true
   garnet:
 
 services:
@@ -57,6 +56,8 @@ services:
     restart: unless-stopped
     image: node:18.13
     working_dir: /workspace
+    environment:
+      - NEXT_PUBLIC_KRATOS_URL=http://localhost:4455/kratos
     volumes:
       - ./:/workspace
     entrypoint: yarn workspace @app/renderer-entrypoint dev
@@ -83,6 +84,9 @@ services:
       - type: bind
         source: ./config/ory/kratos/local
         target: /config/kratos
+      - type: bind
+        source: /etc/ssl/certs
+        target: /etc/ssl/certs
     networks:
       - internal
 

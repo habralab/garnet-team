@@ -2,7 +2,6 @@ version: '3.3'
 
 networks:
   internal:
-    internal: true
   garnet:
 
 services:
@@ -30,11 +29,11 @@ services:
       - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
       - 'traefik.http.routers.oathkeeper-app.tls=true'
       - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
-      - "traefik.http.middlewares.cor.headers.accesscontrolallowmethods=POST,GET,OPTIONS"
-      - "traefik.http.middlewares.cor.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolalloworiginlist=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolmaxage=86400"
-      - "traefik.http.middlewares.cor.headers.addvaryheader=true"
+      - 'traefik.http.middlewares.cor.headers.accesscontrolallowmethods=POST,GET,OPTIONS'
+      - 'traefik.http.middlewares.cor.headers.accesscontrolallowheaders=*'
+      - 'traefik.http.middlewares.cor.headers.accesscontrolalloworiginlist=*'
+      - 'traefik.http.middlewares.cor.headers.accesscontrolmaxage=86400'
+      - 'traefik.http.middlewares.cor.headers.addvaryheader=true'
     networks:
       - garnet
       - internal
@@ -81,11 +80,15 @@ services:
     environment:
       - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
       - LOG_LEVEL=trace
+      - SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE
     command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
     volumes:
       - type: bind
         source: ./config/ory/kratos/stage
         target: /config/kratos
+      - type: bind
+        source: /etc/ssl/certs
+        target: /etc/ssl/certs
     networks:
       - internal
 
@@ -113,4 +116,5 @@ services:
       - POSTGRESQL_USER=postgres
     ports:
       - '5432:5432'
-    network_mode: bridge
+    networks:
+      - internal

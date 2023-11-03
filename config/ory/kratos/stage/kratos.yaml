@@ -8,7 +8,7 @@ serve:
     cors:
       enabled: false
   admin:
-    base_url: http://kratos:4434
+    base_url: http://kratos:4434/
 
 session:
   cookie:
@@ -65,8 +65,20 @@ selfservice:
 
     registration:
       ui_url: https://stage.garnet.pet-project.habr.com/auth/registration
+      lifespan: 10m
       after:
-        default_browser_return_url: https://stage.garnet.pet-project.habr.com/auth/confirmation
+        hooks:
+          - hook: web_hook
+            config:
+              url: https://stage.garnet.pet-project.habr.com/api/v1/auth/registration/callback
+              method: POST
+              body: file:///config/kratos/user-create.webhook.jsonnet
+              auth:
+                type: api_key
+                config:
+                  name: Authorization
+                  value: GARNET_API_KEY
+                  in: header
 
 log:
   level: debug
