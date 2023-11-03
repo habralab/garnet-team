@@ -65,6 +65,20 @@ selfservice:
 
     registration:
       ui_url: https://stage.garnet.pet-project.habr.com/auth/registration
+      lifespan: 10m
+      after:
+        hooks:
+          - hook: web_hook
+            config:
+              url: https://stage.garnet.pet-project.habr.com/api/v1/auth/registration/callback
+              method: POST
+              body: file:///config/kratos/user-create.webhook.jsonnet
+              auth:
+                type: api_key
+                config:
+                  name: Authorization
+                  value: GARNET_API_KEY
+                  in: header
 
 log:
   level: debug
