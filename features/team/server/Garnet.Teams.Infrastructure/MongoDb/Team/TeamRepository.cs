@@ -176,14 +176,20 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
         public async Task<TeamEntity?> IncreaseParticipantCount(CancellationToken ct, string teamId, string? participantAvatarUrl)
         {
             var db = _dbFactory.Create();
+            var update = new List<UpdateDefinition<TeamDocument>>() {
+                 _u.Inc(x => x.ParticipantCount, 1)
+            };
+
+            if (participantAvatarUrl is not null)
+            {
+                update.Add(_u.Push(x => x.ParticipantAvatarUrls, participantAvatarUrl));
+            }
 
             var team = await FindOneAndUpdateDocument(
                 ct,
                 db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u
-                    .Inc(x => x.ParticipantCount, 1)
-                    .Push(x => x.ParticipantAvatarUrls, participantAvatarUrl)
+                _u.Combine(update)
             );
 
             return team is null ? null : TeamDocument.ToDomain(team);
@@ -208,12 +214,18 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
         public async Task<TeamEntity?> UpdateParticipantAvatarUrl(CancellationToken ct, string[] teamIds, string? oldParticipantAvatarUrl, string? newParticipantAvatarUrl)
         {
             var db = _dbFactory.Create();
+            var update = new List<UpdateDefinition<TeamDocument>>() {
+                _u.Push(x => x.ParticipantAvatarUrls, oldParticipantAvatarUrl)
+            };
+
+            if (newParticipantAvatarUrl is not null)
+            {
+                update.Add(_u.Pull(x => x.ParticipantAvatarUrls, newParticipantAvatarUrl));
+            }
 
             var team = await db.Teams.FindOneAndUpdateAsync(
                 _f.In(x => x.Id, teamIds),
-                _u
-                    .Push(x => x.ParticipantAvatarUrls, oldParticipantAvatarUrl)
-                    .Pull(x => x.ParticipantAvatarUrls, newParticipantAvatarUrl),
+                _u.Combine(update),
                 cancellationToken: ct
             );
 
@@ -228,8 +240,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 ct,
                 db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u
-                    .Inc(x => x.ParticipantCount, 1)
+                _u.Inc(x => x.ParticipantCount, 1)
             );
 
             return team is null ? null : TeamDocument.ToDomain(team);
@@ -243,8 +254,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 ct,
                 db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u
-                    .Inc(x => x.ParticipantCount, -1)
+                _u.Inc(x => x.ParticipantCount, -1)
             );
 
             return team is null ? null : TeamDocument.ToDomain(team);
