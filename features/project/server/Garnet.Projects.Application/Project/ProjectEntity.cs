@@ -28,9 +28,9 @@ public static class ProjectEntityExtensions
             doc.Tags, doc.TasksCounter);
     }
 
-    public static ProjectDeletedEvent ToDeletedEvent(this ProjectEntity doc)
+    public static ProjectDeletedEvent ToDeletedEvent(this ProjectEntity doc, string[] teamParticipantIds)
     {
         return new ProjectDeletedEvent(doc.Id, doc.ProjectName, doc.OwnerUserId, doc.Description, doc.AvatarUrl,
-            doc.Tags, doc.TasksCounter);
+            doc.Tags, doc.TasksCounter, teamParticipantIds);
     }
 }
