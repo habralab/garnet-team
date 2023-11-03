@@ -19,12 +19,14 @@ import { WrapperWhite }     from '@ui/wrapper'
 import { mockUsers }        from '@shared/data'
 import { getUniqueTags }    from '@shared/helpers'
 
+import { useGetUsers }      from './data'
+
 export const TeamInvite: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const { formatMessage } = useIntl()
 
-  const users = mockUsers
+  const { users } = useGetUsers({ search: '', skip: 0, tags: [], take: 0 })
   const uniqueTags = getUniqueTags(users)
 
   const handleAddTag = (tag: string) => {
