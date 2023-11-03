@@ -6,7 +6,7 @@ module.exports = {
     esmExternals: 'loose',
   },
   output: 'standalone',
-  webpack: (config) => {
+  webpack: (config, _) => {
     config.module.rules.push({
       test: /\.(woff|woff2|eot|ttf|otf)$/i,
       type: 'asset/resource',
@@ -14,7 +14,6 @@ module.exports = {
         filename: 'static/media/fonts/[name][ext]',
       },
     })
-
     return config
   },
 }

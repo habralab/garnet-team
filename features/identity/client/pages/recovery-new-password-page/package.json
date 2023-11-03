@@ -8,8 +8,8 @@
     "@ui/background": "0.0.1"
   },
   "devDependencies": {
-    "@atls/next-identity-integration": "0.0.16",
-    "@types/react": "18.2.30",
+    "@atls/next-identity-integration": "0.0.17",
+    "@types/react": "18.2.28",
     "@types/react-dom": "18.2.14",
     "next": "12.3.4"
   },

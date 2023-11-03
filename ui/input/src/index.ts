@@ -1,1 +1,5 @@
 export * from './input.component'
+export * from './input.interfaces'
+export * from './multiselect'
+export * from './search'
+export * from './textarea'

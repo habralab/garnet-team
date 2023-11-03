@@ -1,3 +1,4 @@
+using Garnet.Common.Application;
 using Garnet.Teams.Events.Team;
 
 namespace Garnet.Teams.Application.Team
@@ -8,7 +9,8 @@ namespace Garnet.Teams.Application.Team
         string Description,
         string OwnerUserId,
         string? AvatarUrl,
-        string[] Tags
+        string[] Tags,
+        AuditInfo AuditInfo
     );
 
     public static class TeamEntityExtensions

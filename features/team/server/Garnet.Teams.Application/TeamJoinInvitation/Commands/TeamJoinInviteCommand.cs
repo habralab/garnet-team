@@ -1,10 +1,12 @@
 using FluentResults;
 using Garnet.Common.Application;
 using Garnet.Common.Application.MessageBus;
+using Garnet.Notifications.Events;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamJoinInvitation.Args;
 using Garnet.Teams.Application.TeamJoinInvitation.Errors;
+using Garnet.Teams.Application.TeamJoinInvitation.Notifications;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Errors;
 using Garnet.Teams.Application.TeamUser;
@@ -68,8 +70,8 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
                 return Result.Fail(new TeamPendingUserJoinRequestError(args.UserId));
             }
 
-            var teamParticipants = await _participantRepository.GetMembershipOfUser(ct, args.UserId);
-            if (teamParticipants.Any(x => x.TeamId == args.TeamId))
+            var membership = await _participantRepository.IsParticipantInTeam(ct, args.UserId, args.TeamId);
+            if (membership is not null)
             {
                 return Result.Fail(new TeamUserIsAlreadyAParticipantError(args.UserId));
             }
@@ -84,6 +86,9 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             var invitation = await _joinInvitationRepository.CreateInvitation(ct, args.UserId, args.TeamId);
             var @event = invitation.ToCreatedEvent();
             await _messageBus.Publish(@event);
+
+            var notification = invitation.CreateTeamInviteNotification(team);
+            await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }
     }

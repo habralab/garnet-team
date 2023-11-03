@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Projects.AcceptanceTests.Support;
 using Garnet.Projects.Infrastructure.Api.ProjectEditDescription;
 using HotChocolate.Execution;
@@ -13,10 +14,11 @@ namespace Garnet.Projects.AcceptanceTests.Features.ProjectEditDescription;
 public class ProjectEditDescriptionSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
-    private QueryExceptionsContext _errorStepContext = null!;
+    private QueryExceptionsContext _errorStepContext;
     private ProjectEditDescriptionPayload? _response;
 
-    public ProjectEditDescriptionSteps(QueryExceptionsContext errorStepContext, CurrentUserProviderFake currentUserProviderFake,
+    public ProjectEditDescriptionSteps(QueryExceptionsContext errorStepContext,
+        CurrentUserProviderFake currentUserProviderFake,
         StepsArgs args) : base(args)
     {
         _errorStepContext = errorStepContext;
@@ -30,7 +32,8 @@ public class ProjectEditDescriptionSteps : BaseSteps
     {
         _currentUserProviderFake.LoginAs(ownerUserName);
         var project = GiveMe.Project().WithProjectName(projectName).WithOwnerUserId(_currentUserProviderFake.UserId)
-            .WithDescription(description);
+            .WithDescription(description).Build();
+
         await Db.Projects.InsertOneAsync(project);
     }
 

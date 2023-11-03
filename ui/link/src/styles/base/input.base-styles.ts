@@ -6,5 +6,5 @@ export const transitionStyles: styleFn = () => ({
 
 export const activeLinkStyles: styleFn = ({ active, theme }) =>
   active && {
-    color: theme.colors.text.accent,
+    color: theme.colors.text.accentActive,
   }

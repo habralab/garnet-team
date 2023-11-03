@@ -3,11 +3,15 @@
   "private": true,
   "license": "BSD 3-Clause",
   "workspaces": [
+    "common/client/**/*",
     "features/identity/client/**/*",
     "shared/**/*",
     "ui/**/*",
     "utils/**/*"
   ],
+  "resolutions": {
+    "next": "12.3.4"
+  },
   "devDependencies": {
     "@atls/code-service": "0.0.23",
     "@atls/config-jest": "0.0.6",

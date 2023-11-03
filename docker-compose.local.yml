@@ -1,0 +1,114 @@
+version: '3.3'
+
+networks:
+  internal:
+    internal: true
+  garnet:
+
+services:
+  yarn:
+    image: node:18.13
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn
+    networks:
+      - internal
+
+  oathkeeper:
+    image: oryd/oathkeeper:v0.40.6
+    command: serve --config /config/oathkeeper/oathkeeper.yaml
+    volumes:
+      - ./config/ory/oathkeeper/local/oathkeeper.yaml:/config/oathkeeper/oathkeeper.yaml
+      - ./config/ory/oathkeeper/local/jwks.json:/config/oathkeeper/jwks.json
+      - ./config/ory/oathkeeper/local/access-rules.yaml:/config/oathkeeper/access-rules.yaml
+    ports:
+      - '4455:4455'
+      - '4456:4456'
+    labels:
+      - 'traefik.http.routers.oathkeeper-app.entrypoints=websecure'
+      - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
+      - 'traefik.http.routers.oathkeeper-app.tls=true'
+      - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Origin=*'
+      - 'traefik.http.middlewares.cor.headers.customResponseHeaders.Access-Control-Allow-Methods=POST, GET, OPTIONS'
+    networks:
+      - garnet
+      - internal
+
+  identity:
+    restart: unless-stopped
+    image: node:18.13
+    working_dir: /workspace
+    entrypoint: yarn workspace @identity/renderer-entrypoint dev
+    environment:
+      - NEXT_PUBLIC_KRATOS_URL=http://localhost:4455/kratos
+    volumes:
+      - ./:/workspace
+    ports:
+      - '3010:3010'
+    depends_on:
+      - yarn
+      - kratos
+    networks:
+      - internal
+
+  app:
+    restart: unless-stopped
+    image: node:18.13
+    working_dir: /workspace
+    volumes:
+      - ./:/workspace
+    entrypoint: yarn workspace @app/renderer-entrypoint dev
+    ports:
+      - '3020:3020'
+    depends_on:
+      - yarn
+    networks:
+      - internal
+
+  kratos:
+    depends_on:
+      - kratos-migrate
+      - db
+    image: oryd/kratos:v1.0.0
+    ports:
+      - '4433:4433'
+    restart: unless-stopped
+    environment:
+      - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+      - LOG_LEVEL=trace
+    command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
+    volumes:
+      - type: bind
+        source: ./config/ory/kratos/local
+        target: /config/kratos
+    networks:
+      - internal
+
+  kratos-migrate:
+    depends_on:
+      - db
+    image: docker.io/oryd/kratos:v1.0.0
+    environment:
+      - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+    volumes:
+      - type: bind
+        source: ./config/ory/kratos/local
+        target: /config/kratos
+    command: -c /config/kratos/kratos.yaml migrate sql -e --yes
+    restart: on-failure
+    networks:
+      - internal
+
+  db:
+    image: bitnami/postgresql
+    restart: unless-stopped
+    environment:
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=db
+      - POSTGRESQL_USER=postgres
+    ports:
+      - '5432:5432'
+    networks:
+      - internal

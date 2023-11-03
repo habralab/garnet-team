@@ -4,6 +4,7 @@ using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamJoinInvitation.Errors;
+using Garnet.Teams.Application.TeamJoinInvitation.Notifications;
 using Garnet.Teams.Application.TeamParticipant;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
@@ -64,10 +65,13 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             {
                 await _teamParticipantRepository.CreateTeamParticipant(ct, user!.Id, user.Username, invitation.TeamId);
             }
-            await _teamJoinInvitationRepository.DeleteInvitationsById(ct, joinInvitationId);
+            await _teamJoinInvitationRepository.DeleteInvitationById(ct, joinInvitationId);
 
             var @event = invitation.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
+            
+            var notification = invitation.CreateTeamInviteDecideNotification(team, user.Username, isApproved);
+            await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }
     }

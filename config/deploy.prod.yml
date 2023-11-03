@@ -1,5 +1,7 @@
 servers:
-  - 188.225.36.16
+  web:
+    hosts:
+      - 188.225.36.16
 
 accessories:
   db:
@@ -7,4 +9,6 @@ accessories:
 
 traefik:
   labels:
-    traefik.http.routers.garnet-backend-websecure-prod.rule: Host(`garnet.pet-project.habr.com`) && PathPrefix(`/api/`)
+    traefik.http.routers.garnet-backend-websecure-prod.rule: Host(`garnet.pet-project.habr.com`) && PathPrefix(`/api`)
+    traefik.http.routers.garnet-backend-websecure-prod.entrypoints: websecure
+    traefik.http.routers.garnet-backend-websecure-prod.tls: true

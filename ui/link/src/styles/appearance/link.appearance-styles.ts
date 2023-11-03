@@ -6,7 +6,10 @@ const defaultVariantAppearanceStyles: styleFn = ({ theme, keep }) =>
   !keep && {
     color: theme.colors.text.accent,
     '&:hover': {
-      color: theme.colors.text.accent,
+      color: theme.colors.text.accentHover,
+    },
+    '&:active': {
+      color: theme.colors.text.accentPressed,
     },
   }
 

@@ -1,0 +1,34 @@
+name: Deploy stage
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Connect, pull from repo and restart docker
+        uses: appleboy/ssh-action@v1.0.0
+        env:
+          REMOTE_DIR: '/var/www/app/'
+          DOCKER_COMPOSE_NAME: 'docker-compose.stage.yml'
+          GIT_CONNECT: 'git@github.com:habralab/garnet-team.git'
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USER }}
+          password: ${{ secrets.PASSWORD }}
+          debug: true
+          script_stop: true
+          envs: REMOTE_DIR,DOCKER_COMPOSE_NAME,GIT_CONNECT
+          script: |
+            eval `ssh-agent -s`
+            ssh-add ~/.ssh/garnet_web_repo
+            cd $REMOTE_DIR
+            git pull $GIT_CONNECT
+            docker-compose -f $DOCKER_COMPOSE_NAME down && docker-compose -f $DOCKER_COMPOSE_NAME up --force-recreate --build -d
+            exit 0;

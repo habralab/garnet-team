@@ -8,6 +8,8 @@ import { ifProp }              from 'styled-tools'
 
 const fillStyles: styleFn = ifProp(prop('fill', false), { width: '100%' })
 
+const eventsStyles: styleFn = ifProp(prop('disabled', false), { cursor: 'not-allowed' })
+
 const mediumPaddingMediumHeightStyles = createShapeStyles({
   paddingLeft: 30,
   paddingRight: 30,
@@ -15,10 +17,44 @@ const mediumPaddingMediumHeightStyles = createShapeStyles({
   size: 44,
 })
 
+const mediumPaddingMediumHeightWithIconStyles = createShapeStyles({
+  paddingLeft: 26,
+  paddingRight: 30,
+  rounding: 8,
+  size: 44,
+})
+
+const mediumPaddingSmallHeightStyles = createShapeStyles({
+  paddingLeft: 26,
+  paddingRight: 26,
+  rounding: 8,
+  size: 36,
+})
+
+const mediumPaddingSmallHeightWithIconStyles = createShapeStyles({
+  paddingLeft: 20,
+  paddingRight: 26,
+  rounding: 8,
+  size: 36,
+})
+
+const mediumPaddingMicroHeightStyles = createShapeStyles({
+  paddingLeft: 0.01,
+  paddingRight: 0.01,
+  rounding: 0,
+  size: 20,
+})
+
 const contentStyles = createContentStyles()
 
 const shapeStyles = switchProp(prop('size', 'normal'), {
-  normal: mediumPaddingMediumHeightStyles,
+  normal: ifProp(
+    'withIcon',
+    mediumPaddingMediumHeightWithIconStyles,
+    mediumPaddingMediumHeightStyles
+  ),
+  small: ifProp('withIcon', mediumPaddingSmallHeightWithIconStyles, mediumPaddingSmallHeightStyles),
+  micro: mediumPaddingMicroHeightStyles,
 })
 
-export { fillStyles, contentStyles, shapeStyles }
+export { eventsStyles, fillStyles, contentStyles, shapeStyles }

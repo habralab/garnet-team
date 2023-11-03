@@ -10,7 +10,7 @@
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "@ory/kratos-client": "1.0.0",
-    "@types/react": "18.2.30",
+    "@types/react": "18.2.28",
     "@types/styled-system": "5.1.20",
     "@ui/layout": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1",

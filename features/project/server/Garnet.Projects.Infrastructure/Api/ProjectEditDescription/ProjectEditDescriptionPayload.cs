@@ -4,5 +4,7 @@ public record ProjectEditDescriptionPayload(
     string Id,
     string OwnerUserId,
     string ProjectName,
-    string? Description
-    );
+    string? Description,
+    string? AvatarUrl,
+    string[] Tags
+);
