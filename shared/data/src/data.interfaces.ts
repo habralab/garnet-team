@@ -8,6 +8,7 @@ export interface User {
 
 export interface UserWithRequest extends User {
   requestType?: 'invite' | 'application'
+  requestId?: string
   date?: string
 }
 
