@@ -56,5 +56,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationDecide
             .Last(x => x.UserId == owner.Id);
             message.LinkedEntityId.Should().Be(user.Id);
         }
+
+        [Then(@"в счетчике команды '(.*)' количество участников равно '(.*)'")]
+        public async Task ThenВСчетчикеКомандыКоличествоУчастниковРавно(string teamName, int participantCount)
+        {
+            var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
+            team.ParticipantCount.Should().Be(participantCount);
+        }
     }
 }

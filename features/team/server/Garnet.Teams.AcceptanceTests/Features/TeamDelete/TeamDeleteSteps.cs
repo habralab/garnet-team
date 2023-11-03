@@ -30,7 +30,9 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamDelete
             _currentUserProviderFake.LoginAs(username);
             var team = await Db.Teams.FindOneAndUpdateAsync(
                 _f.Eq(x => x.Name, teamName),
-                _u.Set(o => o.OwnerUserId, _currentUserProviderFake.UserId)
+                _u
+                    .Set(o => o.OwnerUserId, _currentUserProviderFake.UserId)
+                    .Inc(o => o.ParticipantCount, 1)
             );
 
             await Db.TeamParticipants.InsertOneAsync(

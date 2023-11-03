@@ -3,6 +3,7 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Teams.Infrastructure.Api.TeamEditOwner;
 using Garnet.Teams.Infrastructure.MongoDb;
+using Garnet.Teams.Infrastructure.MongoDb.Team;
 using Garnet.Teams.Infrastructure.MongoDb.TeamParticipant;
 using HotChocolate.Execution;
 using MongoDB.Driver;
@@ -14,6 +15,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
     {
         private QueryExceptionsContext _queryExceptionsContext;
         private CurrentUserProviderFake _currentUserProviderFake;
+        private readonly UpdateDefinitionBuilder<TeamDocument> _u = Builders<TeamDocument>.Update;
         public TeamEditOwnerStep(QueryExceptionsContext queryExceptionsContext, CurrentUserProviderFake currentUserProviderFake, StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
@@ -27,6 +29,10 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamEditOwner
             var userId = _currentUserProviderFake.GetUserIdByUsername(username);
             var participant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, username, team.Id, null);
             await Db.TeamParticipants.InsertOneAsync(participant);
+            await Db.Teams.UpdateOneAsync(
+                x => x.Name == teamName,
+                _u.Inc(x => x.ParticipantCount, 1)
+            );
         }
 
         [When(@"'([^']*)' изменяет владельца команды '([^']*)' на пользователя '([^']*)'")]
