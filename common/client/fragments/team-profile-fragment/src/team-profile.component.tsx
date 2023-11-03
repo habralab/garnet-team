@@ -37,9 +37,11 @@ export const TeamProfile: FC = () => {
     teamParticipants,
     applicationParticipants,
     invitedParticipants,
+    joinRequests,
   } = useGetTeam({ id: queryId, search: '', skip: 0, take: 0 })
 
   const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '', skip: 0, take: 20 })
+  const joinRequestAuthUser = joinRequests.find((item) => item.userId === mockAuthUserId)
 
   useEffect(() => {
     if (fetchedTeam) {
@@ -68,7 +70,12 @@ export const TeamProfile: FC = () => {
             <Layout flexBasis={32} />
             <ProfileDescription team={team} />
             <Box position='absolute' bottom={32} right={32} alignItems='center'>
-              <ProfileActions team={team} isMyTeam={isMyTeam} onEditTeam={handleEditTeam} />
+              <ProfileActions
+                team={team}
+                isMyTeam={isMyTeam}
+                onEditTeam={handleEditTeam}
+                joinRequest={joinRequestAuthUser}
+              />
             </Box>
           </Condition>
           <Condition match={!team}>

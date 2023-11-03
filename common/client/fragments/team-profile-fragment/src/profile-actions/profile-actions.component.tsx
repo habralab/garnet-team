@@ -15,7 +15,7 @@ import { ProfileActionsProps } from './profile-actions.interfaces'
 export const ProfileActions: FC<ProfileActionsProps> = ({
   team,
   onEditTeam,
-  hasJoinRequest = false,
+  joinRequest,
   isMyTeam = false,
 }) => (
   <>
@@ -31,7 +31,7 @@ export const ProfileActions: FC<ProfileActionsProps> = ({
       </NextLink>
     </Condition>
     <Condition match={!isMyTeam}>
-      <ButtonJoinRequest hasJoinRequest={hasJoinRequest} />
+      <ButtonJoinRequest team={team} joinRequest={joinRequest} />
     </Condition>
   </>
 )
