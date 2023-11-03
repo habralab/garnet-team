@@ -67,8 +67,6 @@ selfservice:
 
     registration:
       ui_url: http://localhost:3010/auth/registration
-      after:
-        default_browser_return_url: http://localhost:3010/auth/confirmation
 
 log:
   level: debug
