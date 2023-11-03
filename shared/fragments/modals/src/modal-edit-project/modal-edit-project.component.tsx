@@ -3,7 +3,6 @@ import { FC }                     from 'react'
 import { useState }               from 'react'
 import { useIntl }                from 'react-intl'
 
-import { Project }                from '@shared/data'
 import { FormProject }            from '@shared/forms-fragment'
 import { FormProjectValues }      from '@shared/forms-fragment'
 import { Layout }                 from '@ui/layout'
