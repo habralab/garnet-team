@@ -10,7 +10,7 @@
     "start": "PORT=3020 node dist/index.js"
   },
   "dependencies": {
-    "@apollo/client": "3.8.6",
+    "@apollo/client": "3.8.7",
     "@app/index-page": "workspace:0.0.1",
     "@app/onboarding-page": "workspace:0.0.1",
     "@app/project-page": "workspace:0.0.1",

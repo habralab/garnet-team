@@ -146,9 +146,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@apollo/client@npm:3.8.6, @apollo/client@npm:^3.7.0":
-  version: 3.8.6
-  resolution: "@apollo/client@npm:3.8.6"
+"@apollo/client@npm:3.8.7, @apollo/client@npm:^3.7.0":
+  version: 3.8.7
+  resolution: "@apollo/client@npm:3.8.7"
   dependencies:
     "@graphql-typed-document-node/core": "npm:^3.1.1"
     "@wry/context": "npm:^0.7.3"
@@ -178,7 +178,7 @@ __metadata:
       optional: true
     subscriptions-transport-ws:
       optional: true
-  checksum: f9f4577fa3e1da2b59368b5c1cec51e2f753e84bd5dfc0c29ff98aa9b5af4d5e645694c1079fe63d212eb639d8990ff1378c3dbec06d7e06e488f55192a51cbf
+  checksum: bd7aec34dc4c2da342fdb098ecb0fd903a5c163f3323cdec64594529983d28b2a7f0b4430faa72286c598d4a41a6564517af858689ec8ffcdbf05dc78f8a2903
   languageName: node
   linkType: hard
 
@@ -239,7 +239,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/onboarding-fragment@workspace:common/client/fragments/onboarding-fragment"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -296,7 +296,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/profile-fragment@workspace:common/client/fragments/profile-fragment"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -334,7 +334,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/project-fragment@workspace:common/client/fragments/project-fragment"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -395,7 +395,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/project-profile-fragment@workspace:common/client/fragments/project-profile-fragment"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -458,7 +458,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/renderer-entrypoint@workspace:common/client/entrypoints/renderer"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@app/index-page": "workspace:0.0.1"
     "@app/onboarding-page": "workspace:0.0.1"
     "@app/project-page": "workspace:0.0.1"
@@ -494,7 +494,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/team-fragment@workspace:common/client/fragments/team-fragment"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -530,6 +530,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/team-invite-fragment@workspace:common/client/fragments/team-invite-fragment"
   dependencies:
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -615,6 +616,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/team-profile-fragment@workspace:common/client/fragments/team-profile-fragment"
   dependencies:
+    "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
@@ -3099,7 +3101,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shared/data@workspace:shared/data"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@types/apollo-upload-client": "npm:17.0.4"
     apollo-upload-client: "npm:17.0.0"
   peerDependencies:
@@ -3172,7 +3174,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shared/modals-fragment@workspace:shared/fragments/modals"
   dependencies:
-    "@apollo/client": "npm:3.8.6"
+    "@apollo/client": "npm:3.8.7"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@shared/data": "workspace:0.0.1"
@@ -4018,6 +4020,7 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
+    graphql: "*"
     next: "*"
     react: "*"
     react-dom: "*"
