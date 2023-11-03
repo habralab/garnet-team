@@ -5,6 +5,7 @@ using Garnet.Team;
 using Garnet.User;
 using Garnet.Project;
 using Garnet.Notifications;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Garnet;
 
@@ -23,8 +24,8 @@ public static class Program
 
         builder.WebHost.UseUrls("http://*:3000");
 
+        builder.Services.AddKratosAuth();
         builder.Services.AddSecretKeyAuth();
-        // builder.Services.AddKratosAuth(); // Uncomment when Kratos will be ready to handle authorization
         
         builder.Services
             .AddHttpContextAccessor()
@@ -54,7 +55,13 @@ public static class Program
         app.UseAuthentication();
         app.UseAuthorization();
         app.MapControllers();
-        app.MapGraphQLHttp("/api/graphql").RequireAuthorization();
+        app.MapGraphQLHttp("/api/graphql")
+            .RequireAuthorization(
+                new AuthorizeAttribute
+                {
+                    AuthenticationSchemes = AuthSchemas.Kratos
+                }
+            );
         app.MapGraphQL("/api/sandbox");
 
         using (var scope = app.Services.CreateScope())

@@ -2,7 +2,6 @@ version: '3.3'
 
 networks:
   internal:
-    internal: true
   garnet:
 
 services:
@@ -85,6 +84,9 @@ services:
       - type: bind
         source: ./config/ory/kratos/local
         target: /config/kratos
+      - type: bind
+        source: /etc/ssl/certs
+        target: /etc/ssl/certs
     networks:
       - internal
 

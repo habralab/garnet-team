@@ -19,6 +19,7 @@ jobs:
           REMOTE_DIR: '/var/www/app/'
           DOCKER_COMPOSE_NAME: 'docker-compose.stage.yml'
           GIT_CONNECT: 'git@github.com:habralab/garnet-team.git'
+          SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE: ${{ secrets.GARNET_API_KEY }}
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
