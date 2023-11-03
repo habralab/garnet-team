@@ -50,6 +50,7 @@ export const useGetTeam = (props: GetTeamInput) => {
       ...mockUser.userGet,
       requestType: 'application',
       id: item.userId,
+      requestId: item.id,
       date: item.createdAt,
     })) || []
 
@@ -58,6 +59,7 @@ export const useGetTeam = (props: GetTeamInput) => {
       ...mockUser.userGet,
       requestType: 'invite',
       id: item.userId,
+      requestId: item.id,
       date: item.createdAt,
     })) || []
 
@@ -67,6 +69,7 @@ export const useGetTeam = (props: GetTeamInput) => {
     teamParticipants,
     applicationParticipants,
     invitedParticipants,
+    joinRequests: data?.teamUserJoinRequestsShow.teamUserJoinRequests || [],
     refetch,
   }
 }

@@ -1,3 +1,7 @@
+import { JoinRequest } from '@shared/data'
+import { Team }        from '@shared/data'
+
 export interface ButtonJoinRequestProps {
-  hasJoinRequest?: boolean
+  team?: Team
+  joinRequest?: JoinRequest
 }

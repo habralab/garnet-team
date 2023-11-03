@@ -1,8 +1,9 @@
-import { Team } from '@shared/data'
+import { JoinRequest } from '@shared/data'
+import { Team }        from '@shared/data'
 
 export interface ProfileActionsProps {
   team?: Team
   isMyTeam?: boolean
-  hasJoinRequest?: boolean
+  joinRequest?: JoinRequest
   onEditTeam?: (team: Team) => void
 }
