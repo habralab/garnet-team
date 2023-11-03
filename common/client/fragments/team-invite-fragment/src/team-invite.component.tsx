@@ -16,7 +16,6 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { mockUsers }        from '@shared/data'
 import { getUniqueTags }    from '@shared/helpers'
 
 import { useGetUsers }      from './data'
