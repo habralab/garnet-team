@@ -7,6 +7,7 @@ export const GET_PROJECTS = gql`
         id
         projectName
         avatarUrl
+        tags
       }
     }
   }

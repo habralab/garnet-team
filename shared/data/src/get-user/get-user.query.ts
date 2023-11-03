@@ -13,6 +13,14 @@ export const GET_USER = gql`
       teams {
         id
         name
+        tags
+        avatarUrl
+      }
+    }
+    projectFilterByUserParticipantId(userId: $id) {
+      projects {
+        id
+        projectName
         avatarUrl
       }
     }
