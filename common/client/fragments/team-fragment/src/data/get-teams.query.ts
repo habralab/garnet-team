@@ -7,6 +7,7 @@ export const GET_TEAMS = gql`
         id
         name
         avatarUrl
+        tags
       }
     }
   }
