@@ -61,7 +61,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
       </Condition>
     </Condition>
     <Condition match={teams.length > 0}>
-      <Row justifyContent='space-between'>
+      <Row gap={12}>
         {teams.slice(0, 4).map((team) => (
           <Avatar
             key={team.id}
