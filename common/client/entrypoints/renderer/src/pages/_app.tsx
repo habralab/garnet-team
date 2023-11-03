@@ -1,7 +1,7 @@
 import * as messages            from '../../locales/ru.json'
 
-import { KratosClientProvider } from '@atls/next-identity-integration'
 import { ApolloProvider }       from '@apollo/client'
+import { KratosClientProvider } from '@atls/next-identity-integration'
 
 import React                    from 'react'
 import { IntlProvider }         from 'react-intl'
