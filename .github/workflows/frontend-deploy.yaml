@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+  workflow_dispatch:
 
 jobs:
   deploy:
@@ -21,7 +22,7 @@ jobs:
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          password: ${{ secrets.PASSWORD }}
+          key: ${{ secrets.FRONT_SSH_KEY }}
           debug: true
           script_stop: true
           envs: REMOTE_DIR,DOCKER_COMPOSE_NAME,GIT_CONNECT
