@@ -8,7 +8,7 @@ public record ProjectEntity(
     string OwnerUserId,
     string ProjectName,
     string? Description,
-    string? AvatarUrl,
+    string AvatarUrl,
     string[] Tags,
     int TasksCounter,
     AuditInfo AuditInfo
