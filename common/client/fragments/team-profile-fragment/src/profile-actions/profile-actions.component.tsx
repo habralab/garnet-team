@@ -14,12 +14,13 @@ import { ProfileActionsProps } from './profile-actions.interfaces'
 
 export const ProfileActions: FC<ProfileActionsProps> = ({
   team,
+  onEditTeam,
   hasJoinRequest = false,
   isMyTeam = false,
 }) => (
   <>
     <Condition match={isMyTeam}>
-      <ButtonEditTeam team={team} />
+      <ButtonEditTeam team={team} onEditTeam={onEditTeam} />
       <Layout width={62} />
       <NextLink path='/team/invite' href='/team/invite'>
         <Button variant='primary' size='normal'>
