@@ -18,7 +18,7 @@
     "react-cropper": "2.3.3"
   },
   "devDependencies": {
-    "@apollo/client": "3.8.6",
+    "@apollo/client": "3.8.7",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
     "@types/react": "18.2.28",

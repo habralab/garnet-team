@@ -7,7 +7,7 @@
     "apollo-upload-client": "17.0.0"
   },
   "devDependencies": {
-    "@apollo/client": "3.8.6",
+    "@apollo/client": "3.8.7",
     "@types/apollo-upload-client": "17.0.4"
   },
   "peerDependencies": {
