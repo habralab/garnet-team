@@ -5,7 +5,9 @@
   "main": "src/index.ts",
   "dependencies": {
     "@identity/auth-forms-fragment": "workspace:0.0.1",
-    "@ui/background": "workspace:0.0.1"
+    "@identity/header-fragment": "workspace:0.0.1",
+    "@ui/background": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1"
   },
   "devDependencies": {
     "@atls/next-identity-integration": "0.0.17",
