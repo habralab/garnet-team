@@ -4,12 +4,16 @@ import { FilterVariables } from '@shared/data'
 import { Team }            from '@shared/data'
 import { User }            from '@shared/data'
 
+import { Project }         from '../data.interfaces'
 import { GET_USER }        from './get-user.query'
 
 export interface GetUserResponse {
   userGet: User
   teamsListByUser: {
     teams: Team[]
+  }
+  projectFilterByUserParticipantId: {
+    projects: Project[]
   }
 }
 
@@ -22,5 +26,10 @@ export const useGetUser = (variables: GetUserInput) => {
     variables,
   })
 
-  return { user: data?.userGet, teams: data?.teamsListByUser.teams || [], refetch }
+  return {
+    user: data?.userGet,
+    teams: data?.teamsListByUser?.teams || [],
+    projects: data?.projectFilterByUserParticipantId?.projects || [],
+    refetch,
+  }
 }
