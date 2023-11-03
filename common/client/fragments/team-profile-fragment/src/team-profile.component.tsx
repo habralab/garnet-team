@@ -5,6 +5,7 @@ import { useRouter }           from 'next/router'
 import { useEffect }           from 'react'
 import { useState }            from 'react'
 
+import { Team }                from '@shared/data'
 import { Avatar }              from '@ui/avatar'
 import { Condition }           from '@ui/condition'
 import { Box }                 from '@ui/layout'
@@ -15,25 +16,40 @@ import { Text }                from '@ui/text'
 import { Title }               from '@ui/title'
 import { WrapperWhite }        from '@ui/wrapper'
 import { mockAuthUserId }      from '@shared/data'
-import { getMockTeam }         from '@shared/data'
-import { getMockUser }         from '@shared/data'
+import { useGetUser }          from '@shared/data'
 
 import { ProfileActions }      from './profile-actions'
 import { ProfileDescription }  from './profile-description'
 import { ProfileParticipants } from './profile-participants'
 import { ProfileProjects }     from './profile-projects'
+import { useGetTeam }          from './data'
 
 export const TeamProfile: FC = () => {
   const router = useRouter()
+  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
+
+  const [team, setTeam] = useState<Team>()
   const [isMyTeam, setIsMyTeam] = useState(false)
 
-  const { team, teamProjects, teamParticipants, applicationParticipants, invitedParticipants } =
-    getMockTeam(String(router.query.id) || '')
-  const ownerUser = getMockUser(team?.ownerUserId || '')?.user
+  const {
+    team: fetchedTeam,
+    teamProjects,
+    teamParticipants,
+    applicationParticipants,
+    invitedParticipants,
+  } = useGetTeam({ id: queryId, search: '', skip: 0, take: 0 })
+
+  const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '', skip: 0, take: 20 })
 
   useEffect(() => {
-    if (team?.ownerUserId === mockAuthUserId) setIsMyTeam(true)
-  }, [team])
+    if (fetchedTeam) {
+      if (fetchedTeam.ownerUserId === mockAuthUserId) setIsMyTeam(true)
+
+      setTeam(fetchedTeam)
+    }
+  }, [router, fetchedTeam])
+
+  const handleEditTeam = (editedTeam: Team) => setTeam(editedTeam)
 
   return (
     <Column fill>
@@ -52,7 +68,7 @@ export const TeamProfile: FC = () => {
             <Layout flexBasis={32} />
             <ProfileDescription team={team} />
             <Box position='absolute' bottom={32} right={32} alignItems='center'>
-              <ProfileActions team={team} isMyTeam={isMyTeam} />
+              <ProfileActions team={team} isMyTeam={isMyTeam} onEditTeam={handleEditTeam} />
             </Box>
           </Condition>
           <Condition match={!team}>

@@ -49,3 +49,10 @@ export interface FilterVariables {
   take: number
   skip: number
 }
+
+export interface JoinRequest {
+  id?: string
+  userId?: string
+  teamId?: string
+  createdAt?: string
+}
