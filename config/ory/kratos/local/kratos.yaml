@@ -69,7 +69,6 @@ selfservice:
       ui_url: http://localhost:3010/auth/registration
       lifespan: 10m
       after:
-        default_browser_return_url: http://localhost:3010/auth/confirmation
         hooks:
           - hook: web_hook
             config:

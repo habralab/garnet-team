@@ -1,14 +1,20 @@
-import * as messages     from '../../locales/ru.json'
+import * as messages            from '../../locales/ru.json'
 
-import React             from 'react'
-import { IntlProvider }  from 'react-intl'
+import { KratosClientProvider } from '@atls/next-identity-integration'
 
-import { ThemeProvider } from '@ui/theme'
+import React                    from 'react'
+import { IntlProvider }         from 'react-intl'
+
+import { ThemeProvider }        from '@ui/theme'
+import { returnToSettingsUrl }  from '@shared/kratos-client'
+import { kratosClient }         from '@shared/kratos-client'
 
 const App = ({ Component, pageProps, ...props }) => (
   <ThemeProvider>
     <IntlProvider locale='ru' defaultLocale='ru' messages={messages}>
-      <Component {...pageProps} {...props} />
+      <KratosClientProvider value={{ returnToSettingsUrl, kratosClient }}>
+        <Component {...pageProps} {...props} />
+      </KratosClientProvider>
     </IntlProvider>
   </ThemeProvider>
 )

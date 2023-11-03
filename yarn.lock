@@ -150,6 +150,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@app/header-fragment@workspace:common/client/fragments/header-fragment"
   dependencies:
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
@@ -157,6 +158,7 @@ __metadata:
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
+    "@ui/condition": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
     "@ui/link": "workspace:0.0.1"
@@ -169,6 +171,7 @@ __metadata:
     styled-system: "npm:5.1.5"
     styled-tools: "npm:1.7.2"
   peerDependencies:
+    "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     framer-motion: "*"
@@ -360,10 +363,12 @@ __metadata:
     "@app/team-profile-page": "workspace:0.0.1"
     "@app/user-page": "workspace:0.0.1"
     "@app/user-teams-page": "workspace:0.0.1"
+    "@atls/next-identity-integration": "npm:0.0.17"
     "@emotion/css": "npm:11.9.0"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@formatjs/cli": "npm:4.8.4"
+    "@shared/kratos-client": "workspace:0.0.1"
     "@types/node": "npm:20.8.7"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
@@ -2054,13 +2059,45 @@ __metadata:
   resolution: "@identity/confirmation-page@workspace:features/identity/client/pages/confirmation-page"
   dependencies:
     "@identity/confirmation-card-fragment": "workspace:0.0.1"
+    "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+  languageName: unknown
+  linkType: soft
+
+"@identity/header-fragment@workspace:0.0.1, @identity/header-fragment@workspace:features/identity/client/fragments/header-fragment":
+  version: 0.0.0-use.local
+  resolution: "@identity/header-fragment@workspace:features/identity/client/fragments/header-fragment"
+  dependencies:
+    "@emotion/react": "npm:11.9.3"
+    "@emotion/styled": "npm:11.9.3"
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.14"
+    "@types/styled-system": "npm:5.1.20"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/link": "workspace:0.0.1"
+    "@ui/logo": "workspace:0.0.1"
+    framer-motion: "npm:10.16.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+    styled-system: "npm:5.1.5"
+    styled-tools: "npm:1.7.2"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    framer-motion: "*"
     next: "*"
     react: "*"
     react-dom: "*"
@@ -2089,9 +2126,11 @@ __metadata:
   dependencies:
     "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
+    "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
   peerDependencies:
     "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
@@ -2136,9 +2175,11 @@ __metadata:
   dependencies:
     "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
+    "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
-    "@ui/background": "npm:0.0.1"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
     "@atls/next-identity-integration": 0.0.15
@@ -2158,9 +2199,11 @@ __metadata:
   dependencies:
     "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
+    "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
   peerDependencies:
     "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
@@ -2179,9 +2222,11 @@ __metadata:
   dependencies:
     "@atls/next-identity-integration": "npm:0.0.17"
     "@identity/auth-forms-fragment": "workspace:0.0.1"
+    "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
     "@ui/background": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
   peerDependencies:
     "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
@@ -3720,7 +3765,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@ui/background@npm:0.0.1, @ui/background@workspace:0.0.1, @ui/background@workspace:ui/background":
+"@ui/background@workspace:0.0.1, @ui/background@workspace:ui/background":
   version: 0.0.0-use.local
   resolution: "@ui/background@workspace:ui/background"
   dependencies:

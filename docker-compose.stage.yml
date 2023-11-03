@@ -30,11 +30,11 @@ services:
       - 'traefik.http.routers.oathkeeper-app.rule=Host(`stage.garnet.pet-project.habr.com`)'
       - 'traefik.http.routers.oathkeeper-app.tls=true'
       - 'traefik.http.routers.oathkeeper-app.middlewares=cor'
-      - "traefik.http.middlewares.cor.headers.accesscontrolallowmethods=POST,GET,OPTIONS"
-      - "traefik.http.middlewares.cor.headers.accesscontrolallowheaders=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolalloworiginlist=*"
-      - "traefik.http.middlewares.cor.headers.accesscontrolmaxage=86400"
-      - "traefik.http.middlewares.cor.headers.addvaryheader=true"
+      - 'traefik.http.middlewares.cor.headers.accesscontrolallowmethods=POST,GET,OPTIONS'
+      - 'traefik.http.middlewares.cor.headers.accesscontrolallowheaders=*'
+      - 'traefik.http.middlewares.cor.headers.accesscontrolalloworiginlist=*'
+      - 'traefik.http.middlewares.cor.headers.accesscontrolmaxage=86400'
+      - 'traefik.http.middlewares.cor.headers.addvaryheader=true'
     networks:
       - garnet
       - internal
@@ -113,4 +113,5 @@ services:
       - POSTGRESQL_USER=postgres
     ports:
       - '5432:5432'
-    network_mode: bridge
+    networks:
+      - internal
