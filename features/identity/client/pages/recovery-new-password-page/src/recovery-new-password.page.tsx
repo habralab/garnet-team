@@ -3,14 +3,19 @@ import { SettingsFlow }            from '@atls/next-identity-integration'
 import React                       from 'react'
 
 import { RecoveryNewPasswordForm } from '@identity/auth-forms-fragment'
+import { Header }                  from '@identity/header-fragment'
 import { Background }              from '@ui/background'
+import { Column }                  from '@ui/layout'
 
 const RecoveryNewPasswordPage = () => (
-  <SettingsFlow>
+  <Column fill>
+    <Header />
     <Background fill color='lightGreyForty' justifyContent='center' alignItems='center'>
-      <RecoveryNewPasswordForm />
+      <SettingsFlow>
+        <RecoveryNewPasswordForm />
+      </SettingsFlow>
     </Background>
-  </SettingsFlow>
+  </Column>
 )
 
 export default RecoveryNewPasswordPage
