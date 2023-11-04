@@ -21,7 +21,7 @@ public class ProjectTeamJoinRequestCreatedConsumer : IMessageBusConsumer<TeamJoi
     public async Task Consume(TeamJoinProjectRequestCreatedEvent message)
     {
         var team = await _projectTeamGetQuery.Query(CancellationToken.None, message.TeamId);
-        await _projectTeamJoinRequestCreateCommand.Execute(CancellationToken.None, message.TeamId, team.TeamName,
+        await _projectTeamJoinRequestCreateCommand.Execute(CancellationToken.None, message.Id, message.TeamId, team.TeamName,
             message.ProjectId);
     }
 }
