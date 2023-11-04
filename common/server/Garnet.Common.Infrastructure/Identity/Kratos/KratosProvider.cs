@@ -56,28 +56,16 @@ public class KratosProvider
     
     private class Whoami
     {
-        [JsonPropertyName("id")]
-        public string Id { get; set; } 
-
-        [JsonPropertyName("active")]
-        public bool Active { get; set; } 
-
-        [JsonPropertyName("expires_at")]
-        public DateTime ExpiresAt { get; set; } 
-
-        [JsonPropertyName("authenticated_at")]
-        public DateTime AuthenticatedAt { get; set; } 
-
-        [JsonPropertyName("issued_at")]
-        public DateTime IssuedAt { get; set; } 
-
-        [JsonPropertyName("identity")]
-        public Identity Identity { get; set; } 
+        [JsonPropertyName("id")] public string Id { get; set; } = null!;
+        [JsonPropertyName("active")] public bool Active { get; set; } 
+        [JsonPropertyName("expires_at")] public DateTime ExpiresAt { get; set; } 
+        [JsonPropertyName("authenticated_at")] public DateTime AuthenticatedAt { get; set; } 
+        [JsonPropertyName("issued_at")] public DateTime IssuedAt { get; set; }
+        [JsonPropertyName("identity")] public Identity Identity { get; set; } = null!;
     }
 
     private class Identity
     {
-        [JsonPropertyName("id")]
-        public string Id { get; set; }
+        [JsonPropertyName("id")] public string Id { get; set; } = null!;
     }
 }
