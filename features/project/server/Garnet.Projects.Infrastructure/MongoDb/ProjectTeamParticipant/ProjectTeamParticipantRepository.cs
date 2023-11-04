@@ -114,6 +114,19 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         );
     }
 
+    public async Task<ProjectTeamParticipantEntity?> DeleteProjectTeamParticipantsByTeamIdAndProjectId(
+        CancellationToken ct,
+        string teamId, string projectId)
+    {
+        var db = _dbFactory.Create();
+        var teamParticipant = await db.ProjectTeamsParticipants.FindOneAndDeleteAsync(
+            _teamParticipantFilter.Eq(x => x.TeamId, teamId)
+            & _teamParticipantFilter.Eq(x => x.ProjectId, projectId)
+        );
+
+        return teamParticipant is null ? null : ProjectTeamParticipantDocument.ToDomain(teamParticipant);
+    }
+
     public async Task AddProjectTeamUserParticipant(CancellationToken ct, string teamId, string userId)
     {
         var db = _dbFactory.Create();
@@ -134,16 +147,5 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
                 _i.Text(o => o.TeamName)
             ),
             cancellationToken: ct);
-    }
-
-    public async Task<ProjectTeamParticipantEntity?> DeleteProjectTeamParticipantsByTeamId(CancellationToken ct,
-        string teamId)
-    {
-        var db = _dbFactory.Create();
-        var teamParticipant = await db.ProjectTeamsParticipants.FindOneAndDeleteAsync(
-            _teamParticipantFilter.Eq(x => x.TeamId, teamId)
-        );
-
-        return teamParticipant is null ? null : ProjectTeamParticipantDocument.ToDomain(teamParticipant);
     }
 }
