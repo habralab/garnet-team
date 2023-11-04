@@ -6,6 +6,8 @@ servers:
 accessories:
   db:
     host: 85.92.110.73
+  kratos-db:
+    host: 85.92.110.73
 
 traefik:
   labels:

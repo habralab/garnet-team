@@ -40,6 +40,18 @@ accessories:
       - data:/data/db
     options:
       network: app_garnet
+  kratos-db:
+    image: bitnami/postgresql:16
+    port: 5432
+    env:
+      clear:
+        POSTGRESQL_PASSWORD: password
+        POSTGRESQL_DATABASE: db
+        POSTGRESQL_USER: postgres
+    directories:
+      - data:/bitnami/postgresql
+    options:
+      network: app_internal
 
 traefik:
   options:

@@ -72,13 +72,12 @@ services:
   kratos:
     depends_on:
       - kratos-migrate
-      - db
     image: oryd/kratos:v1.0.0
     ports:
       - '4433:4433'
     restart: unless-stopped
     environment:
-      - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+      - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
       - LOG_LEVEL=trace
       - SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE
     command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
@@ -93,28 +92,14 @@ services:
       - internal
 
   kratos-migrate:
-    depends_on:
-      - db
     image: docker.io/oryd/kratos:v1.0.0
     environment:
-      - DSN=postgres://postgres:password@db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+      - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
     volumes:
       - type: bind
         source: ./config/ory/kratos/stage
         target: /config/kratos
     command: -c /config/kratos/kratos.yaml migrate sql -e --yes
     restart: on-failure
-    networks:
-      - internal
-
-  db:
-    image: bitnami/postgresql
-    restart: unless-stopped
-    environment:
-      - POSTGRESQL_PASSWORD=password
-      - POSTGRESQL_DATABASE=db
-      - POSTGRESQL_USER=postgres
-    ports:
-      - '5432:5432'
     networks:
       - internal
