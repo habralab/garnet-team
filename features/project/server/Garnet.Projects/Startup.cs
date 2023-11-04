@@ -154,7 +154,6 @@ public static class Startup
     {
         services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
 
-        services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
         services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
         services.AddScoped<ProjectTeamParticipantLeaveCommand>();
