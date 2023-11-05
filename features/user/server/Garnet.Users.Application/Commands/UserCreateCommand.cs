@@ -17,14 +17,14 @@ namespace Garnet.Users.Application.Commands
             _messageBus = messageBus;
         }
 
-        public async Task<Result<User>> Execute(CancellationToken ct, string identityId, string username)
+        public async Task<Result<User>> Execute(string identityId, string username)
         {
             if (string.IsNullOrWhiteSpace(username))
             {
                 return Result.Fail(new UsernameCanNotBeEmptyError());
             }
 
-            var user = await _usersRepository.CreateUser(ct, identityId, username);
+            var user = await _usersRepository.CreateUser(identityId, username);
             await _messageBus.Publish(user.ToCreatedEvent());
             return Result.Ok(user);
         }

@@ -1,4 +1,5 @@
 using Garnet.Common.Application;
+using Garnet.Common.Infrastructure.Api.Cancellation;
 using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Users.Application;
@@ -10,28 +11,35 @@ namespace Garnet.Users.Infrastructure.MongoDb;
 public class UsersRepository : RepositoryBase, IUsersRepository
 {
     private readonly DbFactory _dbFactory;
+    private readonly CancellationToken _ct;
     private readonly FilterDefinitionBuilder<UserDocument> _f = Builders<UserDocument>.Filter;
     private readonly UpdateDefinitionBuilder<UserDocument> _u = Builders<UserDocument>.Update;
     private readonly IndexKeysDefinitionBuilder<UserDocument> _i = Builders<UserDocument>.IndexKeys;
 
-    public UsersRepository(DbFactory dbFactory, ICurrentUserProvider currentUserProvider, IDateTimeService dateTimeService)
+    public UsersRepository(
+        DbFactory dbFactory,
+        ICurrentUserProvider currentUserProvider,
+        IDateTimeService dateTimeService,
+        CancellationTokenProvider ctp
+    )
         : base(currentUserProvider, dateTimeService)
     {
         _dbFactory = dbFactory;
+        _ct = ctp.Token;
     }
 
-    public async Task<User?> GetUser(CancellationToken ct, string id)
+    public async Task<User?> GetUser(string id)
     {
         var db = _dbFactory.Create();
-        var user = await db.Users.Find(o => o.Id == id).FirstOrDefaultAsync(ct);
+        var user = await db.Users.Find(o => o.Id == id).FirstOrDefaultAsync(_ct);
         return user is not null ? UserDocument.ToDomain(user) : null;
     }
 
-    public async Task<User> EditUserDescription(CancellationToken ct, string userId, string description)
+    public async Task<User> EditUserDescription(string userId, string description)
     {
         var db = _dbFactory.Create();
         var user = await FindOneAndUpdateDocument(
-            ct,
+            _ct,
             db.Users,
             _f.Eq(o => o.Id, userId),
             _u.Set(o => o.Description, description)
@@ -39,11 +47,11 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(user);
     }
 
-    public async Task<User> EditUserAvatar(CancellationToken ct, string userId, string avatarUrl)
+    public async Task<User> EditUserAvatar(string userId, string avatarUrl)
     {
         var db = _dbFactory.Create();
         var user = await FindOneAndUpdateDocument(
-            ct,
+            _ct,
             db.Users,
             _f.Eq(o => o.Id, userId),
             _u.Set(o => o.AvatarUrl, avatarUrl)
@@ -51,7 +59,7 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(user);
     }
 
-    public async Task<User> CreateUser(CancellationToken ct, string identityId, string username)
+    public async Task<User> CreateUser(string identityId, string username)
     {
         var db = _dbFactory.Create();
         var user = UserDocument.Create(
@@ -64,46 +72,11 @@ public class UsersRepository : RepositoryBase, IUsersRepository
                Array.Empty<string>()
             )
         );
-        var userDocument = await InsertOneDocument(ct, db.Users, user);
+        var userDocument = await InsertOneDocument(_ct, db.Users, user);
         return UserDocument.ToDomain(userDocument);
     }
 
-    public async Task<User[]> FilterUsers(CancellationToken ct, string? search, string[] tags, int skip, int take)
-    {
-        var db = _dbFactory.Create();
-
-        var searchFilter =
-            search is null
-                ? _f.Empty
-                : _f.Text(search);
-
-        var tagsFilter =
-            tags.Length > 0
-                ? _f.All(o => o.Tags, tags)
-                : _f.Empty;
-
-        var users =
-            await db.Users
-                .Find(searchFilter & tagsFilter)
-                .Skip(skip)
-                .Limit(take)
-                .ToListAsync(cancellationToken: ct);
-        return users.Select(UserDocument.ToDomain).ToArray();
-    }
-
-    public async Task CreateIndexes(CancellationToken ct)
-    {
-        var db = _dbFactory.Create();
-        await db.Users.Indexes.CreateOneAsync(
-            new CreateIndexModel<UserDocument>(
-                _i.Text(o => o.UserName)
-                    .Text(o => o.Description)
-                    .Text(o => o.Tags)
-            ),
-            cancellationToken: ct);
-    }
-
-    public async Task<User[]> FilterUsers(CancellationToken ct, UserFilterArgs args)
+    public async Task<User[]> FilterUsers(UserFilterArgs args)
     {
         var db = _dbFactory.Create();
 
@@ -120,15 +93,15 @@ public class UsersRepository : RepositoryBase, IUsersRepository
                 .Find(searchFilter & tagsFilter)
                 .Skip(args.Skip)
                 .Limit(args.Take)
-                .ToListAsync(cancellationToken: ct);
+                .ToListAsync(cancellationToken: _ct);
         return users.Select(UserDocument.ToDomain).ToArray();
     }
 
-    public async Task<User> EditUserTags(CancellationToken ct, string userId, string[] tags)
+    public async Task<User> EditUserTags(string userId, string[] tags)
     {
         var db = _dbFactory.Create();
         var user = await FindOneAndUpdateDocument(
-            ct,
+            _ct,
             db.Users,
             _f.Eq(o => o.Id, userId),
             _u.Set(o => o.Tags, tags)
@@ -136,15 +109,27 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         return UserDocument.ToDomain(user);
     }
 
-    public async Task<User> EditUsername(CancellationToken ct, string userId, string username)
+    public async Task<User> EditUsername(string userId, string username)
     {
         var db = _dbFactory.Create();
         var user = await FindOneAndUpdateDocument(
-            ct,
+            _ct,
             db.Users,
             _f.Eq(o => o.Id, userId),
             _u.Set(o => o.UserName, username)
         );
         return UserDocument.ToDomain(user);
+    }
+
+    public async Task CreateIndexes()
+    {
+        var db = _dbFactory.Create();
+        await db.Users.Indexes.CreateOneAsync(
+            new CreateIndexModel<UserDocument>(
+                _i.Text(o => o.UserName)
+                    .Text(o => o.Description)
+                    .Text(o => o.Tags)
+            ),
+            cancellationToken: _ct);
     }
 }

@@ -27,6 +27,7 @@ public static class Startup
         builder.AddApiType<UsersQuery>();
         builder.AddApiType<UsersMutation>();
         builder.Services.AddGarnetAuthorization();
+        builder.Services.AddCancellationTokenProvider();
         builder.Services.AddGarnetUsersInternal();
         builder.Services.AddGarnetUsersMessageBus(nameof(Users));
         builder.Services.AddGarnetPublicStorage();
