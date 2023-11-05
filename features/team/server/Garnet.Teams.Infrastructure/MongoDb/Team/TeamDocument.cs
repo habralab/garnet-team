@@ -11,7 +11,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
         public string OwnerUserId { get; init; } = null!;
         public string? AvatarUrl { get; init; } = null!;
         public string[] Tags { get; init; } = null!;
-        public int ProjectCount { get; init; } = 0;
+        public string[] ProjectIds { get; init; } = Array.Empty<string>();
         public int ParticipantCount { get; init; }
         public string[] ParticipantAvatarUrls { get; init; } = Array.Empty<string>();
 
@@ -39,7 +39,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 doc.AvatarUrl,
                 doc.Tags,
                 audit,
-                doc.ProjectCount,
+                doc.ProjectIds,
                 doc.ParticipantCount,
                 doc.ParticipantAvatarUrls
             );

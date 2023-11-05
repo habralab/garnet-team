@@ -232,7 +232,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
             return team is null ? null : TeamDocument.ToDomain(team);
         }
 
-        public async Task<TeamEntity?> IncreaseProjectCount(CancellationToken ct, string teamId)
+        public async Task<TeamEntity?> AddProjectId(CancellationToken ct, string teamId, string projectId)
         {
             var db = _dbFactory.Create();
 
@@ -240,13 +240,13 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 ct,
                 db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u.Inc(x => x.ParticipantCount, 1)
+                _u.Push(x => x.ProjectIds, projectId)
             );
 
             return team is null ? null : TeamDocument.ToDomain(team);
         }
 
-        public async Task<TeamEntity?> DecreaseProjectCount(CancellationToken ct, string teamId)
+        public async Task<TeamEntity?> RemoveProjectId(CancellationToken ct, string teamId, string projectId)
         {
             var db = _dbFactory.Create();
 
@@ -254,10 +254,22 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 ct,
                 db.Teams,
                 _f.Eq(x => x.Id, teamId),
-                _u.Inc(x => x.ParticipantCount, -1)
+                _u.Pull(x => x.ProjectIds, projectId)
             );
 
             return team is null ? null : TeamDocument.ToDomain(team);
+        }
+
+        public async Task RemoveProjectInAllTeams(CancellationToken ct, string projectId)
+        {
+            var db = _dbFactory.Create();
+
+            await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.AnyStringIn(x => x.ProjectIds, projectId),
+                _u.Pull(x => x.ProjectIds, projectId)
+            );
         }
     }
 }

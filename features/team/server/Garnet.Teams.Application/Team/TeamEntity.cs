@@ -11,7 +11,7 @@ namespace Garnet.Teams.Application.Team
         string? AvatarUrl,
         string[] Tags,
         AuditInfo AuditInfo,
-        int ProjectCount,
+        string[] ProjectIds,
         int ParticipantCount,
         string[]? ParticipantsAvatarUrls
     );
