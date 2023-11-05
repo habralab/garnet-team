@@ -24,7 +24,7 @@ namespace Garnet.Teams.Infrastructure.EventHandlers.Project
 
             if (message.IsApproved)
             {
-                await _teamRepository.IncreaseProjectCount(CancellationToken.None, message.TeamId);
+                await _teamRepository.AddProjectId(CancellationToken.None, message.TeamId, message.ProjectId);
             }
         }
     }

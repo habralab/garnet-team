@@ -34,7 +34,7 @@ namespace Garnet.Teams.Application.Team.Commands
                 return Result.Fail(new TeamOnlyOwnerCanDeleteFromProject());
             }
 
-            await _teamRepository.DecreaseProjectCount(ct, teamId);
+            await _teamRepository.RemoveProjectId(ct, teamId, projectId);
 
             var @event = new TeamLeaveProjectEvent(teamId, projectId);
             await _messageBus.Publish(@event);
