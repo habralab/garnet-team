@@ -10,7 +10,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
         public string? AvatarUrl { get; init; }
         public string TeamId { get; init; } = null!;
 
-        public static TeamParticipantDocument Create(string id, string userId, string username, string teamId, string avatarUrl)
+        public static TeamParticipantDocument Create(string id, string userId, string username, string teamId, string? avatarUrl)
         {
             return new TeamParticipantDocument
             {
