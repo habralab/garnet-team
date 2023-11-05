@@ -142,11 +142,11 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
     public async Task DeleteProjectTeamUserParticipant(CancellationToken ct, string teamId, string userId)
     {
         var db = _dbFactory.Create();
-        var team = await db.ProjectTeamsParticipants.Find(x => x.TeamId == teamId).FirstAsync(ct);
-        var teamParticipantList = team.UserParticipants.Where(x => x.Id != userId).ToArray();
         await db.ProjectTeamsParticipants.UpdateManyAsync(
             _teamParticipantFilter.Eq(x => x.TeamId, teamId),
-            _u.Set(x => x.UserParticipants, teamParticipantList),
+            _u.PullFilter(
+                x => x.UserParticipants,
+                u => u.Id == userId),
             cancellationToken: ct
         );
     }
