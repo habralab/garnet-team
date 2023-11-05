@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
     image: node:18.13
     working_dir: /workspace
-    entrypoint: yarn workspace @identity/renderer-entrypoint dev
+    entrypoint: bash -c "yarn workspace @identity/renderer-entrypoint prepack && yarn workspace@identity/renderer-entrypoint start"
     environment:
       - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
     volumes:
@@ -61,7 +61,9 @@ services:
     working_dir: /workspace
     volumes:
       - ./:/workspace
-    entrypoint: yarn workspace @app/renderer-entrypoint dev
+    environment:
+      - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
+    entrypoint: bash -c "yarn workspace @app/renderer-entrypoint prepack && yarn workspace @app/renderer-entrypoint start"
     ports:
       - '3020:3020'
     depends_on:
@@ -77,7 +79,7 @@ services:
       - '4433:4433'
     restart: unless-stopped
     environment:
-      - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+      - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/postgres?sslmode=disable&max_conns=20&max_idle_conns=4
       - LOG_LEVEL=trace
       - SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE
     command: serve -c /config/kratos/kratos.yaml --dev --watch-courier
@@ -94,7 +96,7 @@ services:
   kratos-migrate:
     image: docker.io/oryd/kratos:v1.0.0
     environment:
-      - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/db?sslmode=disable&max_conns=20&max_idle_conns=4
+      - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/postgres?sslmode=disable&max_conns=20&max_idle_conns=4
     volumes:
       - type: bind
         source: ./config/ory/kratos/stage
