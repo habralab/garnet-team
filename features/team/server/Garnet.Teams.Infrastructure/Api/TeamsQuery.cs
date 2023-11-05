@@ -98,7 +98,7 @@ namespace Garnet.Teams.Infrastructure.Api
                 x.AvatarUrl,
                 x.Tags,
                 x.OwnerUserId,
-                x.ProjectCount,
+                x.ProjectIds.Length,
                 x.ParticipantCount,
                 x.ParticipantsAvatarUrls ?? Array.Empty<string>()
             ));
