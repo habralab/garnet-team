@@ -9,16 +9,16 @@ namespace Garnet.Projects.Infrastructure.EventHandlers.Team;
 
 public class TeamUserJoinRequestDecidedEventConsumer : IMessageBusConsumer<TeamUserJoinRequestDecidedEvent>
 {
-    private readonly ProjectTeamAddParticipantCommand _projectTeamAddParticipantCommand;
-    private readonly ProjectTeamParticipantAddParticipantCommand _projectTeamParticipantAddParticipantCommand;
+    private readonly ProjectTeamAddUserParticipantCommand _projectTeamAddUserParticipantCommand;
+    private readonly ProjectTeamParticipantAddUserParticipantCommand _projectTeamParticipantAddUserParticipantCommand;
 
     public TeamUserJoinRequestDecidedEventConsumer(
-        ProjectTeamAddParticipantCommand projectTeamAddParticipantCommand,
-        ProjectTeamParticipantAddParticipantCommand projectTeamParticipantAddParticipantCommand
+        ProjectTeamAddUserParticipantCommand projectTeamAddUserParticipantCommand,
+        ProjectTeamParticipantAddUserParticipantCommand projectTeamParticipantAddUserParticipantCommand
         )
     {
-        _projectTeamAddParticipantCommand = projectTeamAddParticipantCommand;
-        _projectTeamParticipantAddParticipantCommand = projectTeamParticipantAddParticipantCommand;
+        _projectTeamAddUserParticipantCommand = projectTeamAddUserParticipantCommand;
+        _projectTeamParticipantAddUserParticipantCommand = projectTeamParticipantAddUserParticipantCommand;
     }
 
     public async Task Consume(TeamUserJoinRequestDecidedEvent message)
@@ -26,10 +26,10 @@ public class TeamUserJoinRequestDecidedEventConsumer : IMessageBusConsumer<TeamU
         if (message.IsApproved)
         {
             var projectTeamAddParticipantArgs = new ProjectTeamAddParticipantArgs(message.UserId, message.TeamId);
-            await _projectTeamAddParticipantCommand.Execute(CancellationToken.None, projectTeamAddParticipantArgs);
+            await _projectTeamAddUserParticipantCommand.Execute(CancellationToken.None, projectTeamAddParticipantArgs);
 
             var projectTeamParticipantAddParticipantArgs = new ProjectTeamParticipantAddParticipantArgs(message.UserId, message.TeamId);;
-            await _projectTeamParticipantAddParticipantCommand.Execute(CancellationToken.None,
+            await _projectTeamParticipantAddUserParticipantCommand.Execute(CancellationToken.None,
                 projectTeamParticipantAddParticipantArgs);
         }
     }

@@ -19,17 +19,21 @@ public class ProjectTeamJoinRequestRepository : IProjectTeamJoinRequestRepositor
         _dbFactory = dbFactory;
     }
 
-    public async Task<ProjectTeamJoinRequestEntity> AddProjectTeamJoinRequest(CancellationToken ct, string teamId,
-        string teamName, string projectId)
+    public async Task<ProjectTeamJoinRequestEntity> AddProjectTeamJoinRequest(CancellationToken ct,
+        string id,
+        string teamId,
+        string teamName,
+        string projectId)
     {
         var db = _dbFactory.Create();
-        var teamJoinRequest = ProjectTeamJoinRequestDocument.Create(Uuid.NewMongo(), teamId, teamName, projectId);
+        var teamJoinRequest = ProjectTeamJoinRequestDocument.Create(id, teamId, teamName, projectId);
         await db.ProjectTeamJoinRequests.InsertOneAsync(teamJoinRequest, cancellationToken: ct);
 
         return ProjectTeamJoinRequestDocument.ToDomain(teamJoinRequest);
     }
 
-    public async Task<ProjectTeamJoinRequestEntity?> DeleteProjectTeamJoinRequestById(CancellationToken ct, string projectTeamJoinRequestId)
+    public async Task<ProjectTeamJoinRequestEntity?> DeleteProjectTeamJoinRequestById(CancellationToken ct,
+        string projectTeamJoinRequestId)
     {
         var db = _dbFactory.Create();
         var teamJoinRequest = await db.ProjectTeamJoinRequests.FindOneAndDeleteAsync(

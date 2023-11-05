@@ -22,7 +22,7 @@ namespace Garnet.Projects.Application.ProjectTeamParticipant.Commands
 
         public async Task Execute(CancellationToken ct, string teamId, string projectId)
         {
-            var teamParticipant = await _projectTeamParticipantRepository.DeleteProjectTeamParticipantsByTeamId(ct, teamId);
+            var teamParticipant = await _projectTeamParticipantRepository.DeleteProjectTeamParticipantsByTeamIdAndProjectId(ct, teamId, projectId);
             if (teamParticipant is not null)
             {
                 var project = await _projectRepository.GetProject(ct, projectId);

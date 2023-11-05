@@ -11,7 +11,7 @@ public class ProjectDocumentBuilder
     private string _ownerUserId = "OwnerUserId";
     private string _projectName = "ProjectName";
     private string? _description = "Description";
-    private string? _avatarUrl = "AvatarUrl";
+    private string _avatarUrl = "AvatarUrl";
     private string[] _tags = Array.Empty<string>();
     private int _tasksCounter = 0;
     private AuditInfoDocument _auditInfo = new(DateTime.UtcNow, "CreatedByUser", DateTime.UtcNow, "UpdatedByUser", 0);
@@ -40,7 +40,7 @@ public class ProjectDocumentBuilder
         return this;
     }
 
-    public ProjectDocumentBuilder WithAvatarUrl(string? avatarUrl)
+    public ProjectDocumentBuilder WithAvatarUrl(string avatarUrl)
     {
         _avatarUrl = avatarUrl;
         return this;

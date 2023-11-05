@@ -64,4 +64,24 @@ public class ProjectTeamRepository : IProjectTeamRepository
             cancellationToken: ct
         );
     }
+
+    public async Task<ProjectTeamEntity?> DeleteProjectTeamParticipant(CancellationToken ct, string teamId,
+        string userId)
+    {
+        var db = _dbFactory.Create();
+        var team = await db.ProjectTeams.Find(x => x.Id == teamId).FirstAsync(ct);
+        var teamParticipantIdsList = team.UserParticipantIds.ToList();
+        teamParticipantIdsList.Remove(userId);
+        team = await db.ProjectTeams.FindOneAndUpdateAsync(
+            _f.Eq(x => x.Id, teamId),
+            _u.Set(x => x.UserParticipantIds, teamParticipantIdsList.ToArray()),
+            options: new FindOneAndUpdateOptions<ProjectTeamDocument>
+            {
+                ReturnDocument = ReturnDocument.After
+            },
+            cancellationToken: ct
+        );
+
+        return team is null ? null : ProjectTeamDocument.ToDomain(team);
+    }
 }
