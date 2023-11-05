@@ -61,7 +61,9 @@ services:
     working_dir: /workspace
     volumes:
       - ./:/workspace
-    entrypoint: yarn workspace @app/renderer-entrypoint dev
+    environment:
+      - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
+    entrypoint: bash -c "yarn workspace @app/renderer-entrypoint prepack && yarn workspace @app/renderer-entrypoint start"
     ports:
       - '3020:3020'
     depends_on:
