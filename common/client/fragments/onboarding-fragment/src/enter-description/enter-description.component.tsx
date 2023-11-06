@@ -10,10 +10,10 @@ import { Box }                   from '@ui/layout'
 import { Layout }                from '@ui/layout'
 import { Text }                  from '@ui/text'
 
-import { useDescriptionState }   from './hooks'
 import { EnterDescriptionProps } from './enter-description.interfaces'
 import { useSubmitDescription }  from '../hooks'
 import { validateValue }         from './helpers'
+import { useDescriptionState }   from './hooks'
 
 export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
   const [errorText, setErrorText] = useState<string>('')
