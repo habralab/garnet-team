@@ -6,9 +6,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
     {
         public string Id { get; init; } = null!;
         public string Username { get; init; } = null!;
-        public string? AvatarUrl { get; init; }
+        public string AvatarUrl { get; init; } = string.Empty;
 
-        public static TeamUserDocument Create(string userId, string username, string? avatarUrl)
+        public static TeamUserDocument Create(string userId, string username, string avatarUrl)
         {
             return new TeamUserDocument
             {

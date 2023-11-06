@@ -7,7 +7,7 @@ namespace Garnet.Teams.Application.TeamParticipant
         string UserId,
         string Username,
         string TeamId,
-        string? AvatarUrl
+        string AvatarUrl
     );
 
     public static class TeamParticipantEntityExtension

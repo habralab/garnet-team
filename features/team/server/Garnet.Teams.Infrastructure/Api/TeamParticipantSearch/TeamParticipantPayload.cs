@@ -5,6 +5,6 @@ namespace Garnet.Teams.Infrastructure.Api.TeamParticipantSearch
         string UserId,
         string Username,
         string TeamId,
-        string? AvatarUrl
+        string AvatarUrl
     );
 }
