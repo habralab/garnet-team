@@ -117,7 +117,7 @@ namespace Garnet.Teams.Infrastructure.Api
                  x.AvatarUrl,
                  x.Tags,
                  x.OwnerUserId,
-                 projectResult[x.Id].Length,
+                 projectResult.Count(c => c.Key == x.Id),
                  participants);
             });
             return new TeamsListPayload(teams.ToArray());
