@@ -1,19 +1,19 @@
-import React                        from 'react'
-import { FC }                       from 'react'
-import { FormattedMessage }         from 'react-intl'
-import { useState }                 from 'react'
-import { useIntl }                  from 'react-intl'
+import React                     from 'react'
+import { FC }                    from 'react'
+import { FormattedMessage }      from 'react-intl'
+import { useState }              from 'react'
+import { useIntl }               from 'react-intl'
 
-import { Button }                   from '@ui/button'
-import { Textarea }                 from '@ui/input'
-import { Box }                      from '@ui/layout'
-import { Layout }                   from '@ui/layout'
-import { Text }                     from '@ui/text'
+import { Button }                from '@ui/button'
+import { Textarea }              from '@ui/input'
+import { Box }                   from '@ui/layout'
+import { Layout }                from '@ui/layout'
+import { Text }                  from '@ui/text'
 
-import { EnterDescriptionProps }    from './enter-description.interfaces'
-import { useUpdateUserDescription } from '../data'
-import { sizes }                    from './enter-description.config'
-import { validateValue }            from './helpers'
+import { EnterDescriptionProps } from './enter-description.interfaces'
+import { useSubmitDescription }  from '../hooks'
+import { sizes }                 from './enter-description.config'
+import { validateValue }         from './helpers'
 
 export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
   const [value, setValue] = useState<string>('')
@@ -21,7 +21,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
 
   const { formatMessage } = useIntl()
 
-  const { updateUserDescription } = useUpdateUserDescription()
+  const { submit } = useSubmitDescription()
 
   const handleChange = (newValue: string) => {
     setValue(newValue)
@@ -38,14 +38,8 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
   const isSubmitDisabled = value.length < sizes.min || value.length > sizes.max
 
   const handleSubmit = async () => {
-    try {
-      if (value) {
-        await updateUserDescription({ variables: { description: value } })
-        onSubmit?.()
-      }
-    } catch (error) {
-      /** @todo error notification */
-    }
+    await submit(value)
+    onSubmit?.()
   }
 
   return (

@@ -1,20 +1,20 @@
-import React                   from 'react'
-import { FC }                  from 'react'
-import { FormattedMessage }    from 'react-intl'
-import { useRef }              from 'react'
-import { useState }            from 'react'
+import React                from 'react'
+import { FC }               from 'react'
+import { FormattedMessage } from 'react-intl'
+import { useRef }           from 'react'
+import { useState }         from 'react'
 
-import { ModalEditImage }      from '@shared/modals-fragment'
-import { Avatar }              from '@ui/avatar'
-import { Button }              from '@ui/button'
-import { Condition }           from '@ui/condition'
-import { Input }               from '@ui/input'
-import { Box }                 from '@ui/layout'
-import { Layout }              from '@ui/layout'
-import { Text }                from '@ui/text'
+import { ModalEditImage }   from '@shared/modals-fragment'
+import { Avatar }           from '@ui/avatar'
+import { Button }           from '@ui/button'
+import { Condition }        from '@ui/condition'
+import { Input }            from '@ui/input'
+import { Box }              from '@ui/layout'
+import { Layout }           from '@ui/layout'
+import { Text }             from '@ui/text'
 
-import { UploadPhotoProps }    from './upload-photo.interfaces'
-import { useUploadUserAvatar } from '../data'
+import { UploadPhotoProps } from './upload-photo.interfaces'
+import { useSubmitAvatar }  from '../hooks'
 
 export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
   const [file, setFile] = useState<File>()
@@ -24,7 +24,7 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { uploadUserAvatar } = useUploadUserAvatar()
+  const { submit } = useSubmitAvatar()
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
@@ -47,14 +47,8 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
   }
 
   const handleSubmit = async () => {
-    try {
-      if (blob) {
-        await uploadUserAvatar({ variables: { file: blob } })
-        onSubmit?.()
-      }
-    } catch (error) {
-      /** @todo error notification */
-    }
+    await submit(blob)
+    onSubmit?.()
   }
 
   return (
