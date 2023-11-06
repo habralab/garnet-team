@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
     image: node:18.13
     working_dir: /workspace
-    entrypoint: bash -c "yarn workspace @identity/renderer-entrypoint prepack && yarn workspace@identity/renderer-entrypoint start"
+    entrypoint: bash -c "yarn workspace @identity/renderer-entrypoint prepack ; yarn workspace@identity/renderer-entrypoint start"
     environment:
       - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
     volumes:
@@ -63,7 +63,7 @@ services:
       - ./:/workspace
     environment:
       - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
-    entrypoint: bash -c "yarn workspace @app/renderer-entrypoint prepack && yarn workspace @app/renderer-entrypoint start"
+    entrypoint: bash -c "yarn workspace @app/renderer-entrypoint prepack ; yarn workspace @app/renderer-entrypoint start"
     ports:
       - '3020:3020'
     depends_on:
