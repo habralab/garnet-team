@@ -10,7 +10,7 @@ import { Box }              from '@ui/layout'
 import { Layout }           from '@ui/layout'
 import { Text }             from '@ui/text'
 
-import { useSkillsState }    from './hooks'
+import { useSkillsState }   from './hooks'
 import { EnterSkillsProps } from './enter-skills.interfaces'
 import { useSubmitSkills }  from '../hooks'
 import { validateValue }    from './helpers'
