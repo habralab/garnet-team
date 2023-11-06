@@ -19,6 +19,7 @@ import { WrapperWhite }     from '@ui/wrapper'
 import { getUniqueTags }    from '@shared/helpers'
 
 import { useGetUsers }      from './data'
+import { filterUsers }      from './helpers'
 
 export const TeamInvite: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -36,12 +37,7 @@ export const TeamInvite: FC = () => {
     setSelectedTags(selectedTags.filter((item) => item !== tag))
   }
 
-  const filteredUsers = users.filter(
-    (user) =>
-      selectedTags.some((tag) => user.tags?.includes(tag)) ||
-      (searchValue.length > 2 &&
-        user.userName?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-  )
+  const filteredUsers = filterUsers(users, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>

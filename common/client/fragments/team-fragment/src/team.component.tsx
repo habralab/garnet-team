@@ -19,6 +19,7 @@ import { WrapperWhite }     from '@ui/wrapper'
 import { getUniqueTags }    from '@shared/helpers'
 
 import { useGetTeams }      from './data'
+import { filterTeams }      from './helpers'
 
 export const Team: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -38,11 +39,7 @@ export const Team: FC = () => {
   }
 
   /** @todo search params to url query */
-  const filteredTeams = teams.filter(
-    (team) =>
-      selectedTags.some((tag) => team.tags?.includes(tag)) ||
-      (searchValue.length > 2 && team.name?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-  )
+  const filteredTeams = filterTeams(teams, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>
