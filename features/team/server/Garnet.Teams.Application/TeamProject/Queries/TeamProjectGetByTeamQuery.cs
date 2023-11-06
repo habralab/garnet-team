@@ -9,7 +9,7 @@ namespace Garnet.Teams.Application.TeamProject.Queries
             _teamProjectRepository = teamProjectRepository;
         }
 
-        public async Task<TeamProject[]> Query(CancellationToken ct, string teamId)
+        public async Task<TeamProjectEntity[]> Query(CancellationToken ct, string teamId)
         {
             return await _teamProjectRepository.GetTeamProjectByTeam(ct, teamId);
         }

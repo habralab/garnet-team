@@ -36,6 +36,7 @@ namespace Garnet.Teams.AcceptanceTests
             services.AddTeamUserJoinRequestInternal();
             services.AddTeamJoinInvitationInternal();
             services.AddTeamJoinProjectRequestInternal();
+            services.AddTeamProjectInternal();
 
             services.AddScoped<TeamsMutation>();
             services.AddScoped<TeamsQuery>();

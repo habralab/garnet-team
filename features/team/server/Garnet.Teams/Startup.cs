@@ -44,6 +44,10 @@ using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Commands;
 using Garnet.Notifications.Events;
 using Garnet.Teams.Application.TeamUser.Commands;
+using Garnet.Teams.Application.TeamProject;
+using Garnet.Teams.Application.TeamProject.Commands;
+using Garnet.Teams.Application.TeamProject.Queries;
+using Garnet.Teams.Infrastructure.MongoDb.TeamProject;
 
 namespace Garnet.Team
 {
@@ -74,6 +78,7 @@ namespace Garnet.Team
             services.AddTeamUserJoinRequestInternal();
             services.AddTeamJoinInvitationInternal();
             services.AddTeamJoinProjectRequestInternal();
+            services.AddTeamProjectInternal();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
@@ -127,6 +132,13 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
             services.AddScoped<TeamUserUpdateCommand>();
+        }
+
+        public static void AddTeamProjectInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamProjectRepository, TeamProjectRepository>();
+            services.AddScoped<TeamProjectJoinedCommand>();
+            services.AddScoped<TeamProjectGetByTeamQuery>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)

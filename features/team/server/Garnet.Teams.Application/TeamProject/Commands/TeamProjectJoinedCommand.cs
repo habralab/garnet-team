@@ -15,7 +15,7 @@ namespace Garnet.Teams.Application.TeamProject.Commands
             _teamProjectRepository = teamProjectRepository;
         }
 
-        public async Task<Result<TeamProject>> Execute(CancellationToken ct, string teamId, string projectId)
+        public async Task<Result<TeamProjectEntity>> Execute(CancellationToken ct, string teamId, string projectId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)
