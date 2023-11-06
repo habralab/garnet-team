@@ -15,11 +15,9 @@ import { Column }                from '@ui/layout'
 import { Row }                   from '@ui/layout'
 import { Layout }                from '@ui/layout'
 import { Text }                  from '@ui/text'
+import { isIncludes }            from '@shared/helpers'
 
 import { ListParticipantsProps } from './list-participants.interfaces'
-
-const isIncludes = (value?: string, search?: string) =>
-  Boolean(value?.toLowerCase().includes(search?.toLocaleLowerCase() || ''))
 
 export const ListParticipants: FC<ListParticipantsProps> = ({
   isMyTeam = false,
