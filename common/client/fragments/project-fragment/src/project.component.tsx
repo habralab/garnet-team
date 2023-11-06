@@ -19,6 +19,7 @@ import { WrapperWhite }     from '@ui/wrapper'
 import { getUniqueTags }    from '@shared/helpers'
 
 import { useGetProjects }   from './data'
+import { filterProjects }   from './helpers'
 
 export const Project: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
@@ -38,12 +39,7 @@ export const Project: FC = () => {
   }
 
   /** @todo search params to url query */
-  const filteredProjects = projects.filter(
-    (project) =>
-      selectedTags.some((tag) => project.tags?.includes(tag)) ||
-      (searchValue.length > 2 &&
-        project.projectName?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-  )
+  const filteredProjects = filterProjects(projects, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>
