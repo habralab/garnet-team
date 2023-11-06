@@ -26,6 +26,12 @@
     "jsx": "react",
     "outDir": "./dist"
   },
+  "include": [
+    "features/identity/**/*.(ts|tsx)",
+    "common/client/**/*.(ts|tsx)",
+    "shared/**/*.(ts|tsx)",
+    "ui/**/*.(ts|tsx)"
+  ],
   "exclude": [
     "integration",
     "node_modules",

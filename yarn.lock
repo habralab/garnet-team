@@ -197,6 +197,60 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@app/onboarding-fragment@workspace:0.0.1, @app/onboarding-fragment@workspace:common/client/fragments/onboarding-fragment":
+  version: 0.0.0-use.local
+  resolution: "@app/onboarding-fragment@workspace:common/client/fragments/onboarding-fragment"
+  dependencies:
+    "@shared/data": "workspace:0.0.1"
+    "@shared/modals-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/avatar": "workspace:0.0.1"
+    "@ui/button": "workspace:0.0.1"
+    "@ui/condition": "workspace:0.0.1"
+    "@ui/input": "workspace:0.0.1"
+    "@ui/layout": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1"
+    framer-motion: "npm:10.16.1"
+    next: "npm:12.3.4"
+    react-intl: "npm:6.0.8"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    framer-motion: "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
+"@app/onboarding-page@workspace:0.0.1, @app/onboarding-page@workspace:common/client/pages/onboarding-page":
+  version: 0.0.0-use.local
+  resolution: "@app/onboarding-page@workspace:common/client/pages/onboarding-page"
+  dependencies:
+    "@app/header-fragment": "workspace:0.0.1"
+    "@app/onboarding-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.14"
+    "@ui/background": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@app/profile-fragment@workspace:0.0.1, @app/profile-fragment@workspace:common/client/fragments/profile-fragment":
   version: 0.0.0-use.local
   resolution: "@app/profile-fragment@workspace:common/client/fragments/profile-fragment"
@@ -356,6 +410,7 @@ __metadata:
   resolution: "@app/renderer-entrypoint@workspace:common/client/entrypoints/renderer"
   dependencies:
     "@app/index-page": "workspace:0.0.1"
+    "@app/onboarding-page": "workspace:0.0.1"
     "@app/project-page": "workspace:0.0.1"
     "@app/project-profile-page": "workspace:0.0.1"
     "@app/team-invite-page": "workspace:0.0.1"
@@ -3014,9 +3069,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@shared/modals-fragment@workspace:shared/fragments/modals"
   dependencies:
+    "@emotion/react": "npm:11.9.3"
+    "@emotion/styled": "npm:11.9.3"
     "@shared/data": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.14"
+    "@types/styled-system": "npm:5.1.20"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -3027,8 +3085,12 @@ __metadata:
     "@ui/modal": "workspace:0.0.1"
     "@ui/tag": "workspace:0.0.1"
     "@ui/text": "workspace:0.0.1"
+    "@ui/theme": "workspace:0.0.1"
     framer-motion: "npm:10.16.1"
+    react-cropper: "npm:2.3.3"
     react-intl: "npm:6.0.8"
+    styled-system: "npm:5.1.5"
+    styled-tools: "npm:1.7.2"
   peerDependencies:
     "@emotion/css": "*"
     "@emotion/react": "*"
@@ -6066,6 +6128,13 @@ __metadata:
     path-type: "npm:^4.0.0"
     yaml: "npm:^1.10.0"
   checksum: 8add352f0abd55fc5eaef0823937c33992e5ae670831418c8ff98bb301952260467533b09b8e9257dc360baa270610a7a92b288d94eb25d6f577a0d7e507801b
+  languageName: node
+  linkType: hard
+
+"cropperjs@npm:^1.5.13":
+  version: 1.6.1
+  resolution: "cropperjs@npm:1.6.1"
+  checksum: 4865c5c8831c0de152c4fd88aaf6d279829a32f2581dc2a0beff273809a2fd69f300b0351cfa564a52b0057a986bc3a1af890fd97617114500674b16d13ad63d
   languageName: node
   linkType: hard
 
@@ -9349,6 +9418,17 @@ __metadata:
   dependencies:
     safe-buffer: "npm:^5.1.0"
   checksum: 5d8b58cc7c397c4e23e4ef7d64ecd4a84d4a12781964b5cbd329a92f77f55beef58dda2e8d2f7582aceaf0fd41dac2a9665c630882af1937be8f2fbb5f69d037
+  languageName: node
+  linkType: hard
+
+"react-cropper@npm:2.3.3":
+  version: 2.3.3
+  resolution: "react-cropper@npm:2.3.3"
+  dependencies:
+    cropperjs: "npm:^1.5.13"
+  peerDependencies:
+    react: ">=17.0.2"
+  checksum: 1f4d8e07bd36a538501164dbb501cc36b497b22e913944c84a187ea8e7fd38f8720313a1d2b58620685b44a8990d88f20c56ce05fbf4d30c3f6ba66e510a2253
   languageName: node
   linkType: hard
 

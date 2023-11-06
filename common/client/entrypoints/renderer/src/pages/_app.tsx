@@ -1,4 +1,4 @@
-import * as messages            from '../../locales/ru.json'
+import * as messages     from '../../locales/ru.json'
 
 import { KratosClientProvider } from '@atls/next-identity-integration'
 

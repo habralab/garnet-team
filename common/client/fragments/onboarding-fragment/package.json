@@ -1,32 +1,23 @@
 {
-  "name": "@shared/modals-fragment",
+  "name": "@app/onboarding-fragment",
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {
     "@shared/data": "workspace:0.0.1",
+    "@shared/modals-fragment": "workspace:0.0.1",
     "@ui/avatar": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
-    "@ui/form": "workspace:0.0.1",
-    "@ui/icon": "workspace:0.0.1",
     "@ui/input": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
-    "@ui/modal": "workspace:0.0.1",
-    "@ui/tag": "workspace:0.0.1",
-    "@ui/text": "workspace:0.0.1",
-    "@ui/theme": "workspace:0.0.1",
-    "react-cropper": "2.3.3"
+    "@ui/text": "workspace:0.0.1"
   },
   "devDependencies": {
-    "@emotion/react": "11.9.3",
-    "@emotion/styled": "11.9.3",
     "@types/react": "18.2.28",
     "@types/react-dom": "18.2.14",
-    "@types/styled-system": "5.1.20",
     "framer-motion": "10.16.1",
-    "react-intl": "6.0.8",
-    "styled-system": "5.1.5",
-    "styled-tools": "1.7.2"
+    "next": "12.3.4",
+    "react-intl": "6.0.8"
   },
   "peerDependencies": {
     "@emotion/css": "*",
