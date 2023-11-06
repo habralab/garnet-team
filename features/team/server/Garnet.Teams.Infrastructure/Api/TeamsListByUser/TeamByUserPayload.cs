@@ -7,7 +7,7 @@ namespace Garnet.Teams.Infrastructure.Api.TeamsListByUser
        string Id,
        string Name,
        string Description,
-       string? AvatarUrl,
+       string AvatarUrl,
        string[] Tags,
        string OwnerUserId,
        int ProjectCount,
