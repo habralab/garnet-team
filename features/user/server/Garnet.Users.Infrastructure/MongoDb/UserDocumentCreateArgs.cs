@@ -2,7 +2,6 @@
 
 public record UserDocumentCreateArgs(
     string Id,
-    string IdentityId, 
     string UserName, 
     string Description, 
     string AvatarUrl, 

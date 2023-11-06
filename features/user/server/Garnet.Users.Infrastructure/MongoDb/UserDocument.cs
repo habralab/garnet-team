@@ -6,7 +6,6 @@ namespace Garnet.Users.Infrastructure.MongoDb;
 public record UserDocument : DocumentBase
 {
     public string Id { get; init; } = null!;
-    public string IdentityId { get; init; } = null!;
     public string UserName { get; init; } = null!;
     public string Description { get; init; } = null!;
     public string AvatarUrl { get; init; } = null!;
@@ -17,7 +16,6 @@ public record UserDocument : DocumentBase
         return new UserDocument
         {
             Id = args.Id,
-            IdentityId = args.IdentityId,
             UserName = args.UserName,
             Description = args.Description,
             AvatarUrl = args.AvatarUrl,

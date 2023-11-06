@@ -64,7 +64,6 @@ public class UsersRepository : RepositoryBase, IUsersRepository
         var db = _dbFactory.Create();
         var user = UserDocument.Create(
             new UserDocumentCreateArgs(
-               Uuid.NewMongo(),
                identityId,
                username,
                string.Empty,
