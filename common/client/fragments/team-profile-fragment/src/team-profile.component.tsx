@@ -1,9 +1,6 @@
 import React                   from 'react'
 import { FC }                  from 'react'
 import { FormattedMessage }    from 'react-intl'
-import { useRouter }           from 'next/router'
-import { useEffect }           from 'react'
-import { useState }            from 'react'
 
 import { Team }                from '@shared/data'
 import { Avatar }              from '@ui/avatar'
@@ -15,41 +12,25 @@ import { Layout }              from '@ui/layout'
 import { Text }                from '@ui/text'
 import { Title }               from '@ui/title'
 import { WrapperWhite }        from '@ui/wrapper'
-import { mockAuthUserId }      from '@shared/data'
-import { useGetUser }          from '@shared/data'
 
 import { ProfileActions }      from './profile-actions'
 import { ProfileDescription }  from './profile-description'
 import { ProfileParticipants } from './profile-participants'
 import { ProfileProjects }     from './profile-projects'
-import { useGetTeam }          from './data'
+import { useTeamState }        from './hooks'
 
 export const TeamProfile: FC = () => {
-  const router = useRouter()
-  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
-
-  const [team, setTeam] = useState<Team>()
-  const [isMyTeam, setIsMyTeam] = useState(false)
-
   const {
-    team: fetchedTeam,
+    team,
+    setTeam,
+    isMyTeam,
+    ownerUser,
     teamProjects,
     teamParticipants,
     applicationParticipants,
     invitedParticipants,
-    joinRequests,
-  } = useGetTeam({ id: queryId, search: '', skip: 0, take: 0 })
-
-  const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '', skip: 0, take: 20 })
-  const joinRequestAuthUser = joinRequests.find((item) => item.userId === mockAuthUserId)
-
-  useEffect(() => {
-    if (fetchedTeam) {
-      if (fetchedTeam.ownerUserId === mockAuthUserId) setIsMyTeam(true)
-
-      setTeam(fetchedTeam)
-    }
-  }, [router, fetchedTeam])
+    joinRequestAuthUser,
+  } = useTeamState()
 
   const handleEditTeam = (editedTeam: Team) => setTeam(editedTeam)
 
