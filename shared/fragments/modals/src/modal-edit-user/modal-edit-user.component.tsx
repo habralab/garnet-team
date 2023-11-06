@@ -1,18 +1,16 @@
-import React                   from 'react'
-import { FC }                  from 'react'
-import { useState }            from 'react'
-import { useIntl }             from 'react-intl'
+import React                  from 'react'
+import { FC }                 from 'react'
+import { useState }           from 'react'
+import { useIntl }            from 'react-intl'
 
-import { User }                from '@shared/data'
-import { FormUser }            from '@shared/forms-fragment'
-import { FormUserValues }      from '@shared/forms-fragment'
-import { Layout }              from '@ui/layout'
-import { Modal }               from '@ui/modal'
+import { FormUser }           from '@shared/forms-fragment'
+import { FormUserValues }     from '@shared/forms-fragment'
+import { Layout }             from '@ui/layout'
+import { Modal }              from '@ui/modal'
 
-import { ModalEditUserProps }  from './modal-edit-user.interfaces'
-import { useUpdateUser }       from './data'
-import { useUploadUserAvatar } from './data'
-import { getFormValues }       from './helpers'
+import { ModalEditUserProps } from './modal-edit-user.interfaces'
+import { getFormValues }      from './helpers'
+import { useSubmit }          from './hooks'
 
 export const ModalEditUser: FC<ModalEditUserProps> = ({
   modalOpen = false,
@@ -24,8 +22,7 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
-  const { updateUser } = useUpdateUser()
-  const { uploadUserAvatar } = useUploadUserAvatar()
+  const { submit } = useSubmit(user)
 
   const closeModal = () => {
     setFormValues(getFormValues(user))
@@ -37,29 +34,11 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({
   }
 
   const handleSubmit = async () => {
-    try {
-      const { avatar, description, name, surname, tags } = formValues
+    const editedUser = await submit(formValues)
 
-      if (user?.avatarUrl !== avatar) {
-        const avatarFile = await fetch(avatar).then((r) => r.blob())
-
-        await uploadUserAvatar({ variables: { file: avatarFile } })
-      }
-
-      const editedUser: Required<User> = {
-        id: user?.id || '',
-        userName: `${name} ${surname}`,
-        description,
-        tags,
-        avatarUrl: avatar,
-      }
-
-      await updateUser({ variables: editedUser })
-
+    if (editedUser) {
       onSubmit?.(editedUser)
       closeModal?.()
-    } catch (error) {
-      /** @todo error notification */
     }
   }
 
