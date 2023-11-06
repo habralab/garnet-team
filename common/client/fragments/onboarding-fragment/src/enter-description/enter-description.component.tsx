@@ -11,28 +11,18 @@ import { Layout }                from '@ui/layout'
 import { Text }                  from '@ui/text'
 
 import { EnterDescriptionProps } from './enter-description.interfaces'
-import { sizes }                 from './enter-description.config'
 import { validateValue }         from './helpers'
+import { useDescriptionState }   from './hooks'
 
 export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
-  const [value, setValue] = useState<string>('')
   const [errorText, setErrorText] = useState<string>('')
+  const { value, setValue, disabled } = useDescriptionState(setErrorText)
 
   const { formatMessage } = useIntl()
-
-  const handleChange = (newValue: string) => {
-    setValue(newValue)
-
-    if (value.length >= sizes.min && value.length < sizes.max) {
-      setErrorText('')
-    }
-  }
 
   const updateErrorText = () => {
     validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
   }
-
-  const isSubmitDisabled = value.length < sizes.min || value.length > sizes.max
 
   const handleSubmit = () => onSubmit?.(value)
 
@@ -47,7 +37,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
       <Textarea
         value={value}
         placeholder={formatMessage({ id: 'onboarding.information_about_yourself' })}
-        onChange={handleChange}
+        onChange={setValue}
         onBlur={updateErrorText}
         style={{ height: 152, resize: 'none' }}
         errorText={errorText}
@@ -60,7 +50,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <Button variant='primary' size='normal' disabled={isSubmitDisabled} onClick={handleSubmit}>
+        <Button variant='primary' size='normal' disabled={disabled} onClick={handleSubmit}>
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.further' />
           </Text>
