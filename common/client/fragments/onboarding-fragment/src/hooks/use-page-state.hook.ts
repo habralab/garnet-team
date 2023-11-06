@@ -30,7 +30,9 @@ export const usePageState = () => {
     else if (user) {
       redirectToUserPage()
     }
-  }, [router, user])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user])
 
   return { pageState, setPageState, redirectToUserPage }
 }
