@@ -1,41 +1,31 @@
-import React                        from 'react'
-import { FC }                       from 'react'
-import { FormattedMessage }         from 'react-intl'
-import { useState }                 from 'react'
+import React                      from 'react'
+import { FC }                     from 'react'
+import { FormattedMessage }       from 'react-intl'
+import { useState }               from 'react'
 
-import { Button }                   from '@ui/button'
-import { Condition }                from '@ui/condition'
-import { Layout }                   from '@ui/layout'
-import { Text }                     from '@ui/text'
+import { Button }                 from '@ui/button'
+import { Condition }              from '@ui/condition'
+import { Layout }                 from '@ui/layout'
+import { Text }                   from '@ui/text'
 
-import { ButtonJoinRequestProps }   from './button-join-request.interfaces'
-import { useCancelTeamJoinRequest } from '../../data'
-import { useCreateTeamJoinRequest } from '../../data'
+import { ButtonJoinRequestProps } from './button-join-request.interfaces'
+import { useCreateRequest }       from '../../hooks'
+import { useCancelRequest }       from '../../hooks'
 
 export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ joinRequest, team }) => {
   const [currentJoinRequest, setCurrentJoinRequest] = useState(joinRequest)
 
-  const { createTeamJoinRequest } = useCreateTeamJoinRequest()
-  const { cancelTeamJoinRequest } = useCancelTeamJoinRequest()
+  const { createRequest } = useCreateRequest()
+  const { cancelRequest } = useCancelRequest()
 
   const handleRequest = async () => {
-    try {
-      const { data } = await createTeamJoinRequest({ variables: { id: team?.id } })
-
-      setCurrentJoinRequest(data?.teamUserJoinRequestCreate.teamUserJoinRequestPayload)
-    } catch (error) {
-      /** @todo error notification */
-    }
+    const newJoinRequest = await createRequest(team?.id)
+    setCurrentJoinRequest(newJoinRequest)
   }
 
   const handleCancelRequest = async () => {
-    try {
-      await cancelTeamJoinRequest({ variables: { id: currentJoinRequest?.id } })
-
-      setCurrentJoinRequest(undefined)
-    } catch (error) {
-      /** @todo error notification */
-    }
+    await cancelRequest(currentJoinRequest?.id)
+    setCurrentJoinRequest(undefined)
   }
 
   return (
