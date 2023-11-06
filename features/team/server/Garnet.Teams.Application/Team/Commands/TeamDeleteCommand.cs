@@ -5,6 +5,7 @@ using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamJoinInvitation;
 using Garnet.Teams.Application.TeamJoinProjectRequest;
 using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamProject;
 using Garnet.Teams.Application.TeamUserJoinRequest;
 
 namespace Garnet.Teams.Application.Team.Commands
@@ -17,10 +18,12 @@ namespace Garnet.Teams.Application.Team.Commands
         private readonly ITeamJoinInvitationRepository _joinInvitationRepository;
         private readonly ITeamJoinProjectRequestRepository _joinProjectRequestRepository;
         private readonly ITeamUserJoinRequestRepository _userJoinRequestRepository;
+        private readonly ITeamProjectRepository _teamProjectRepository;
         private readonly IMessageBus _messageBus;
 
         public TeamDeleteCommand(
             ICurrentUserProvider currentUserProvider,
+            ITeamProjectRepository teamProjectRepository,
             ITeamRepository teamRepository,
             ITeamParticipantRepository participantRepository,
             ITeamJoinInvitationRepository joinInvitationRepository,
@@ -30,6 +33,7 @@ namespace Garnet.Teams.Application.Team.Commands
         {
             _currentUserProvider = currentUserProvider;
             _teamRepository = teamRepository;
+            _teamProjectRepository = teamProjectRepository;
             _participantRepository = participantRepository;
             _joinInvitationRepository = joinInvitationRepository;
             _joinProjectRequestRepository = joinProjectRequestRepository;
@@ -53,6 +57,7 @@ namespace Garnet.Teams.Application.Team.Commands
             await _joinProjectRequestRepository.DeleteJoinProjectRequestByTeam(ct, teamId);
             await _joinInvitationRepository.DeleteInvitationsByTeam(ct, teamId);
             await _userJoinRequestRepository.DeleteUserJoinRequestsByTeam(ct, teamId);
+            await _teamProjectRepository.DeleteAllTeamProjectByTeam(ct, teamId);
             await _participantRepository.DeleteParticipantsByTeam(ct, teamId);
             await _teamRepository.DeleteTeam(ct, teamId);
 
