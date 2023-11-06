@@ -27,10 +27,10 @@
     "outDir": "./dist"
   },
   "include": [
-    "features/identity/**/*.tsx",
-    "common/client/**/*.tsx",
-    "shared/**/*.tsx",
-    "ui/**/*.tsx"
+    "features/identity/**/*.(ts|tsx)",
+    "common/client/**/*.(ts|tsx)",
+    "shared/**/*.(ts|tsx)",
+    "ui/**/*.(ts|tsx)"
   ],
   "exclude": [
     "integration",
