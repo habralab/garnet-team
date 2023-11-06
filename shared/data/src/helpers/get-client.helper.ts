@@ -3,17 +3,14 @@ import { InMemoryCache }    from '@apollo/client'
 
 import { createUploadLink } from 'apollo-upload-client'
 
-import { mockAuthHeader }   from '../mock'
-
 export const getClient = () =>
   new ApolloClient({
-    // uri: 'https://stage.garnet.pet-project.habr.com/api/sandbox',
     cache: new InMemoryCache(),
     link: createUploadLink({
-      uri: 'https://stage.garnet.pet-project.habr.com/api/sandbox',
+      uri: process.env.NEXT_BACKEND_URL,
       headers: {
-        Authorization: mockAuthHeader,
         'GraphQL-preflight': '1',
       },
+      credentials: 'include',
     }),
   })

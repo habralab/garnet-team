@@ -5,7 +5,6 @@ import { Team }            from './data.interfaces'
 import { Project }         from './data.interfaces'
 
 export const mockAuthUserId = 'system'
-export const mockAuthHeader = 'ASldWxUASDwey231d82DH2b1'
 export const mockNotAuthUserId = '6516e88d723450ac19495abc'
 
 const mockTags = [
