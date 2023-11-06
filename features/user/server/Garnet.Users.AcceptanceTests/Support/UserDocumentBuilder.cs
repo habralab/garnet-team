@@ -8,8 +8,7 @@ namespace Garnet.Users.AcceptanceTests.Support;
 public class UserDocumentBuilder
 {
     private string _id = Uuid.NewMongo();
-    private AuditInfoDocument _auditInfo = AuditInfoDocument.Create(DateTimeOffset.UtcNow, "system");
-    private string _identityId = Uuid.NewGuid();
+    private readonly AuditInfoDocument _auditInfo = AuditInfoDocument.Create(DateTimeOffset.UtcNow, "system");
     private string _userName = "Username";
     private string _description = "Description";
     private string _avatarUrl = "";
@@ -48,7 +47,7 @@ public class UserDocumentBuilder
     public UserDocument Build()
     {
         var document = UserDocument.Create(
-            new UserDocumentCreateArgs(_id, _identityId, _userName, _description, _avatarUrl, _tags.ToArray())
+            new UserDocumentCreateArgs(_id, _userName, _description, _avatarUrl, _tags.ToArray())
         );
         return document with { AuditInfo = _auditInfo };
     }

@@ -3,6 +3,7 @@ using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Application;
 using Garnet.Common.Application.S3;
+using Garnet.Common.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.User;
 using Garnet.Users.Application;
@@ -39,6 +40,8 @@ public static class Startup
 
         services.AddScoped<IUsersRepository, UsersRepository>();
 
+        services.AddCancellationTokenProvider();
+        
         services.AddGarnetUsersDomain();
 
         services.AddScoped<UsersQuery>();

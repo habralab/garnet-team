@@ -22,7 +22,9 @@ public class ProjectTeamJoinRequestCreateCommand
         _messageBus = messageBus;
     }
 
-    public async Task<Result<ProjectTeamJoinRequestEntity>> Execute(CancellationToken ct, string teamId,
+    public async Task<Result<ProjectTeamJoinRequestEntity>> Execute(CancellationToken ct,
+        string id,
+        string teamId,
         string teamName,
         string projectId)
     {
@@ -32,7 +34,7 @@ public class ProjectTeamJoinRequestCreateCommand
             return Result.Fail(new ProjectNotFoundError(projectId));
         }
 
-        var request = await _projectTeamJoinRequestRepository.AddProjectTeamJoinRequest(ct, teamId, teamName, projectId);
+        var request = await _projectTeamJoinRequestRepository.AddProjectTeamJoinRequest(ct, id, teamId, teamName, projectId);
         var notification = request.CreateProjectTeamJoinRequestNotification(project!);
         await _messageBus.Publish(notification);
         return Result.Ok(request);

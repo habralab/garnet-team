@@ -31,7 +31,7 @@ public class ProjectRepository : RepositoryBase, IProjectRepository
             ownerUserId,
             args.ProjectName,
             args.Description,
-            null,
+            string.Empty,
             args.Tags,
             0);
 

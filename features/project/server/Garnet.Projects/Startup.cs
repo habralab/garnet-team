@@ -28,7 +28,6 @@ using Garnet.Projects.Events.Project;
 using Garnet.Projects.Events.ProjectTask;
 using Garnet.Projects.Events.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api;
-using Garnet.Projects.Infrastructure.Api.ProjectFilterByUserParticipantId;
 using Garnet.Projects.Infrastructure.EventHandlers.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.EventHandlers.Team;
 using Garnet.Projects.Infrastructure.EventHandlers.User;
@@ -43,6 +42,7 @@ using Garnet.Projects.Infrastructure.MongoDb.ProjectUser;
 using Garnet.Teams.Events.Team;
 using Garnet.Teams.Events.TeamJoinInvitation;
 using Garnet.Teams.Events.TeamJoinProjectRequest;
+using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Events.TeamUserJoinRequest;
 using Garnet.Users.Events;
 using HotChocolate.Execution.Configuration;
@@ -94,6 +94,8 @@ public static class Startup
             o.RegisterMessage<ProjectTaskDeletedEvent>();
             o.RegisterMessage<ProjectTaskClosedEvent>();
 
+            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
+
             o.RegisterConsumer<UserCreatedEventConsumer, UserCreatedEvent>();
             o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
 
@@ -101,10 +103,10 @@ public static class Startup
             o.RegisterConsumer<TeamUpdatedEventConsumer, TeamUpdatedEvent>();
 
             o.RegisterConsumer<ProjectTeamJoinRequestCreatedConsumer, TeamJoinProjectRequestCreatedEvent>();
-            o.RegisterMessage<ProjectTeamJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamUserJoinRequestDecidedEventConsumer, TeamUserJoinRequestDecidedEvent>();
             o.RegisterConsumer<TeamJoinInvitationDecidedEventConsumer, TeamJoinInvitationDecidedEvent>();
             o.RegisterConsumer<ProjectTeamLeaveProjectConsumer, TeamLeaveProjectEvent>();
+            o.RegisterConsumer<TeamParticipantLeftTeamEventConsumer, TeamParticipantLeftTeamEvent>();
         });
     }
 
@@ -145,7 +147,8 @@ public static class Startup
 
         services.AddScoped<ProjectTeamCreateCommand>();
         services.AddScoped<ProjectTeamUpdateCommand>();
-        services.AddScoped<ProjectTeamAddParticipantCommand>();
+        services.AddScoped<ProjectTeamAddUserParticipantCommand>();
+        services.AddScoped<ProjectTeamDeleteUserParticipantCommand>();
 
         services.AddScoped<ProjectTeamGetQuery>();
     }
@@ -154,9 +157,9 @@ public static class Startup
     {
         services.AddScoped<IProjectTeamParticipantRepository, ProjectTeamParticipantRepository>();
 
-        services.AddScoped<ProjectTeamParticipantCreateCommand>();
         services.AddScoped<ProjectTeamParticipantUpdateCommand>();
-        services.AddScoped<ProjectTeamParticipantAddParticipantCommand>();
+        services.AddScoped<ProjectTeamParticipantAddUserParticipantCommand>();
+        services.AddScoped<ProjectTeamParticipantDeleteUserParticipantCommand>();
         services.AddScoped<ProjectTeamParticipantLeaveCommand>();
 
 
@@ -189,6 +192,7 @@ public static class Startup
         services.AddScoped<ProjectTaskEditLabelsCommand>();
         services.AddScoped<ProjectTaskEditTeamExecutorCommand>();
         services.AddScoped<ProjectTaskCloseCommand>();
+        services.AddScoped<ProjectTaskOpenCommand>();
 
         services.AddScoped<ProjectTaskGetQuery>();
     }

@@ -22,7 +22,7 @@ namespace Garnet.Users.Infrastructure.Api.Controllers
         [Route("auth/registration/callback")]
         public async Task UserCreated(CancellationToken ct, UserCreated user)
         {
-            await _userCreateCommand.Execute(ct, user.IdentityId, user.Username);
+            await _userCreateCommand.Execute(user.IdentityId, user.Username);
         }
     }
 }

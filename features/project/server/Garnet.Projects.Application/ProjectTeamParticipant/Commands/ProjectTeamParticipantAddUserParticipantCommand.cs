@@ -2,11 +2,11 @@
 
 namespace Garnet.Projects.Application.ProjectTeamParticipant.Commands;
 
-public class ProjectTeamParticipantAddParticipantCommand
+public class ProjectTeamParticipantAddUserParticipantCommand
 {
     private readonly IProjectTeamParticipantRepository _projectTeamParticipantRepository;
 
-    public ProjectTeamParticipantAddParticipantCommand(IProjectTeamParticipantRepository projectTeamParticipantRepository)
+    public ProjectTeamParticipantAddUserParticipantCommand(IProjectTeamParticipantRepository projectTeamParticipantRepository)
     {
         _projectTeamParticipantRepository = projectTeamParticipantRepository;
     }

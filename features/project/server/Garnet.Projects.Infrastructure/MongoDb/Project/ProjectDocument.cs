@@ -9,12 +9,12 @@ public record ProjectDocument : DocumentBase
     public string OwnerUserId { get; init; } = null!;
     public string ProjectName { get; init; } = null!;
     public string? Description { get; init; } = null!;
-    public string? AvatarUrl { get; init; } = null!;
+    public string AvatarUrl { get; init; } = null!;
     public string[] Tags { get; init; } = null!;
     public int TasksCounter { get; init; } = 0;
 
     public static ProjectDocument Create(string id, string ownerUserId, string projectName, string? description,
-        string? avatarUrl, string[] tags, int tasksCounter)
+        string avatarUrl, string[] tags, int tasksCounter)
     {
         return new ProjectDocument
         {

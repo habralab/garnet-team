@@ -39,9 +39,12 @@ public class ProjectDeleteCommand
             return Result.Fail(new ProjectOnlyOwnerCanDeleteError());
         }
 
+        var teamParticipants =
+            await _projectTeamParticipantRepository.GetProjectTeamParticipantsByProjectId(ct, projectId);
+        var teamParticipantIds = teamParticipants.Select(x => x.TeamId).Distinct().ToArray();
         await _projectRepository.DeleteProject(ct, projectId);
         await _projectTeamParticipantRepository.DeleteProjectTeamParticipantsByProjectId(ct, projectId);
-        await _messageBus.Publish(project.ToDeletedEvent());
+        await _messageBus.Publish(project.ToDeletedEvent(teamParticipantIds));
         return Result.Ok(project);
     }
 }

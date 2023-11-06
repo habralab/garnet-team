@@ -62,7 +62,13 @@ public static class Program
                     AuthenticationSchemes = AuthSchemas.Kratos
                 }
             );
-        app.MapGraphQL("/api/sandbox");
+        app.MapGraphQL("/api/sandbox")
+            .RequireAuthorization(
+                new AuthorizeAttribute
+                {
+                    AuthenticationSchemes = AuthSchemas.Kratos
+                }
+            );
 
         using (var scope = app.Services.CreateScope())
         {

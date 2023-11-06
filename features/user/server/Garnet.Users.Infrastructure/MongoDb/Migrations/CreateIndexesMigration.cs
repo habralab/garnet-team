@@ -14,6 +14,6 @@ public class CreateIndexesMigration : IRepeatableMigration
     
     public async Task Execute(CancellationToken ct)
     {
-        await _usersRepository.CreateIndexes(ct);
+        await _usersRepository.CreateIndexes();
     }
 }

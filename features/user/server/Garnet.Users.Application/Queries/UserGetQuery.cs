@@ -12,9 +12,9 @@ namespace Garnet.Users.Application.Queries
             _usersRepository = usersRepository;
         }
 
-        public async Task<Result<User>> Query(CancellationToken ct, string userId)
+        public async Task<Result<User>> Query(string userId)
         {
-            var user = await _usersRepository.GetUser(ct, userId);
+            var user = await _usersRepository.GetUser(userId);
 
             return user is null ? Result.Fail(new UserNotFoundError(userId)) : Result.Ok(user);
         }
