@@ -53,7 +53,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShowCreatedCh
             var created = DateTimeOffset.Parse(date);
             _result.TeamJoinInvites.First()
                 .Should()
-                .Match<TeamJoinInvitePayload>(x => x.CreatedAt == created);
+                .Match<TeamJoinInvitationShowPayload>(x => x.CreatedAt == created);
             return Task.CompletedTask;
         }
     }

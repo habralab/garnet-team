@@ -50,7 +50,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestShowCreatedCh
             var created = DateTimeOffset.Parse(date);
             _result.TeamUserJoinRequests.First()
                 .Should()
-                .Match<TeamUserJoinRequestPayload>(x => x.CreatedAt == created);
+                .Match<TeamUserJoinRequestShowPayload>(x => x.CreatedAt == created);
             return Task.CompletedTask;
         }
     }
