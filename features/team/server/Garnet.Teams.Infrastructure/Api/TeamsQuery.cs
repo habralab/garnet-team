@@ -124,13 +124,13 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamsListPayload(teams.ToArray());
         }
 
-        public async Task<TeamJoinInvitationShowPayload> TeamJoinInvitationsShow(CancellationToken ct, string teamId)
+        public async Task<TeamJoinInvitationsShowPayload> TeamJoinInvitationsShow(CancellationToken ct, string teamId)
         {
             var result = await _teamJoinInvitationsShowQuery.Query(ct, teamId);
             result.ThrowQueryExceptionIfHasErrors();
 
             var joinInvitations = result.Value.Select(x => new TeamJoinInvitePayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt));
-            return new TeamJoinInvitationShowPayload(joinInvitations.ToArray());
+            return new TeamJoinInvitationsShowPayload(joinInvitations.ToArray());
         }
     }
 }

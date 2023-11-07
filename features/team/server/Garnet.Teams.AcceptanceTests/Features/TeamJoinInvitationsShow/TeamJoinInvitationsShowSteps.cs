@@ -10,7 +10,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShow
     [Binding]
     public class TeamJoinInvitationsShowSteps : BaseSteps
     {
-        private TeamJoinInvitationShowPayload _result = null!;
+        private TeamJoinInvitationsShowPayload _result = null!;
         private readonly QueryExceptionsContext _queryExceptionsContext;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
 
