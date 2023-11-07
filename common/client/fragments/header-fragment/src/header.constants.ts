@@ -1,7 +1,11 @@
-export const navigationItems = [
+import { mockAuthUserId } from '@shared/data'
+
+import { NavigationItem } from './header.interfaces'
+
+export const navigationItems: NavigationItem[] = [
   {
     id: 'header.profile',
-    url: '/user',
+    url: `/user/${mockAuthUserId}`,
   },
   {
     id: 'header.teams',

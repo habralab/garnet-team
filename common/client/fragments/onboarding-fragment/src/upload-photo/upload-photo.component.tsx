@@ -14,28 +14,41 @@ import { Layout }           from '@ui/layout'
 import { Text }             from '@ui/text'
 
 import { UploadPhotoProps } from './upload-photo.interfaces'
+import { useSubmitAvatar }  from '../hooks'
 
 export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
   const [file, setFile] = useState<File>()
+  const [blob, setBlob] = useState<Blob>()
   const [modalOpen, setModalOpen] = useState(false)
   const [avatarUrl, setAvatarUrl] = useState<string>()
 
   const inputRef = useRef<HTMLInputElement>(null)
 
+  const { submit } = useSubmitAvatar()
+
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
-  const handleClickUpload = () => inputRef.current?.click()
+  const handleClickUpload = () => {
+    if (inputRef.current) {
+      inputRef.current.value = ''
+      inputRef.current.click()
+    }
+  }
 
   const handleUploadImage = (event) => {
     setFile(event.target?.files[0])
     toggleModalOpen()
   }
 
-  const handleSubmit = () => onSubmit?.(avatarUrl)
-
-  const handleConfirm = (url?: string) => {
+  const handleConfirm = (url?: string, newBlob?: Blob) => {
     setAvatarUrl(url)
+    setBlob(newBlob)
     toggleModalOpen()
+  }
+
+  const handleSubmit = async () => {
+    await submit(blob)
+    onSubmit?.()
   }
 
   return (

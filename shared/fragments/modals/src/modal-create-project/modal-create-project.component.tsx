@@ -3,17 +3,21 @@ import { FC }                      from 'react'
 import { useState }                from 'react'
 import { useIntl }                 from 'react-intl'
 
-import { FormProject }             from '@ui/form'
-import { FormProjectValues }       from '@ui/form'
+import { FormProject }             from '@shared/forms-fragment'
+import { FormProjectValues }       from '@shared/forms-fragment'
 import { Layout }                  from '@ui/layout'
 import { Modal }                   from '@ui/modal'
 
 import { ModalCreateProjectProps } from './modal-create-project.interfaces'
 import { getFormValues }           from '../helpers'
+import { useSubmit }               from './hooks'
 
 export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = false, onClose }) => {
   const [formValues, setFormValues] = useState<FormProjectValues>(getFormValues())
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
+
+  const { submit } = useSubmit()
 
   const closeModal = () => {
     setFormValues(getFormValues())
@@ -24,9 +28,9 @@ export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = fa
     setFormValues({ ...formValues, [field]: value })
   }
 
-  const handleSubmit = () => {
-    /** @todo submit form */
-    closeModal()
+  const handleSubmit = async () => {
+    await submit(formValues)
+    closeModal?.()
   }
 
   return (
@@ -36,8 +40,13 @@ export const ModalCreateProject: FC<ModalCreateProjectProps> = ({ modalOpen = fa
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormProject formValues={formValues} handleChange={handleChange} />
+      <FormProject
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )

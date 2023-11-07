@@ -17,11 +17,10 @@ import { ButtonExit }       from './button-exit'
 import { HeaderProps }      from './header.interfaces'
 import { TabItem }          from './tab-item'
 import { navigationItems }  from './header.constants'
+import { getIsActiveLink }  from './helpers'
 
 export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
   const { pathname } = useRouter()
-
-  const currentPathname = `/${pathname.split('/')[1]}`
 
   return (
     <Background fill maxHeight={120} color='white' borderBottom='lightGrayForty'>
@@ -39,7 +38,7 @@ export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
             {navigationItems.map(({ id, url }) => (
               <Fragment key={id}>
                 <NextLink path={url} href={url} active>
-                  <TabItem active={url === currentPathname}>
+                  <TabItem active={getIsActiveLink(url, pathname)}>
                     <FormattedMessage id={id} />
                   </TabItem>
                 </NextLink>

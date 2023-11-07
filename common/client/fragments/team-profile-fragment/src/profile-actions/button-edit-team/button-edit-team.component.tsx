@@ -9,7 +9,7 @@ import { Text }                from '@ui/text'
 
 import { ButtonEditTeamProps } from './button-edit-team.interfaces'
 
-export const ButtonEditTeam: FC<ButtonEditTeamProps> = ({ team }) => {
+export const ButtonEditTeam: FC<ButtonEditTeamProps> = ({ team, onEditTeam }) => {
   const [modalOpen, setModalOpen] = useState(false)
 
   const openModal = () => setModalOpen(true)
@@ -22,7 +22,7 @@ export const ButtonEditTeam: FC<ButtonEditTeamProps> = ({ team }) => {
           <FormattedMessage id='profile.change' />
         </Text>
       </Button>
-      <ModalEditTeam modalOpen={modalOpen} onClose={closeModal} team={team} />
+      <ModalEditTeam modalOpen={modalOpen} onClose={closeModal} team={team} onSubmit={onEditTeam} />
     </>
   )
 }

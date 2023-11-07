@@ -3,17 +3,21 @@ import { FC }                   from 'react'
 import { useState }             from 'react'
 import { useIntl }              from 'react-intl'
 
-import { FormTeam }             from '@ui/form'
-import { FormTeamValues }       from '@ui/form'
+import { FormTeam }             from '@shared/forms-fragment'
+import { FormTeamValues }       from '@shared/forms-fragment'
 import { Layout }               from '@ui/layout'
 import { Modal }                from '@ui/modal'
 
 import { ModalCreateTeamProps } from './modal-create-team.interfaces'
 import { getFormValues }        from '../helpers'
+import { useSubmit }            from './hooks'
 
 export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, onClose }) => {
   const [formValues, setFormValues] = useState<FormTeamValues>(getFormValues())
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
+
+  const { submit } = useSubmit()
 
   const closeModal = () => {
     setFormValues(getFormValues())
@@ -24,9 +28,9 @@ export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, o
     setFormValues({ ...formValues, [field]: value })
   }
 
-  const handleSubmit = () => {
-    /** @todo submit form */
-    closeModal()
+  const handleSubmit = async () => {
+    await submit(formValues)
+    closeModal?.()
   }
 
   return (
@@ -36,8 +40,13 @@ export const ModalCreateTeam: FC<ModalCreateTeamProps> = ({ modalOpen = false, o
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormTeam formValues={formValues} handleChange={handleChange} />
+      <FormTeam
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )

@@ -11,6 +11,7 @@ import { Layout }           from '@ui/layout'
 import { Text }             from '@ui/text'
 
 import { EnterSkillsProps } from './enter-skills.interfaces'
+import { useSubmitSkills }  from '../hooks'
 import { validateValue }    from './helpers'
 import { useSkillsState }   from './hooks'
 
@@ -21,11 +22,16 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
 
   const { formatMessage } = useIntl()
 
+  const { submit } = useSubmitSkills()
+
   const updateErrorText = () => {
     validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
   }
 
-  const handleSubmit = () => onSubmit?.(value)
+  const handleSubmit = async () => {
+    await submit(value)
+    onSubmit?.()
+  }
 
   return (
     <>

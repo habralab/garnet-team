@@ -1,5 +1,7 @@
 import { PropsWithChildren } from 'react'
 
+import { ButtonProps }       from '@ui/button'
+
 export interface ModalProps extends PropsWithChildren {
   theme?: 'primary' | 'exit'
   title?: string
@@ -11,4 +13,5 @@ export interface ModalProps extends PropsWithChildren {
   onCancel?: () => void
   onClose?: () => void
   open?: boolean
+  confirmProps?: ButtonProps
 }

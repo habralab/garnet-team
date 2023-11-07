@@ -9,17 +9,28 @@ import { Layout }                 from '@ui/layout'
 import { Text }                   from '@ui/text'
 
 import { ButtonJoinRequestProps } from './button-join-request.interfaces'
+import { useCreateRequest }       from '../../hooks'
+import { useCancelRequest }       from '../../hooks'
 
-export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ hasJoinRequest = false }) => {
-  const [isRequested, setIsRequested] = useState<boolean>(hasJoinRequest)
+export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ joinRequest, team }) => {
+  const [currentJoinRequest, setCurrentJoinRequest] = useState(joinRequest)
 
-  const handleRequest = () => setIsRequested(true)
+  const { createRequest } = useCreateRequest()
+  const { cancelRequest } = useCancelRequest()
 
-  const handleCancelRequest = () => setIsRequested(false)
+  const handleRequest = async () => {
+    const newJoinRequest = await createRequest(team?.id)
+    setCurrentJoinRequest(newJoinRequest)
+  }
+
+  const handleCancelRequest = async () => {
+    await cancelRequest(currentJoinRequest?.id)
+    setCurrentJoinRequest(undefined)
+  }
 
   return (
     <>
-      <Condition match={isRequested}>
+      <Condition match={Boolean(currentJoinRequest)}>
         <Button variant='link' size='micro' onClick={handleCancelRequest}>
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='profile.cancel_request' />
@@ -27,12 +38,17 @@ export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ hasJoinRequest =
         </Button>
       </Condition>
       <Layout width={62} />
-      <Button variant='primary' size='normal' disabled={isRequested} onClick={handleRequest}>
+      <Button
+        variant='primary'
+        size='normal'
+        disabled={Boolean(currentJoinRequest)}
+        onClick={handleRequest}
+      >
         <Text fontSize='medium' color='currentColor'>
-          <Condition match={isRequested}>
+          <Condition match={Boolean(currentJoinRequest)}>
             <FormattedMessage id='profile.request_sent' />
           </Condition>
-          <Condition match={!isRequested}>
+          <Condition match={!currentJoinRequest}>
             <FormattedMessage id='profile.send_request' />
           </Condition>
         </Text>
