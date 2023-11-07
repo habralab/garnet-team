@@ -9,9 +9,9 @@ namespace Garnet.Teams.Application.TeamUser.Queries
             _teamUserRepository = teamUserRepository;
         }
 
-        public Task<TeamUserEntity[]> Query(CancellationToken ct, string[] userIds)
+        public async Task<TeamUserEntity[]> Query(CancellationToken ct, string[] userIds)
         {
-            return null;
+            return await _teamUserRepository.TeamUserListByIds(ct, userIds);
         }
     }
 }

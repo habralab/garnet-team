@@ -90,10 +90,25 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, string teamId)
         {
-            var result = await _teamUserJoinRequestsShowQuery.Query(ct, teamId);
-            result.ThrowQueryExceptionIfHasErrors();
+            var requestsResult = await _teamUserJoinRequestsShowQuery.Query(ct, teamId);
+            requestsResult.ThrowQueryExceptionIfHasErrors();
+            var requests = requestsResult.Value;
 
-            var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt));
+            var requestedUserIds = requests.Select(x => x.UserId).ToArray();
+            var usersResult = await _teamUserListByIdQuery.Query(ct, requestedUserIds);
+
+            var userJoinRequests = requestsResult.Value.Select(x =>
+            {
+                var user = usersResult.First(y => x.UserId == y.Id);
+                return new TeamUserJoinRequestShowPayload(
+                x.Id,
+                user.Id,
+                user.Username,
+                user.Tags,
+                user.AvatarUrl,
+                x.TeamId,
+                x.AuditInfo.CreatedAt);
+            });
             return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
         }
 
@@ -129,10 +144,25 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamJoinInvitationsShowPayload> TeamJoinInvitationsShow(CancellationToken ct, string teamId)
         {
-            var result = await _teamJoinInvitationsShowQuery.Query(ct, teamId);
-            result.ThrowQueryExceptionIfHasErrors();
+            var inviteResult = await _teamJoinInvitationsShowQuery.Query(ct, teamId);
+            inviteResult.ThrowQueryExceptionIfHasErrors();
+            var invite = inviteResult.Value;
 
-            var joinInvitations = result.Value.Select(x => new TeamJoinInvitePayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt));
+            var invitedUserIds = invite.Select(x => x.UserId).ToArray();
+            var usersResult = await _teamUserListByIdQuery.Query(ct, invitedUserIds);
+
+            var joinInvitations = inviteResult.Value.Select(x =>
+            {
+                var user = usersResult.First(y => x.UserId == y.Id);
+                return new TeamJoinInvitationShowPayload(
+                x.Id,
+                user.Id,
+                user.Username,
+                user.Tags,
+                user.AvatarUrl,
+                x.TeamId,
+                x.AuditInfo.CreatedAt);
+            });
             return new TeamJoinInvitationsShowPayload(joinInvitations.ToArray());
         }
     }
