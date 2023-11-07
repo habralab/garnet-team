@@ -1,21 +1,21 @@
-import { useRouter }      from 'next/router'
-import { useEffect }      from 'react'
-import { useState }       from 'react'
+import { useRouter }        from 'next/router'
+import { useEffect }        from 'react'
+import { useState }         from 'react'
 
-import { mockAuthUserId } from '@shared/data'
-import { useGetUser }     from '@shared/data'
+import { useGetAuthUserId } from '@shared/data'
+import { useGetUser }       from '@shared/data'
 
-import { PageState }      from '../onboarding.interfaces'
-
-const getUserProps = { id: mockAuthUserId, skip: 0, take: 20 }
+import { PageState }        from '../onboarding.interfaces'
 
 export const usePageState = () => {
   const [pageState, setPageState] = useState<PageState>(PageState.UPLOAD_PHOTO)
   const router = useRouter()
 
-  const redirectToUserPage = () => router.push(`/user/${mockAuthUserId}`)
+  const { authUserId } = useGetAuthUserId()
 
-  const { user } = useGetUser(getUserProps)
+  const redirectToUserPage = () => router.push(`/user/${authUserId}`)
+
+  const { user } = useGetUser({ id: authUserId, skip: 0, take: 20 })
 
   useEffect(() => {
     if (user && !user.avatarUrl) {

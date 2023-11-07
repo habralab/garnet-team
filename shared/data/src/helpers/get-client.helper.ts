@@ -8,7 +8,8 @@ export const getClient = () =>
     cache: new InMemoryCache(),
     link: createUploadLink({
       uri:
-        process.env.NEXT_PUBLIC_BACKEND_URL ?? 'https://stage.garnet.pet-project.habr.com/api/sandbox',
+        process.env.NEXT_PUBLIC_BACKEND_URL ??
+        'https://stage.garnet.pet-project.habr.com/api/sandbox',
       headers: {
         'GraphQL-preflight': '1',
       },
