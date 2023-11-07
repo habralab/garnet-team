@@ -49,6 +49,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
                     _f.Eq(x => x.Id, userId),
                     _u
                         .Set(x => x.Username, update.Username)
+                        .Set(x => x.Tags, update.Tags)
                         .Set(x => x.AvatarUrl, update.AvatarUrl),
                     options: new FindOneAndUpdateOptions<TeamUserDocument>
                     {
