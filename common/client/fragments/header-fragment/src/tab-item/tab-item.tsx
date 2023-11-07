@@ -8,7 +8,7 @@ import { activeStyles }     from './tab-item.styles'
 import { shapeStyles }      from './tab-item.styles'
 import { appearanceStyles } from './tab-item.styles'
 
-export const TabItem = styled(Text)<TextProps>(
+export const TabItem = styled(Text)<TextProps & { active?: boolean }>(
   appearanceStyles,
   activeStyles,
   shapeStyles,
