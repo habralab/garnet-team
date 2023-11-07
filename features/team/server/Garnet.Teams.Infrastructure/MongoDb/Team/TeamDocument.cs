@@ -9,10 +9,10 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
         public string Name { get; init; } = null!;
         public string Description { get; init; } = null!;
         public string OwnerUserId { get; init; } = null!;
-        public string? AvatarUrl {get; init;} = null!;
         public string[] Tags {get;init;} = null!;
+        public string AvatarUrl { get; init; } = string.Empty;
 
-        public static TeamDocument Create(string id, string name, string description, string ownerUserId, string? avatarUrl, string[] tags)
+        public static TeamDocument Create(string id, string name, string description, string ownerUserId, string avatarUrl, string[] tags)
         {
             return new TeamDocument
             {

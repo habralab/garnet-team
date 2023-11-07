@@ -17,14 +17,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamParticipantEntity> CreateTeamParticipant(CancellationToken ct, string userId, string username, string teamId)
-        {
-            var db = _dbFactory.Create();
-            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(), userId, username, teamId);
-            await db.TeamParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
-            return TeamParticipantDocument.ToDomain(teamParticipant);
-        }
-
         public async Task<TeamParticipantEntity[]> GetParticipantsFromTeam(CancellationToken ct, string teamId)
         {
             var db = _dbFactory.Create();
@@ -68,7 +60,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             var db = _dbFactory.Create();
             await db.TeamParticipants.UpdateManyAsync(
                 _f.Eq(x => x.UserId, userId),
-                _u.Set(x => x.Username, update.Username),
+                _u
+                    .Set(x => x.Username, update.Username)
+                    .Set(x => x.AvatarUrl, update.AvatarUrl),
                 options: new UpdateOptions()
                 {
                     IsUpsert = true
@@ -114,6 +108,29 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
             ).FirstOrDefaultAsync(ct);
 
             return membership is null ? null : TeamParticipantDocument.ToDomain(membership);
+        }
+
+        public async Task<TeamParticipantEntity> CreateTeamParticipant(CancellationToken ct, TeamParticipantCreateArgs args)
+        {
+            var db = _dbFactory.Create();
+            var teamParticipant = TeamParticipantDocument.Create(Uuid.NewMongo(),
+                args.UserId,
+                args.Username,
+                args.TeamId,
+                args.AvatarUrl);
+            await db.TeamParticipants.InsertOneAsync(teamParticipant, cancellationToken: ct);
+            return TeamParticipantDocument.ToDomain(teamParticipant);
+        }
+
+        public async Task<TeamParticipantEntity[]> TeamParticipantListOfTeams(CancellationToken ct, string[] teamIds)
+        {
+            var db = _dbFactory.Create();
+
+            var participants = await db.TeamParticipants.Find(
+                _f.In(x => x.TeamId, teamIds)
+            ).ToListAsync(ct);
+
+            return participants.Select(x => TeamParticipantDocument.ToDomain(x)).ToArray();
         }
     }
 }

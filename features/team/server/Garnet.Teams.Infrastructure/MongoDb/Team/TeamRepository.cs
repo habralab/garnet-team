@@ -30,7 +30,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
              args.Name,
              args.Description,
              ownerUserId!,
-             null,
+             string.Empty,
              args.Tags
             );
 

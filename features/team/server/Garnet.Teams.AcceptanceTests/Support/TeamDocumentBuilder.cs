@@ -11,7 +11,7 @@ namespace Garnet.Teams.AcceptanceTests.Support
         private readonly string _description = "TeamDescription";
         private readonly AuditInfoDocument _auditInfo = AuditInfoDocument.Create(DateTimeOffset.UtcNow, "system");
         private readonly string _ownerUserId = Uuid.NewMongo();
-        private readonly string? _avatarUrl = null;
+        private readonly string _avatarUrl = string.Empty;
         private readonly string[] _tags = Array.Empty<string>();
 
         public TeamDocumentBuilder WithName(string name)

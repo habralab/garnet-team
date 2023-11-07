@@ -30,7 +30,7 @@ namespace Garnet.Teams.AcceptanceTests.Support
 
         public TeamParticipantDocument Build()
         {
-            return TeamParticipantDocument.Create(_id, _userId, _username, _teamId);
+            return TeamParticipantDocument.Create(_id, _userId, _username, _teamId, string.Empty);
         }
 
         public static implicit operator TeamParticipantDocument(TeamParticipantDocumentBuilder builder)

@@ -8,7 +8,7 @@ namespace Garnet.Teams.Application.Team
         string Name,
         string Description,
         string OwnerUserId,
-        string? AvatarUrl,
+        string AvatarUrl,
         string[] Tags,
         AuditInfo AuditInfo
     );

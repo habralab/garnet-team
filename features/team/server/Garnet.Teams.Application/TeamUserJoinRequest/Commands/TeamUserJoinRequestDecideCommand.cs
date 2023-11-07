@@ -4,6 +4,7 @@ using Garnet.Common.Application.MessageBus;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 using Garnet.Teams.Application.TeamParticipant;
+using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamUser;
 using Garnet.Teams.Application.TeamUser.Errors;
 using Garnet.Teams.Application.TeamUserJoinRequest.Errors;
@@ -59,7 +60,8 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
 
             if (isApproved & user is not null)
             {
-                await _participantRepository.CreateTeamParticipant(ct, user!.Id, user.Username, userJoinRequest.TeamId);
+                var args = new TeamParticipantCreateArgs(user!.Id, user.Username, user.AvatarUrl, team.Id);
+                await _participantRepository.CreateTeamParticipant(ct, args);
             }
             await _userJoinRequestRepository.DeleteUserJoinRequestById(ct, userJoinRequestId);
 
