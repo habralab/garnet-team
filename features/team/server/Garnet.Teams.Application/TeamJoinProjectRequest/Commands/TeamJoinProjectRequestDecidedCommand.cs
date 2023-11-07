@@ -1,5 +1,4 @@
-using FluentResults;
-using Garnet.Teams.Application.TeamProject;
+using Garnet.Teams.Application.ProjectTeamParticipant;
 
 namespace Garnet.Teams.Application.TeamJoinProjectRequest.Commands
 {

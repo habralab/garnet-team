@@ -1,4 +1,4 @@
-namespace Garnet.Teams.Application.TeamProject.Queries
+namespace Garnet.Teams.Application.ProjectTeamParticipant.Queries
 {
     public class TeamProjectListByTeamsQuery
     {
@@ -9,7 +9,7 @@ namespace Garnet.Teams.Application.TeamProject.Queries
             _teamProjectRepository = teamProjectRepository;
         }
 
-        public async Task<Dictionary<string, TeamProjectEntity[]>> Query(CancellationToken ct, string[] teamIds)
+        public async Task<Dictionary<string, ProjectTeamParticipantEntity[]>> Query(CancellationToken ct, string[] teamIds)
         {
             var projects = await _teamProjectRepository.TeamProjectListOfTeams(ct, teamIds);
             var projectsByTeams = projects.GroupBy(x => x.TeamId).ToDictionary(x => x.Key, y => y.ToArray());

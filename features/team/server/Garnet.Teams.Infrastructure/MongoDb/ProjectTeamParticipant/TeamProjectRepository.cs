@@ -1,25 +1,25 @@
 using Garnet.Common.Infrastructure.Support;
-using Garnet.Teams.Application.TeamProject;
+using Garnet.Teams.Application.ProjectTeamParticipant;
 using MongoDB.Driver;
 
-namespace Garnet.Teams.Infrastructure.MongoDb.TeamProject
+namespace Garnet.Teams.Infrastructure.MongoDb.ProjectTeamParticipant
 {
     public class TeamProjectRepository : ITeamProjectRepository
     {
         private readonly DbFactory _dbFactory;
-        private readonly FilterDefinitionBuilder<TeamProjectDocument> _f = Builders<TeamProjectDocument>.Filter;
+        private readonly FilterDefinitionBuilder<ProjectTeamParticipantDocument> _f = Builders<ProjectTeamParticipantDocument>.Filter;
 
         public TeamProjectRepository(DbFactory dbFactory)
         {
             _dbFactory = dbFactory;
         }
 
-        public async Task<TeamProjectEntity> AddTeamProject(CancellationToken ct, string projectId, string teamId)
+        public async Task<ProjectTeamParticipantEntity> AddTeamProject(CancellationToken ct, string projectId, string teamId)
         {
             var db = _dbFactory.Create();
-            var project = TeamProjectDocument.Create(Uuid.NewMongo(), teamId, projectId);
+            var project = ProjectTeamParticipantDocument.Create(Uuid.NewMongo(), teamId, projectId);
             await db.TeamProjects.InsertOneAsync(project, cancellationToken: ct);
-            return TeamProjectDocument.ToDomain(project);
+            return ProjectTeamParticipantDocument.ToDomain(project);
         }
 
         public async Task DeleteAllTeamProjectByProject(CancellationToken ct, string projectId)
@@ -40,7 +40,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamProject
             );
         }
 
-        public async Task<TeamProjectEntity?> RemoveTeamProjectInTeam(CancellationToken ct, string projectId, string teamId)
+        public async Task<ProjectTeamParticipantEntity?> RemoveTeamProjectInTeam(CancellationToken ct, string projectId, string teamId)
         {
             var db = _dbFactory.Create();
             var project = await db.TeamProjects.FindOneAndDeleteAsync(
@@ -51,17 +51,17 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamProject
                 cancellationToken: ct
             );
 
-            return project is null ? null : TeamProjectDocument.ToDomain(project);
+            return project is null ? null : ProjectTeamParticipantDocument.ToDomain(project);
         }
 
-        public async Task<TeamProjectEntity[]> TeamProjectListOfTeams(CancellationToken ct, string[] teamIds)
+        public async Task<ProjectTeamParticipantEntity[]> TeamProjectListOfTeams(CancellationToken ct, string[] teamIds)
         {
             var db = _dbFactory.Create();
             var projects = await db.TeamProjects.Find(
                 _f.In(x => x.TeamId, teamIds)
             ).ToListAsync(ct);
 
-            return projects.Select(x => TeamProjectDocument.ToDomain(x)).ToArray();
+            return projects.Select(x => ProjectTeamParticipantDocument.ToDomain(x)).ToArray();
         }
     }
 }

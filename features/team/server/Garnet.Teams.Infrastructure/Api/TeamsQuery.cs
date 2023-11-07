@@ -1,10 +1,10 @@
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Teams.Application.ProjectTeamParticipant.Queries;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamParticipant.Queries;
-using Garnet.Teams.Application.TeamProject.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationsShow;
@@ -37,6 +37,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamsFilterQuery teamsFilterQuery,
             TeamsListByUserQuery teamsListQuery,
             TeamParticipantListByTeamsQuery teamParticipantListByTeamsQuery,
+            
             TeamProjectListByTeamsQuery teamProjectGetByTeamQuery,
             TeamJoinInvitationsShowQuery teamJoinInvitationsShowQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,

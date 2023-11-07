@@ -2,7 +2,7 @@ using FluentResults;
 using Garnet.Teams.Application.Team;
 using Garnet.Teams.Application.Team.Errors;
 
-namespace Garnet.Teams.Application.TeamProject.Commands
+namespace Garnet.Teams.Application.ProjectTeamParticipant.Commands
 {
     public class TeamProjectJoinedCommand
     {
@@ -15,7 +15,7 @@ namespace Garnet.Teams.Application.TeamProject.Commands
             _teamProjectRepository = teamProjectRepository;
         }
 
-        public async Task<Result<TeamProjectEntity>> Execute(CancellationToken ct, string teamId, string projectId)
+        public async Task<Result<ProjectTeamParticipantEntity>> Execute(CancellationToken ct, string teamId, string projectId)
         {
             var team = await _teamRepository.GetTeamById(ct, teamId);
             if (team is null)

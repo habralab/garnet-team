@@ -44,10 +44,10 @@ using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Commands;
 using Garnet.Notifications.Events;
 using Garnet.Teams.Application.TeamUser.Commands;
-using Garnet.Teams.Application.TeamProject;
-using Garnet.Teams.Application.TeamProject.Commands;
-using Garnet.Teams.Application.TeamProject.Queries;
-using Garnet.Teams.Infrastructure.MongoDb.TeamProject;
+using Garnet.Teams.Infrastructure.MongoDb.ProjectTeamParticipant;
+using Garnet.Teams.Application.ProjectTeamParticipant.Commands;
+using Garnet.Teams.Application.ProjectTeamParticipant;
+using Garnet.Teams.Application.ProjectTeamParticipant.Queries;
 
 namespace Garnet.Team
 {
