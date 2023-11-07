@@ -5,6 +5,7 @@ using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamParticipant.Queries;
+using Garnet.Teams.Application.TeamUser.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationsShow;
@@ -26,6 +27,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamGetQuery _teamGetQuery;
         private readonly TeamsListByUserQuery _teamsListQuery;
         private readonly TeamsFilterQuery _teamsFilterQuery;
+        private readonly TeamUserListByIdQuery _teamUserListByIdQuery;
         private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
         private readonly TeamParticipantListByTeamsQuery _teamParticipantListByTeamsQuery;
         private readonly TeamParticipantFilterQuery _teamParticipantFilterQuery;
@@ -37,7 +39,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamsFilterQuery teamsFilterQuery,
             TeamsListByUserQuery teamsListQuery,
             TeamParticipantListByTeamsQuery teamParticipantListByTeamsQuery,
-            
+            TeamUserListByIdQuery teamUserListByIdQuery,
             TeamProjectListByTeamsQuery teamProjectGetByTeamQuery,
             TeamJoinInvitationsShowQuery teamJoinInvitationsShowQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
@@ -48,6 +50,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamGetQuery = teamGetQuery;
             _teamProjectGetByTeamQuery = teamProjectGetByTeamQuery;
             _teamsFilterQuery = teamsFilterQuery;
+            _teamUserListByIdQuery = teamUserListByIdQuery;
             _teamParticipantListByTeamsQuery = teamParticipantListByTeamsQuery;
             _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
             _teamParticipantFilterQuery = teamParticipantFilterQuery;
