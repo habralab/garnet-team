@@ -1,26 +1,31 @@
-import React                from 'react'
-import { Fragment }         from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useRouter }        from 'next/router'
+import React                  from 'react'
+import { Fragment }           from 'react'
+import { FC }                 from 'react'
+import { FormattedMessage }   from 'react-intl'
+import { useRouter }          from 'next/router'
 
-import { Background }       from '@ui/background'
-import { Condition }        from '@ui/condition'
-import { Layout }           from '@ui/layout'
-import { Row }              from '@ui/layout'
-import { Column }           from '@ui/layout'
-import { Box }              from '@ui/layout'
-import { NextLink }         from '@ui/link'
-import { Logo }             from '@ui/logo'
+import { Background }         from '@ui/background'
+import { Condition }          from '@ui/condition'
+import { Layout }             from '@ui/layout'
+import { Row }                from '@ui/layout'
+import { Column }             from '@ui/layout'
+import { Box }                from '@ui/layout'
+import { NextLink }           from '@ui/link'
+import { Logo }               from '@ui/logo'
+import { useGetAuthUserId }   from '@shared/data'
 
-import { ButtonExit }       from './button-exit'
-import { HeaderProps }      from './header.interfaces'
-import { TabItem }          from './tab-item'
-import { navigationItems }  from './header.constants'
-import { getIsActiveLink }  from './helpers'
+import { ButtonExit }         from './button-exit'
+import { HeaderProps }        from './header.interfaces'
+import { TabItem }            from './tab-item'
+import { getNavigationItems } from './header.constants'
+import { getIsActiveLink }    from './helpers'
 
 export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
   const { pathname } = useRouter()
+
+  const { authUserId } = useGetAuthUserId()
+
+  const navigationItems = getNavigationItems(authUserId)
 
   return (
     <Background fill maxHeight={120} color='white' borderBottom='lightGrayForty'>

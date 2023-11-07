@@ -1,3 +1,4 @@
+export * from './auth-user-id'
 export * from './data.interfaces'
 export * from './get-user'
 export * from './helpers'

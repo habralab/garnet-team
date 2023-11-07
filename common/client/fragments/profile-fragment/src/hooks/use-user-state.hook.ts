@@ -1,14 +1,16 @@
-import { useRouter }      from 'next/router'
-import { useEffect }      from 'react'
-import { useState }       from 'react'
+import { useRouter }        from 'next/router'
+import { useEffect }        from 'react'
+import { useState }         from 'react'
 
-import { User }           from '@shared/data'
-import { mockAuthUserId } from '@shared/data'
-import { useGetUser }     from '@shared/data'
+import { User }             from '@shared/data'
+import { useGetAuthUserId } from '@shared/data'
+import { useGetUser }       from '@shared/data'
 
 export const useUserState = () => {
   const router = useRouter()
   const queryId = typeof router.query.id === 'string' ? router.query.id : ''
+
+  const { authUserId } = useGetAuthUserId()
 
   const [user, setUser] = useState<User>()
   const [isMyProfile, setIsMyProfile] = useState(false)
@@ -23,11 +25,11 @@ export const useUserState = () => {
         router.push('/onboarding')
       }
 
-      if (id === mockAuthUserId) setIsMyProfile(true)
+      if (id === authUserId) setIsMyProfile(true)
 
       setUser(fetchedUser)
     }
-  }, [router, fetchedUser])
+  }, [router, fetchedUser, authUserId])
 
   return { user, setUser, isMyProfile, teams, projects }
 }
