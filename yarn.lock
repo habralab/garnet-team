@@ -2310,7 +2310,7 @@ __metadata:
     "@ui/layout": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
-    "@atls/next-identity-integration": 0.0.15
+    "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     next: "*"
@@ -3169,6 +3169,8 @@ __metadata:
     "@atls/next-identity-integration": "npm:0.0.17"
   peerDependencies:
     "@atls/next-identity-integration": "*"
+    next: "*"
+    react: "*"
   languageName: unknown
   linkType: soft
 
@@ -9621,7 +9623,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0":
+"react-dom@npm:*, react-dom@npm:18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
