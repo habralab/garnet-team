@@ -6,30 +6,25 @@ import { User }             from '@shared/data'
 import { useGetAuthUserId } from '@shared/data'
 import { useGetUser }       from '@shared/data'
 
-export const useUserState = () => {
+export const useProfileState = () => {
+  const [user, setUser] = useState<User>()
+
   const router = useRouter()
-  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
 
   const { authUserId } = useGetAuthUserId()
 
-  const [user, setUser] = useState<User>()
-  const [isMyProfile, setIsMyProfile] = useState(false)
-
-  const { user: fetchedUser, teams, projects } = useGetUser({ id: queryId, skip: 0, take: 20 })
+  const { user: fetchedUser, teams, projects } = useGetUser({ id: authUserId, skip: 0, take: 20 })
 
   useEffect(() => {
     if (fetchedUser) {
-      const { avatarUrl, description, id, tags } = fetchedUser
+      const { avatarUrl, description, tags } = fetchedUser
+      setUser(fetchedUser)
 
       if (!avatarUrl || !description || !tags || tags.length === 0) {
         router.push('/onboarding')
       }
-
-      if (id === authUserId) setIsMyProfile(true)
-
-      setUser(fetchedUser)
     }
   }, [router, fetchedUser, authUserId])
 
-  return { user, setUser, isMyProfile, teams, projects }
+  return { user, setUser, teams, projects }
 }

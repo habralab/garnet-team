@@ -330,6 +330,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@app/profile-page@workspace:^, @app/profile-page@workspace:common/client/pages/profile-page":
+  version: 0.0.0-use.local
+  resolution: "@app/profile-page@workspace:common/client/pages/profile-page"
+  dependencies:
+    "@app/header-fragment": "workspace:0.0.1"
+    "@app/profile-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.15"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/wrapper": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    graphql: "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@app/project-fragment@workspace:0.0.1, @app/project-fragment@workspace:common/client/fragments/project-fragment":
   version: 0.0.0-use.local
   resolution: "@app/project-fragment@workspace:common/client/fragments/project-fragment"
@@ -461,6 +486,7 @@ __metadata:
     "@apollo/client": "npm:3.8.7"
     "@app/index-page": "workspace:0.0.1"
     "@app/onboarding-page": "workspace:0.0.1"
+    "@app/profile-page": "workspace:^"
     "@app/project-page": "workspace:0.0.1"
     "@app/project-profile-page": "workspace:0.0.1"
     "@app/team-invite-page": "workspace:0.0.1"

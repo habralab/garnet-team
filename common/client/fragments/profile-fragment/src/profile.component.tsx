@@ -17,12 +17,14 @@ import { ButtonEditProfile }  from './button-edit-profile'
 import { ProfileAvatar }      from './profile-avatar'
 import { ProfileDescription } from './profile-description'
 import { ProfileProjects }    from './profile-projects'
-import { useUserState }       from './hooks'
+import { useProfileState }    from './hooks'
 
 export const Profile: FC = () => {
-  const { user, setUser, isMyProfile, projects, teams } = useUserState()
+  const { user, setUser, projects, teams } = useProfileState()
 
   const handleEditUser = (editedUser: User) => setUser(editedUser)
+
+  const isMyProfile = true
 
   return (
     <Column fill>
