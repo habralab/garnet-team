@@ -12,20 +12,17 @@ import { Column }             from '@ui/layout'
 import { Box }                from '@ui/layout'
 import { NextLink }           from '@ui/link'
 import { Logo }               from '@ui/logo'
-import { useGetAuthUserId }   from '@shared/data'
 
 import { ButtonExit }         from './button-exit'
 import { HeaderProps }        from './header.interfaces'
 import { TabItem }            from './tab-item'
 import { getNavigationItems } from './header.constants'
-import { getIsActiveLink }    from './helpers'
+import { isActiveLink }       from './helpers'
 
 export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
   const { pathname } = useRouter()
 
-  const { authUserId } = useGetAuthUserId()
-
-  const navigationItems = getNavigationItems(authUserId)
+  const navigationItems = getNavigationItems()
 
   return (
     <Background fill maxHeight={120} color='white' borderBottom='lightGrayForty'>
@@ -43,7 +40,7 @@ export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
             {navigationItems.map(({ id, url }) => (
               <Fragment key={id}>
                 <NextLink path={url} href={url} active>
-                  <TabItem active={getIsActiveLink(url, pathname)}>
+                  <TabItem active={isActiveLink(url, pathname)}>
                     <FormattedMessage id={id} />
                   </TabItem>
                 </NextLink>

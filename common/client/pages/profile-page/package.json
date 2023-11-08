@@ -1,11 +1,11 @@
 {
-  "name": "@app/team-page",
+  "name": "@app/profile-page",
   "version": "0.0.1",
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
     "@app/header-fragment": "workspace:0.0.1",
-    "@app/team-fragment": "workspace:0.0.1",
+    "@app/profile-fragment": "workspace:0.0.1",
     "@ui/background": "workspace:0.0.1",
     "@ui/wrapper": "workspace:0.0.1"
   },

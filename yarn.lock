@@ -191,7 +191,7 @@ __metadata:
     "@emotion/styled": "npm:11.9.3"
     "@shared/data": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -226,7 +226,7 @@ __metadata:
   resolution: "@app/index-page@workspace:common/client/pages/index-page"
   dependencies:
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     next: "npm:12.3.4"
   peerDependencies:
     next: "*"
@@ -243,7 +243,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -275,7 +275,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/onboarding-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
@@ -300,7 +300,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/card": "workspace:0.0.1"
@@ -330,6 +330,31 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@app/profile-page@workspace:^, @app/profile-page@workspace:common/client/pages/profile-page":
+  version: 0.0.0-use.local
+  resolution: "@app/profile-page@workspace:common/client/pages/profile-page"
+  dependencies:
+    "@app/header-fragment": "workspace:0.0.1"
+    "@app/profile-fragment": "workspace:0.0.1"
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.15"
+    "@ui/background": "workspace:0.0.1"
+    "@ui/wrapper": "workspace:0.0.1"
+    next: "npm:12.3.4"
+  peerDependencies:
+    "@emotion/css": "*"
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    graphql: "*"
+    next: "*"
+    react: "*"
+    react-dom: "*"
+    react-intl: "*"
+    styled-system: "*"
+    styled-tools: "*"
+  languageName: unknown
+  linkType: soft
+
 "@app/project-fragment@workspace:0.0.1, @app/project-fragment@workspace:common/client/fragments/project-fragment":
   version: 0.0.0-use.local
   resolution: "@app/project-fragment@workspace:common/client/fragments/project-fragment"
@@ -338,7 +363,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/button": "workspace:0.0.1"
     "@ui/card": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -373,7 +398,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/project-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -399,7 +424,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/card": "workspace:0.0.1"
@@ -436,7 +461,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/project-profile-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -461,6 +486,7 @@ __metadata:
     "@apollo/client": "npm:3.8.7"
     "@app/index-page": "workspace:0.0.1"
     "@app/onboarding-page": "workspace:0.0.1"
+    "@app/profile-page": "workspace:^"
     "@app/project-page": "workspace:0.0.1"
     "@app/project-profile-page": "workspace:0.0.1"
     "@app/team-invite-page": "workspace:0.0.1"
@@ -475,9 +501,9 @@ __metadata:
     "@formatjs/cli": "npm:4.8.4"
     "@shared/data": "workspace:0.0.1"
     "@shared/kratos-client": "workspace:0.0.1"
-    "@types/node": "npm:20.8.7"
+    "@types/node": "npm:18.18.9"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/theme": "workspace:0.0.1"
     graphql: "npm:16.8.1"
@@ -499,7 +525,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/button": "workspace:0.0.1"
     "@ui/card": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -535,7 +561,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -570,7 +596,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/team-invite-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -595,7 +621,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/team-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -621,7 +647,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -659,7 +685,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/team-profile-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -684,7 +710,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/profile-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -709,7 +735,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/button": "workspace:0.0.1"
     "@ui/card": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -743,7 +769,7 @@ __metadata:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/user-teams-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/wrapper": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -770,9 +796,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@atls-ui-generators/button@npm:0.0.17":
-  version: 0.0.17
-  resolution: "@atls-ui-generators/button@npm:0.0.17"
+"@atls-ui-generators/button@npm:0.0.18":
+  version: 0.0.18
+  resolution: "@atls-ui-generators/button@npm:0.0.18"
   dependencies:
     "@atls-ui-generators/utils": "npm:0.0.6"
     "@atls/config-prettier": "npm:0.0.5"
@@ -783,13 +809,13 @@ __metadata:
     prettier: "npm:2.8.8"
   bin:
     generate-styles: dist/generator.js
-  checksum: 81e512881f5e8b14b2ee7ac0e1a3e25a913ae1c78085253812208d5ddc2e3468be3554178ae60e6c50b8669606f7d97d85d6e8f7b99be63870faa969704be1e7
+  checksum: 61e9191d7d532dc43ba4521f7a6b7793662bc7d9659e6af56762ba9785f7c71d481d563076858c22a470473afab93dc63ef8909d1852584da2b4b129bdbb2a3e
   languageName: node
   linkType: hard
 
-"@atls-ui-generators/icons@npm:0.0.9":
-  version: 0.0.9
-  resolution: "@atls-ui-generators/icons@npm:0.0.9"
+"@atls-ui-generators/icons@npm:0.0.10":
+  version: 0.0.10
+  resolution: "@atls-ui-generators/icons@npm:0.0.10"
   dependencies:
     "@atls-ui-generators/utils": "npm:0.0.6"
     "@atls/config-prettier": "npm:0.0.5"
@@ -803,7 +829,7 @@ __metadata:
     prettier: "npm:2.8.8"
   bin:
     generate-icons: dist/generator.js
-  checksum: d1f2a64674e6eefecd212f3fab56204bc42812691d0962cec5d7c6580786d786d3cf778dffaabdbc54cd972d036328af2a8ac14919036ac922379f85b2591e95
+  checksum: 5d8046669c6fbcf34c071f23c2ca309b96de913e8821055c58568eae0ca4dcfcc887fe9e3d929c0abcf38f6b92e9453f80933c16f36375cdc4c19d5ca859b7a7
   languageName: node
   linkType: hard
 
@@ -836,9 +862,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@atls-ui-parts/button@npm:0.0.16":
-  version: 0.0.16
-  resolution: "@atls-ui-parts/button@npm:0.0.16"
+"@atls-ui-parts/button@npm:0.0.17":
+  version: 0.0.17
+  resolution: "@atls-ui-parts/button@npm:0.0.17"
   dependencies:
     "@atls-ui-parts/styles": "npm:0.0.6"
   peerDependencies:
@@ -846,7 +872,7 @@ __metadata:
     react: 18.2.0
     styled-system: 5.1.5
     styled-tools: 1.7.2
-  checksum: 330841b0fe56ad4927b7ca3fb0721a598f30c32d29a8eb175a5db77cf72bb9e648078c26168902a40f32c408c79e3e04ac9cec0500593d127e7f04b4f225448d
+  checksum: 825c2e84d910bf136489944215da2ec63bc6dc4e4814a5bbc2128d7f69b1e76eefbce1fc1788a148c83178b18da3d2e8cddacc332cad507875920699ea0f924a
   languageName: node
   linkType: hard
 
@@ -2137,7 +2163,7 @@ __metadata:
     "@identity/messages-fragment": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -2164,7 +2190,7 @@ __metadata:
   resolution: "@identity/confirmation-card-fragment@workspace:features/identity/client/fragments/confirmation-card"
   dependencies:
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -2189,7 +2215,7 @@ __metadata:
     "@identity/confirmation-card-fragment": "workspace:0.0.1"
     "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -2211,7 +2237,7 @@ __metadata:
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -2239,7 +2265,7 @@ __metadata:
   resolution: "@identity/index-page@workspace:features/identity/client/pages/index-page"
   dependencies:
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     next: "npm:12.3.4"
   peerDependencies:
     next: "*"
@@ -2256,7 +2282,7 @@ __metadata:
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
   peerDependencies:
@@ -2305,12 +2331,12 @@ __metadata:
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
-    "@atls/next-identity-integration": 0.0.15
+    "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
     next: "*"
@@ -2329,7 +2355,7 @@ __metadata:
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
   peerDependencies:
@@ -2352,7 +2378,7 @@ __metadata:
     "@identity/auth-forms-fragment": "workspace:0.0.1"
     "@identity/header-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
   peerDependencies:
@@ -2383,9 +2409,9 @@ __metadata:
     "@identity/recovery-page": "workspace:0.0.1"
     "@identity/registration-page": "workspace:0.0.1"
     "@shared/kratos-client": "workspace:0.0.1"
-    "@types/node": "npm:16.18.36"
+    "@types/node": "npm:18.18.9"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/theme": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -3120,7 +3146,7 @@ __metadata:
   dependencies:
     "@shared/modals-fragment": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -3169,6 +3195,8 @@ __metadata:
     "@atls/next-identity-integration": "npm:0.0.17"
   peerDependencies:
     "@atls/next-identity-integration": "*"
+    next: "*"
+    react: "*"
   languageName: unknown
   linkType: soft
 
@@ -3183,7 +3211,7 @@ __metadata:
     "@shared/forms-fragment": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -3765,26 +3793,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14 || 16 || 17, @types/node@npm:17.0.45":
+"@types/node@npm:14 || 16 || 17":
   version: 17.0.45
   resolution: "@types/node@npm:17.0.45"
   checksum: c0e9a6e94e1d37dd9ccb6be305f9a1500968624a58c93bc3cbffaebcebcb6774add768db664e74867d99185c7a66e00fb12df6185d4e46bde170159ef0990071
   languageName: node
   linkType: hard
 
-"@types/node@npm:16.18.36":
-  version: 16.18.36
-  resolution: "@types/node@npm:16.18.36"
-  checksum: 2ac913003f247e67961cea3f6051960c632c0c9d9126f121ddf83af5cfa9e3619725bf948c06ba3d78a3fedc75a72d4fcb988ef3c7a82caa339ff41f9de3bc0e
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:20.8.7":
-  version: 20.8.7
-  resolution: "@types/node@npm:20.8.7"
+"@types/node@npm:18.18.9":
+  version: 18.18.9
+  resolution: "@types/node@npm:18.18.9"
   dependencies:
-    undici-types: "npm:~5.25.1"
-  checksum: dca07cfce65b34f606cee85eb27c28d1307e3fbafff947c3dfacd8bad06c64b5d6079fe503876b5bced1879a3b12da92b9736567217c5f99f1e1344445dd8abc
+    undici-types: "npm:~5.26.4"
+  checksum: a650a17b46bd83e0caa15fb733969f183df3e23ad4378443076f7dc8be2fa61c85dc98be9afff73d5c383dbae464bd8d2c14e9afa3761625dae1a232c0e541dc
   languageName: node
   linkType: hard
 
@@ -3816,12 +3837,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:18.2.14":
-  version: 18.2.14
-  resolution: "@types/react-dom@npm:18.2.14"
+"@types/react-dom@npm:18.2.15":
+  version: 18.2.15
+  resolution: "@types/react-dom@npm:18.2.15"
   dependencies:
     "@types/react": "npm:*"
-  checksum: bc50ad2f862f4dab3460e61ad4e1e099b013dbe709ee596754461a3bf089e470124949e52d37dcc8c40862b3da70d0bf5809807a097abb82e0dc37ea8cd6e765
+  checksum: e3aa4cbd0edbae1d9d7ced55da2306a2eae966aa6fcf9a2d220ff304676bf40d541ef3dd4c84d64f29002d71699816a2043685a6799d8c9342d210d4019bebeb
   languageName: node
   linkType: hard
 
@@ -3936,7 +3957,7 @@ __metadata:
   dependencies:
     "@atls-ui-proto/avatar": "npm:0.0.11"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -3962,7 +3983,7 @@ __metadata:
   dependencies:
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/layout": "workspace:0.0.1"
     styled-system: "npm:5.1.5"
@@ -3977,12 +3998,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/button@workspace:ui/button"
   dependencies:
-    "@atls-ui-generators/button": "npm:0.0.17"
-    "@atls-ui-parts/button": "npm:0.0.16"
+    "@atls-ui-generators/button": "npm:0.0.18"
+    "@atls-ui-parts/button": "npm:0.0.17"
     "@atls-ui-parts/conditional-render": "npm:0.0.6"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/layout": "workspace:0.0.1"
     "@ui/utils": "workspace:0.0.1"
@@ -4005,7 +4026,7 @@ __metadata:
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
     "@ui/background": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
@@ -4049,7 +4070,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@ui/icon@workspace:ui/icon"
   dependencies:
-    "@atls-ui-generators/icons": "npm:0.0.9"
+    "@atls-ui-generators/icons": "npm:0.0.10"
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
@@ -4071,7 +4092,7 @@ __metadata:
     "@atls-ui-parts/input": "npm:0.0.16"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
@@ -4100,7 +4121,7 @@ __metadata:
     "@atls-ui-parts/layout": "npm:0.0.10"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     styled-system: "npm:5.1.5"
   peerDependencies:
@@ -4120,7 +4141,7 @@ __metadata:
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/text": "workspace:0.0.1"
     next: "npm:12.3.4"
@@ -4142,7 +4163,7 @@ __metadata:
   resolution: "@ui/logo@workspace:ui/logo"
   dependencies:
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/link": "workspace:0.0.1"
     next: "npm:12.3.4"
   peerDependencies:
@@ -4164,7 +4185,7 @@ __metadata:
     "@emotion/css": "npm:11.9.0"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
@@ -4192,7 +4213,7 @@ __metadata:
   dependencies:
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/condition": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
@@ -4216,7 +4237,7 @@ __metadata:
   dependencies:
     "@atls-ui-parts/text": "npm:0.0.12"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
   peerDependencies:
     "@emotion/styled": "*"
     react: "*"
@@ -4232,7 +4253,7 @@ __metadata:
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
@@ -4254,7 +4275,7 @@ __metadata:
   resolution: "@ui/title@workspace:ui/title"
   dependencies:
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@ui/condition": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -4290,7 +4311,7 @@ __metadata:
   resolution: "@ui/wrapper@workspace:ui/wrapper"
   dependencies:
     "@types/react": "npm:18.2.28"
-    "@types/react-dom": "npm:18.2.14"
+    "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
     "@ui/background": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -7159,7 +7180,7 @@ __metadata:
     "@next/swc-linux-x64-gnu": "npm:12.3.4"
     "@types/eslint": "npm:8"
     "@types/jest": "npm:28.1.8"
-    "@types/node": "npm:17.0.45"
+    "@types/node": "npm:18.18.9"
     eslint: "npm:8.17.0"
     husky: "npm:8.0.3"
     typescript: "npm:4.6.4"
@@ -9621,7 +9642,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:18.2.0":
+"react-dom@npm:*, react-dom@npm:18.2.0":
   version: 18.2.0
   resolution: "react-dom@npm:18.2.0"
   dependencies:
@@ -10916,10 +10937,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"undici-types@npm:~5.25.1":
-  version: 5.25.3
-  resolution: "undici-types@npm:5.25.3"
-  checksum: 676aa4fd4c1ebcdcac27f5de1aa219f8d876b449e4b7cd2528d239de849cddad7c73d509cbccd71f70f981ec53c5233bf16108c5e20a0e5bf82c17ccb218d7c4
+"undici-types@npm:~5.26.4":
+  version: 5.26.5
+  resolution: "undici-types@npm:5.26.5"
+  checksum: 7f556493e22e9023f1f9be0d516f5c3cf74d1d6a090c2701ada5117e99900e8cdf8b5540ad3ceed1a672d3532bdfcd0149c444b980731aacc840eb0660ba8587
   languageName: node
   linkType: hard
 

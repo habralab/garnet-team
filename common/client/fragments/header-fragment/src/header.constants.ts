@@ -1,9 +1,9 @@
 import { NavigationItem } from './header.interfaces'
 
-export const getNavigationItems = (authUserId: string): NavigationItem[] => [
+export const getNavigationItems = (): NavigationItem[] => [
   {
     id: 'header.profile',
-    url: `/user/${authUserId}`,
+    url: `/profile`,
   },
   {
     id: 'header.teams',
