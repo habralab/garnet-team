@@ -45,7 +45,7 @@ services:
     entrypoint: bash -c "yarn workspace @identity/renderer-entrypoint prepack ; yarn workspace @identity/renderer-entrypoint start"
     environment:
       - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
-      - NEXT_PUBLIC_BACKEND_URL=https://stage.garnet.pet-project.habr.com/api/sandbox
+      - NEXT_PUBLIC_BACKEND_URL=https://stage.garnet.pet-project.habr.com/api/graphql
     volumes:
       - ./:/workspace
     ports:
@@ -64,7 +64,7 @@ services:
       - ./:/workspace
     environment:
       - NEXT_PUBLIC_KRATOS_URL=https://stage.garnet.pet-project.habr.com/kratos
-      - NEXT_PUBLIC_BACKEND_URL=https://stage.garnet.pet-project.habr.com/api/sandbox
+      - NEXT_PUBLIC_BACKEND_URL=https://stage.garnet.pet-project.habr.com/api/graphql
     entrypoint: bash -c "yarn workspace @app/renderer-entrypoint prepack ; yarn workspace @app/renderer-entrypoint start"
     ports:
       - '3020:3020'
