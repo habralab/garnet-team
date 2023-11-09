@@ -14,6 +14,7 @@ import { Box }              from '@ui/layout'
 import { Modal }            from '@ui/modal'
 import { Text }             from '@ui/text'
 
+// TODO: change to real name from backend
 const mockUserName = 'Маша Петрова'
 
 export const ButtonExit: FC = () => {
@@ -59,6 +60,7 @@ export const ButtonExit: FC = () => {
         </Box>
       </Condition>
       <Condition match={isLogout}>
+        <Layout />
         <LogoutFlow />
       </Condition>
     </>

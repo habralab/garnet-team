@@ -16,15 +16,18 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { mockTeams }        from '@shared/data'
 import { getUniqueTags }    from '@shared/helpers'
+
+import { useGetTeams }      from './data'
+import { filterTeams }      from './helpers'
 
 export const Team: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const { formatMessage } = useIntl()
 
-  const teams = mockTeams
+  const { teams } = useGetTeams({ search: '', skip: 0, tags: [], take: 0 })
+
   const uniqueTags = getUniqueTags(teams)
 
   const handleAddTag = (tag: string) => {
@@ -35,11 +38,8 @@ export const Team: FC = () => {
     setSelectedTags(selectedTags.filter((item) => item !== tag))
   }
 
-  const filteredTeams = teams.filter(
-    (team) =>
-      selectedTags.some((tag) => team.tags?.includes(tag)) ||
-      (searchValue.length > 2 && team.name?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-  )
+  /** @todo search params to url query */
+  const filteredTeams = filterTeams(teams, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>

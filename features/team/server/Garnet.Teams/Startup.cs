@@ -43,6 +43,11 @@ using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Commands;
 using Garnet.Notifications.Events;
+using Garnet.Teams.Application.TeamUser.Commands;
+using Garnet.Teams.Infrastructure.MongoDb.ProjectTeamParticipant;
+using Garnet.Teams.Application.ProjectTeamParticipant.Commands;
+using Garnet.Teams.Application.ProjectTeamParticipant;
+using Garnet.Teams.Application.ProjectTeamParticipant.Queries;
 
 namespace Garnet.Team
 {
@@ -73,6 +78,7 @@ namespace Garnet.Team
             services.AddTeamUserJoinRequestInternal();
             services.AddTeamJoinInvitationInternal();
             services.AddTeamJoinProjectRequestInternal();
+            services.AddTeamProjectInternal();
         }
         private static void AddRepeatableMigrations(this IServiceCollection services)
         {
@@ -125,6 +131,14 @@ namespace Garnet.Team
         public static void AddTeamUserInternal(this IServiceCollection services)
         {
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
+            services.AddScoped<TeamUserUpdateCommand>();
+        }
+
+        public static void AddTeamProjectInternal(this IServiceCollection services)
+        {
+            services.AddScoped<ITeamProjectRepository, TeamProjectRepository>();
+            services.AddScoped<TeamProjectJoinedCommand>();
+            services.AddScoped<TeamProjectListByTeamsQuery>();
         }
 
         public static void AddTeamParticipantInternal(this IServiceCollection services)
@@ -133,6 +147,7 @@ namespace Garnet.Team
 
             services.AddScoped<TeamParticipantLeaveTeamCommand>();
             services.AddScoped<TeamParticipantFilterQuery>();
+            services.AddScoped<TeamParticipantListByTeamsQuery>();
         }
 
         public static void AddTeamUserJoinRequestInternal(this IServiceCollection services)
@@ -161,6 +176,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamJoinProjectRequestRepository, TeamJoinProjectRequestRepository>();
             services.AddScoped<TeamJoinProjectRequestCreateCommand>();
+            services.AddScoped<TeamJoinProjectRequestDecidedCommand>();
         }
     }
 }

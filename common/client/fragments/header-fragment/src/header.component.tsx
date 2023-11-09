@@ -1,27 +1,28 @@
-import React                from 'react'
-import { Fragment }         from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useRouter }        from 'next/router'
+import React                  from 'react'
+import { Fragment }           from 'react'
+import { FC }                 from 'react'
+import { FormattedMessage }   from 'react-intl'
+import { useRouter }          from 'next/router'
 
-import { Background }       from '@ui/background'
-import { Condition }        from '@ui/condition'
-import { Layout }           from '@ui/layout'
-import { Row }              from '@ui/layout'
-import { Column }           from '@ui/layout'
-import { Box }              from '@ui/layout'
-import { NextLink }         from '@ui/link'
-import { Logo }             from '@ui/logo'
+import { Background }         from '@ui/background'
+import { Condition }          from '@ui/condition'
+import { Layout }             from '@ui/layout'
+import { Row }                from '@ui/layout'
+import { Column }             from '@ui/layout'
+import { Box }                from '@ui/layout'
+import { NextLink }           from '@ui/link'
+import { Logo }               from '@ui/logo'
 
-import { ButtonExit }       from './button-exit'
-import { HeaderProps }      from './header.interfaces'
-import { TabItem }          from './tab-item'
-import { navigationItems }  from './header.constants'
+import { ButtonExit }         from './button-exit'
+import { HeaderProps }        from './header.interfaces'
+import { TabItem }            from './tab-item'
+import { getNavigationItems } from './header.constants'
+import { isActiveLink }       from './helpers'
 
 export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
   const { pathname } = useRouter()
 
-  const currentPathname = `/${pathname.split('/')[1]}`
+  const navigationItems = getNavigationItems()
 
   return (
     <Background fill maxHeight={120} color='white' borderBottom='lightGrayForty'>
@@ -39,7 +40,7 @@ export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
             {navigationItems.map(({ id, url }) => (
               <Fragment key={id}>
                 <NextLink path={url} href={url} active>
-                  <TabItem active={url === currentPathname}>
+                  <TabItem active={isActiveLink(url, pathname)}>
                     <FormattedMessage id={id} />
                   </TabItem>
                 </NextLink>

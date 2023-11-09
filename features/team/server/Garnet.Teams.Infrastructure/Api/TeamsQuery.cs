@@ -1,4 +1,5 @@
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Teams.Application.ProjectTeamParticipant.Queries;
 using Garnet.Teams.Application.Team.Args;
 using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
@@ -11,6 +12,7 @@ using Garnet.Teams.Infrastructure.Api.TeamJoinInvite;
 using Garnet.Teams.Infrastructure.Api.TeamParticipantSearch;
 using Garnet.Teams.Infrastructure.Api.TeamsFilter;
 using Garnet.Teams.Infrastructure.Api.TeamsList;
+using Garnet.Teams.Infrastructure.Api.TeamsListByUser;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequest;
 using Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow;
 using HotChocolate.Types;
@@ -25,13 +27,18 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamsListByUserQuery _teamsListQuery;
         private readonly TeamsFilterQuery _teamsFilterQuery;
         private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
+        private readonly TeamParticipantListByTeamsQuery _teamParticipantListByTeamsQuery;
         private readonly TeamParticipantFilterQuery _teamParticipantFilterQuery;
         private readonly TeamJoinInvitationsShowQuery _teamJoinInvitationsShowQuery;
+        private readonly TeamProjectListByTeamsQuery _teamProjectGetByTeamQuery;
 
         public TeamsQuery(
             TeamGetQuery teamGetQuery,
             TeamsFilterQuery teamsFilterQuery,
             TeamsListByUserQuery teamsListQuery,
+            TeamParticipantListByTeamsQuery teamParticipantListByTeamsQuery,
+            
+            TeamProjectListByTeamsQuery teamProjectGetByTeamQuery,
             TeamJoinInvitationsShowQuery teamJoinInvitationsShowQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
             TeamParticipantFilterQuery teamParticipantFilterQuery)
@@ -39,7 +46,9 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamsListQuery = teamsListQuery;
             _teamJoinInvitationsShowQuery = teamJoinInvitationsShowQuery;
             _teamGetQuery = teamGetQuery;
+            _teamProjectGetByTeamQuery = teamProjectGetByTeamQuery;
             _teamsFilterQuery = teamsFilterQuery;
+            _teamParticipantListByTeamsQuery = teamParticipantListByTeamsQuery;
             _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
             _teamParticipantFilterQuery = teamParticipantFilterQuery;
         }
@@ -66,7 +75,12 @@ namespace Garnet.Teams.Infrastructure.Api
         {
             var args = new TeamParticipantFilterArgs(input.Search, input.TeamId, input.Skip, input.Take);
             var participants = await _teamParticipantFilterQuery.Query(ct, args);
-            var payloadContent = participants.Select(x => new TeamParticipantPayload(x.Id, x.UserId, x.TeamId)).ToArray();
+            var payloadContent = participants.Select(x => new TeamParticipantPayload(
+                x.Id,
+                x.UserId,
+                x.Username,
+                x.TeamId,
+                x.AvatarUrl)).ToArray();
 
             return new TeamParticipantFilterPayload(payloadContent);
         }
@@ -83,9 +97,30 @@ namespace Garnet.Teams.Infrastructure.Api
         public async Task<TeamsListPayload> TeamsListByUser(CancellationToken ct, TeamsListInput input)
         {
             var args = new TeamsListArgs(input.Skip, input.Take);
-            var result = await _teamsListQuery.Query(ct, input.UserId, args);
-            var teams = result.Select(x => new TeamPayload(x.Id, x.Name, x.Description, x.AvatarUrl, x.Tags, x.OwnerUserId));
+            var teamResult = await _teamsListQuery.Query(ct, input.UserId, args);
+            var teamIds = teamResult.Select(x => x.Id).ToArray();
+            var projectResult = await _teamProjectGetByTeamQuery.Query(ct, teamIds);
+            var participantResult = await _teamParticipantListByTeamsQuery.Query(ct, teamIds);
 
+            var teams = teamResult.Select(x =>
+            {
+                var participants = participantResult[x.Id].Select(x => new TeamParticipantPayload(
+                    x.Id,
+                    x.UserId,
+                    x.Username,
+                    x.TeamId,
+                    x.AvatarUrl)).ToArray();
+
+                return new TeamByUserPayload(
+                 x.Id,
+                 x.Name,
+                 x.Description,
+                 x.AvatarUrl,
+                 x.Tags,
+                 x.OwnerUserId,
+                 projectResult.Count(c => c.Key == x.Id),
+                 participants);
+            });
             return new TeamsListPayload(teams.ToArray());
         }
 

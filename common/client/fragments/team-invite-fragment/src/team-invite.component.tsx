@@ -16,15 +16,17 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { mockUsers }        from '@shared/data'
 import { getUniqueTags }    from '@shared/helpers'
+
+import { useGetUsers }      from './data'
+import { filterUsers }      from './helpers'
 
 export const TeamInvite: FC = () => {
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const { formatMessage } = useIntl()
 
-  const users = mockUsers
+  const { users } = useGetUsers({ search: '', skip: 0, tags: [], take: 0 })
   const uniqueTags = getUniqueTags(users)
 
   const handleAddTag = (tag: string) => {
@@ -35,12 +37,7 @@ export const TeamInvite: FC = () => {
     setSelectedTags(selectedTags.filter((item) => item !== tag))
   }
 
-  const filteredUsers = users.filter(
-    (user) =>
-      selectedTags.some((tag) => user.tags?.includes(tag)) ||
-      (searchValue.length > 2 &&
-        user.userName?.toLowerCase().includes(searchValue.toLocaleLowerCase()))
-  )
+  const filteredUsers = filterUsers(users, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>

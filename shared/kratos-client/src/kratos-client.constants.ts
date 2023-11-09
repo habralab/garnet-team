@@ -1,1 +1,1 @@
-export const returnToSettingsUrl = '/app/user'
+export const returnToSettingsUrl = '/app/profile'
