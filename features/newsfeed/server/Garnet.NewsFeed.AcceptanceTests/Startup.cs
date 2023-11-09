@@ -8,6 +8,7 @@ using Garnet.NewsFeed;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
+using Garnet.Common.AcceptanceTests.Contexts;
 
 namespace Garnet.NewsFeed.AcceptanceTests
 {
@@ -25,6 +26,8 @@ namespace Garnet.NewsFeed.AcceptanceTests
 
             services.AddScoped<CurrentUserProviderFake>();
             services.AddScoped<ICurrentUserProvider>(o => o.GetRequiredService<CurrentUserProviderFake>());
+
+            services.AddScoped<QueryExceptionsContext>();
 
             services.AddScoped<DateTimeServiceFake>();
             services.AddScoped<IDateTimeService>(o => o.GetRequiredService<DateTimeServiceFake>());
