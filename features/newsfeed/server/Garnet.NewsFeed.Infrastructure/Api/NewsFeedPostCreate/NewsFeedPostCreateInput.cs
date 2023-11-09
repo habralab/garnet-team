@@ -1,6 +1,6 @@
 namespace Garnet.NewsFeed.Infrastructure.Api.NewsFeedPostCreate
 {
-    public record NewsFeedPostInput(
+    public record NewsFeedPostCreateInput(
         string TeamId,
         string Content);
 }

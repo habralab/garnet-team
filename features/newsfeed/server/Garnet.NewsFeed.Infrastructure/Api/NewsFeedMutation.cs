@@ -6,7 +6,7 @@ namespace Garnet.NewsFeed.Infrastructure.Api
     [ExtendObjectType("Mutation")]
     public class NewsFeedMutation
     {
-        public Task<NewsFeedPostPayload> NewsFeedPostCreate(NewsFeedPostInput input)
+        public Task<NewsFeedPostPayload> NewsFeedPostCreate(NewsFeedPostCreateInput input)
         {
             return null;
         }
