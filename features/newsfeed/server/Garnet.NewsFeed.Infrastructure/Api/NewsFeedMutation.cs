@@ -1,3 +1,4 @@
+using Garnet.NewsFeed.Infrastructure.Api.NewsFeedPostCreate;
 using HotChocolate.Types;
 
 namespace Garnet.NewsFeed.Infrastructure.Api
@@ -5,6 +6,9 @@ namespace Garnet.NewsFeed.Infrastructure.Api
     [ExtendObjectType("Mutation")]
     public class NewsFeedMutation
     {
-        
+        public Task<NewsFeedPostPayload> NewsFeedPostCreate(NewsFeedPostInput input)
+        {
+            return null;
+        }
     }
 }
