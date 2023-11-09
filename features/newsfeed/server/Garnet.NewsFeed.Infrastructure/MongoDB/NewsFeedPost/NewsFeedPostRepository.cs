@@ -1,10 +1,10 @@
 using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Api.Cancellation;
 using Garnet.Common.Infrastructure.MongoDb;
-using Garnet.NewsFeed.Application;
+using Garnet.NewsFeed.Application.NewsFeedPost;
 using MongoDB.Driver;
 
-namespace Garnet.NewsFeed.Infrastructure.MongoDB
+namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedPost
 {
     public class NewsFeedPostRepository : RepositoryBase, INewsFeedPostRepository
     {

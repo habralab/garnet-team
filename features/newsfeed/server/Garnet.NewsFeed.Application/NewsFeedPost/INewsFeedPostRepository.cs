@@ -1,4 +1,4 @@
-namespace Garnet.NewsFeed.Application
+namespace Garnet.NewsFeed.Application.NewsFeedPost
 {
     public interface INewsFeedPostRepository
     {

@@ -11,6 +11,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.NewsFeed.Infrastructure.MongoDB.Migration;
 using Garnet.NewsFeed.Application;
+using Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedPost;
+using Garnet.NewsFeed.Application.NewsFeedPost;
+using Garnet.NewsFeed.Application.NewsFeedTeam;
+using Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeam;
+using Garnet.NewsFeed.Application.NewsFeedTeamParticipant;
+using Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeamParticipant;
 
 namespace Garnet.NewsFeed
 {
@@ -39,6 +45,8 @@ namespace Garnet.NewsFeed
         public static void AddNewsFeedInternal(this IServiceCollection services)
         {
             services.AddScoped<INewsFeedPostRepository, NewsFeedPostRepository>();
+            services.AddScoped<INewsFeedTeamParticipantRepository, NewsFeedTeamParticipantRepository>();
+            services.AddScoped<INewsFeedTeamRepository, NewsFeedTeamRepository>();
         }
 
 
