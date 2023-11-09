@@ -1,17 +1,45 @@
+using Garnet.Common.Infrastructure.Api.Cancellation;
 using Garnet.NewsFeed.Application.NewsFeedTeam;
+using MongoDB.Driver;
 
 namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeam
 {
     public class NewsFeedTeamRepository : INewsFeedTeamRepository
     {
-        public Task<NewsFeedTeamEntity> CreateTeam(string id, string ownerUserId)
+        private readonly DbFactory _dbFactory;
+        private readonly CancellationToken _ct;
+        private readonly FilterDefinitionBuilder<NewsFeedTeamDocument> _f = Builders<NewsFeedTeamDocument>.Filter;
+
+        public NewsFeedTeamRepository(DbFactory dbFactory, CancellationTokenProvider ctp)
         {
-            throw new NotImplementedException();
+            _dbFactory = dbFactory;
+            _ct = ctp.Token;
         }
 
-        public Task DeleteTeam(string id)
+        public async Task CreateTeam(string id, string ownerUserId)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+            var team = NewsFeedTeamDocument.Create(id, ownerUserId);
+            await db.NewsFeedTeam.InsertOneAsync(team, cancellationToken: _ct);
+        }
+
+        public async Task DeleteTeam(string id)
+        {
+            var db = _dbFactory.Create();
+            await db.NewsFeedTeam.DeleteOneAsync(
+                _f.Eq(x => x.Id, id),
+                cancellationToken: _ct
+            );
+        }
+
+        public async Task<NewsFeedTeamEntity?> GetTeamById(string id)
+        {
+            var db = _dbFactory.Create();
+            var team = await db.NewsFeedTeam.Find(
+                _f.Eq(x => x.Id, id)
+            ).FirstOrDefaultAsync(_ct);
+
+            return team is null ? null : NewsFeedTeamDocument.ToDomain(team);
         }
     }
 }

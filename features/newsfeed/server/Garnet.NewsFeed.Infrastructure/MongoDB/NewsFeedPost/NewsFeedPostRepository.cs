@@ -1,7 +1,9 @@
 using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Api.Cancellation;
 using Garnet.Common.Infrastructure.MongoDb;
+using Garnet.Common.Infrastructure.Support;
 using Garnet.NewsFeed.Application.NewsFeedPost;
+using Garnet.NewsFeed.Application.NewsFeedPost.Args;
 using MongoDB.Driver;
 
 namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedPost
@@ -22,14 +24,31 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedPost
             _ct = ctp.Token;
         }
 
-        public Task<NewsFeedPostEntity> CreatePost(string content, string authorUserId)
+        public async Task<NewsFeedPostEntity> CreatePost(NewsFeedPostCreateArgs args)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var post = NewsFeedPostDocument.Create(Uuid.NewMongo(), args.Content, args.TeamId);
+            post = await InsertOneDocument(
+                _ct,
+                db.NewsFeedPost,
+                post
+            );
+
+            return NewsFeedPostDocument.ToDomain(post);
         }
 
-        public Task<NewsFeedPostEntity[]> GetPostList(string teamId, int skip, int take)
+        public async Task<NewsFeedPostEntity[]> GetPostList(string teamId, int skip, int take)
         {
-            throw new NotImplementedException();
+            var db = _dbFactory.Create();
+
+            var posts = await db.NewsFeedPost
+            .Find(_f.Eq(x => x.TeamId, teamId))
+            .Skip(skip)
+            .Limit(take)
+            .ToListAsync(_ct);
+
+            return posts.Select(x=> NewsFeedPostDocument.ToDomain(x)).ToArray();
         }
     }
 }

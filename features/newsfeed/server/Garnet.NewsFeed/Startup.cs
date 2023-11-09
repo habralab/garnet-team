@@ -45,13 +45,27 @@ namespace Garnet.NewsFeed
 
         public static void AddNewsFeedInternal(this IServiceCollection services)
         {
+            services.AddNewsFeedPostInternal();
+            services.AddNewsFeedTeamInternal();
+            services.AddNewsFeedTeamParticipantInternal();
+        }
+
+        private static void AddNewsFeedPostInternal(this IServiceCollection services)
+        {
             services.AddScoped<INewsFeedPostRepository, NewsFeedPostRepository>();
-            services.AddScoped<INewsFeedTeamParticipantRepository, NewsFeedTeamParticipantRepository>();
-            services.AddScoped<INewsFeedTeamRepository, NewsFeedTeamRepository>();
 
             services.AddScoped<NewsFeedPostCreateCommand>();
         }
 
+        private static void AddNewsFeedTeamParticipantInternal(this IServiceCollection services)
+        {
+            services.AddScoped<INewsFeedTeamParticipantRepository, NewsFeedTeamParticipantRepository>();
+        }
+
+        private static void AddNewsFeedTeamInternal(this IServiceCollection services)
+        {
+            services.AddScoped<INewsFeedTeamRepository, NewsFeedTeamRepository>();
+        }
 
         public static void AddGarnetNewsFeedMessageBus(this IServiceCollection services, string name)
         {
