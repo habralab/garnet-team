@@ -10,5 +10,7 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB
         {
             _mongoDatabase = mongoDatabase;
         }
+
+        public IMongoCollection<NewsFeedPostDocument> NewsFeedPost => _mongoDatabase.GetCollection<NewsFeedPostDocument>("NewsFeedPost");
     }
 }

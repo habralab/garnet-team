@@ -1,5 +1,6 @@
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.NewsFeed.Application;
 using TechTalk.SpecFlow;
 
 namespace Garnet.NewsFeed.AcceptanceTests.Features.NewsFeedPostCreate
@@ -9,12 +10,15 @@ namespace Garnet.NewsFeed.AcceptanceTests.Features.NewsFeedPostCreate
     {
         private readonly QueryExceptionsContext _queryExceptionsContext;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly INewsFeedPostRepository _newsFeedPostRepository;
 
         public NewsFeedPostCreateSteps(
             CurrentUserProviderFake currentUserProviderFake,
             QueryExceptionsContext queryExceptionsContext,
+            INewsFeedPostRepository newsFeedPostRepository,
             StepsArgs args) : base(args)
         {
+            _newsFeedPostRepository = newsFeedPostRepository;
             _currentUserProviderFake = currentUserProviderFake;
             _queryExceptionsContext = queryExceptionsContext;
         }

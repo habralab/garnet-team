@@ -8,6 +8,9 @@ using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.NewsFeed.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Api;
 using Microsoft.Extensions.DependencyInjection;
+using Garnet.Common.Infrastructure.MongoDb.Migrations;
+using Garnet.NewsFeed.Infrastructure.MongoDB.Migration;
+using Garnet.NewsFeed.Application;
 
 namespace Garnet.NewsFeed
 {
@@ -35,7 +38,7 @@ namespace Garnet.NewsFeed
 
         public static void AddNewsFeedInternal(this IServiceCollection services)
         {
-
+            services.AddScoped<INewsFeedPostRepository, NewsFeedPostRepository>();
         }
 
 
@@ -49,7 +52,7 @@ namespace Garnet.NewsFeed
 
         public static void AddRepeatableMigrations(this IServiceCollection services)
         {
-
+            services.AddScoped<IRepeatableMigration, CreateIndexesNewsFeedPostMigration>();
         }
     }
 }
