@@ -7,6 +7,7 @@ using Garnet.Common.Infrastructure.Identity;
 using Garnet.Common.Infrastructure.MessageBus;
 using Garnet.NewsFeed.Infrastructure.Api;
 using Garnet.Common.Infrastructure.Api;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Garnet.NewsFeed
 {
