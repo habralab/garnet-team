@@ -17,6 +17,7 @@ using Garnet.NewsFeed.Application.NewsFeedTeam;
 using Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeam;
 using Garnet.NewsFeed.Application.NewsFeedTeamParticipant;
 using Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeamParticipant;
+using Garnet.NewsFeed.Application.NewsFeedPost.Commands;
 
 namespace Garnet.NewsFeed
 {
@@ -47,6 +48,8 @@ namespace Garnet.NewsFeed
             services.AddScoped<INewsFeedPostRepository, NewsFeedPostRepository>();
             services.AddScoped<INewsFeedTeamParticipantRepository, NewsFeedTeamParticipantRepository>();
             services.AddScoped<INewsFeedTeamRepository, NewsFeedTeamRepository>();
+
+            services.AddScoped<NewsFeedPostCreateCommand>();
         }
 
 
