@@ -6,5 +6,6 @@ namespace Garnet.NewsFeed.Application.NewsFeedPost
     {
         Task<NewsFeedPostEntity> CreatePost(NewsFeedPostCreateArgs args);
         Task<NewsFeedPostEntity[]> GetPostList(string teamId, int skip, int take);
+        Task DeletePostsByTeam(string teamId);
     }
 }

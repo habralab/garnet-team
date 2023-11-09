@@ -9,6 +9,7 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeam
         private readonly DbFactory _dbFactory;
         private readonly CancellationToken _ct;
         private readonly FilterDefinitionBuilder<NewsFeedTeamDocument> _f = Builders<NewsFeedTeamDocument>.Filter;
+        private readonly UpdateDefinitionBuilder<NewsFeedTeamDocument> _u = Builders<NewsFeedTeamDocument>.Update;
 
         public NewsFeedTeamRepository(DbFactory dbFactory, CancellationTokenProvider ctp)
         {
@@ -40,6 +41,16 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeam
             ).FirstOrDefaultAsync(_ct);
 
             return team is null ? null : NewsFeedTeamDocument.ToDomain(team);
+        }
+
+        public async Task UpdateTeamOwner(string id, string userId)
+        {
+            var db = _dbFactory.Create();
+            await db.NewsFeedTeam.UpdateOneAsync(
+                _f.Eq(x => x.Id, id),
+                _u.Set(x => x.OwnerUserId, userId),
+                cancellationToken: _ct
+            );
         }
     }
 }

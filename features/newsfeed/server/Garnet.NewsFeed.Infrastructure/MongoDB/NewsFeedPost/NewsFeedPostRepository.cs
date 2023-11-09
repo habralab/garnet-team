@@ -38,6 +38,15 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedPost
             return NewsFeedPostDocument.ToDomain(post);
         }
 
+        public async Task DeletePostsByTeam(string teamId)
+        {
+            var db = _dbFactory.Create();
+            await db.NewsFeedPost.DeleteManyAsync(
+                _f.Eq(x => x.TeamId, teamId),
+                _ct
+            );
+        }
+
         public async Task<NewsFeedPostEntity[]> GetPostList(string teamId, int skip, int take)
         {
             var db = _dbFactory.Create();
@@ -48,7 +57,7 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedPost
             .Limit(take)
             .ToListAsync(_ct);
 
-            return posts.Select(x=> NewsFeedPostDocument.ToDomain(x)).ToArray();
+            return posts.Select(x => NewsFeedPostDocument.ToDomain(x)).ToArray();
         }
     }
 }

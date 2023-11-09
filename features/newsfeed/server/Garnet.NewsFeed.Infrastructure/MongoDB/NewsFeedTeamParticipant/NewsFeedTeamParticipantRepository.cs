@@ -28,7 +28,7 @@ namespace Garnet.NewsFeed.Infrastructure.MongoDB.NewsFeedTeamParticipant
         {
             var db = _dbFactory.Create();
             await db.NewsFeedTeamParticipant.DeleteOneAsync(
-                _f.Eq(x => x.Id, participantId),
+                _f.Eq(x => x.UserId, participantId),
                 cancellationToken: _ct
             );
         }

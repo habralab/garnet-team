@@ -4,6 +4,7 @@
     <ProjectReference Include="..\Garnet.NewsFeed.Application\Garnet.NewsFeed.Application.csproj" />
     <ProjectReference Include="..\Garnet.NewsFeed.Events\Garnet.NewsFeed.Events.csproj" />
     <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Infrastructure\Garnet.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\team\server\Garnet.Teams.Events\Garnet.Teams.Events.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
