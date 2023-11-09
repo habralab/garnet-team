@@ -4,11 +4,11 @@ using Garnet.Common.Application;
 using Garnet.Common.Infrastructure.Support;
 using Garnet.NewsFeed.Infrastructure.Api;
 using Garnet.NewsFeed.Infrastructure.MongoDB;
-using Garnet.NewsFeed;
 using Microsoft.Extensions.DependencyInjection;
 using Mongo2Go;
 using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Common.AcceptanceTests.Contexts;
+using Garnet.Common.Infrastructure.Api;
 
 namespace Garnet.NewsFeed.AcceptanceTests
 {
@@ -34,6 +34,8 @@ namespace Garnet.NewsFeed.AcceptanceTests
 
             services.AddScoped<GiveMe>();
             services.AddScoped<StepsArgs>();
+
+            services.AddCancellationTokenProvider();
 
             AddMongoDb(services);
             AddMessageBus(services);
