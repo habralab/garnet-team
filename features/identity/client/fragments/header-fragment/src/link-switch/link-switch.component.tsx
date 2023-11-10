@@ -15,7 +15,7 @@ export const LinkSwitch: FC = () => {
 
   return (
     <Box fill justifyContent='flex-end' alignItems='center'>
-      <NextLink path={redirect} url={redirect}>
+      <NextLink path={redirect} href={redirect}>
         <FormattedMessage id={text} />
       </NextLink>
       <Layout flexBasis={40} />
