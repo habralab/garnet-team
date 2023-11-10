@@ -1,5 +1,5 @@
 {
-  "name": "@app/onboarding-fragment",
+  "name": "@app/onboard-fragment",
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {

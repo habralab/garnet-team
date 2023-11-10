@@ -1,11 +1,11 @@
 {
-  "name": "@app/onboarding-page",
+  "name": "@app/onboard-page",
   "version": "0.0.1",
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
     "@app/header-fragment": "workspace:0.0.1",
-    "@app/onboarding-fragment": "workspace:0.0.1",
+    "@app/onboard-fragment": "workspace:0.0.1",
     "@ui/background": "workspace:0.0.1"
   },
   "devDependencies": {

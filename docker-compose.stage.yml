@@ -1,4 +1,4 @@
-version: '3.3'
+version: '3.8'
 
 networks:
   internal:
@@ -75,7 +75,8 @@ services:
 
   kratos:
     depends_on:
-      - kratos-migrate
+      kratos-migrate:
+        condition: service_completed_successfully
     image: oryd/kratos:v1.0.0
     ports:
       - '4433:4433'

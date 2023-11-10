@@ -4,17 +4,22 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "apollo-upload-client": "17.0.0"
+    "apollo-upload-client": "17.0.0",
+    "axios": "0.21.4"
   },
   "devDependencies": {
     "@apollo/client": "3.8.7",
+    "@atls/next-identity-integration": "0.0.17",
+    "@ory/kratos-client": "1.0.0",
     "@types/apollo-upload-client": "17.0.4",
     "@types/react": "18.2.28"
   },
   "peerDependencies": {
+    "@atls/next-identity-integration": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "graphql": "*",
+    "next": "*",
     "react": "*"
   }
 }
