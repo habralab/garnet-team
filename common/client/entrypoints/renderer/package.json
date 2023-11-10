@@ -7,6 +7,7 @@
     "build": "yarn next build src --no-lint && cp -r ./src/.next/standalone ./dist && cp -r ./src/.next/static ./dist/.next/static && mv ./dist/server.js ./dist/index.js",
     "dev": "PORT=3020 yarn next dev src",
     "prepack": "run build",
+    "postpack": "rm -rf dist",
     "start": "PORT=3020 node dist/index.js"
   },
   "dependencies": {
