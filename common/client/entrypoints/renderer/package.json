@@ -12,7 +12,7 @@
   "dependencies": {
     "@apollo/client": "3.8.7",
     "@app/index-page": "workspace:0.0.1",
-    "@app/onboarding-page": "workspace:0.0.1",
+    "@app/onboard-page": "workspace:0.0.1",
     "@app/profile-page": "workspace:0.0.1",
     "@app/project-page": "workspace:0.0.1",
     "@app/project-profile-page": "workspace:0.0.1",
