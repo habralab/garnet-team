@@ -1,18 +1,18 @@
-import { useRouter }        from 'next/router'
-import { useEffect }        from 'react'
-import { useState }         from 'react'
+import { useRouter }  from 'next/router'
+import { useEffect }  from 'react'
+import { useState }   from 'react'
 
-import { Team }             from '@shared/data'
-import { useGetAuthUserId } from '@shared/data'
-import { useGetUser }       from '@shared/data'
+import { Team }       from '@shared/data'
+import { useGetUser } from '@shared/data'
+import { useSession } from '@stores/session'
 
-import { useGetTeam }       from '../data'
+import { useGetTeam } from '../data'
 
 export const useTeamState = () => {
-  const router = useRouter()
-  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
+  const { query } = useRouter()
+  const queryId = typeof query.id === 'string' ? query.id : ''
 
-  const { authUserId } = useGetAuthUserId()
+  const { userId } = useSession()
 
   const [team, setTeam] = useState<Team>()
   const [isMyTeam, setIsMyTeam] = useState(false)
@@ -27,15 +27,15 @@ export const useTeamState = () => {
   } = useGetTeam({ id: queryId, search: '', skip: 0, take: 0 })
 
   const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '', skip: 0, take: 20 })
-  const joinRequestAuthUser = joinRequests.find((item) => item.userId === authUserId)
+  const joinRequestAuthUser = joinRequests.find((item) => item.userId === userId)
 
   useEffect(() => {
     if (fetchedTeam) {
-      if (fetchedTeam.ownerUserId === authUserId) setIsMyTeam(true)
+      if (fetchedTeam.ownerUserId === userId) setIsMyTeam(true)
 
       setTeam(fetchedTeam)
     }
-  }, [router, fetchedTeam, authUserId])
+  }, [fetchedTeam, userId])
 
   return {
     team,

@@ -1,22 +1,22 @@
-import { useRouter }        from 'next/router'
-import { useCallback }      from 'react'
-import { useEffect }        from 'react'
-import { useState }         from 'react'
+import { useRouter }   from 'next/router'
+import { useCallback } from 'react'
+import { useEffect }   from 'react'
+import { useState }    from 'react'
 
-import { useGetAuthUserId } from '@shared/data'
-import { useGetUser }       from '@shared/data'
+import { useGetUser }  from '@shared/data'
+import { useSession }  from '@stores/session'
 
-import { PageState }        from '../onboarding.interfaces'
+import { PageState }   from '../onboarding.interfaces'
 
 export const usePageState = () => {
   const [pageState, setPageState] = useState<PageState>(PageState.UPLOAD_PHOTO)
   const { replace } = useRouter()
 
-  const { authUserId } = useGetAuthUserId()
+  const { userId } = useSession()
 
   const redirectToProfilePage = useCallback(() => replace(`/profile`), [replace])
 
-  const { user } = useGetUser({ id: authUserId, skip: 0, take: 20 })
+  const { user } = useGetUser({ id: userId, skip: 0, take: 20 })
 
   useEffect(() => {
     if (!user) return

@@ -7,10 +7,10 @@ export const getNavigationItems = (): NavigationItem[] => [
   },
   {
     id: 'header.teams',
-    url: '/team',
+    url: '/teams',
   },
   {
     id: 'header.projects',
-    url: '/project',
+    url: '/projects',
   },
 ]
