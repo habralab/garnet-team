@@ -14,13 +14,14 @@ import { Box }              from '@ui/layout'
 import { Modal }            from '@ui/modal'
 import { Text }             from '@ui/text'
 
-// TODO: change to real name from backend
-const mockUserName = 'Маша Петрова'
+import { useGetAuthUserId } from '@shared/data'
 
 export const ButtonExit: FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [isLogout, setIsLogout] = useState<boolean>(false)
   const { formatMessage } = useIntl()
+
+  const { session } = useGetAuthUserId()
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
@@ -28,6 +29,8 @@ export const ButtonExit: FC = () => {
     toggleModalOpen()
     setIsLogout(true)
   }
+
+  const fullName = session?.identity.traits['name']['first'] + session?.identity.traits['name']['last']
 
   return (
     <>
@@ -48,7 +51,7 @@ export const ButtonExit: FC = () => {
             onClose={toggleModalOpen}
           >
             <Text fontSize='semiMedium' fontWeight='bold' color='text.secondary'>
-              {mockUserName}
+              {fullName}
             </Text>
             <Layout flexBasis={4} flexShrink={0} />
             <Text fontSize='semiMedium' color='text.secondary'>

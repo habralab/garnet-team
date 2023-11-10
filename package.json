@@ -52,5 +52,8 @@
   ],
   "typecheckIgnorePatterns": [
     "shared/keto/src/namespaces/*"
-  ]
+  ],
+  "dependencies": {
+    "@shared/data": "workspace:^"
+  }
 }

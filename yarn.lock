@@ -3124,7 +3124,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shared/data@workspace:0.0.1, @shared/data@workspace:shared/data":
+"@shared/data@workspace:0.0.1, @shared/data@workspace:^, @shared/data@workspace:shared/data":
   version: 0.0.0-use.local
   resolution: "@shared/data@workspace:shared/data"
   dependencies:
@@ -7183,6 +7183,7 @@ __metadata:
     "@next/swc-darwin-x64": "npm:12.3.4"
     "@next/swc-linux-arm64-gnu": "npm:12.3.4"
     "@next/swc-linux-x64-gnu": "npm:12.3.4"
+    "@shared/data": "workspace:^"
     "@types/eslint": "npm:8"
     "@types/jest": "npm:28.1.8"
     "@types/node": "npm:18.18.9"
