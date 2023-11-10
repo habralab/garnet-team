@@ -1,4 +1,5 @@
 import { useRouter }        from 'next/router'
+import { useCallback }      from 'react'
 import { useEffect }        from 'react'
 import { useState }         from 'react'
 
@@ -9,30 +10,29 @@ import { PageState }        from '../onboarding.interfaces'
 
 export const usePageState = () => {
   const [pageState, setPageState] = useState<PageState>(PageState.UPLOAD_PHOTO)
-  const router = useRouter()
+  const { replace } = useRouter()
 
   const { authUserId } = useGetAuthUserId()
 
-  const redirectToUserPage = () => router.push(`/user/${authUserId}`)
+  const redirectToProfilePage = useCallback(() => replace(`/profile`), [replace])
 
   const { user } = useGetUser({ id: authUserId, skip: 0, take: 20 })
 
   useEffect(() => {
-    if (user && !user.avatarUrl) {
+    if (!user) return
+
+    const { avatarUrl, description, tags } = user
+
+    if (!avatarUrl) {
       setPageState(PageState.UPLOAD_PHOTO)
-    } //
-    else if (user && !user.description) {
+    } else if (!description) {
       setPageState(PageState.ENTER_DESCRIPTION)
-    } //
-    else if (user && (!user.tags || user.tags.length === 0)) {
+    } else if (!tags || tags?.length === 0) {
       setPageState(PageState.ENTER_SKILLS)
-    } //
-    else if (user) {
-      redirectToUserPage()
+    } else {
+      redirectToProfilePage()
     }
+  }, [user, redirectToProfilePage])
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
-
-  return { pageState, setPageState, redirectToUserPage }
+  return { pageState, setPageState, redirectToUserPage: redirectToProfilePage }
 }

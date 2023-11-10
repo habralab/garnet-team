@@ -10,7 +10,7 @@ import { PageState }        from './onboarding.interfaces'
 import { UploadPhoto }      from './upload-photo'
 import { usePageState }     from './hooks'
 
-export const Onboarding: FC = () => {
+export const OnBoarding: FC = () => {
   const { pageState, setPageState, redirectToUserPage } = usePageState()
 
   const handleUploadPhoto = () => setPageState(PageState.ENTER_DESCRIPTION)
