@@ -1,18 +1,18 @@
-import { useRouter }        from 'next/router'
-import { useEffect }        from 'react'
-import { useState }         from 'react'
+import { useRouter }     from 'next/router'
+import { useEffect }     from 'react'
+import { useState }      from 'react'
 
-import { Project }          from '@shared/data'
-import { useGetAuthUserId } from '@shared/data'
-import { useGetUser }       from '@shared/data'
+import { Project }       from '@shared/data'
+import { useGetUser }    from '@shared/data'
+import { useSession }    from '@stores/session'
 
-import { useGetProject }    from '../data'
+import { useGetProject } from '../data'
 
 export const useProjectState = () => {
   const router = useRouter()
   const queryId = typeof router.query.id === 'string' ? router.query.id : ''
 
-  const { authUserId } = useGetAuthUserId()
+  const { userId } = useSession()
 
   const [project, setProject] = useState<Project>()
 
@@ -23,11 +23,11 @@ export const useProjectState = () => {
 
   useEffect(() => {
     if (fetchedProject) {
-      if (fetchedProject.ownerUserId === authUserId) setIsMyProject(true)
+      if (fetchedProject.ownerUserId === userId) setIsMyProject(true)
 
       setProject(fetchedProject)
     }
-  }, [router, fetchedProject, authUserId])
+  }, [router, fetchedProject, userId])
 
   return { project, setProject, isMyProject, projectTeams, ownerUser }
 }

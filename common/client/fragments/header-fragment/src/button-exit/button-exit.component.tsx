@@ -13,24 +13,22 @@ import { Layout }           from '@ui/layout'
 import { Box }              from '@ui/layout'
 import { Modal }            from '@ui/modal'
 import { Text }             from '@ui/text'
-
-import { useGetAuthUserId } from '@shared/data'
+import { useSession }       from '@stores/session'
 
 export const ButtonExit: FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [isLogout, setIsLogout] = useState<boolean>(false)
   const { formatMessage } = useIntl()
 
-  const { session } = useGetAuthUserId()
+  const { fullName, clearSession } = useSession()
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   const handleExit = () => {
     toggleModalOpen()
+    clearSession()
     setIsLogout(true)
   }
-
-  const fullName = session?.identity.traits['name']['first'] + session?.identity.traits['name']['last']
 
   return (
     <>

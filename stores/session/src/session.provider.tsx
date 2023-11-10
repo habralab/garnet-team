@@ -38,6 +38,8 @@ export const SessionProvider: FC<SessionProviderProps> = ({ children }) => {
   const cancelRequest = () => cancelToken.cancel()
 
   useEffect(() => {
+    if (session) return
+
     getSession()
 
     return cancelRequest

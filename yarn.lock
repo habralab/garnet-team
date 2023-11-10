@@ -190,6 +190,7 @@ __metadata:
     "@emotion/react": "npm:11.9.3"
     "@emotion/styled": "npm:11.9.3"
     "@shared/data": "workspace:0.0.1"
+    "@stores/session": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@types/styled-system": "npm:5.1.20"
@@ -211,6 +212,7 @@ __metadata:
     "@atls/next-identity-integration": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@stores/session": "workspace:*"
     framer-motion: "*"
     graphql: "*"
     next: "*"
@@ -242,6 +244,7 @@ __metadata:
     "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
+    "@stores/session": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
@@ -257,6 +260,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@stores/session": "workspace:*"
     framer-motion: "*"
     graphql: "*"
     next: "*"
@@ -299,6 +303,7 @@ __metadata:
     "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
+    "@stores/session": "workspace:*"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
@@ -319,6 +324,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@stores/session": "workspace:*"
     framer-motion: "*"
     graphql: "*"
     next: "*"
@@ -423,6 +429,7 @@ __metadata:
     "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
+    "@stores/session": "workspace:*"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
@@ -443,6 +450,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@stores/session": "workspace:*"
     framer-motion: "*"
     graphql: "*"
     next: "*"
@@ -501,6 +509,7 @@ __metadata:
     "@formatjs/cli": "npm:4.8.4"
     "@shared/data": "workspace:0.0.1"
     "@shared/kratos-client": "workspace:0.0.1"
+    "@stores/session": "workspace:0.0.1"
     "@types/node": "npm:18.18.9"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
@@ -646,6 +655,7 @@ __metadata:
     "@apollo/client": "npm:3.8.7"
     "@shared/data": "workspace:0.0.1"
     "@shared/modals-fragment": "workspace:0.0.1"
+    "@stores/session": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@ui/avatar": "workspace:0.0.1"
@@ -667,6 +677,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@stores/session": "workspace:*"
     framer-motion: "*"
     graphql: "*"
     next: "*"
@@ -734,6 +745,7 @@ __metadata:
   dependencies:
     "@shared/data": "workspace:0.0.1"
     "@shared/helpers": "workspace:0.0.1"
+    "@stores/session": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@ui/button": "workspace:0.0.1"
@@ -751,6 +763,7 @@ __metadata:
     "@emotion/css": "*"
     "@emotion/react": "*"
     "@emotion/styled": "*"
+    "@stores/session": "workspace:*"
     framer-motion: "*"
     graphql: "*"
     next: "*"
@@ -3124,7 +3137,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@shared/data@workspace:0.0.1, @shared/data@workspace:^, @shared/data@workspace:shared/data":
+"@shared/data@workspace:0.0.1, @shared/data@workspace:shared/data":
   version: 0.0.0-use.local
   resolution: "@shared/data@workspace:shared/data"
   dependencies:
@@ -3289,6 +3302,21 @@ __metadata:
   checksum: 234e307b9e00710bdc1d2004b36682ca6c08f59399d650bd56f752d51bdb8a46c569aa6809430913a79df84330bedfa0dd467623153320d7d4ecdcaa66627719
   languageName: node
   linkType: hard
+
+"@stores/session@workspace:*, @stores/session@workspace:0.0.1, @stores/session@workspace:stores/session":
+  version: 0.0.0-use.local
+  resolution: "@stores/session@workspace:stores/session"
+  dependencies:
+    "@atls/next-identity-integration": "npm:0.0.17"
+    "@ory/kratos-client": "npm:1.0.0"
+    "@types/react": "npm:18.2.28"
+    axios: "npm:0.21.4"
+  peerDependencies:
+    "@atls/next-identity-integration": "*"
+    next: "*"
+    react: "*"
+  languageName: unknown
+  linkType: soft
 
 "@styled-system/background@npm:^5.1.2":
   version: 5.1.2
@@ -7183,7 +7211,6 @@ __metadata:
     "@next/swc-darwin-x64": "npm:12.3.4"
     "@next/swc-linux-arm64-gnu": "npm:12.3.4"
     "@next/swc-linux-x64-gnu": "npm:12.3.4"
-    "@shared/data": "workspace:^"
     "@types/eslint": "npm:8"
     "@types/jest": "npm:28.1.8"
     "@types/node": "npm:18.18.9"
