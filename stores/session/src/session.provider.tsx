@@ -38,13 +38,13 @@ export const SessionProvider: FC<SessionProviderProps> = ({ children }) => {
   const cancelRequest = () => cancelToken.cancel()
 
   useEffect(() => {
-    if (session) return
+    if (session) return undefined
 
     getSession()
 
-    return cancelRequest
+    return () => cancelRequest()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [session?.id])
 
   return (
     <Provider value={{ session, fullName, userId, clearSession, getSession }}>{children}</Provider>
