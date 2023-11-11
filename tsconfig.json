@@ -30,7 +30,8 @@
     "features/identity/**/*.(ts|tsx)",
     "common/client/**/*.(ts|tsx)",
     "shared/**/*.(ts|tsx)",
-    "ui/**/*.(ts|tsx)"
+    "ui/**/*.(ts|tsx)",
+    "stores/**/*.(ts|tsx)"
   ],
   "exclude": [
     "integration",
