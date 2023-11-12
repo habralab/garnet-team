@@ -1,10 +1,8 @@
 import React                  from 'react'
 import { FC }                 from 'react'
 import { FormattedMessage }   from 'react-intl'
-import { useRouter }          from 'next/router'
-import { useEffect }          from 'react'
-import { useState }           from 'react'
 
+import { User }               from '@shared/data'
 import { Button }             from '@ui/button'
 import { Condition }          from '@ui/condition'
 import { Box }                from '@ui/layout'
@@ -14,27 +12,19 @@ import { Layout }             from '@ui/layout'
 import { Text }               from '@ui/text'
 import { Title }              from '@ui/title'
 import { WrapperWhite }       from '@ui/wrapper'
-import { mockAuthUserId }     from '@shared/data'
-import { getMockUser }        from '@shared/data'
 
 import { ButtonEditProfile }  from './button-edit-profile'
 import { ProfileAvatar }      from './profile-avatar'
 import { ProfileDescription } from './profile-description'
 import { ProfileProjects }    from './profile-projects'
+import { useProfileState }    from './hooks'
 
 export const Profile: FC = () => {
-  const router = useRouter()
-  const [isMyProfile, setIsMyProfile] = useState(false)
+  const { user, setUser, projects, teams } = useProfileState()
 
-  const userData = getMockUser(String(router.query.id) || '')
+  const handleEditUser = (editedUser: User) => setUser(editedUser)
 
-  const user = userData?.user
-  const teams = userData?.teams || []
-  const projects = userData?.projects || []
-
-  useEffect(() => {
-    if (user?.id === mockAuthUserId) setIsMyProfile(true)
-  }, [user])
+  const isMyProfile = true
 
   return (
     <Column fill>
@@ -56,7 +46,7 @@ export const Profile: FC = () => {
             <ProfileDescription user={user} />
             <Box position='absolute' bottom={32} right={32}>
               <Condition match={isMyProfile}>
-                <ButtonEditProfile user={user} />
+                <ButtonEditProfile user={user} onEditUser={handleEditUser} />
               </Condition>
               <Condition match={!isMyProfile}>
                 <Button variant='primary' size='normal'>

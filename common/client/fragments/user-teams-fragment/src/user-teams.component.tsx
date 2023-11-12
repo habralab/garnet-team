@@ -1,43 +1,25 @@
-import React                from 'react'
-import { FC }               from 'react'
-import { FormattedMessage } from 'react-intl'
-import { useRouter }        from 'next/router'
-import { useEffect }        from 'react'
-import { useState }         from 'react'
+import React                 from 'react'
+import { FC }                from 'react'
+import { FormattedMessage }  from 'react-intl'
+import { useState }          from 'react'
 
-import { Condition }        from '@ui/condition'
-import { Box }              from '@ui/layout'
-import { Column }           from '@ui/layout'
-import { Row }              from '@ui/layout'
-import { Layout }           from '@ui/layout'
-import { Tag }              from '@ui/tag'
-import { Text }             from '@ui/text'
-import { Title }            from '@ui/title'
-import { WrapperWhite }     from '@ui/wrapper'
-import { mockAuthUserId }   from '@shared/data'
-import { getMockUser }      from '@shared/data'
-import { getUniqueTags }    from '@shared/helpers'
+import { Condition }         from '@ui/condition'
+import { Box }               from '@ui/layout'
+import { Column }            from '@ui/layout'
+import { Row }               from '@ui/layout'
+import { Layout }            from '@ui/layout'
+import { Tag }               from '@ui/tag'
+import { Text }              from '@ui/text'
+import { Title }             from '@ui/title'
+import { WrapperWhite }      from '@ui/wrapper'
 
-import { ListTeams }        from './list-teams/list-teams.component'
+import { ListTeams }         from './list-teams/list-teams.component'
+import { useUserTeamsState } from './hooks'
 
 export const UserTeams: FC = () => {
-  const [isMyProfile, setIsMyProfile] = useState(false)
   const [selectedTags, setSelectedTags] = useState<string[]>([])
 
-  const router = useRouter()
-  const userData = getMockUser(String(router.query.id) || '')
-
-  const user = userData?.user
-  const teams = userData?.teams || []
-  const uniqueTags = getUniqueTags(teams)
-
-  useEffect(() => {
-    if (user?.id === mockAuthUserId) setIsMyProfile(true)
-
-    setSelectedTags(uniqueTags)
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user])
+  const { teams, isMyProfile, uniqueTags } = useUserTeamsState(setSelectedTags)
 
   const handleClickTag = (tag: string) => () => {
     if (selectedTags.includes(tag)) {

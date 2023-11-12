@@ -8,6 +8,7 @@ export interface User {
 
 export interface UserWithRequest extends User {
   requestType?: 'invite' | 'application'
+  requestId?: string
   date?: string
 }
 
@@ -24,7 +25,7 @@ export interface Team {
 
 export interface Project {
   id?: string
-  name?: string
+  projectName?: string
   description?: string
   tags?: string[]
   avatarUrl?: string
@@ -41,4 +42,18 @@ export interface MockUser {
   projectsListByUser?: {
     projects?: Project[]
   }
+}
+
+export interface FilterVariables {
+  search: string
+  tags: string[]
+  take: number
+  skip: number
+}
+
+export interface JoinRequest {
+  id?: string
+  userId?: string
+  teamId?: string
+  createdAt?: string
 }

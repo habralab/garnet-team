@@ -1,14 +1,16 @@
-export const navigationItems = [
+import { NavigationItem } from './header.interfaces'
+
+export const getNavigationItems = (): NavigationItem[] => [
   {
     id: 'header.profile',
-    url: '/user',
+    url: `/profile`,
   },
   {
     id: 'header.teams',
-    url: '/team',
+    url: '/teams',
   },
   {
     id: 'header.projects',
-    url: '/project',
+    url: '/projects',
   },
 ]

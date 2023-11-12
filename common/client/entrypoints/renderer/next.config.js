@@ -1,5 +1,6 @@
 module.exports = {
   basePath: '/app',
+  assetPrefix: '/app',
   experimental: {
     externalDir: true,
     swcFileReading: false,

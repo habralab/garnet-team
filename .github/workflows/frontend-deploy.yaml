@@ -26,7 +26,7 @@ jobs:
           key: ${{ secrets.FRONT_SSH_KEY }}
           debug: true
           script_stop: true
-          envs: REMOTE_DIR,DOCKER_COMPOSE_NAME,GIT_CONNECT
+          envs: REMOTE_DIR,DOCKER_COMPOSE_NAME,GIT_CONNECT,SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE
           script: |
             eval `ssh-agent -s`
             ssh-add ~/.ssh/garnet_web_repo

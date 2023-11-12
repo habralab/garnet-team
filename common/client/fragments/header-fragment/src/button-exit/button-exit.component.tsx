@@ -13,18 +13,20 @@ import { Layout }           from '@ui/layout'
 import { Box }              from '@ui/layout'
 import { Modal }            from '@ui/modal'
 import { Text }             from '@ui/text'
-
-const mockUserName = 'Маша Петрова'
+import { useSession }       from '@stores/session'
 
 export const ButtonExit: FC = () => {
   const [modalOpen, setModalOpen] = useState(false)
   const [isLogout, setIsLogout] = useState<boolean>(false)
   const { formatMessage } = useIntl()
 
+  const { fullName, clearSession } = useSession()
+
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
   const handleExit = () => {
     toggleModalOpen()
+    clearSession()
     setIsLogout(true)
   }
 
@@ -47,7 +49,7 @@ export const ButtonExit: FC = () => {
             onClose={toggleModalOpen}
           >
             <Text fontSize='semiMedium' fontWeight='bold' color='text.secondary'>
-              {mockUserName}
+              {fullName}
             </Text>
             <Layout flexBasis={4} flexShrink={0} />
             <Text fontSize='semiMedium' color='text.secondary'>
@@ -59,6 +61,7 @@ export const ButtonExit: FC = () => {
         </Box>
       </Condition>
       <Condition match={isLogout}>
+        <Layout />
         <LogoutFlow />
       </Condition>
     </>

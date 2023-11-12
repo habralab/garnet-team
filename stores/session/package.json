@@ -1,0 +1,19 @@
+{
+  "name": "@stores/session",
+  "version": "0.0.1",
+  "license": "BSD-3-Clause",
+  "main": "src/index.ts",
+  "dependencies": {
+    "axios": "0.21.4"
+  },
+  "devDependencies": {
+    "@atls/next-identity-integration": "0.0.17",
+    "@ory/kratos-client": "1.0.0",
+    "@types/react": "18.2.28"
+  },
+  "peerDependencies": {
+    "@atls/next-identity-integration": "*",
+    "next": "*",
+    "react": "*"
+  }
+}

@@ -7,6 +7,8 @@
     "@atls/next-identity-integration": "0.0.17"
   },
   "peerDependencies": {
-    "@atls/next-identity-integration": "*"
+    "@atls/next-identity-integration": "*",
+    "next": "*",
+    "react": "*"
   }
 }

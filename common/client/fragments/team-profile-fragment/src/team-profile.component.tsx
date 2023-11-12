@@ -1,10 +1,8 @@
 import React                   from 'react'
 import { FC }                  from 'react'
 import { FormattedMessage }    from 'react-intl'
-import { useRouter }           from 'next/router'
-import { useEffect }           from 'react'
-import { useState }            from 'react'
 
+import { Team }                from '@shared/data'
 import { Avatar }              from '@ui/avatar'
 import { Condition }           from '@ui/condition'
 import { Box }                 from '@ui/layout'
@@ -14,26 +12,27 @@ import { Layout }              from '@ui/layout'
 import { Text }                from '@ui/text'
 import { Title }               from '@ui/title'
 import { WrapperWhite }        from '@ui/wrapper'
-import { mockAuthUserId }      from '@shared/data'
-import { getMockTeam }         from '@shared/data'
-import { getMockUser }         from '@shared/data'
 
 import { ProfileActions }      from './profile-actions'
 import { ProfileDescription }  from './profile-description'
 import { ProfileParticipants } from './profile-participants'
 import { ProfileProjects }     from './profile-projects'
+import { useTeamState }        from './hooks'
 
 export const TeamProfile: FC = () => {
-  const router = useRouter()
-  const [isMyTeam, setIsMyTeam] = useState(false)
+  const {
+    team,
+    setTeam,
+    isMyTeam,
+    ownerUser,
+    teamProjects,
+    teamParticipants,
+    applicationParticipants,
+    invitedParticipants,
+    joinRequestAuthUser,
+  } = useTeamState()
 
-  const { team, teamProjects, teamParticipants, applicationParticipants, invitedParticipants } =
-    getMockTeam(String(router.query.id) || '')
-  const ownerUser = getMockUser(team?.ownerUserId || '')?.user
-
-  useEffect(() => {
-    if (team?.ownerUserId === mockAuthUserId) setIsMyTeam(true)
-  }, [team])
+  const handleEditTeam = (editedTeam: Team) => setTeam(editedTeam)
 
   return (
     <Column fill>
@@ -52,7 +51,12 @@ export const TeamProfile: FC = () => {
             <Layout flexBasis={32} />
             <ProfileDescription team={team} />
             <Box position='absolute' bottom={32} right={32} alignItems='center'>
-              <ProfileActions team={team} isMyTeam={isMyTeam} />
+              <ProfileActions
+                team={team}
+                isMyTeam={isMyTeam}
+                onEditTeam={handleEditTeam}
+                joinRequest={joinRequestAuthUser}
+              />
             </Box>
           </Condition>
           <Condition match={!team}>

@@ -18,7 +18,7 @@ export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large'
   return (
     <CardWithLink
       avatarUrl={project.avatarUrl}
-      name={project.name}
+      name={project.projectName}
       countItems={countTeams}
       countItemsWord={formatMessage({ id: 'shared_ui.card.team_words' }, { count: countTeams })}
       countPeopleWord={formatMessage({ id: 'shared_ui.card.people_words' }, { count: countUsers })}

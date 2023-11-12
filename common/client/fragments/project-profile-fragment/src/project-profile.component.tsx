@@ -1,10 +1,8 @@
 import React                  from 'react'
 import { FC }                 from 'react'
 import { FormattedMessage }   from 'react-intl'
-import { useRouter }          from 'next/router'
-import { useEffect }          from 'react'
-import { useState }           from 'react'
 
+import { Project }            from '@shared/data'
 import { Condition }          from '@ui/condition'
 import { Box }                from '@ui/layout'
 import { Column }             from '@ui/layout'
@@ -13,25 +11,17 @@ import { Layout }             from '@ui/layout'
 import { Text }               from '@ui/text'
 import { Title }              from '@ui/title'
 import { WrapperWhite }       from '@ui/wrapper'
-import { mockAuthUserId }     from '@shared/data'
-import { getMockProject }     from '@shared/data'
-import { getMockUser }        from '@shared/data'
 
 import { ButtonEditProject }  from './button-edit-project'
 import { ProfileAvatar }      from './profile-avatar'
 import { ProfileDescription } from './profile-description'
 import { ProfileTeams }       from './profile-teams'
+import { useProjectState }    from './hooks'
 
 export const ProjectProfile: FC = () => {
-  const router = useRouter()
-  const [isMyProject, setIsMyProject] = useState(false)
+  const { project, setProject, isMyProject, projectTeams, ownerUser } = useProjectState()
 
-  const { project, projectTeams } = getMockProject(String(router.query.id) || '')
-  const ownerUser = getMockUser(project?.ownerUserId || '')?.user
-
-  useEffect(() => {
-    if (project?.ownerUserId === mockAuthUserId) setIsMyProject(true)
-  }, [project])
+  const handleEditProject = (editedProject: Project) => setProject(editedProject)
 
   return (
     <Column fill>
@@ -51,7 +41,7 @@ export const ProjectProfile: FC = () => {
             <ProfileDescription project={project} />
             <Box position='absolute' bottom={32} right={32}>
               <Condition match={isMyProject}>
-                <ButtonEditProject project={project} />
+                <ButtonEditProject project={project} onEditProject={handleEditProject} />
               </Condition>
             </Box>
           </Condition>

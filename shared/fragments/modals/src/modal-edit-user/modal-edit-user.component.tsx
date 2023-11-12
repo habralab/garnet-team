@@ -3,17 +3,26 @@ import { FC }                 from 'react'
 import { useState }           from 'react'
 import { useIntl }            from 'react-intl'
 
-import { FormUser }           from '@ui/form'
-import { FormUserValues }     from '@ui/form'
+import { FormUser }           from '@shared/forms-fragment'
+import { FormUserValues }     from '@shared/forms-fragment'
 import { Layout }             from '@ui/layout'
 import { Modal }              from '@ui/modal'
 
 import { ModalEditUserProps } from './modal-edit-user.interfaces'
 import { getFormValues }      from './helpers'
+import { useSubmit }          from './hooks'
 
-export const ModalEditUser: FC<ModalEditUserProps> = ({ modalOpen = false, onClose, user }) => {
+export const ModalEditUser: FC<ModalEditUserProps> = ({
+  modalOpen = false,
+  onClose,
+  onSubmit,
+  user,
+}) => {
   const [formValues, setFormValues] = useState<FormUserValues>(getFormValues(user))
+  const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
+
+  const { submit } = useSubmit(user)
 
   const closeModal = () => {
     setFormValues(getFormValues(user))
@@ -24,9 +33,13 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({ modalOpen = false, onClo
     setFormValues({ ...formValues, [field]: value })
   }
 
-  const handleSubmit = () => {
-    /** @todo submit form */
-    closeModal?.()
+  const handleSubmit = async () => {
+    const editedUser = await submit(formValues)
+
+    if (editedUser) {
+      onSubmit?.(editedUser)
+      closeModal?.()
+    }
   }
 
   return (
@@ -36,8 +49,13 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({ modalOpen = false, onClo
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
+      confirmProps={{ disabled: submitDisabled }}
     >
-      <FormUser formValues={formValues} handleChange={handleChange} />
+      <FormUser
+        formValues={formValues}
+        handleChange={handleChange}
+        handleDisabled={setSubmitDisabled}
+      />
       <Layout flexBasis={50} flexShrink={0} />
     </Modal>
   )

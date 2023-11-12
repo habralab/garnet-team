@@ -16,7 +16,7 @@ import { Input }             from '@ui/input'
 import { Row }               from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { Column }            from '@ui/layout'
-import { Link }              from '@ui/link'
+import { NextLink }          from '@ui/link'
 import { Text }              from '@ui/text'
 
 export const LoginForm = () => {
@@ -91,9 +91,9 @@ export const LoginForm = () => {
           <Layout>
             <FlowMessages>{(messages) => <LocalizedMessages messages={messages} />}</FlowMessages>
           </Layout>
-          <Link fontSize='normal' href='/auth/recovery'>
+          <NextLink fontSize='normal' path='/auth/recovery' href='/auth/recovery'>
             <FormattedMessage id='login_password.forgot' />
-          </Link>
+          </NextLink>
         </Row>
         <Layout flexBasis={56} flexShrink={0} />
       </Column>

@@ -61,7 +61,7 @@ selfservice:
     login:
       ui_url: https://stage.garnet.pet-project.habr.com/auth/login
       after:
-        default_browser_return_url: https://stage.garnet.pet-project.habr.com/app
+        default_browser_return_url: https://stage.garnet.pet-project.habr.com/app/profile
 
     registration:
       ui_url: https://stage.garnet.pet-project.habr.com/auth/registration
