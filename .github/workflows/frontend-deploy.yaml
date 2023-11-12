@@ -32,5 +32,6 @@ jobs:
             ssh-add ~/.ssh/garnet_web_repo
             cd $REMOTE_DIR
             git pull $GIT_CONNECT
+            export SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE=$SELFSERVICE_FLOWS_REGISTRATION_AFTER_HOOKS_0_CONFIG_AUTH_CONFIG_VALUE
             docker-compose -f $DOCKER_COMPOSE_NAME down && docker-compose -f $DOCKER_COMPOSE_NAME up --force-recreate --build -d
             exit 0;
