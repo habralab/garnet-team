@@ -63,10 +63,6 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamParticipant
                 _u
                     .Set(x => x.Username, update.Username)
                     .Set(x => x.AvatarUrl, update.AvatarUrl),
-                options: new UpdateOptions()
-                {
-                    IsUpsert = true
-                },
                 cancellationToken: ct
             );
         }
