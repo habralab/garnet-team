@@ -3,7 +3,6 @@ import { FC }                 from 'react'
 import { FormattedMessage }   from 'react-intl'
 
 import { User }               from '@shared/data'
-import { Button }             from '@ui/button'
 import { Condition }          from '@ui/condition'
 import { Box }                from '@ui/layout'
 import { Column }             from '@ui/layout'
@@ -14,6 +13,7 @@ import { Title }              from '@ui/title'
 import { WrapperWhite }       from '@ui/wrapper'
 
 import { ButtonEditProfile }  from './button-edit-profile'
+import { ButtonInvite }       from './button-invite'
 import { ProfileAvatar }      from './profile-avatar'
 import { ProfileDescription } from './profile-description'
 import { ProfileProjects }    from './profile-projects'
@@ -50,11 +50,7 @@ export const Profile: FC = () => {
                   <ButtonEditProfile user={user} onEditUser={handleEditUser} />
                 </Condition>
                 <Condition match={!isMyProfile}>
-                  <Button variant='primary' size='normal'>
-                    <Text fontSize='medium' color='currentColor'>
-                      <FormattedMessage id='profile.invite' />
-                    </Text>
-                  </Button>
+                  <ButtonInvite user={user} />
                 </Condition>
               </Box>
             </Condition>
