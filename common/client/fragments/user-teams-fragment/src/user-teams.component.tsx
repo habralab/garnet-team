@@ -13,7 +13,7 @@ import { Text }              from '@ui/text'
 import { Title }             from '@ui/title'
 import { WrapperWhite }      from '@ui/wrapper'
 
-import { ListTeams }         from './list-teams/list-teams.component'
+import { ListTeams }         from './list-teams'
 import { useUserTeamsState } from './hooks'
 
 export const UserTeams: FC = () => {
