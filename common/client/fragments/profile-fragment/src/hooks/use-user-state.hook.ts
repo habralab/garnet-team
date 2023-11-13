@@ -3,9 +3,10 @@ import { useMemo }              from 'react'
 import { useEffect }            from 'react'
 import { useState }             from 'react'
 
-import { User }                 from '@shared/data'
-import { useGetUser }           from '@shared/data'
-import { useSession }           from '@stores/session'
+import { User }               from '@shared/data'
+import { useGetUser }         from '@shared/data'
+import { routes }             from '@shared/routes'
+import { useSession }         from '@stores/session'
 
 import { UseProfileStateProps } from './use-user-state.interfaces'
 import { isProfileNotFilled }   from './use-user-state.helper'
@@ -25,7 +26,7 @@ export const useProfileState: UseProfileStateProps = () => {
     if (fetchedUser) {
       setUser(fetchedUser)
 
-      if (isNotFilled) push('/onboard')
+      if (isNotFilled) push(routes.onboard)
     }
   }, [push, fetchedUser, userId, isNotFilled])
 

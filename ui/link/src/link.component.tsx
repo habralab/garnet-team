@@ -22,7 +22,7 @@ const LinkElement = styled(Text.withComponent('a'))<BaseLinkProps>(
 const basePath = '/app'
 
 export const Link = ({ children, href, ...props }) => (
-  <LinkElement href={`${basePath}${href}`} {...props}>
+  <LinkElement href={`${basePath}${href || props.path}`} {...props}>
     {children}
   </LinkElement>
 )
