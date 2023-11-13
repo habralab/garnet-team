@@ -12,7 +12,7 @@ export const useUserProjectsState = (setSelectedTags: (values: string[]) => void
   const router = useRouter()
   const queryId = typeof router.query.id === 'string' ? router.query.id : ''
 
-  const { user, projects } = useGetUser({ id: queryId, skip: 0, take: 20 })
+  const { user, projects } = useGetUser({ id: queryId })
 
   const uniqueTags = getUniqueTags(projects)
 

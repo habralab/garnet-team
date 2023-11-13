@@ -26,7 +26,7 @@ export const useTeamState = () => {
     joinRequests,
   } = useGetTeam({ id: queryId, search: '', skip: 0, take: 0 })
 
-  const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '', skip: 0, take: 20 })
+  const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '' })
   const joinRequestAuthUser = joinRequests.find((item) => item.userId === userId)
 
   useEffect(() => {

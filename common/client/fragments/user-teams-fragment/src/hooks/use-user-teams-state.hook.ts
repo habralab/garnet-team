@@ -14,7 +14,7 @@ export const useUserTeamsState = (setSelectedTags: (values: string[]) => void) =
 
   const { userId } = useSession()
 
-  const { user, teams } = useGetUser({ id: queryId, skip: 0, take: 20 })
+  const { user, teams } = useGetUser({ id: queryId })
 
   const uniqueTags = getUniqueTags(teams)
 

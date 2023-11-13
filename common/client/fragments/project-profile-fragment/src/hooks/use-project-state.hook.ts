@@ -17,7 +17,7 @@ export const useProjectState = () => {
   const [project, setProject] = useState<Project>()
 
   const { projectTeams, project: fetchedProject } = useGetProject({ id: queryId })
-  const { user: ownerUser } = useGetUser({ id: project?.ownerUserId || '', skip: 0, take: 20 })
+  const { user: ownerUser } = useGetUser({ id: project?.ownerUserId || '' })
 
   const [isMyProject, setIsMyProject] = useState(false)
 

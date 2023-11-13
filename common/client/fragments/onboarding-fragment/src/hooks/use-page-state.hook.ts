@@ -16,7 +16,7 @@ export const usePageState = () => {
 
   const redirectToProfilePage = useCallback(() => replace(`/profile`), [replace])
 
-  const { user } = useGetUser({ id: userId, skip: 0, take: 20 })
+  const { user } = useGetUser({ id: userId })
 
   useEffect(() => {
     if (!user) return

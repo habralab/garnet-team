@@ -17,7 +17,7 @@ export const useProfileState: UseProfileStateProps = () => {
 
   const { userId } = useSession()
 
-  const { user: fetchedUser, teams, projects } = useGetUser({ id: userId, skip: 0, take: 20 })
+  const { user: fetchedUser, teams, projects } = useGetUser({ id: userId, take: 20 })
 
   const isNotFilled = useMemo(() => isProfileNotFilled(fetchedUser), [fetchedUser])
 
