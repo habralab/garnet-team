@@ -3,13 +3,13 @@ import { useMemo }              from 'react'
 import { useEffect }            from 'react'
 import { useState }             from 'react'
 
-import { User }               from '@shared/data'
-import { useGetUser }         from '@shared/data'
-import { routes }             from '@shared/routes'
-import { useSession }         from '@stores/session'
+import { User }                 from '@shared/data'
+import { useGetUser }           from '@shared/data'
+import { routes }               from '@shared/routes'
+import { useSession }           from '@stores/session'
 
-import { UseProfileStateProps } from './use-user-state.interfaces'
-import { isProfileNotFilled }   from './use-user-state.helper'
+import { UseProfileStateProps } from './use-profile-state.interfaces'
+import { isProfileNotFilled }   from './use-profile-state.helper'
 
 export const useProfileState: UseProfileStateProps = () => {
   const [user, setUser] = useState<User>()

@@ -1,4 +1,4 @@
-import { IsProfileFilled } from './use-user-state.interfaces'
+import { IsProfileFilled } from './use-profile-state.interfaces'
 
 export const isProfileNotFilled: IsProfileFilled = (user) => {
   if (!user) return true
