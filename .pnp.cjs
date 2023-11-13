@@ -2079,6 +2079,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/styled", "virtual:b6a76d36bc5f47ff8a4f0f8e011b307d4ab3065df46e0be4565369b820208134343c534328fdd9d583e5fce8c9bc072414bbf22aca3d15cf89527d279bf60b8b#npm:11.9.3"],\
           ["@shared/data", "virtual:59e0abd174e3da7c354f708a86c323d7efc7907257474be767cde2c868968f6abcc9e32ab101233e79333002b6ed7c772678435effc2be6fda2675367fad05a2#workspace:shared/data"],\
           ["@shared/helpers", "workspace:shared/helpers"],\
+          ["@shared/routes", "workspace:shared/routes"],\
           ["@types/emotion__css", null],\
           ["@types/emotion__react", null],\
           ["@types/emotion__styled", null],\
@@ -2143,6 +2144,7 @@ const RAW_RUNTIME_STATE =
           ["@emotion/styled", null],\
           ["@shared/data", "virtual:a49649041113cc64f7f9353e08080db2655fd23f1ae001d91f8c5c3bdc5884529ac73b785fab0ed4c6170f42635596fd7b828da1257bc6995df4047a5172dedd#workspace:shared/data"],\
           ["@shared/helpers", "workspace:shared/helpers"],\
+          ["@shared/routes", "workspace:shared/routes"],\
           ["@types/emotion__css", null],\
           ["@types/emotion__react", null],\
           ["@types/emotion__styled", null],\
@@ -2203,6 +2205,7 @@ const RAW_RUNTIME_STATE =
           ["@apollo/client", "virtual:a49649041113cc64f7f9353e08080db2655fd23f1ae001d91f8c5c3bdc5884529ac73b785fab0ed4c6170f42635596fd7b828da1257bc6995df4047a5172dedd#npm:3.8.7"],\
           ["@shared/data", "virtual:a49649041113cc64f7f9353e08080db2655fd23f1ae001d91f8c5c3bdc5884529ac73b785fab0ed4c6170f42635596fd7b828da1257bc6995df4047a5172dedd#workspace:shared/data"],\
           ["@shared/helpers", "workspace:shared/helpers"],\
+          ["@shared/routes", "workspace:shared/routes"],\
           ["@types/react", "npm:18.2.28"],\
           ["@types/react-dom", "npm:18.2.15"],\
           ["@ui/avatar", "virtual:a49649041113cc64f7f9353e08080db2655fd23f1ae001d91f8c5c3bdc5884529ac73b785fab0ed4c6170f42635596fd7b828da1257bc6995df4047a5172dedd#workspace:ui/avatar"],\
