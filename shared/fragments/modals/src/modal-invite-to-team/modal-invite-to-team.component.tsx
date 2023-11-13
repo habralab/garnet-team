@@ -15,6 +15,7 @@ import { Modal }                   from '@ui/modal'
 import { Tag }                     from '@ui/tag'
 import { Text }                    from '@ui/text'
 import { useGetUser }              from '@shared/data'
+import { useSession }              from '@stores/session'
 
 import { ButtonCreateTeam }        from './button-create-team'
 import { ModalInviteToTeamProps }  from './modal-invite-to-team.interfaces'
@@ -30,8 +31,9 @@ export const ModalInviteToTeam: FC<ModalInviteToTeamProps> = ({
   const { formatMessage } = useIntl()
 
   const { createTeamJoiInvite } = useCreateTeamJoinInvite()
+  const { userId } = useSession()
 
-  const { user, teams: allTeams } = useGetUser({ id: invitedUserId })
+  const { user, teams: allTeams } = useGetUser({ id: userId })
   const teams = allTeams?.filter((team) => team.ownerUserId === user?.id) || []
 
   const handleCancel = () => {
