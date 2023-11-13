@@ -4,21 +4,16 @@ import { FormattedMessage }        from 'react-intl'
 import { useState }                from 'react'
 import { useIntl }                 from 'react-intl'
 
-import { Avatar }                  from '@ui/avatar'
 import { Condition }               from '@ui/condition'
-import { InputRadio }              from '@ui/input'
-import { Box }                     from '@ui/layout'
 import { Column }                  from '@ui/layout'
-import { Row }                     from '@ui/layout'
 import { Layout }                  from '@ui/layout'
 import { Modal }                   from '@ui/modal'
-import { Tag }                     from '@ui/tag'
 import { Text }                    from '@ui/text'
 import { useGetUser }              from '@shared/data'
-import { routes }                  from '@shared/routes'
 import { useSession }              from '@stores/session'
 
 import { ButtonCreateTeam }        from './button-create-team'
+import { ListTeams }               from './list-teams'
 import { ModalInviteToTeamProps }  from './modal-invite-to-team.interfaces'
 import { useCreateTeamJoinInvite } from './data'
 
@@ -75,37 +70,11 @@ export const ModalInviteToTeam: FC<ModalInviteToTeamProps> = ({
         </Column>
       </Condition>
       <Condition match={teams.length > 0}>
-        <Column fill id='custom-scrollbar' maxHeight={274} gap={20} overflow='auto'>
-          {teams.map(({ id, avatarUrl, name, tags }) => (
-            <Row key={id} alignItems='center'>
-              <Box height={20}>
-                <InputRadio value={selectedTeam === id} onChange={() => setSelectedTeam(id)} />
-              </Box>
-              <Layout flexBasis={20} flexShrink={0} />
-              <Avatar
-                image={avatarUrl}
-                size={74}
-                title={name}
-                shape='square'
-                url={`${routes.teams}/${id}`}
-              />
-              <Layout flexBasis={24} flexShrink={0} />
-              <Column width='100%' height='auto' justifyContent='center'>
-                <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
-                  {name}
-                </Text>
-                <Layout flexBasis={6} flexShrink={0} />
-                <Row flexWrap='wrap' maxHeight={22} overflow='hidden' gap={10}>
-                  {tags?.map((tag) => (
-                    <Tag key={tag} size='small'>
-                      {tag}
-                    </Tag>
-                  ))}
-                </Row>
-              </Column>
-            </Row>
-          ))}
-        </Column>
+        <ListTeams
+          teams={teams}
+          selectedTeam={selectedTeam}
+          onChangeSelectedTeam={setSelectedTeam}
+        />
         <Layout flexBasis={40} flexShrink={0} />
       </Condition>
     </Modal>
