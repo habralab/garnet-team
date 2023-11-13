@@ -20,7 +20,7 @@ import { ProfileProjects }    from './profile-projects'
 import { useProfileState }    from './hooks'
 
 export const Profile: FC = () => {
-  const { user, setUser, projects, teams } = useProfileState()
+  const { user, setUser, projects, teams, isNotFilled } = useProfileState()
 
   const handleEditUser = (editedUser: User) => setUser(editedUser)
 
@@ -28,53 +28,60 @@ export const Profile: FC = () => {
 
   return (
     <Column fill>
-      <Condition match={!isMyProfile || !user}>
-        <Title>
-          <FormattedMessage id='profile.user_profile' />
-        </Title>
-      </Condition>
-      <Condition match={isMyProfile && Boolean(user)}>
-        <Title>
-          <FormattedMessage id='profile.my_profile' />
-        </Title>
-      </Condition>
-      <WrapperWhite>
-        <Row>
-          <Condition match={Boolean(user)}>
-            <ProfileAvatar user={user} isMyProfile={isMyProfile} teams={teams} />
-            <Layout flexBasis={32} />
-            <ProfileDescription user={user} />
-            <Box position='absolute' bottom={32} right={32}>
-              <Condition match={isMyProfile}>
-                <ButtonEditProfile user={user} onEditUser={handleEditUser} />
-              </Condition>
-              <Condition match={!isMyProfile}>
-                <Button variant='primary' size='normal'>
-                  <Text fontSize='medium' color='currentColor'>
-                    <FormattedMessage id='profile.invite' />
-                  </Text>
-                </Button>
-              </Condition>
-            </Box>
-          </Condition>
-          <Condition match={!user}>
-            <Column fill alignItems='center'>
-              <Layout flexBasis={50} />
-              <Text fontSize='semiLarge' fontWeight='semiBold' color='text.gray' textAlign='center'>
-                <FormattedMessage id='profile.profile_not_found' />
-              </Text>
-              <Layout flexBasis={50} />
-            </Column>
-          </Condition>
-        </Row>
-      </WrapperWhite>
-      <Condition match={Boolean(user)}>
-        <Layout flexBasis={32} flexShrink={0} />
+      <Condition match={!isNotFilled}>
+        <Condition match={!isMyProfile || !user}>
+          <Title>
+            <FormattedMessage id='profile.user_profile' />
+          </Title>
+        </Condition>
+        <Condition match={isMyProfile && Boolean(user)}>
+          <Title>
+            <FormattedMessage id='profile.my_profile' />
+          </Title>
+        </Condition>
         <WrapperWhite>
-          <Column>
-            <ProfileProjects user={user} projects={projects} isMyProfile={isMyProfile} />
-          </Column>
+          <Row>
+            <Condition match={Boolean(user)}>
+              <ProfileAvatar user={user} isMyProfile={isMyProfile} teams={teams} />
+              <Layout flexBasis={32} />
+              <ProfileDescription user={user} />
+              <Box position='absolute' bottom={32} right={32}>
+                <Condition match={isMyProfile}>
+                  <ButtonEditProfile user={user} onEditUser={handleEditUser} />
+                </Condition>
+                <Condition match={!isMyProfile}>
+                  <Button variant='primary' size='normal'>
+                    <Text fontSize='medium' color='currentColor'>
+                      <FormattedMessage id='profile.invite' />
+                    </Text>
+                  </Button>
+                </Condition>
+              </Box>
+            </Condition>
+            <Condition match={!user}>
+              <Column fill alignItems='center'>
+                <Layout flexBasis={50} />
+                <Text
+                  fontSize='semiLarge'
+                  fontWeight='semiBold'
+                  color='text.gray'
+                  textAlign='center'
+                >
+                  <FormattedMessage id='profile.profile_not_found' />
+                </Text>
+                <Layout flexBasis={50} />
+              </Column>
+            </Condition>
+          </Row>
         </WrapperWhite>
+        <Condition match={Boolean(user)}>
+          <Layout flexBasis={32} flexShrink={0} />
+          <WrapperWhite>
+            <Column>
+              <ProfileProjects user={user} projects={projects} isMyProfile={isMyProfile} />
+            </Column>
+          </WrapperWhite>
+        </Condition>
       </Condition>
     </Column>
   )
