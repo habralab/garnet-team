@@ -31,7 +31,7 @@ export const ProfileProjects: FC<ProfileProjectsProps> = ({ projects, isMyProfil
       </Text>
       <Condition match={isMyProfile && projects.length > 0}>
         <Box alignItems='center'>
-          <NextLink path={`${routes.usersProjects}/${user?.id}`}>
+          <NextLink path={routes.usersProjects(user?.id || '')}>
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>
                 <FormattedMessage id='profile.manage' />

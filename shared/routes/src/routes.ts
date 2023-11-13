@@ -6,6 +6,6 @@ export const routes = {
   teams: '/teams',
   teamsInvite: '/teams/invite',
   users: '/users',
-  usersProjects: '/users/projects',
-  usersTeams: '/users/teams',
+  usersProjects: (id: string) => `/users/${id}/projects`,
+  usersTeams: (id: string) => `/users/${id}/teams`,
 }

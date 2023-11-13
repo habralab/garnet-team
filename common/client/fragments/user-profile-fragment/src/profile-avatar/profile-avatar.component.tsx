@@ -85,7 +85,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
     <Condition match={teams.length > 4}>
       <Layout flexBasis={10} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <NextLink path={`${routes.usersTeams}/${user?.id}`}>
+        <NextLink path={routes.usersTeams(user?.id || '')}>
           <FormattedMessage id='profile.more_plus' values={{ number: teams.length - 4 }} />
         </NextLink>
       </Box>
