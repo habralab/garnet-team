@@ -58,7 +58,13 @@ export const ProfileParticipants: FC<ProfileParticipantsProps> = (props) => {
       <Condition match={participants.length > 0}>
         <Grid gap={17} gridWrap='mini' justifyContent='space-between'>
           {participants.slice(0, 12).map(({ id, avatarUrl, userName }) => (
-            <Avatar key={id} image={avatarUrl} size={74} title={userName} url={`/user/${id}`} />
+            <Avatar
+              key={id}
+              image={avatarUrl}
+              size={74}
+              title={userName}
+              url={`${routes.users}/${id}`}
+            />
           ))}
         </Grid>
         <Condition match={participants.length > 12}>

@@ -69,7 +69,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
             shape='square'
             size={62}
             image={team?.avatarUrl}
-            url={`/team/${team?.id}`}
+            url={`${routes.teams}/${team?.id}`}
             title={team?.name}
             color='gray'
           >

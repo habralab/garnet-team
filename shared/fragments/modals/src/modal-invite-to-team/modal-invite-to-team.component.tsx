@@ -15,6 +15,7 @@ import { Modal }                   from '@ui/modal'
 import { Tag }                     from '@ui/tag'
 import { Text }                    from '@ui/text'
 import { useGetUser }              from '@shared/data'
+import { routes }                  from '@shared/routes'
 import { useSession }              from '@stores/session'
 
 import { ButtonCreateTeam }        from './button-create-team'
@@ -81,7 +82,13 @@ export const ModalInviteToTeam: FC<ModalInviteToTeamProps> = ({
                 <InputRadio value={selectedTeam === id} onChange={() => setSelectedTeam(id)} />
               </Box>
               <Layout flexBasis={20} flexShrink={0} />
-              <Avatar image={avatarUrl} size={74} title={name} shape='square' url={`/team/${id}`} />
+              <Avatar
+                image={avatarUrl}
+                size={74}
+                title={name}
+                shape='square'
+                url={`${routes.teams}/${id}`}
+              />
               <Layout flexBasis={24} flexShrink={0} />
               <Column width='100%' height='auto' justifyContent='center'>
                 <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
