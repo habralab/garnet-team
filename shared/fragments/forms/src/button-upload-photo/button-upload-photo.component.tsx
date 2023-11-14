@@ -1,12 +1,12 @@
 import React                      from 'react'
+import { ChangeEvent }            from 'react'
 import { FC }                     from 'react'
 import { useRef }                 from 'react'
 import { useState }               from 'react'
 
 import { ModalEditImage }         from '@shared/modals-fragment'
 import { Button }                 from '@ui/button'
-import { Input }                  from '@ui/input'
-import { Box }                    from '@ui/layout'
+import { HiddenInput }            from '@ui/input'
 
 import { ButtonUploadPhotoProps } from './button-upload-photo.interfaces'
 
@@ -22,8 +22,8 @@ export const ButtonUploadPhoto: FC<ButtonUploadPhotoProps> = ({
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
-  const handleUploadImage = (event) => {
-    setFile(event.target?.files[0])
+  const handleUploadImage = (event: ChangeEvent<HTMLInputElement>) => {
+    setFile(event.target.files?.[0])
     toggleModalOpen()
   }
 
@@ -44,15 +44,7 @@ export const ButtonUploadPhoto: FC<ButtonUploadPhotoProps> = ({
       <Button variant='link' size='micro' onClick={handleClickUpload}>
         {children}
       </Button>
-      <Box display='none'>
-        <Input
-          ref={inputRef}
-          type='file'
-          accept='image/*'
-          hidden
-          onChangeNative={handleUploadImage}
-        />
-      </Box>
+      <HiddenInput ref={inputRef} type='file' accept='image/*' onChange={handleUploadImage} />
       <ModalEditImage
         modalOpen={modalOpen}
         onClose={toggleModalOpen}

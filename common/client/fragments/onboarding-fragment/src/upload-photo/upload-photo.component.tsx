@@ -1,4 +1,5 @@
 import React                from 'react'
+import { ChangeEvent }      from 'react'
 import { FC }               from 'react'
 import { FormattedMessage } from 'react-intl'
 import { useRef }           from 'react'
@@ -8,7 +9,7 @@ import { ModalEditImage }   from '@shared/modals-fragment'
 import { Avatar }           from '@ui/avatar'
 import { Button }           from '@ui/button'
 import { Condition }        from '@ui/condition'
-import { Input }            from '@ui/input'
+import { HiddenInput }      from '@ui/input'
 import { Box }              from '@ui/layout'
 import { Layout }           from '@ui/layout'
 import { Text }             from '@ui/text'
@@ -35,8 +36,8 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
     }
   }
 
-  const handleUploadImage = (event) => {
-    setFile(event.target?.files[0])
+  const handleUploadImage = (event: ChangeEvent<HTMLInputElement>) => {
+    setFile(event.target.files?.[0])
     toggleModalOpen()
   }
 
@@ -60,15 +61,7 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
       </Box>
       <Layout flexBasis={64} flexShrink={0} />
       <Box justifyContent='center' onClick={handleClickUpload}>
-        <Box display='none'>
-          <Input
-            ref={inputRef}
-            type='file'
-            accept='image/*'
-            hidden
-            onChangeNative={handleUploadImage}
-          />
-        </Box>
+        <HiddenInput ref={inputRef} type='file' accept='image/*' onChange={handleUploadImage} />
         <Avatar image={avatarUrl} size={250} color='gray' style={{ cursor: 'pointer' }}>
           <Condition match={!avatarUrl}>
             <Text fontSize='medium' color='text.white'>
