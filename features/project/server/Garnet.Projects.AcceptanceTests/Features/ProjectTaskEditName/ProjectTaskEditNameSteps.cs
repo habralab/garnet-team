@@ -21,7 +21,7 @@ public class ProjectTaskEditNameSteps : BaseSteps
         _errorStepContext = errorStepContext;
     }
 
-    [Given(@"существует задача '(.*)' в проекте '(.*)'")]
+    [Given(@"существует задача '([^']*)' в проекте '([^']*)'")]
     public async Task GivenСуществуетЗадачаВПроекте(string taskName, string projectName)
     {
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();

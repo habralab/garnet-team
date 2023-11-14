@@ -64,7 +64,7 @@ public class ProjectTaskCreateSteps : BaseSteps
         }
     }
 
-    [Then(@"в системе существует задача с названием '(.*)'")]
+    [Then(@"в системе существует задача с названием '([^']*)'")]
     public async Task ThenВСистемеСуществуетЗадача(string taskName)
     {
         var task = await Db.ProjectTasks.Find(x => x.Name == taskName).FirstOrDefaultAsync();
