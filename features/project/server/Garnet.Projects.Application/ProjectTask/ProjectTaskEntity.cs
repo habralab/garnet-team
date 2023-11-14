@@ -46,6 +46,6 @@ public static class ProjectTaskEntityExtensions
     {
         return new ProjectTaskClosedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels, doc.Reopened);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels, doc.Reopened, null);
     }
 }
