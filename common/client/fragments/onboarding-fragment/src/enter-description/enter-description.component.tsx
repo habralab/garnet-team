@@ -45,7 +45,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
         placeholder={formatMessage({ id: 'onboarding.information_about_yourself' })}
         onChange={setValue}
         onBlur={updateErrorText}
-        style={{ height: 152, resize: 'none' }}
+        height={152}
         errorText={errorText}
       />
       <Layout flexBasis={10} flexShrink={0} />

@@ -81,7 +81,7 @@ export const FormProject: FC<FormProjectProps> = ({ formValues, handleChange, ha
           value={formValues.description}
           placeholder={formatMessage({ id: 'shared_ui.form.description_project' })}
           onChange={handleChange('description')}
-          style={{ height: 176, resize: 'none' }}
+          height={176}
           errorText={errorsText.description}
           onBlur={updateErrorsText('description')}
         />

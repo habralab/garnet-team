@@ -81,7 +81,7 @@ export const FormTeam: FC<FormTeamProps> = ({ formValues, handleChange, handleDi
           value={formValues.description}
           placeholder={formatMessage({ id: 'shared_ui.form.description_team' })}
           onChange={handleChange('description')}
-          style={{ height: 176, resize: 'none' }}
+          height={176}
           errorText={errorsText.description}
           onBlur={updateErrorsText('description')}
         />

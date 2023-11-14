@@ -96,7 +96,7 @@ export const FormUser: FC<FormUserProps> = ({ formValues, handleChange, handleDi
           id='description'
           value={formValues.description}
           onChange={handleChange('description')}
-          style={{ height: 176, resize: 'none' }}
+          height={176}
           errorText={errorsText.description}
           onBlur={updateErrorsText('description')}
         />

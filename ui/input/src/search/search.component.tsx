@@ -19,13 +19,8 @@ import { Text }                     from '@ui/text'
 
 import { DropdownSkills }           from '../dropdown-skills'
 import { IconAttachment }           from '../icon-attachment'
+import { InputElement }             from '../input.element'
 import { InputProps }               from '../input.interfaces'
-import { transitionStyles }         from '../input.styles'
-import { shapeStyles }              from '../input.styles'
-import { baseStyles }               from '../input.styles'
-import { appearanceStyles }         from '../input.styles'
-
-const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles)
 
 const Container = styled(Column)(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',

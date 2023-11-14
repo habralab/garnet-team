@@ -13,13 +13,8 @@ import { Layout }                   from '@ui/layout'
 import { Text }                     from '@ui/text'
 
 import { IconAttachment }           from './icon-attachment'
+import { InputElement }             from './input.element'
 import { InputProps }               from './input.interfaces'
-import { transitionStyles }         from './input.styles'
-import { shapeStyles }              from './input.styles'
-import { baseStyles }               from './input.styles'
-import { appearanceStyles }         from './input.styles'
-
-export const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles)
 
 export const Label = styled.label()
 

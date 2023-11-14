@@ -1,7 +1,6 @@
 import styled                       from '@emotion/styled'
 import { RawInput }                 from '@atls-ui-parts/input'
 import { useChangeValue }           from '@atls-ui-parts/input'
-import { createTextareaProps }      from '@atls-ui-parts/input'
 
 import React                        from 'react'
 import { HTMLInputTypeAttribute }   from 'react'
@@ -22,18 +21,12 @@ import { Text }                     from '@ui/text'
 
 import { DropdownSkills }           from '../dropdown-skills'
 import { IconAttachment }           from '../icon-attachment'
+import { InputElement }             from '../input.element'
 import { InputProps }               from '../input.interfaces'
-import { transitionStyles }         from '../input.styles'
-import { shapeStyles }              from '../input.styles'
-import { baseStyles }               from '../input.styles'
-import { appearanceStyles }         from '../input.styles'
 import { mockSkills }               from './data'
+import { multiselectElementStyles } from './multiselect.styles'
 
-const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles, {
-  padding: 16,
-})
-
-const { containerProps } = createTextareaProps()
+const MultiselectElement = styled(InputElement)(multiselectElementStyles)
 
 const Container = styled(Column)(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
@@ -86,8 +79,7 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
 
   return (
     <Container ref={containerRef} type={type} onClick={() => (ref as any).current.focus()}>
-      <InputElement
-        {...containerProps}
+      <MultiselectElement
         {...triggerProps}
         {...props}
         onClick={openMenu}
@@ -120,7 +112,7 @@ export const MultiselectWithoutRef: ForwardRefRenderFunction<HTMLInputElement, M
             onClick={props.onIconClick}
           />
         </Condition>
-      </InputElement>
+      </MultiselectElement>
       <Condition match={menuOpen}>
         {renderLayer(
           <Box
