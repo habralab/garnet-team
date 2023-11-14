@@ -5,5 +5,7 @@ public record UserUpdatedEvent(
     string UserName,
     string Description,
     string AvatarUrl,
-    string[] Tags
+    string[] Tags,
+    float TotalScore,
+    Dictionary<string, float> SkillScore
 );

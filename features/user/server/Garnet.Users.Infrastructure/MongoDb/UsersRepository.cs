@@ -68,7 +68,9 @@ public class UsersRepository : RepositoryBase, IUsersRepository
                username,
                string.Empty,
                string.Empty,
-               Array.Empty<string>()
+               Array.Empty<string>(),
+               0,
+               new Dictionary<string, float>()
             )
         );
         var userDocument = await InsertOneDocument(_ct, db.Users, user);

@@ -10,6 +10,8 @@ public record UserDocument : DocumentBase
     public string Description { get; init; } = null!;
     public string AvatarUrl { get; init; } = null!;
     public string[] Tags { get; init; } = Array.Empty<string>();
+    public float TotalScore { get; init; } = 0;
+    public Dictionary<string, float> SkillScore { get; init; } = new();
 
     public static UserDocument Create(UserDocumentCreateArgs args)
     {
@@ -19,12 +21,14 @@ public record UserDocument : DocumentBase
             UserName = args.UserName,
             Description = args.Description,
             AvatarUrl = args.AvatarUrl,
-            Tags = args.Tags
+            Tags = args.Tags,
+            TotalScore = args.TotalScore,
+            SkillScore = args.SkillScore
         };
     }
     
     public static User ToDomain(UserDocument doc)
     {
-        return new User(doc.Id, doc.UserName, doc.Description, doc.AvatarUrl, doc.Tags);
+        return new User(doc.Id, doc.UserName, doc.Description, doc.AvatarUrl, doc.Tags, doc.TotalScore, doc.SkillScore);
     }
 }
