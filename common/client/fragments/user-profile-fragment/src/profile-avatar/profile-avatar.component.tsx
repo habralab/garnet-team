@@ -11,6 +11,7 @@ import { Row }                from '@ui/layout'
 import { Layout }             from '@ui/layout'
 import { NextLink }           from '@ui/link'
 import { Text }               from '@ui/text'
+import { routes }             from '@shared/routes'
 
 import { ButtonCreateTeam }   from './button-create-team'
 import { ProfileAvatarProps } from './profile-avatar.interfaces'
@@ -48,7 +49,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
       <Condition match={isMyProfile}>
         <Layout flexBasis={10} flexShrink={0} />
         <Row justifyContent='flex-end' alignItems='center'>
-          <NextLink path='/team' href='/team'>
+          <NextLink path={routes.teams}>
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>
                 <FormattedMessage id='profile.find' />
@@ -68,7 +69,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
             shape='square'
             size={62}
             image={team?.avatarUrl}
-            url={`/team/${team?.id}`}
+            url={`${routes.teams}/${team?.id}`}
             title={team?.name}
             color='gray'
           >
@@ -84,7 +85,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ teams, user, isMyProfile
     <Condition match={teams.length > 4}>
       <Layout flexBasis={10} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <NextLink path={`/user/teams/${user?.id}`} href={`/user/teams/${user?.id}`}>
+        <NextLink path={routes.usersTeams(user?.id || '')}>
           <FormattedMessage id='profile.more_plus' values={{ number: teams.length - 4 }} />
         </NextLink>
       </Box>

@@ -39,8 +39,8 @@ const mediumPaddingSmallHeightWithIconStyles = createShapeStyles({
 })
 
 const mediumPaddingMicroHeightStyles = createShapeStyles({
-  paddingLeft: 0.01,
-  paddingRight: 0.01,
+  paddingLeft: 0,
+  paddingRight: 0,
   rounding: 0,
   size: 20,
 })

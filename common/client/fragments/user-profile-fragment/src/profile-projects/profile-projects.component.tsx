@@ -12,6 +12,7 @@ import { Grid }                 from '@ui/layout'
 import { Layout }               from '@ui/layout'
 import { NextLink }             from '@ui/link'
 import { Text }                 from '@ui/text'
+import { routes }               from '@shared/routes'
 
 import { ButtonCreateProject }  from './button-create-project'
 import { ProfileProjectsProps } from './profile-projects.interfaces'
@@ -30,11 +31,13 @@ export const ProfileProjects: FC<ProfileProjectsProps> = ({ projects, isMyProfil
       </Text>
       <Condition match={isMyProfile && projects.length > 0}>
         <Box alignItems='center'>
-          <Button variant='link' size='micro'>
-            <Text fontSize='normal' color='currentColor'>
-              <FormattedMessage id='profile.manage' />
-            </Text>
-          </Button>
+          <NextLink path={routes.usersProjects(user?.id || '')}>
+            <Button variant='link' size='micro'>
+              <Text fontSize='normal' color='currentColor'>
+                <FormattedMessage id='profile.manage' />
+              </Text>
+            </Button>
+          </NextLink>
           <Layout width={64} />
           <ButtonCreateProject user={user} withIcon />
         </Box>
@@ -63,7 +66,7 @@ export const ProfileProjects: FC<ProfileProjectsProps> = ({ projects, isMyProfil
           <Layout flexBasis={30} flexShrink={0} />
           <ButtonCreateProject user={user} />
           <Layout flexBasis={20} flexShrink={0} />
-          <NextLink path='/project' href='/project'>
+          <NextLink path={routes.projects}>
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>
                 <FormattedMessage id='profile.find_project' />

@@ -4,6 +4,7 @@ import { useEffect }   from 'react'
 import { useState }    from 'react'
 
 import { useGetUser }  from '@shared/data'
+import { routes }      from '@shared/routes'
 import { useSession }  from '@stores/session'
 
 import { PageState }   from '../onboarding.interfaces'
@@ -14,9 +15,9 @@ export const usePageState = () => {
 
   const { userId } = useSession()
 
-  const redirectToProfilePage = useCallback(() => replace(`/profile`), [replace])
+  const redirectToProfilePage = useCallback(() => replace(routes.profile), [replace])
 
-  const { user } = useGetUser({ id: userId, skip: 0, take: 20 })
+  const { user } = useGetUser({ id: userId })
 
   useEffect(() => {
     if (!user) return
@@ -34,5 +35,5 @@ export const usePageState = () => {
     }
   }, [user, redirectToProfilePage])
 
-  return { pageState, setPageState, redirectToUserPage: redirectToProfilePage }
+  return { pageState, setPageState, redirectToProfilePage }
 }

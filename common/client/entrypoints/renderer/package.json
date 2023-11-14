@@ -21,6 +21,7 @@
     "@app/team-page": "workspace:0.0.1",
     "@app/team-profile-page": "workspace:0.0.1",
     "@app/user-page": "workspace:0.0.1",
+    "@app/user-projects-page": "workspace:0.0.1",
     "@app/user-teams-page": "workspace:0.0.1",
     "@atls/next-identity-integration": "0.0.17",
     "@emotion/css": "11.9.0",

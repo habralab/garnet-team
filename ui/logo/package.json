@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "main": "src/index.ts",
   "dependencies": {
+    "@shared/routes": "workspace:0.0.1",
     "@ui/link": "workspace:0.0.1"
   },
   "devDependencies": {

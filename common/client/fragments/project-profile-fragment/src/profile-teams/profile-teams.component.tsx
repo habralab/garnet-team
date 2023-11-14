@@ -12,6 +12,7 @@ import { Grid }              from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { NextLink }          from '@ui/link'
 import { Text }              from '@ui/text'
+import { routes }            from '@shared/routes'
 
 import { ButtonCreateTeam }  from './button-create-team'
 import { ProfileTeamsProps } from './profile-teams.interfaces'
@@ -58,7 +59,7 @@ export const ProfileTeams: FC<ProfileTeamsProps> = ({ teams, isMyProject, ownerU
           <Layout flexBasis={30} flexShrink={0} />
           <ButtonCreateTeam user={ownerUser} />
           <Layout flexBasis={20} flexShrink={0} />
-          <NextLink path='/team' href='/team'>
+          <NextLink path={routes.teams}>
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>
                 <FormattedMessage id='profile.find_team' />

@@ -5,10 +5,11 @@ import { useState }             from 'react'
 
 import { User }                 from '@shared/data'
 import { useGetUser }           from '@shared/data'
+import { routes }               from '@shared/routes'
 import { useSession }           from '@stores/session'
 
-import { UseProfileStateProps } from './use-user-state.interfaces'
-import { isProfileNotFilled }   from './use-user-state.helper'
+import { UseProfileStateProps } from './use-profile-state.interfaces'
+import { isProfileNotFilled }   from './use-profile-state.helper'
 
 export const useProfileState: UseProfileStateProps = () => {
   const [user, setUser] = useState<User>()
@@ -17,7 +18,7 @@ export const useProfileState: UseProfileStateProps = () => {
 
   const { userId } = useSession()
 
-  const { user: fetchedUser, teams, projects } = useGetUser({ id: userId, skip: 0, take: 20 })
+  const { user: fetchedUser, teams, projects } = useGetUser({ id: userId, take: 20 })
 
   const isNotFilled = useMemo(() => isProfileNotFilled(fetchedUser), [fetchedUser])
 
@@ -25,7 +26,7 @@ export const useProfileState: UseProfileStateProps = () => {
     if (fetchedUser) {
       setUser(fetchedUser)
 
-      if (isNotFilled) push('/onboard')
+      if (isNotFilled) push(routes.onboard)
     }
   }, [push, fetchedUser, userId, isNotFilled])
 

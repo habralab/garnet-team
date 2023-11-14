@@ -3,6 +3,7 @@ import { FC }                from 'react'
 import { useIntl }           from 'react-intl'
 
 import { UserGroupIcon }     from '@ui/icon'
+import { routes }            from '@shared/routes'
 
 import { CardWithLink }      from '../card-with-link'
 import { CardProjectsProps } from './card-project.interfaces'
@@ -25,7 +26,7 @@ export const CardProject: FC<CardProjectsProps> = ({ project, cardSize = 'large'
       itemsAvatars={mockAvatarsTeams}
       itemsAvatarsShape='square'
       cardSize={cardSize}
-      url={`/project/${project.id}`}
+      url={`${routes.projects}/${project.id}`}
       itemsIcon={<UserGroupIcon width={14} height={14} color='accentPressed' />}
     />
   )

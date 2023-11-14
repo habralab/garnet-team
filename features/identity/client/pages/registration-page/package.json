@@ -16,6 +16,7 @@
   },
   "peerDependencies": {
     "@atls/next-identity-integration": "*",
+    "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "next": "*",

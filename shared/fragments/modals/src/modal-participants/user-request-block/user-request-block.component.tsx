@@ -15,6 +15,7 @@ import { Row }                      from '@ui/layout'
 import { Layout }                   from '@ui/layout'
 import { Tag }                      from '@ui/tag'
 import { Text }                     from '@ui/text'
+import { routes }                   from '@shared/routes'
 
 import { UserRequestBlockProps }    from './user-request-block.interfaces'
 import { useDecideTeamJoinRequest } from '../data'
@@ -42,7 +43,7 @@ export const UserRequestBlock: FC<UserRequestBlockProps> = ({ user, size = 'norm
         image={avatarUrl}
         size={size === 'large' ? 124 : 74}
         title={userName}
-        url={`/user/${id}`}
+        url={`${routes.users}/${id}`}
       />
       <Layout flexBasis={size === 'large' ? 24 : 16} flexShrink={0} />
       <Column fill justifyContent='center'>
