@@ -15,6 +15,7 @@ public record ProjectTaskEntity(
     string[] UserExecutorIds,
     string[] Tags,
     string[] Labels,
+    bool Reopened,
     AuditInfo AuditInfo
 );
 
@@ -24,27 +25,27 @@ public static class ProjectTaskEntityExtensions
     {
         return new ProjectTaskCreatedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels, doc.Reopened);
     }
 
     public static ProjectTaskUpdatedEvent ToUpdatedEvent(this ProjectTaskEntity doc)
     {
         return new ProjectTaskUpdatedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels, doc.Reopened);
     }
 
     public static ProjectTaskDeletedEvent ToDeletedEvent(this ProjectTaskEntity doc)
     {
         return new ProjectTaskDeletedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels, doc.Reopened);
     }
 
     public static ProjectTaskClosedEvent ToClosedEvent(this ProjectTaskEntity doc)
     {
         return new ProjectTaskClosedEvent(doc.Id, doc.TaskNumber, doc.ProjectId, doc.ResponsibleUserId, doc.Name,
             doc.Description,
-            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels);
+            doc.Status, doc.TeamExecutorIds, doc.UserExecutorIds, doc.Tags, doc.Labels, doc.Reopened);
     }
 }

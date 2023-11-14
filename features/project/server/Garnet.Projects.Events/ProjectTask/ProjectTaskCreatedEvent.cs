@@ -11,5 +11,6 @@ public record ProjectTaskCreatedEvent(
     string[] TeamExecutorIds,
     string[] UserExecutorIds,
     string[] Tags,
-    string[] Labels
+    string[] Labels,
+    bool Reopened
 );
