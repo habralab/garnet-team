@@ -31,7 +31,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
              args.Description,
              ownerUserId!,
              string.Empty,
-             args.Tags
+             args.Tags,
+             0
             );
 
             team = await InsertOneDocument(ct, db.Teams, team);
