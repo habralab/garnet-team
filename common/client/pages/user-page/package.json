@@ -6,6 +6,7 @@
   "dependencies": {
     "@app/header-fragment": "workspace:0.0.1",
     "@app/user-fragment": "workspace:0.0.1",
+    "@shared/data": "workspace:0.0.1",
     "@ui/background": "workspace:0.0.1",
     "@ui/wrapper": "workspace:0.0.1"
   },
