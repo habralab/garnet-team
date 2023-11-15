@@ -7,11 +7,13 @@ using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.MongoDb.Migrations;
 using Garnet.Common.Infrastructure.S3;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Projects.Events.ProjectTask;
 using Garnet.Users.Application;
 using Garnet.Users.Application.Commands;
 using Garnet.Users.Application.Queries;
 using Garnet.Users.Events;
 using Garnet.Users.Infrastructure.Api;
+using Garnet.Users.Infrastructure.EventHandlers;
 using Garnet.Users.Infrastructure.MongoDb;
 using Garnet.Users.Infrastructure.MongoDb.Migrations;
 using HotChocolate.Execution.Configuration;
@@ -53,6 +55,7 @@ public static class Startup
         {
             o.RegisterMessage<UserCreatedEvent>();
             o.RegisterMessage<UserUpdatedEvent>();
+            o.RegisterConsumer<ProjectTaskClosedEventConsumer, ProjectTaskClosedEvent>();
         });
     }
 

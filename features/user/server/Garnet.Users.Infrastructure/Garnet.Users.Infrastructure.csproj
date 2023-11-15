@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Infrastructure\Garnet.Common.Infrastructure.csproj" />
+      <ProjectReference Include="..\..\..\project\server\Garnet.Projects.Events\Garnet.Projects.Events.csproj" />
       <ProjectReference Include="..\Garnet.Users.Application\Garnet.Users.Application.csproj" />
       <ProjectReference Include="..\Garnet.Users.Events\Garnet.Users.Events.csproj" />
 
