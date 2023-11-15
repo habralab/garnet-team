@@ -1,7 +1,7 @@
 import { useUpdateUserTags } from '../data'
 
 export const useSubmitSkills = () => {
-  const { updateUserTags } = useUpdateUserTags()
+  const { updateUserTags, loading } = useUpdateUserTags()
 
   const submit = async (value: string[]) => {
     try {
@@ -13,5 +13,5 @@ export const useSubmitSkills = () => {
     }
   }
 
-  return { submit }
+  return { submit, loading }
 }

@@ -5,8 +5,8 @@ import { useUpdateProject }       from '../data'
 import { useUploadProjectAvatar } from '../data'
 
 export const useSubmit = (project?: Project) => {
-  const { updateProject } = useUpdateProject()
-  const { uploadProjectAvatar } = useUploadProjectAvatar()
+  const { updateProject, loading: loadingUpdate } = useUpdateProject()
+  const { uploadProjectAvatar, loading: loadingUpload } = useUploadProjectAvatar()
 
   const submit = async (formValues: FormProjectValues): Promise<Project | undefined> => {
     try {
@@ -34,5 +34,5 @@ export const useSubmit = (project?: Project) => {
     }
   }
 
-  return { submit }
+  return { submit, loading: loadingUpdate || loadingUpload }
 }

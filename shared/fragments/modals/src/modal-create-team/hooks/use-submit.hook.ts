@@ -8,7 +8,7 @@ import { useCreateTeam }  from '../data'
 export const useSubmit = () => {
   const router = useRouter()
 
-  const { createTeam } = useCreateTeam()
+  const { createTeam, loading } = useCreateTeam()
 
   const submit = async (formValues: FormTeamValues) => {
     try {
@@ -31,5 +31,5 @@ export const useSubmit = () => {
     }
   }
 
-  return { submit }
+  return { submit, loading }
 }

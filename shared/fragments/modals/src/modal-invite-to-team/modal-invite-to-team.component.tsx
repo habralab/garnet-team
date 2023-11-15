@@ -26,7 +26,7 @@ export const ModalInviteToTeam: FC<ModalInviteToTeamProps> = ({
 
   const { formatMessage } = useIntl()
 
-  const { createTeamJoiInvite } = useCreateTeamJoinInvite()
+  const { createTeamJoiInvite, loading } = useCreateTeamJoinInvite()
   const { userId } = useSession()
 
   const { user, teams: allTeams } = useGetUser({ id: userId })
@@ -58,7 +58,7 @@ export const ModalInviteToTeam: FC<ModalInviteToTeamProps> = ({
       showConfirm={teams.length > 0}
       onConfirm={handleSubmit}
       confirmText={formatMessage({ id: 'shared_ui.modal.invite' })}
-      confirmProps={{ disabled: !selectedTeam }}
+      confirmProps={{ disabled: !selectedTeam || loading }}
     >
       <Condition match={teams.length === 0}>
         <Column height={120} justifyContent='center' alignItems='center'>

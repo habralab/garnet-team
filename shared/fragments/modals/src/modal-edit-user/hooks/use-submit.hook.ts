@@ -5,8 +5,8 @@ import { useUpdateUser }       from '../data'
 import { useUploadUserAvatar } from '../data'
 
 export const useSubmit = (user?: User) => {
-  const { updateUser } = useUpdateUser()
-  const { uploadUserAvatar } = useUploadUserAvatar()
+  const { updateUser, loading: loadingUpdate } = useUpdateUser()
+  const { uploadUserAvatar, loading: loadingUpload } = useUploadUserAvatar()
 
   const submit = async (formValues: FormUserValues): Promise<User | undefined> => {
     try {
@@ -36,5 +36,5 @@ export const useSubmit = (user?: User) => {
     }
   }
 
-  return { submit }
+  return { submit, loading: loadingUpdate || loadingUpload }
 }

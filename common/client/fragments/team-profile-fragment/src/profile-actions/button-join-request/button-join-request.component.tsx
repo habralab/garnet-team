@@ -15,10 +15,10 @@ import { useCancelRequest }       from '../../hooks'
 export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ joinRequest, team }) => {
   const [currentJoinRequest, setCurrentJoinRequest] = useState(joinRequest)
 
-  const { createRequest } = useCreateRequest()
-  const { cancelRequest } = useCancelRequest()
+  const { createRequest, loading: loadingCreate } = useCreateRequest()
+  const { cancelRequest, loading: loadingCancel } = useCancelRequest()
 
-  const handleRequest = async () => {
+  const handleCreateRequest = async () => {
     const newJoinRequest = await createRequest(team?.id)
     setCurrentJoinRequest(newJoinRequest)
   }
@@ -31,7 +31,7 @@ export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ joinRequest, tea
   return (
     <>
       <Condition match={Boolean(currentJoinRequest)}>
-        <Button variant='link' size='micro' onClick={handleCancelRequest}>
+        <Button variant='link' size='micro' disabled={loadingCancel} onClick={handleCancelRequest}>
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='profile.cancel_request' />
           </Text>
@@ -41,8 +41,8 @@ export const ButtonJoinRequest: FC<ButtonJoinRequestProps> = ({ joinRequest, tea
       <Button
         variant='primary'
         size='normal'
-        disabled={Boolean(currentJoinRequest)}
-        onClick={handleRequest}
+        disabled={Boolean(currentJoinRequest) || loadingCreate}
+        onClick={handleCreateRequest}
       >
         <Text fontSize='medium' color='currentColor'>
           <Condition match={Boolean(currentJoinRequest)}>

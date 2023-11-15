@@ -1,12 +1,13 @@
-import { useRouter }  from 'next/router'
-import { useEffect }  from 'react'
-import { useState }   from 'react'
+import { useRouter }          from 'next/router'
+import { useEffect }          from 'react'
+import { useState }           from 'react'
 
-import { Team }       from '@shared/data'
-import { useGetUser } from '@shared/data'
-import { useSession } from '@stores/session'
+import { Team }               from '@shared/data'
+import { useGetUser }         from '@shared/data'
+import { useSession }         from '@stores/session'
 
-import { useGetTeam } from '../data'
+import { useGetTeam }         from '../data'
+import { useGetTeamRequests } from '../data'
 
 export const useTeamState = () => {
   const { query } = useRouter()
@@ -17,14 +18,10 @@ export const useTeamState = () => {
   const [team, setTeam] = useState<Team>()
   const [isMyTeam, setIsMyTeam] = useState(false)
 
-  const {
-    team: fetchedTeam,
-    teamProjects,
-    teamParticipants,
-    applicationParticipants,
-    invitedParticipants,
-    joinRequests,
-  } = useGetTeam({ id: queryId, search: '', skip: 0, take: 0 })
+  const { team: fetchedTeam, teamProjects, teamParticipants } = useGetTeam({ id: queryId })
+  const { applicationParticipants, invitedParticipants, joinRequests } = useGetTeamRequests({
+    id: queryId,
+  })
 
   const { user: ownerUser } = useGetUser({ id: team?.ownerUserId || '' })
   const joinRequestAuthUser = joinRequests.find((item) => item.userId === userId)

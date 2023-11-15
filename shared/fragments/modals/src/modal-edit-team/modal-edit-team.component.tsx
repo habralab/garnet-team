@@ -22,7 +22,7 @@ export const ModalEditTeam: FC<ModalEditTeamProps> = ({
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
-  const { submit } = useSubmit(team)
+  const { submit, loading } = useSubmit(team)
 
   const closeModal = () => {
     setFormValues(getFormValues(team))
@@ -49,7 +49,7 @@ export const ModalEditTeam: FC<ModalEditTeamProps> = ({
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
-      confirmProps={{ disabled: submitDisabled }}
+      confirmProps={{ disabled: submitDisabled || loading }}
     >
       <FormTeam
         formValues={formValues}

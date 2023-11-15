@@ -11,6 +11,5 @@ export type UseProfileStateProps = () => {
   projects: Project[]
   teams: Team[]
   setUser: Dispatch<SetStateAction<User | undefined>>
-  isNotFilled: boolean
   user: User | undefined
 }

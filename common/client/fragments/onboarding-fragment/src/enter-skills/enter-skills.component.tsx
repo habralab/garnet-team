@@ -1,7 +1,6 @@
 import React                from 'react'
 import { FC }               from 'react'
 import { FormattedMessage } from 'react-intl'
-import { useState }         from 'react'
 import { useIntl }          from 'react-intl'
 
 import { Button }           from '@ui/button'
@@ -12,21 +11,14 @@ import { Text }             from '@ui/text'
 
 import { EnterSkillsProps } from './enter-skills.interfaces'
 import { useSubmitSkills }  from '../hooks'
-import { validateValue }    from './helpers'
 import { useSkillsState }   from './hooks'
 
 export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
-  const [errorText, setErrorText] = useState<string>('')
-
-  const { value, setValue, disabled } = useSkillsState(setErrorText)
+  const { value, setValue, errorText, disabled } = useSkillsState()
 
   const { formatMessage } = useIntl()
 
-  const { submit } = useSubmitSkills()
-
-  const updateErrorText = () => {
-    validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
-  }
+  const { submit, loading } = useSubmitSkills()
 
   const handleSubmit = async () => {
     await submit(value)
@@ -46,13 +38,17 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
           value={value}
           placeholder={formatMessage({ id: 'onboarding.enter_skill' })}
           onChange={setValue}
-          onBlur={updateErrorText}
           errorText={errorText}
         />
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <Button variant='primary' size='normal' disabled={disabled} onClick={handleSubmit}>
+        <Button
+          variant='primary'
+          size='normal'
+          disabled={disabled || loading}
+          onClick={handleSubmit}
+        >
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.save' />
           </Text>

@@ -1,34 +1,22 @@
-import { useRouter }            from 'next/router'
-import { useMemo }              from 'react'
 import { useEffect }            from 'react'
 import { useState }             from 'react'
 
 import { User }                 from '@shared/data'
 import { useGetUser }           from '@shared/data'
-import { routes }               from '@shared/routes'
 import { useSession }           from '@stores/session'
 
 import { UseProfileStateProps } from './use-profile-state.interfaces'
-import { isProfileNotFilled }   from './use-profile-state.helper'
 
 export const useProfileState: UseProfileStateProps = () => {
   const [user, setUser] = useState<User>()
-
-  const { push } = useRouter()
 
   const { userId } = useSession()
 
   const { user: fetchedUser, teams, projects } = useGetUser({ id: userId, take: 20 })
 
-  const isNotFilled = useMemo(() => isProfileNotFilled(fetchedUser), [fetchedUser])
-
   useEffect(() => {
-    if (fetchedUser) {
-      setUser(fetchedUser)
+    if (fetchedUser) setUser(fetchedUser)
+  }, [fetchedUser, userId])
 
-      if (isNotFilled) push(routes.onboard)
-    }
-  }, [push, fetchedUser, userId, isNotFilled])
-
-  return { user, setUser, teams, projects, isNotFilled }
+  return { user, setUser, teams, projects }
 }
