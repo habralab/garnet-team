@@ -27,11 +27,14 @@ export const useGetUser = ({ id, search = '', skip = 0, tags = [], take = 0 }: G
     variables: { id, search, skip, tags, take },
   })
 
-  return {
-    user: mockMyUser.userGet,
-    teams: mockMyUser?.teamsListByUser?.teams || [],
-    projects: mockMyUser?.projectsListByUser?.projects || [],
+  if (!data) {
+    return {
+      user: mockMyUser.userGet,
+      teams: mockMyUser?.teamsListByUser?.teams || [],
+      projects: mockMyUser?.projectsListByUser?.projects || [],
+    }
   }
+
 
   return {
     user: data?.userGet,
