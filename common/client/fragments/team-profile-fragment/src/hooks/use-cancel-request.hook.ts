@@ -1,7 +1,7 @@
 import { useCancelTeamJoinRequest } from '../data'
 
 export const useCancelRequest = () => {
-  const { cancelTeamJoinRequest } = useCancelTeamJoinRequest()
+  const { cancelTeamJoinRequest, loading } = useCancelTeamJoinRequest()
 
   const cancelRequest = async (joinRequestId?: string) => {
     try {
@@ -11,5 +11,5 @@ export const useCancelRequest = () => {
     }
   }
 
-  return { cancelRequest }
+  return { cancelRequest, loading }
 }

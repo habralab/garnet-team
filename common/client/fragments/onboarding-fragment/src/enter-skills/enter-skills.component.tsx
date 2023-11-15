@@ -18,7 +18,7 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
 
   const { formatMessage } = useIntl()
 
-  const { submit } = useSubmitSkills()
+  const { submit, loading } = useSubmitSkills()
 
   const handleSubmit = async () => {
     await submit(value)
@@ -43,7 +43,12 @@ export const EnterSkills: FC<EnterSkillsProps> = ({ onSubmit }) => {
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <Button variant='primary' size='normal' disabled={disabled} onClick={handleSubmit}>
+        <Button
+          variant='primary'
+          size='normal'
+          disabled={disabled || loading}
+          onClick={handleSubmit}
+        >
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.save' />
           </Text>

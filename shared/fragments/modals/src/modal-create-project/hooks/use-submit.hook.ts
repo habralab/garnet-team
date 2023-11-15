@@ -8,7 +8,7 @@ import { useCreateProject }  from '../data'
 export const useSubmit = () => {
   const router = useRouter()
 
-  const { createProject } = useCreateProject()
+  const { createProject, loading } = useCreateProject()
 
   const submit = async (formValues: FormProjectValues) => {
     try {
@@ -31,5 +31,5 @@ export const useSubmit = () => {
     }
   }
 
-  return { submit }
+  return { submit, loading }
 }

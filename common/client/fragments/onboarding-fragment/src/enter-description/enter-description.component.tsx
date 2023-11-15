@@ -21,7 +21,7 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
 
   const { formatMessage } = useIntl()
 
-  const { submit } = useSubmitDescription()
+  const { submit, loading } = useSubmitDescription()
 
   const updateErrorText = () => {
     validateValue(value, (id, values) => setErrorText(id ? formatMessage({ id }, values) : id))
@@ -56,7 +56,12 @@ export const EnterDescription: FC<EnterDescriptionProps> = ({ onSubmit }) => {
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='flex-end'>
-        <Button variant='primary' size='normal' disabled={disabled} onClick={handleSubmit}>
+        <Button
+          variant='primary'
+          size='normal'
+          disabled={disabled || loading}
+          onClick={handleSubmit}
+        >
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.further' />
           </Text>

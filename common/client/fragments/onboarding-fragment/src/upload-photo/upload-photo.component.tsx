@@ -25,7 +25,7 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
 
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { submit } = useSubmitAvatar()
+  const { submit, loading } = useSubmitAvatar()
 
   const toggleModalOpen = () => setModalOpen(!modalOpen)
 
@@ -78,7 +78,12 @@ export const UploadPhoto: FC<UploadPhotoProps> = ({ onSubmit }) => {
       </Box>
       <Layout flexBasis={40} flexShrink={0} />
       <Box justifyContent='center'>
-        <Button variant='primary' size='normal' disabled={!avatarUrl} onClick={handleSubmit}>
+        <Button
+          variant='primary'
+          size='normal'
+          disabled={!avatarUrl || loading}
+          onClick={handleSubmit}
+        >
           <Text fontSize='medium' color='currentColor'>
             <FormattedMessage id='onboarding.upload' />
           </Text>

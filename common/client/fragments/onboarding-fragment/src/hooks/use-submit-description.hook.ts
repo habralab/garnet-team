@@ -1,7 +1,7 @@
 import { useUpdateUserDescription } from '../data'
 
 export const useSubmitDescription = () => {
-  const { updateUserDescription } = useUpdateUserDescription()
+  const { updateUserDescription, loading } = useUpdateUserDescription()
 
   const submit = async (value: string) => {
     try {
@@ -13,5 +13,5 @@ export const useSubmitDescription = () => {
     }
   }
 
-  return { submit }
+  return { submit, loading }
 }
