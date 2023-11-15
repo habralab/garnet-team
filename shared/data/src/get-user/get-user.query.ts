@@ -15,6 +15,11 @@ export const GET_USER = gql`
         name
         tags
         avatarUrl
+        projectCount
+        teamParticipants {
+          id
+          avatarUrl
+        }
       }
     }
     projectFilterByUserParticipantId(userId: $id) {
