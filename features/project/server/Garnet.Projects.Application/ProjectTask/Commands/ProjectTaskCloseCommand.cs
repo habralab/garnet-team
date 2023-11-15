@@ -62,8 +62,9 @@ public class ProjectTaskCloseCommand
 
         if (task.Reopened is false)
         {
-            var skillScore = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.8 / 3, 2,
+            var totalScore = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.8, 2,
                 MidpointRounding.AwayFromZero);
+            var skillScore = (float)Math.Round(totalScore / 3, 2, MidpointRounding.AwayFromZero);
             var teamScorePerUser = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.2 / 3, 2,
                 MidpointRounding.AwayFromZero);
 
@@ -82,8 +83,10 @@ public class ProjectTaskCloseCommand
             }
 
             ratingCalculation = new RatingCalculation(
+                project.OwnerUserId,
                 (float)0.5,
                 task.UserExecutorIds,
+                totalScore,
                 skillScorePerUser,
                 teamsScore);
         }

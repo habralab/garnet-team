@@ -17,8 +17,10 @@ public record ProjectTaskClosedEvent(
 );
 
 public record RatingCalculation(
+    string ProjectOwnerId,
     float ProjectOwnerTotalScore,
     string[] UserExecutorIds,
+    float UserTotalScore,
     Dictionary<string, float> SkillScorePerUser,
     Dictionary<string, float> TeamsTotalScore
 );
