@@ -1,10 +1,12 @@
 {
-  "name": "@ui/utils",
+  "name": "@shared/utils",
   "version": "0.0.1",
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
-    "@atls-utils/use-hover": "0.0.1"
+    "@atls-utils/use-hover": "0.0.1",
+    "@types/react": "18.2.28",
+    "@types/react-dom": "18.2.15"
   },
   "peerDependencies": {
     "react": "*",

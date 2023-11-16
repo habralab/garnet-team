@@ -11,14 +11,14 @@
     "@atls-ui-parts/conditional-render": "0.0.6",
     "@atls-ui-parts/hidden-input": "0.0.7",
     "@atls-ui-parts/input": "0.0.16",
+    "@shared/utils": "workspace:0.0.1",
     "@ui/background": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
     "@ui/icon": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",
     "@ui/tag": "workspace:0.0.1",
     "@ui/text": "workspace:0.0.1",
-    "@ui/theme": "workspace:0.0.1",
-    "@ui/utils": "workspace:0.0.1"
+    "@ui/theme": "workspace:0.0.1"
   },
   "devDependencies": {
     "@emotion/styled": "11.9.3",

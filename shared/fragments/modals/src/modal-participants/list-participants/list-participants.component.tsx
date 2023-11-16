@@ -15,8 +15,8 @@ import { Column }                from '@ui/layout'
 import { Row }                   from '@ui/layout'
 import { Layout }                from '@ui/layout'
 import { Text }                  from '@ui/text'
-import { isIncludes }            from '@shared/helpers'
 import { routes }                from '@shared/routes'
+import { isIncludes }            from '@shared/utils'
 
 import { ListParticipantsProps } from './list-participants.interfaces'
 

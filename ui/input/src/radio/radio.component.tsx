@@ -5,8 +5,8 @@ import { FC }              from 'react'
 
 import { RadioButtonIcon } from '@ui/icon'
 import { Box }             from '@ui/layout'
+import { useHover }        from '@shared/utils'
 import { theme }           from '@ui/theme'
-import { useHover }        from '@ui/utils'
 
 import { InputRadioProps } from './radio.interfaces'
 

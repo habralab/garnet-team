@@ -3,7 +3,7 @@ import { useEffect }     from 'react'
 import { useState }      from 'react'
 
 import { useGetUser }    from '@shared/data'
-import { getUniqueTags } from '@shared/helpers'
+import { getUniqueTags } from '@shared/utils'
 import { useSession }    from '@stores/session'
 
 export const useUserTeamsState = (setSelectedTags: (values: string[]) => void) => {

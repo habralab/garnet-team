@@ -4,7 +4,7 @@ import { useState }       from 'react'
 
 import { mockAuthUserId } from '@shared/data'
 import { useGetUser }     from '@shared/data'
-import { getUniqueTags }  from '@shared/helpers'
+import { getUniqueTags }  from '@shared/utils'
 
 export const useUserProjectsState = (setSelectedTags: (values: string[]) => void) => {
   const [isMyProfile, setIsMyProfile] = useState(false)

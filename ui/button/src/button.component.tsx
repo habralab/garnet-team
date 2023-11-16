@@ -5,7 +5,7 @@ import React                from 'react'
 import { forwardRef }       from 'react'
 import { useState }         from 'react'
 
-import { useHover }         from '@ui/utils'
+import { useHover }         from '@shared/utils'
 
 import { ButtonProps }      from './button.interfaces'
 import { IconAttachment }   from './icon-attachment'
