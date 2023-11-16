@@ -4,7 +4,6 @@ import { FilterVariables } from '@shared/data'
 import { Team }            from '@shared/data'
 import { Project }         from '@shared/data'
 import { User }            from '@shared/data'
-import { mockUser }        from '@shared/data'
 
 import { GET_TEAM }        from './get-team.query'
 
@@ -15,6 +14,8 @@ export interface GetTeamResponse {
       id?: string
       userId?: string
       teamId?: string
+      username?: string
+      avatarUrl?: string
     }[]
   }
   projectFilterByTeamParticipantId: {
@@ -33,8 +34,9 @@ export const useGetTeam = ({ id, search = '', skip = 0, take = 0 }: GetTeamInput
 
   const teamParticipants: User[] =
     data?.teamParticipantFilter.teamParticipants.map((item) => ({
-      ...mockUser.userGet,
       id: item.userId,
+      userName: item.username,
+      avatarUrl: item.avatarUrl,
     })) || []
 
   return {
