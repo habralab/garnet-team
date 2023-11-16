@@ -19,8 +19,8 @@ export interface Team {
   tags?: string[]
   avatarUrl?: string
   ownerUserId?: string
-  countProjects?: number
-  countUsers?: number
+  projectCount?: number
+  teamParticipants?: User[]
 }
 
 export interface Project {

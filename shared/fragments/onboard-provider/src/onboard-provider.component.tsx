@@ -19,7 +19,9 @@ export const OnboardProvider: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (user && isProfileNotFilled(user)) push(routes.onboard)
-  }, [push, user, userId])
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user, userId])
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>

@@ -750,6 +750,7 @@ __metadata:
     "@stores/session": "workspace:*"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
+    next: "npm:12.3.4"
   peerDependencies:
     "@emotion/css": "*"
     "@emotion/react": "*"
@@ -772,7 +773,6 @@ __metadata:
   dependencies:
     "@app/header-fragment": "workspace:0.0.1"
     "@app/user-fragment": "workspace:0.0.1"
-    "@shared/data": "workspace:0.0.1"
     "@types/react": "npm:18.2.28"
     "@types/react-dom": "npm:18.2.15"
     "@ui/background": "workspace:0.0.1"
@@ -2344,6 +2344,7 @@ __metadata:
     "@ui/background": "workspace:0.0.1"
     "@ui/button": "workspace:0.0.1"
     "@ui/condition": "workspace:0.0.1"
+    "@ui/form": "workspace:0.0.1"
     "@ui/icon": "workspace:0.0.1"
     "@ui/input": "workspace:0.0.1"
     "@ui/layout": "workspace:0.0.1"
@@ -4274,6 +4275,24 @@ __metadata:
     "@emotion/react": "*"
     "@emotion/styled": "*"
     react: "*"
+  languageName: unknown
+  linkType: soft
+
+"@ui/form@workspace:0.0.1, @ui/form@workspace:ui/form":
+  version: 0.0.0-use.local
+  resolution: "@ui/form@workspace:ui/form"
+  dependencies:
+    "@emotion/react": "npm:11.9.3"
+    "@emotion/styled": "npm:11.9.3"
+    "@types/react": "npm:18.2.28"
+    "@types/react-dom": "npm:18.2.15"
+    "@types/styled-system": "npm:5.1.20"
+    styled-system: "npm:5.1.5"
+  peerDependencies:
+    "@emotion/react": "*"
+    "@emotion/styled": "*"
+    react: "*"
+    styled-system: "*"
   languageName: unknown
   linkType: soft
 

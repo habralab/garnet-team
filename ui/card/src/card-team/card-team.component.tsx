@@ -11,10 +11,10 @@ import { CardTeamProps } from './card-team.interfaces'
 export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
   const { formatMessage } = useIntl()
 
-  const countUsers = team.countUsers || 0
-  const countProjects = team.countProjects || 0
+  const teamUsers = team.teamParticipants || []
+  const countProjects = team.projectCount || 0
 
-  const mockAvatarsTeams = Array.from({ length: countProjects }, () => team.avatarUrl || '')
+  const avatarsParticipants = (teamUsers?.map((user) => user.avatarUrl) || []) as string[]
 
   return (
     <CardWithLink
@@ -25,8 +25,11 @@ export const CardTeam: FC<CardTeamProps> = ({ team, cardSize = 'large' }) => {
         { id: 'shared_ui.card.project_words' },
         { count: countProjects }
       )}
-      countPeopleWord={formatMessage({ id: 'shared_ui.card.people_words' }, { count: countUsers })}
-      itemsAvatars={mockAvatarsTeams}
+      countPeopleWord={formatMessage(
+        { id: 'shared_ui.card.people_words' },
+        { count: teamUsers.length }
+      )}
+      itemsAvatars={avatarsParticipants}
       itemsAvatarsShape='circle'
       cardSize={cardSize}
       url={`${routes.teams}/${team.id}`}
