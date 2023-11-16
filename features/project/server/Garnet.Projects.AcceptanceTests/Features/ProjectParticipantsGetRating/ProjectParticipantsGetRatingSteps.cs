@@ -73,12 +73,13 @@ public class ProjectParticipantsGetRatingSteps : BaseSteps
         _taskClosedFake.GetMessage().RatingCalculation!.UserExecutorIds
             .Contains(_currentUserProviderFake.GetUserIdByUsername(username)).Should().BeTrue();
 
-        _taskClosedFake.GetMessage().RatingCalculation!.UserTotalScore.Should().Be(totalScore);
+        _taskClosedFake.GetMessage().RatingCalculation!.UserTotalScore.Should().BeApproximately(totalScore, 0.01f);
+
 
         var skills = _taskClosedFake.GetMessage().RatingCalculation!.SkillScorePerUser;
         foreach (var tag in tagList)
         {
-            skills[tag].Should().Be(skillScore);
+            skills[tag].Should().BeApproximately(skillScore, 0.01f);
         }
     }
 
@@ -86,7 +87,8 @@ public class ProjectParticipantsGetRatingSteps : BaseSteps
     public async void ThenУКомандыОбщийРейтинг(string teamName, float totalScore)
     {
         var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
-        _taskClosedFake.GetMessage().RatingCalculation!.TeamsTotalScore[team.Id].Should().Be(totalScore);
+        _taskClosedFake.GetMessage().RatingCalculation!.TeamsTotalScore[team.Id].Should()
+            .BeApproximately(totalScore, 0.01f);
     }
 
     [Then(@"у пользователя '([^']*)' общий рейтинг равен '([^']*)'")]
@@ -94,6 +96,13 @@ public class ProjectParticipantsGetRatingSteps : BaseSteps
     {
         _taskClosedFake.GetMessage().RatingCalculation!.ProjectOwnerId.Should()
             .Be(_currentUserProviderFake.GetUserIdByUsername(username));
-        _taskClosedFake.GetMessage().RatingCalculation!.ProjectOwnerTotalScore.Should().Be(totalScore);
+        _taskClosedFake.GetMessage().RatingCalculation!.ProjectOwnerTotalScore.Should()
+            .BeApproximately(totalScore, 0.01f);
+    }
+
+    [Then(@"в событии нет расчета рейтинга")]
+    public void ThenВСобытииНетРасчетаРейтинга()
+    {
+        _taskClosedFake.GetMessage().RatingCalculation.Should().BeNull();
     }
 }
