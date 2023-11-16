@@ -1,5 +1,5 @@
 import { Project }    from '@shared/data'
-import { isIncludes } from '@shared/helpers'
+import { isIncludes } from '@shared/utils'
 
 export const filterProjects = (
   projects: Project[],

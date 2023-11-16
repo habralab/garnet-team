@@ -1,5 +1,5 @@
 import { Team }       from '@shared/data'
-import { isIncludes } from '@shared/helpers'
+import { isIncludes } from '@shared/utils'
 
 export const filterTeams = (teams: Team[], selectedTags: string[], search: string): Team[] =>
   teams.filter(

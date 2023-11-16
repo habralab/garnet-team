@@ -16,7 +16,7 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { getUniqueTags }    from '@shared/helpers'
+import { getUniqueTags }    from '@shared/utils'
 
 import { useGetTeams }      from './data'
 import { filterTeams }      from './helpers'

@@ -5,8 +5,8 @@
   "dependencies": {
     "@shared/data": "workspace:0.0.1",
     "@shared/forms-fragment": "workspace:0.0.1",
-    "@shared/helpers": "workspace:0.0.1",
     "@shared/routes": "workspace:0.0.1",
+    "@shared/utils": "workspace:0.0.1",
     "@ui/avatar": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
