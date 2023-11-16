@@ -1,17 +1,19 @@
-import { useRouter }  from 'next/router'
-import { useEffect }  from 'react'
-import { useState }   from 'react'
+import { useRouter }          from 'next/router'
+import { useEffect }          from 'react'
+import { useState }           from 'react'
 
-import { User }       from '@shared/data'
-import { useGetUser } from '@shared/data'
-import { useSession } from '@stores/session'
+import { User }               from '@shared/data'
+import { useGetUser }         from '@shared/data'
+import { useSession }         from '@stores/session'
 
-export const useUserState = () => {
-  const router = useRouter()
-  const queryId = typeof router.query.id === 'string' ? router.query.id : ''
+import { UseUserStateReturn } from './use-user-state.interfaces'
+
+export const useUserState = (): UseUserStateReturn => {
+  const { query } = useRouter()
+  const queryId = typeof query.id === 'string' ? query.id : ''
 
   const [user, setUser] = useState<User>()
-  const [isMyProfile, setIsMyProfile] = useState(false)
+  const [isMyProfile, setIsMyProfile] = useState<boolean>(false)
 
   const { userId } = useSession()
 
@@ -22,7 +24,7 @@ export const useUserState = () => {
       setUser(fetchedUser)
       setIsMyProfile(fetchedUser.id === userId)
     }
-  }, [userId, router, fetchedUser])
+  }, [userId, fetchedUser])
 
   return { user, setUser, isMyProfile, teams, projects }
 }
