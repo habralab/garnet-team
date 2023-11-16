@@ -9,8 +9,8 @@
   "dependencies": {
     "@atls-ui-parts/button": "0.0.17",
     "@atls-ui-parts/conditional-render": "0.0.6",
-    "@ui/layout": "workspace:0.0.1",
-    "@ui/utils": "workspace:0.0.1"
+    "@shared/utils": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1"
   },
   "devDependencies": {
     "@atls-ui-generators/button": "0.0.18",
