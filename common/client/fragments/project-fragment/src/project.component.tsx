@@ -1,6 +1,8 @@
 import React                from 'react'
 import { FC }               from 'react'
 import { FormattedMessage } from 'react-intl'
+import { useEffect }        from 'react'
+import { useMemo }          from 'react'
 import { useState }         from 'react'
 import { useIntl }          from 'react-intl'
 
@@ -16,19 +18,32 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { getUniqueTags }    from '@shared/helpers'
+import { getUniqueTags }    from '@shared/utils'
+import { useDebounce }      from '@shared/utils'
 
 import { useGetProjects }   from './data'
-import { filterProjects }   from './helpers'
 
 export const Project: FC = () => {
+  const [uniqueTags, setUniqueTags] = useState<string[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const { formatMessage } = useIntl()
 
-  const { projects } = useGetProjects({ search: '', skip: 0, tags: [], take: 0 })
+  const filters = useMemo(
+    () => ({ search: searchValue, tags: selectedTags, skip: 0, take: 0 }),
+    [searchValue, selectedTags]
+  )
+  const debounceFilters = useDebounce(filters)
 
-  const uniqueTags = getUniqueTags(projects)
+  const { projects } = useGetProjects(debounceFilters)
+
+  useEffect(() => {
+    if (projects.length > 0 && uniqueTags.length === 0) {
+      setUniqueTags(getUniqueTags(projects))
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [projects])
 
   const handleAddTag = (tag: string) => {
     setSelectedTags(selectedTags.concat([tag]))
@@ -37,9 +52,6 @@ export const Project: FC = () => {
   const handleRemoveTag = (tag: string) => () => {
     setSelectedTags(selectedTags.filter((item) => item !== tag))
   }
-
-  /** @todo search params to url query */
-  const filteredProjects = filterProjects(projects, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>
@@ -75,7 +87,7 @@ export const Project: FC = () => {
               </Box>
             </Condition>
             <Condition match={projects.length > 0}>
-              <Condition match={filteredProjects.length === 0}>
+              <Condition match={projects.length === 0}>
                 <Layout flexBasis={60} flexShrink={0} />
                 <Box fill width={350} justifyContent='center' alignItems='center'>
                   <Text
@@ -90,14 +102,14 @@ export const Project: FC = () => {
                 </Box>
                 <Layout flexBasis={60} flexShrink={0} />
               </Condition>
-              <Condition match={filteredProjects.length > 0}>
+              <Condition match={projects.length > 0}>
                 <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
                   <FormattedMessage id='project.projects_found' />
-                  {`: ${filteredProjects.length}`}
+                  {`: ${projects.length}`}
                 </Text>
                 <Layout flexBasis={42} flexShrink={0} />
                 <Grid gap={22} gridWrap='small' justifyContent='space-between'>
-                  {filteredProjects.map((project) => (
+                  {projects.map((project) => (
                     <CardProject key={project.id} project={project} cardSize='small' />
                   ))}
                 </Grid>

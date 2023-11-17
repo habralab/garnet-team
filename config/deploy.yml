@@ -42,7 +42,6 @@ accessories:
       network: app_garnet
   kratos-db:
     image: bitnami/postgresql:16
-    port: 5432
     env:
       clear:
         POSTGRESQL_PASSWORD: password

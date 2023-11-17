@@ -14,7 +14,6 @@ const mockTags = [
   'UX/UI дизайн',
   'Google Analytics',
   'SQL',
-  'Таргетированная реклама',
   'JavaScrip',
   'TypeScript',
   'NextJS',
@@ -36,14 +35,22 @@ export const mockMyUser: MockUser = {
       'https://themify.org/demo/themes/wp-content/blogs.dir/353/files/2019/02/author-big.jpg',
   },
   teamsListByUser: {
-    teams: Array.from({ length: 20 }, (_, index) => ({
-      id: String(index),
-      name: `Dream Team ${index}`,
-      countProjects: index + 1,
-      countUsers: index + 1,
-      avatarUrl: 'https://i.pinimg.com/originals/59/18/00/5918007654bb37ae44692437ba3b2c6d.jpg',
-      tags: mockTags,
-    })),
+    teams: Array.from(
+      { length: 20 },
+      (_, index): Team => ({
+        id: String(index),
+        name: `Dream Team ${index}`,
+        projectCount: index + 1,
+        ownerUserId: mockAuthUserId,
+        teamParticipants: Array.from({ length: 5 }, (__, i) => ({
+          id: `${mockNotAuthUserId}${i}`,
+          avatarUrl:
+            'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=1080&h=859',
+        })),
+        avatarUrl: 'https://i.pinimg.com/originals/59/18/00/5918007654bb37ae44692437ba3b2c6d.jpg',
+        tags: mockTags,
+      })
+    ),
   },
   projectsListByUser: {
     projects: Array.from({ length: 20 }, (_, index) => ({
@@ -72,8 +79,12 @@ export const mockUser: MockUser = {
     teams: Array.from({ length: 20 }, (_, index) => ({
       id: String(index),
       name: `Dream Team ${index}`,
-      countProjects: index + 1,
-      countUsers: index + 1,
+      projectCount: index + 1,
+      teamParticipants: Array.from({ length: 5 }, (__, i) => ({
+        id: `${mockAuthUserId}${i}`,
+        avatarUrl:
+          'https://themify.org/demo/themes/wp-content/blogs.dir/353/files/2019/02/author-big.jpg',
+      })),
       avatarUrl:
         'https://cdns-images.dzcdn.net/images/cover/2012895b602fffa8ce2e061b20bed087/1000x1000.jpg',
       tags: mockTags,
@@ -136,8 +147,12 @@ export const mockTeams: Team[] = Array.from({ length: 20 }, (_, index) => ({
   description:
     'Идейные соображения высшего порядка, а также постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании системы обучения кадров.',
   ownerUserId: index % 2 === 0 ? mockAuthUserId : mockNotAuthUserId,
-  countProjects: index + 1,
-  countUsers: index + 1,
+  projectCount: index + 1,
+  teamParticipants: Array.from({ length: 5 }, (__, i) => ({
+    id: `${mockAuthUserId}${i}`,
+    avatarUrl:
+      'https://themify.org/demo/themes/wp-content/blogs.dir/353/files/2019/02/author-big.jpg',
+  })),
   avatarUrl:
     index % 2 === 0
       ? 'https://i.pinimg.com/originals/59/18/00/5918007654bb37ae44692437ba3b2c6d.jpg'

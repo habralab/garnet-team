@@ -11,11 +11,11 @@ import { UploadPhoto }      from './upload-photo'
 import { usePageState }     from './hooks'
 
 export const OnBoarding: FC = () => {
-  const { pageState, setPageState, redirectToUserPage } = usePageState()
+  const { pageState, setPageState, redirectToProfilePage } = usePageState()
 
   const handleUploadPhoto = () => setPageState(PageState.ENTER_DESCRIPTION)
   const handleEnterDescription = () => setPageState(PageState.ENTER_SKILLS)
-  const handleEnterSkills = () => redirectToUserPage()
+  const handleEnterSkills = () => redirectToProfilePage()
 
   return (
     <Column fill marginBottom={32} maxWidth={632} justifyContent='center'>

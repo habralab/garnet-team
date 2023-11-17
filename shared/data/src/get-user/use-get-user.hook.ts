@@ -21,9 +21,9 @@ export interface GetUserInput extends Partial<FilterVariables> {
   id: User['id']
 }
 
-export const useGetUser = (variables: GetUserInput) => {
+export const useGetUser = ({ id, search = '', skip = 0, tags = [], take = 0 }: GetUserInput) => {
   const { data, refetch } = useQuery<GetUserResponse, GetUserInput>(GET_USER, {
-    variables,
+    variables: { id, search, skip, tags, take },
   })
 
   return {

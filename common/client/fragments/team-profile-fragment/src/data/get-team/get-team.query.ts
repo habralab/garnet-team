@@ -24,19 +24,5 @@ export const GET_TEAM = gql`
         avatarUrl
       }
     }
-    teamUserJoinRequestsShow(teamId: $id) {
-      teamUserJoinRequests {
-        id
-        userId
-        createdAt
-      }
-    }
-    teamJoinInvitationsShow(teamId: $id) {
-      teamJoinInvites {
-        id
-        userId
-        createdAt
-      }
-    }
   }
 `

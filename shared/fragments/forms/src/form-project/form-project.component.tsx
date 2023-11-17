@@ -17,6 +17,7 @@ import { Row }                   from '@ui/layout'
 import { Text }                  from '@ui/text'
 
 import { ButtonUploadPhoto }     from '../button-upload-photo'
+import { CallbackValues }        from '../helpers'
 import { FormProjectErrorsText } from './form-project.interfaces'
 import { FormProjectProps }      from './form-project.interfaces'
 import { FormProjectValues }     from './form-project.interfaces'
@@ -29,15 +30,26 @@ export const FormProject: FC<FormProjectProps> = ({ formValues, handleChange, ha
   const [errorsText, setErrorsText] = useState<FormProjectErrorsText>(defaultErrorsText)
   const { formatMessage } = useIntl()
 
-  const updateErrorsText = (field: keyof FormProjectValues) => () => {
-    validateValue(formProjectErrors, field, formValues[field], (id, values) =>
+  const handleChangeErrors = (field: keyof FormProjectValues, value?: string | string[]) =>
+    (id: string, values?: CallbackValues) => {
       setErrorsText((prev) => {
         const newErrorsText = { ...prev, [field]: id ? formatMessage({ id }, values) : id }
+        const newFormValues = { ...formValues, [field]: value ?? formValues[field] }
 
-        handleDisabled?.(checkDisabled({ ...formValues }, newErrorsText))
+        handleDisabled?.(checkDisabled(newFormValues, newErrorsText))
 
         return newErrorsText
-      }))
+      })
+    }
+
+  const updateErrorsText = (field: keyof FormProjectValues) => () => {
+    validateValue(formProjectErrors, field, formValues[field], handleChangeErrors(field))
+  }
+
+  const handleChangeTags = (tags: string[] | string) => {
+    validateValue(formProjectErrors, 'tags', tags, handleChangeErrors('tags', tags))
+
+    handleChange('tags')(tags)
   }
 
   const handleChangeAvatar = (url: string) => {
@@ -81,7 +93,7 @@ export const FormProject: FC<FormProjectProps> = ({ formValues, handleChange, ha
           value={formValues.description}
           placeholder={formatMessage({ id: 'shared_ui.form.description_project' })}
           onChange={handleChange('description')}
-          style={{ height: 176, resize: 'none' }}
+          height={176}
           errorText={errorsText.description}
           onBlur={updateErrorsText('description')}
         />
@@ -106,9 +118,8 @@ export const FormProject: FC<FormProjectProps> = ({ formValues, handleChange, ha
           id='tags'
           placeholder={formatMessage({ id: 'shared_ui.form.enter_skill' })}
           value={formValues.tags}
-          onChange={handleChange('tags')}
+          onChange={handleChangeTags}
           errorText={errorsText.tags}
-          onBlur={updateErrorsText('tags')}
         />
       </Row>
       <Layout flexBasis={30} flexShrink={0} />

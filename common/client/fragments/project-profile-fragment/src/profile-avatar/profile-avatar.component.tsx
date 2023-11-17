@@ -7,6 +7,7 @@ import { Column }             from '@ui/layout'
 import { Row }                from '@ui/layout'
 import { Layout }             from '@ui/layout'
 import { Text }               from '@ui/text'
+import { routes }             from '@shared/routes'
 
 import { ProfileAvatarProps } from './profile-avatar.interfaces'
 
@@ -15,7 +16,7 @@ export const ProfileAvatar: FC<ProfileAvatarProps> = ({ project, ownerUser }) =>
     <Avatar size={180} shape='square' image={project?.avatarUrl} />
     <Layout flexBasis={20} flexShrink={0} />
     <Row>
-      <Avatar size={50} image={ownerUser?.avatarUrl} url={`/user/${ownerUser?.id}`} />
+      <Avatar size={50} image={ownerUser?.avatarUrl} url={`${routes.users}/${ownerUser?.id}`} />
       <Layout flexBasis={10} flexShrink={0} />
       <Column fill justifyContent='center'>
         <Text fontSize='normal' color='text.gray'>

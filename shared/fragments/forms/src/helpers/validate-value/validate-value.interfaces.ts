@@ -1,6 +1,8 @@
 type PrimitiveType = string | number | boolean | null | undefined
 
-type Callback = (text: string, values?: Record<string, PrimitiveType>) => void
+export type CallbackValues = Record<string, PrimitiveType>
+
+type Callback = (text: string, values?: CallbackValues) => void
 
 interface Error {
   text: string

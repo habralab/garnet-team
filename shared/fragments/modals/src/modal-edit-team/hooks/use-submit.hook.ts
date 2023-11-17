@@ -5,8 +5,8 @@ import { useUpdateTeam }       from '../data'
 import { useUploadTeamAvatar } from '../data'
 
 export const useSubmit = (team?: Team) => {
-  const { updateTeam } = useUpdateTeam()
-  const { uploadTeamAvatar } = useUploadTeamAvatar()
+  const { updateTeam, loading: loadingUpdate } = useUpdateTeam()
+  const { uploadTeamAvatar, loading: loadingUpload } = useUploadTeamAvatar()
 
   const submit = async (formValues: FormTeamValues): Promise<Team | undefined> => {
     try {
@@ -34,5 +34,5 @@ export const useSubmit = (team?: Team) => {
     }
   }
 
-  return { submit }
+  return { submit, loading: loadingUpdate || loadingUpload }
 }

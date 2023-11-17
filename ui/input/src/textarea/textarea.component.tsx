@@ -14,17 +14,16 @@ import { Layout }                   from '@ui/layout'
 import { Text }                     from '@ui/text'
 
 import { IconAttachment }           from '../icon-attachment'
+import { InputElement }             from '../input.element'
 import { InputProps }               from '../input.interfaces'
-import { transitionStyles }         from '../input.styles'
-import { shapeStyles }              from '../input.styles'
-import { baseStyles }               from '../input.styles'
-import { appearanceStyles }         from '../input.styles'
+import { textareaElementStyles }    from './textarea.styles'
+import { rawTextareaStyles }        from './textarea.styles'
+import { textareaHeightStyles }     from './textarea.styles'
 
-const InputElement = styled.div(baseStyles, shapeStyles, appearanceStyles, transitionStyles, {
-  padding: 16,
-})
+const TextareaElement = styled(InputElement)(textareaElementStyles, textareaHeightStyles)
+const RawTextarea = styled(RawInput)(rawTextareaStyles)
 
-const { containerProps, rawInputProps } = createTextareaProps()
+const { rawInputProps } = createTextareaProps()
 
 const Container = styled.div(({ type }: { type?: HTMLInputTypeAttribute }) => ({
   display: type === 'hidden' ? 'none' : 'flex',
@@ -43,8 +42,8 @@ export const TextareaWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Inpu
 
   return (
     <Container type={type} onClick={() => (ref as any).current.focus()}>
-      <InputElement {...containerProps} {...props} error={errorText !== ''}>
-        <RawInput
+      <TextareaElement {...props} error={errorText !== ''}>
+        <RawTextarea
           id={id}
           ref={ref}
           type={type}
@@ -53,7 +52,6 @@ export const TextareaWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Inpu
           onChange={changeValue}
           {...rawInputProps}
           {...props}
-          style={{ ...props.style, height: '100%' }}
         />
         <Condition match={Boolean(props.iconSvg)}>
           <IconAttachment
@@ -63,7 +61,7 @@ export const TextareaWithoutRef: ForwardRefRenderFunction<HTMLInputElement, Inpu
             onClick={props.onIconClick}
           />
         </Condition>
-      </InputElement>
+      </TextareaElement>
       <Condition match={Boolean(errorText) && typeof errorText === 'string'}>
         <Layout flexBasis={5} />
         <Text color='text.error' fontSize='normal'>

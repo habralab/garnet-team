@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 
 import { NextLink }  from '@ui/link'
 import { Link }      from '@ui/link'
+import { routes }    from '@shared/routes'
 
 import { Icon }      from './icon.component'
 import { LogoProps } from './logo.interfaces'
@@ -15,7 +16,7 @@ export const Logo: FC<LogoProps> = ({ withLink = true }) => {
     return <Icon />
   }
 
-  if (router.route === '/') {
+  if (router.route === routes.root) {
     return (
       // eslint-disable-next-line
       <Link href='#' width='100%'>
@@ -25,7 +26,7 @@ export const Logo: FC<LogoProps> = ({ withLink = true }) => {
   }
 
   return (
-    <NextLink path='/' href='/' width='100%'>
+    <NextLink path={routes.root} width='100%'>
       <Icon />
     </NextLink>
   )

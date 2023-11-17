@@ -112,5 +112,31 @@ export const colors = {
         font: 'rgba(53, 53, 53, 1)',
       },
     },
+    radio: {
+      unchecked: {
+        default: {
+          background: 'rgba(255, 255, 255, 1)',
+          border: 'rgba(208, 204, 218, 1)',
+        },
+        hover: {
+          background: 'rgba(255, 255, 255, 1)',
+          border: 'rgba(162, 159, 171, 1)',
+        },
+      },
+      checked: {
+        default: {
+          background: 'rgba(255, 255, 255, 1)',
+          border: 'rgba(99, 58, 216, 1)',
+        },
+        hover: {
+          background: 'rgba(255, 255, 255, 1)',
+          border: 'rgba(161, 87, 255, 1)',
+        },
+      },
+      disabled: {
+        background: 'rgba(230, 229, 234, 1)',
+        border: 'rgba(208, 204, 218, 1)',
+      },
+    },
   },
 }

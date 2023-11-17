@@ -11,7 +11,7 @@ import { Column }      from '@ui/layout'
 import { Row }         from '@ui/layout'
 import { Layout }      from '@ui/layout'
 import { Text }        from '@ui/text'
-import { useHover }    from '@ui/utils'
+import { useHover }    from '@shared/utils'
 
 import { CardProps }   from './card.interfaces'
 import { sizeConfig }  from './card.config'

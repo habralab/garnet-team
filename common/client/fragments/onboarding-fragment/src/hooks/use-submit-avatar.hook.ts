@@ -1,7 +1,7 @@
 import { useUploadUserAvatar } from '../data'
 
 export const useSubmitAvatar = () => {
-  const { uploadUserAvatar } = useUploadUserAvatar()
+  const { uploadUserAvatar, loading } = useUploadUserAvatar()
 
   const submit = async (blob?: Blob) => {
     try {
@@ -13,5 +13,5 @@ export const useSubmitAvatar = () => {
     }
   }
 
-  return { submit }
+  return { submit, loading }
 }

@@ -4,6 +4,7 @@
   "license": "BSD-3-Clause",
   "main": "src/index.ts",
   "dependencies": {
+    "@shared/routes": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
     "@ui/icon": "workspace:0.0.1",
     "@ui/layout": "workspace:0.0.1",

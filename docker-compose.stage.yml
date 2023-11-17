@@ -80,7 +80,7 @@ services:
     image: oryd/kratos:v1.0.0
     ports:
       - '4433:4433'
-    restart: unless-stopped
+    restart: no
     environment:
       - DSN=postgres://postgres:password@garnet-backend-kratos-db:5432/postgres?sslmode=disable&max_conns=20&max_idle_conns=4
       - LOG_LEVEL=trace

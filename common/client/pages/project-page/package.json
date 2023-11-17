@@ -19,6 +19,7 @@
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "@stores/session": "workspace:*",
+    "framer-motion": "*",
     "graphql": "*",
     "next": "*",
     "react": "*",

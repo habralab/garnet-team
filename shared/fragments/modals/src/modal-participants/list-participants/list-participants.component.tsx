@@ -15,7 +15,8 @@ import { Column }                from '@ui/layout'
 import { Row }                   from '@ui/layout'
 import { Layout }                from '@ui/layout'
 import { Text }                  from '@ui/text'
-import { isIncludes }            from '@shared/helpers'
+import { routes }                from '@shared/routes'
+import { isIncludes }            from '@shared/utils'
 
 import { ListParticipantsProps } from './list-participants.interfaces'
 
@@ -56,7 +57,7 @@ export const ListParticipants: FC<ListParticipantsProps> = ({
               image={ownerUser?.avatarUrl}
               size={124}
               title={ownerUser?.userName}
-              url={`/user/${ownerUser?.id}`}
+              url={`${routes.users}/${ownerUser?.id}`}
             />
             <Layout flexBasis={24} flexShrink={0} />
             <Column width='100%' height='auto' justifyContent='center'>
@@ -82,7 +83,12 @@ export const ListParticipants: FC<ListParticipantsProps> = ({
           {filteredParticipants.map(({ id, avatarUrl, userName }) => (
             <Fragment key={id}>
               <Row>
-                <Avatar image={avatarUrl} size={124} title={userName} url={`/user/${id}`} />
+                <Avatar
+                  image={avatarUrl}
+                  size={124}
+                  title={userName}
+                  url={`${routes.users}/${id}`}
+                />
                 <Layout flexBasis={24} flexShrink={0} />
                 <Column width='100%' height='auto' justifyContent='center'>
                   <Text fontSize='regular' fontWeight='bold' color='text.secondary'>

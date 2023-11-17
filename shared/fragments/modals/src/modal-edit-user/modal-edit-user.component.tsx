@@ -22,7 +22,7 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({
   const [submitDisabled, setSubmitDisabled] = useState<boolean>(true)
   const { formatMessage } = useIntl()
 
-  const { submit } = useSubmit(user)
+  const { submit, loading } = useSubmit(user)
 
   const closeModal = () => {
     setFormValues(getFormValues(user))
@@ -49,7 +49,7 @@ export const ModalEditUser: FC<ModalEditUserProps> = ({
       onClose={closeModal}
       onCancel={closeModal}
       onConfirm={handleSubmit}
-      confirmProps={{ disabled: submitDisabled }}
+      confirmProps={{ disabled: submitDisabled || loading }}
     >
       <FormUser
         formValues={formValues}

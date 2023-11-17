@@ -12,13 +12,14 @@ import { LocalizedMessages } from '@identity/messages-fragment'
 import { Background }        from '@ui/background'
 import { Button }            from '@ui/button'
 import { Condition }         from '@ui/condition'
+import { Form }              from '@ui/form'
 import { EyeIcon }           from '@ui/icon'
 import { Input }             from '@ui/input'
 import { Row }               from '@ui/layout'
 import { Column }            from '@ui/layout'
 import { Layout }            from '@ui/layout'
 import { Text }              from '@ui/text'
-import { checkPassword }     from '@shared/helpers'
+import { checkPassword }     from '@shared/utils'
 
 export const RecoveryNewPasswordForm = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
@@ -37,65 +38,67 @@ export const RecoveryNewPasswordForm = () => {
 
   return (
     <Background color='white' borderRadius='medium' boxShadow='black'>
-      <Column paddingX={32} width={342} boxSizing='content-box' alignItems='center'>
-        <Layout flexBasis={56} flexShrink={0} />
-        <Layout justifyContent='center'>
-          <Text fontSize='preLarge' width='min-content' textAlign='center'>
-            <FormattedMessage id='recovery-new-password.title' />
-          </Text>
-        </Layout>
-        <Layout flexBasis={40} flexShrink={0} />
-        <FlowNode name='password'>
-          {(node, value, onChange) => (
+      <Form>
+        <Column paddingX={32} width={342} boxSizing='content-box' alignItems='center'>
+          <Layout flexBasis={56} flexShrink={0} />
+          <Layout justifyContent='center'>
+            <Text fontSize='preLarge' width='min-content' textAlign='center'>
+              <FormattedMessage id='recovery-new-password.title' />
+            </Text>
+          </Layout>
+          <Layout flexBasis={40} flexShrink={0} />
+          <FlowNode name='password'>
+            {(node, value, onChange) => (
+              <Input
+                {...node.attributes}
+                placeholder={formatMessage({ id: 'recovery-new-password.password' })}
+                value={value}
+                onChange={(newValue) => {
+                  onChange(newValue)
+                  setPassword(newValue)
+                }}
+                iconSvg={<EyeIcon />}
+                valueWidth={16}
+                valueHeight={16}
+                errorText={
+                  node.messages.length > 0 ? (
+                    <LocalizedMessages messages={node.messages} />
+                  ) : undefined
+                }
+                onIconClick={togglePassword}
+                type={showPassword ? 'text' : 'password'}
+              />
+            )}
+          </FlowNode>
+          <Layout flexBasis={40} flexShrink={0} />
+          <Condition match={Boolean(flow)}>
             <Input
-              {...node.attributes}
-              placeholder={formatMessage({ id: 'recovery-new-password.password' })}
-              value={value}
-              onChange={(newValue) => {
-                onChange(newValue)
-                setPassword(newValue)
-              }}
+              placeholder={formatMessage({ id: 'recovery-new-password.repeat_password' })}
+              onIconClick={togglePasswordRepeat}
               iconSvg={<EyeIcon />}
               valueWidth={16}
               valueHeight={16}
-              errorText={
-                node.messages.length > 0 ? (
-                  <LocalizedMessages messages={node.messages} />
-                ) : undefined
-              }
-              onIconClick={togglePassword}
-              type={showPassword ? 'text' : 'password'}
+              onChange={setRepeatPassword}
+              type={showPasswordRepeat ? 'text' : 'password'}
             />
-          )}
-        </FlowNode>
-        <Layout flexBasis={40} flexShrink={0} />
-        <Condition match={Boolean(flow)}>
-          <Input
-            placeholder={formatMessage({ id: 'recovery-new-password.repeat_password' })}
-            onIconClick={togglePasswordRepeat}
-            iconSvg={<EyeIcon />}
-            valueWidth={16}
-            valueHeight={16}
-            onChange={setRepeatPassword}
-            type={showPasswordRepeat ? 'text' : 'password'}
-          />
-          <Layout flexBasis={40} flexShrink={0} />
-        </Condition>
-        <FlowSubmit>
-          {({ submitting, onSubmit }) => (
-            <Row justifyContent='center'>
-              <Button
-                disabled={submitting || loading || !arePasswordsIdentical || !flow}
-                onClick={() => onSubmit({ method: 'password' })}
-              >
-                <FormattedMessage id='recovery-new-password.save' />
-              </Button>
-            </Row>
-          )}
-        </FlowSubmit>
-        <FlowMessages>{(messages) => <LocalizedMessages messages={messages} />}</FlowMessages>
-        <Layout flexBasis={56} flexShrink={0} />
-      </Column>
+            <Layout flexBasis={40} flexShrink={0} />
+          </Condition>
+          <FlowSubmit>
+            {({ submitting, onSubmit }) => (
+              <Row justifyContent='center'>
+                <Button
+                  disabled={submitting || loading || !arePasswordsIdentical || !flow}
+                  onClick={() => onSubmit({ method: 'password' })}
+                >
+                  <FormattedMessage id='recovery-new-password.save' />
+                </Button>
+              </Row>
+            )}
+          </FlowSubmit>
+          <FlowMessages>{(messages) => <LocalizedMessages messages={messages} />}</FlowMessages>
+          <Layout flexBasis={56} flexShrink={0} />
+        </Column>
+      </Form>
     </Background>
   )
 }

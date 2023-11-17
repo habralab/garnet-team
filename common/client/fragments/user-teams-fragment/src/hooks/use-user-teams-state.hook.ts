@@ -3,7 +3,7 @@ import { useEffect }     from 'react'
 import { useState }      from 'react'
 
 import { useGetUser }    from '@shared/data'
-import { getUniqueTags } from '@shared/helpers'
+import { getUniqueTags } from '@shared/utils'
 import { useSession }    from '@stores/session'
 
 export const useUserTeamsState = (setSelectedTags: (values: string[]) => void) => {
@@ -14,7 +14,7 @@ export const useUserTeamsState = (setSelectedTags: (values: string[]) => void) =
 
   const { userId } = useSession()
 
-  const { user, teams } = useGetUser({ id: queryId, skip: 0, take: 20 })
+  const { user, teams } = useGetUser({ id: queryId })
 
   const uniqueTags = getUniqueTags(teams)
 

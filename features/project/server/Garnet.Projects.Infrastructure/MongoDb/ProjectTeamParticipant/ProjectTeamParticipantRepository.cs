@@ -74,7 +74,10 @@ public class ProjectTeamParticipantRepository : IProjectTeamParticipantRepositor
         var projectIds = teamParticipants.Select(x => x.ProjectId).ToArray();
 
         var projectEntities = await db.Projects.Find(
-            _projectFilter.In(x => x.Id, projectIds)).ToListAsync(ct);
+                _projectFilter.In(x => x.Id, projectIds)
+                | _projectFilter.Eq(o => o.OwnerUserId, userId)
+            )
+            .ToListAsync(ct);
 
         return projectEntities.Select(ProjectDocument.ToDomain).ToArray();
     }

@@ -10,6 +10,7 @@ import { Column }           from '@ui/layout'
 import { Layout }           from '@ui/layout'
 import { Link }             from '@ui/link'
 import { Text }             from '@ui/text'
+import { routes }           from '@shared/routes'
 
 import { TitleProps }       from './title.interfaces'
 
@@ -48,7 +49,7 @@ export const Title: FC<TitleProps> = ({ backUrl, children, hasBack }) => {
         <Condition match={Boolean(hasBack)}>
           <Layout flexBasis={10} flexShrink={0} />
           <Box>
-            <Link href={backUrl || '/'} onClick={handleClickBack}>
+            <Link href={backUrl || routes.root} onClick={handleClickBack}>
               <BackJsx />
             </Link>
           </Box>

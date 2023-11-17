@@ -3,7 +3,7 @@ import { JoinRequest }              from '@shared/data'
 import { useCreateTeamJoinRequest } from '../data'
 
 export const useCreateRequest = () => {
-  const { createTeamJoinRequest } = useCreateTeamJoinRequest()
+  const { createTeamJoinRequest, loading } = useCreateTeamJoinRequest()
 
   const createRequest = async (teamId?: string): Promise<JoinRequest | undefined> => {
     try {
@@ -17,5 +17,5 @@ export const useCreateRequest = () => {
     }
   }
 
-  return { createRequest }
+  return { createRequest, loading }
 }

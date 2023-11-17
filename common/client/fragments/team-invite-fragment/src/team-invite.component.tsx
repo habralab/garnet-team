@@ -16,7 +16,8 @@ import { Tag }              from '@ui/tag'
 import { Text }             from '@ui/text'
 import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
-import { getUniqueTags }    from '@shared/helpers'
+import { routes }           from '@shared/routes'
+import { getUniqueTags }    from '@shared/utils'
 
 import { useGetUsers }      from './data'
 import { filterUsers }      from './helpers'
@@ -102,7 +103,7 @@ export const TeamInvite: FC = () => {
                         size={150}
                         image={avatarUrl}
                         title={userName}
-                        url={`/user/${id}`}
+                        url={`${routes.users}/${id}`}
                       />
                       <Layout flexBasis={10} flexShrink={0} />
                       <Text
