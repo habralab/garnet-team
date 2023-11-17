@@ -65,14 +65,14 @@ public class ProjectTaskCloseCommand
             var totalScore = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.8, 2,
                 MidpointRounding.AwayFromZero);
             var skillScore = (float)Math.Round(totalScore / task.Tags.Length, 2, MidpointRounding.AwayFromZero);
-            var teamScorePerUser = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.2 / 3, 2,
+            var teamScorePerUser = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.2 / task.Tags.Length, 2,
                 MidpointRounding.AwayFromZero);
 
             var tags = task.Tags;
             var skillScorePerUser = tags.ToDictionary(x => x, x => skillScore);
 
             var teams = await _projectTeamParticipantRepository.GetProjectTeamParticipantsByProjectId(ct, project.Id);
-            var teamExecutors = teams.Where(x => task.TeamExecutorIds.Contains(x.Id)).ToList();
+            var teamExecutors = teams.Where(x => task.TeamExecutorIds.Contains(x.TeamId)).ToList();
 
             Dictionary<string, float> teamsScore = new();
 
