@@ -1,6 +1,8 @@
 import React                from 'react'
 import { FC }               from 'react'
 import { FormattedMessage } from 'react-intl'
+import { useEffect }        from 'react'
+import { useMemo }          from 'react'
 import { useState }         from 'react'
 import { useIntl }          from 'react-intl'
 
@@ -18,17 +20,31 @@ import { Title }            from '@ui/title'
 import { WrapperWhite }     from '@ui/wrapper'
 import { routes }           from '@shared/routes'
 import { getUniqueTags }    from '@shared/utils'
+import { useDebounce }      from '@shared/utils'
 
 import { useGetUsers }      from './data'
-import { filterUsers }      from './helpers'
 
 export const TeamInvite: FC = () => {
+  const [uniqueTags, setUniqueTags] = useState<string[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [searchValue, setSearchValue] = useState<string>('')
   const { formatMessage } = useIntl()
 
-  const { users } = useGetUsers({ search: '', skip: 0, tags: [], take: 0 })
-  const uniqueTags = getUniqueTags(users)
+  const filters = useMemo(
+    () => ({ search: searchValue, tags: selectedTags, skip: 0, take: 0 }),
+    [searchValue, selectedTags]
+  )
+  const debounceFilters = useDebounce(filters)
+
+  const { users } = useGetUsers(debounceFilters)
+
+  useEffect(() => {
+    if (users.length > 0 && uniqueTags.length === 0) {
+      setUniqueTags(getUniqueTags(users))
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [users])
 
   const handleAddTag = (tag: string) => {
     setSelectedTags(selectedTags.concat([tag]))
@@ -37,8 +53,6 @@ export const TeamInvite: FC = () => {
   const handleRemoveTag = (tag: string) => () => {
     setSelectedTags(selectedTags.filter((item) => item !== tag))
   }
-
-  const filteredUsers = filterUsers(users, selectedTags, searchValue)
 
   return (
     <Column fill marginBottom={32}>
@@ -74,7 +88,7 @@ export const TeamInvite: FC = () => {
               </Box>
             </Condition>
             <Condition match={users.length > 0}>
-              <Condition match={filteredUsers.length === 0}>
+              <Condition match={users.length === 0}>
                 <Layout flexBasis={60} flexShrink={0} />
                 <Box fill width={350} justifyContent='center' alignItems='center'>
                   <Text
@@ -89,14 +103,14 @@ export const TeamInvite: FC = () => {
                 </Box>
                 <Layout flexBasis={60} flexShrink={0} />
               </Condition>
-              <Condition match={filteredUsers.length > 0}>
+              <Condition match={users.length > 0}>
                 <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
                   <FormattedMessage id='team.invite.users_found' />
-                  {`: ${filteredUsers.length}`}
+                  {`: ${users.length}`}
                 </Text>
                 <Layout flexBasis={42} flexShrink={0} />
                 <Grid display='grid' gap={22} gridWrap='small' justifyContent='space-between'>
-                  {filteredUsers.map(({ id, avatarUrl, userName }) => (
+                  {users.map(({ id, avatarUrl, userName }) => (
                     <Column alignItems='center'>
                       <Avatar
                         key={id}
