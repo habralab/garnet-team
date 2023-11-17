@@ -65,7 +65,7 @@ public class ProjectTaskCloseCommand
             var totalScore = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.8, 2,
                 MidpointRounding.AwayFromZero);
             var skillScore = (float)Math.Round(totalScore / task.Tags.Length, 2, MidpointRounding.AwayFromZero);
-            var teamScorePerUser = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.2 / task.Tags.Length, 2,
+            var teamScorePerUser = (float)Math.Round(9.5 / task.UserExecutorIds.Length * 0.2, 2,
                 MidpointRounding.AwayFromZero);
 
             var tags = task.Tags;
