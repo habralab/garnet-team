@@ -18,6 +18,7 @@
     "@app/profile-page": "workspace:0.0.1",
     "@app/project-page": "workspace:0.0.1",
     "@app/project-profile-page": "workspace:0.0.1",
+    "@app/project-teams-page": "workspace:0.0.1",
     "@app/team-invite-page": "workspace:0.0.1",
     "@app/team-page": "workspace:0.0.1",
     "@app/team-profile-page": "workspace:0.0.1",
