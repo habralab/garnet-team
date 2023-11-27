@@ -17,7 +17,12 @@ import { routes }            from '@shared/routes'
 import { ButtonCreateTeam }  from './button-create-team'
 import { ProfileTeamsProps } from './profile-teams.interfaces'
 
-export const ProfileTeams: FC<ProfileTeamsProps> = ({ teams, isMyProject, ownerUser }) => (
+export const ProfileTeams: FC<ProfileTeamsProps> = ({
+  teams,
+  isMyProject,
+  ownerUser,
+  projectId,
+}) => (
   <Column fill>
     <Row justifyContent='space-between' alignItems='center'>
       <Text fontSize='regular' fontWeight='bold' color='text.secondary'>
@@ -26,11 +31,13 @@ export const ProfileTeams: FC<ProfileTeamsProps> = ({ teams, isMyProject, ownerU
       </Text>
       <Condition match={isMyProject && teams.length > 0}>
         <Box alignItems='center'>
-          <Button variant='link' size='micro'>
-            <Text fontSize='medium' color='currentColor'>
-              <FormattedMessage id='profile.manage' />
-            </Text>
-          </Button>
+          <NextLink path={routes.projectsTeams(projectId)}>
+            <Button variant='link' size='micro'>
+              <Text fontSize='medium' color='currentColor'>
+                <FormattedMessage id='profile.manage' />
+              </Text>
+            </Button>
+          </NextLink>
           <Layout width={64} />
           <ButtonCreateTeam user={ownerUser} />
         </Box>
