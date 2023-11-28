@@ -16,11 +16,11 @@ public class ProjectTeamRepository : IProjectTeamRepository
     }
 
     public async Task<ProjectTeamEntity> AddProjectTeam(CancellationToken ct, string teamId,
-        string teamName, string ownerUserId, string? teamAvatarUrl)
+        string teamName, string ownerUserId, string teamDescription, string? teamAvatarUrl)
     {
         var db = _dbFactory.Create();
         var userParticipantsId = new[] { ownerUserId };
-        var team = ProjectTeamDocument.Create(teamId, teamName, ownerUserId, teamAvatarUrl, userParticipantsId);
+        var team = ProjectTeamDocument.Create(teamId, teamName, ownerUserId, teamAvatarUrl, teamDescription, userParticipantsId);
         await db.ProjectTeams.InsertOneAsync(team, cancellationToken: ct);
 
         return ProjectTeamDocument.ToDomain(team);
