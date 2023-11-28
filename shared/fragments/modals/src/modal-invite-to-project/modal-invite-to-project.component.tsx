@@ -22,7 +22,7 @@ export const ModalInviteToProject: FC<ModalInviteToProjectProps> = ({
       })
       onClose?.()
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

@@ -22,7 +22,7 @@ export const ModalInviteToTeam: FC<ModalInviteToTeamProps> = ({
       })
       onClose?.()
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

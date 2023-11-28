@@ -11,9 +11,7 @@ export const useCreateRequest = () => {
 
       return data?.teamUserJoinRequestCreate.teamUserJoinRequestPayload
     } catch (error) {
-      /** @todo error notification */
-
-      return undefined
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

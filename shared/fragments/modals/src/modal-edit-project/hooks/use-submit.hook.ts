@@ -28,9 +28,7 @@ export const useSubmit = (project?: Project) => {
         avatarUrl: avatar,
       }
     } catch (error) {
-      /** @todo error notification */
-
-      return undefined
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

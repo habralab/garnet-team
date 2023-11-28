@@ -21,7 +21,7 @@ export const JoinRequests: FC<JoinRequestsProps> = ({ joinRequests }) => {
     try {
       await decideProjectTeamJoinRequest({ variables: { approve, id: requestId } })
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 
