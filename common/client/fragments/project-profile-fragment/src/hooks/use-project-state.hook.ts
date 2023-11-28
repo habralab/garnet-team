@@ -4,9 +4,8 @@ import { useState }      from 'react'
 
 import { Project }       from '@shared/data'
 import { useGetUser }    from '@shared/data'
+import { useGetProject } from '@shared/data'
 import { useSession }    from '@stores/session'
-
-import { useGetProject } from '../data'
 
 export const useProjectState = () => {
   const router = useRouter()

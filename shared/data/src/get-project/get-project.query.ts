@@ -13,6 +13,14 @@ export const GET_PROJECT = gql`
     projectTeamParticipantsFilter(input: { projectId: $id }) {
       projectTeamParticipant {
         id
+        teamId
+        teamName
+        teamAvatarUrl
+        userParticipants {
+          id
+          userName
+          userAvatarUrl
+        }
       }
     }
   }
