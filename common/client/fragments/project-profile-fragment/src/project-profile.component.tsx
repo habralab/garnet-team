@@ -40,9 +40,10 @@ export const ProjectProfile: FC = () => {
             <ProfileAvatar project={project} ownerUser={ownerUser} />
             <Layout flexBasis={32} />
             <ProfileDescription project={project} />
-            <Box position='absolute' bottom={32} right={32}>
+            <Box position='absolute' bottom={32} right={32} alignItems='center'>
               <Condition match={isMyProject}>
                 <ButtonEditProject project={project} onEditProject={handleEditProject} />
+                <Layout width={64} />
               </Condition>
               <ButtonInvite project={project} />
             </Box>
