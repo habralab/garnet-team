@@ -1,4 +1,5 @@
 export * from './data.interfaces'
 export * from './get-user'
+export * from './get-project'
 export * from './helpers'
 export * from './mock'
