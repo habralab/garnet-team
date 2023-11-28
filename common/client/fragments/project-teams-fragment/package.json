@@ -1,0 +1,41 @@
+{
+  "name": "@app/project-teams-fragment",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@shared/data": "workspace:0.0.1",
+    "@shared/routes": "workspace:0.0.1",
+    "@shared/utils": "workspace:0.0.1",
+    "@ui/avatar": "workspace:0.0.1",
+    "@ui/button": "workspace:0.0.1",
+    "@ui/card": "workspace:0.0.1",
+    "@ui/condition": "workspace:0.0.1",
+    "@ui/layout": "workspace:0.0.1",
+    "@ui/tag": "workspace:0.0.1",
+    "@ui/text": "workspace:0.0.1",
+    "@ui/title": "workspace:0.0.1",
+    "@ui/wrapper": "workspace:0.0.1"
+  },
+  "devDependencies": {
+    "@apollo/client": "3.8.7",
+    "@stores/session": "workspace:0.0.1",
+    "@types/react": "18.2.28",
+    "@types/react-dom": "18.2.15",
+    "next": "12.3.4",
+    "react-intl": "6.0.8"
+  },
+  "peerDependencies": {
+    "@emotion/css": "*",
+    "@emotion/react": "*",
+    "@emotion/styled": "*",
+    "@stores/session": "workspace:*",
+    "framer-motion": "*",
+    "graphql": "*",
+    "next": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-intl": "*",
+    "styled-system": "*",
+    "styled-tools": "*"
+  }
+}
