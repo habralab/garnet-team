@@ -26,7 +26,7 @@ public class TeamUpdatedEventConsumer : IMessageBusConsumer<TeamUpdatedEvent>
 
     public async Task Consume(TeamUpdatedEvent message)
     {
-        var projectTeamUpdateArgs = new ProjectTeamUpdateArgs(message.Id, message.Name, message.OwnerUserId, message.AvatarUrl);
+        var projectTeamUpdateArgs = new ProjectTeamUpdateArgs(message.Id, message.Name, message.OwnerUserId, message.AvatarUrl, message.Description);
         await _projectTeamUpdateCommand.Execute(CancellationToken.None, projectTeamUpdateArgs);
 
         var projectTeamParticipantUpdateArgs = new ProjectTeamParticipantUpdateArgs(message.Id, message.Name, message.AvatarUrl);
