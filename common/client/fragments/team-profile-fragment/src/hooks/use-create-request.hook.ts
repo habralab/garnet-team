@@ -13,6 +13,8 @@ export const useCreateRequest = () => {
     } catch (error) {
       if (process.env.NODE_ENV !== 'production') throw error
     }
+
+    return undefined
   }
 
   return { createRequest, loading }

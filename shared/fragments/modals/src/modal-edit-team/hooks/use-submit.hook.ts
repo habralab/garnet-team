@@ -30,6 +30,8 @@ export const useSubmit = (team?: Team) => {
     } catch (error) {
       if (process.env.NODE_ENV !== 'production') throw error
     }
+
+    return undefined
   }
 
   return { submit, loading: loadingUpdate || loadingUpload }
