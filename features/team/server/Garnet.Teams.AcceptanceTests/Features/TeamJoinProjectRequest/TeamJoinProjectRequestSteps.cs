@@ -42,7 +42,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinProjectRequest
             var team = await Db.Teams.Find(x => x.Name == teamName).FirstAsync();
 
             _currentUserProviderFake.LoginAs(username);
-            var input = new TeamJoinProjectRequestPayload(Uuid.NewMongo(), team.Id, projectId);
+            var input = new TeamJoinProjectRequestInput(team.Id, projectId);
 
             try
             {

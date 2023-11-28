@@ -4,5 +4,5 @@ namespace Garnet.Teams.Infrastructure.Api.TeamJoinProjectRequest
         string Id,
         string TeamId,
         string ProjectId
-    );
+    ) : TeamJoinProjectRequestInput(TeamId, ProjectId);
 }
