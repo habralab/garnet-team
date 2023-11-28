@@ -7,7 +7,7 @@ export const useCancelRequest = () => {
     try {
       await cancelTeamJoinRequest({ variables: { id: joinRequestId } })
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

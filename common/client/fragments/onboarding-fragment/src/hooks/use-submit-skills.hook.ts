@@ -9,7 +9,7 @@ export const useSubmitSkills = () => {
         await updateUserTags({ variables: { tags: value } })
       }
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

@@ -13,6 +13,7 @@ import { Title }              from '@ui/title'
 import { WrapperWhite }       from '@ui/wrapper'
 
 import { ButtonEditProject }  from './button-edit-project'
+import { ButtonInvite }       from './button-invite'
 import { ProfileAvatar }      from './profile-avatar'
 import { ProfileDescription } from './profile-description'
 import { ProfileTeams }       from './profile-teams'
@@ -39,10 +40,12 @@ export const ProjectProfile: FC = () => {
             <ProfileAvatar project={project} ownerUser={ownerUser} />
             <Layout flexBasis={32} />
             <ProfileDescription project={project} />
-            <Box position='absolute' bottom={32} right={32}>
+            <Box position='absolute' bottom={32} right={32} alignItems='center'>
               <Condition match={isMyProject}>
                 <ButtonEditProject project={project} onEditProject={handleEditProject} />
+                <Layout width={64} />
               </Condition>
+              <ButtonInvite project={project} />
             </Box>
           </Condition>
           <Condition match={!project}>
@@ -59,9 +62,12 @@ export const ProjectProfile: FC = () => {
       <Condition match={Boolean(project)}>
         <Layout flexBasis={32} flexShrink={0} />
         <WrapperWhite>
-          <Column>
-            <ProfileTeams ownerUser={ownerUser} teams={projectTeams} isMyProject={isMyProject} />
-          </Column>
+          <ProfileTeams
+            ownerUser={ownerUser}
+            teams={projectTeams}
+            isMyProject={isMyProject}
+            projectId={project?.id || ''}
+          />
         </WrapperWhite>
       </Condition>
     </Column>

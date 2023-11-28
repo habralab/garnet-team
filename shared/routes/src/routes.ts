@@ -3,6 +3,7 @@ export const routes = {
   onboard: '/onboard',
   profile: '/profile',
   projects: '/projects',
+  projectsTeams: (id: string) => `/projects/${id}/teams`,
   teams: '/teams',
   teamsInvite: '/teams/invite',
   users: '/users',
