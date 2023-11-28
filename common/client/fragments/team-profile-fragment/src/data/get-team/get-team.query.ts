@@ -15,6 +15,8 @@ export const GET_TEAM = gql`
         id
         userId
         teamId
+        username
+        avatarUrl
       }
     }
     projectFilterByTeamParticipantId(teamId: $id) {

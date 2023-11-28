@@ -134,7 +134,7 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamUserJoinRequestPayload(team.Id, team.UserId, team.TeamId, team.AuditInfo.CreatedAt);
         }
 
-        public async Task<TeamJoinProjectRequestPayload> TeamJoinProjectRequest(CancellationToken ct, TeamJoinProjectRequestPayload input)
+        public async Task<TeamJoinProjectRequestPayload> TeamJoinProjectRequest(CancellationToken ct, TeamJoinProjectRequestInput input)
         {
             var result = await _joinProjectRequestCommand.Execute(ct, input.TeamId, input.ProjectId);
             result.ThrowQueryExceptionIfHasErrors();
