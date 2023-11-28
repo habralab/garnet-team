@@ -2,6 +2,7 @@
 using Garnet.Projects.Application.Project.Args;
 using Garnet.Projects.Application.Project.Queries;
 using Garnet.Projects.Application.ProjectTask.Queries;
+using Garnet.Projects.Application.ProjectTeam.Queries;
 using Garnet.Projects.Application.ProjectTeamJoinRequest.Queries;
 using Garnet.Projects.Application.ProjectTeamParticipant;
 using Garnet.Projects.Application.ProjectTeamParticipant.Queries;
@@ -15,7 +16,6 @@ using Garnet.Projects.Infrastructure.Api.ProjectTaskGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequest;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestGet;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamParticipant;
-using Garnet.Projects.Infrastructure.MongoDb.Project;
 using HotChocolate.Types;
 
 namespace Garnet.Projects.Infrastructure.Api;
@@ -30,6 +30,7 @@ public class ProjectsQuery
     private readonly ProjectFilterByUserParticipantIdQuery _projectFilterByUserParticipantIdQuery;
     private readonly ProjectFilterByTeamParticipantIdQuery _projectFilterByTeamParticipantIdQuery;
     private readonly ProjectTaskGetQuery _projectTaskGetQuery;
+    private readonly ProjectTeamGetQuery _projectTeamGetQuery;
 
     public ProjectsQuery(
         ProjectGetQuery projectGetQuery,
@@ -38,7 +39,8 @@ public class ProjectsQuery
         ProjectTeamJoinRequestFilterQuery projectTeamJoinRequestFilterQuery,
         ProjectTaskGetQuery projectTaskGetQuery,
         ProjectFilterByUserParticipantIdQuery projectFilterByUserParticipantIdQuery,
-        ProjectFilterByTeamParticipantIdQuery projectFilterByTeamParticipantIdQuery)
+        ProjectFilterByTeamParticipantIdQuery projectFilterByTeamParticipantIdQuery,
+        ProjectTeamGetQuery projectTeamGetQuery)
     {
         _projectGetQuery = projectGetQuery;
         _projectsFilterQuery = projectsFilterQuery;
@@ -47,6 +49,7 @@ public class ProjectsQuery
         _projectTaskGetQuery = projectTaskGetQuery;
         _projectFilterByUserParticipantIdQuery = projectFilterByUserParticipantIdQuery;
         _projectFilterByTeamParticipantIdQuery = projectFilterByTeamParticipantIdQuery;
+        _projectTeamGetQuery = projectTeamGetQuery;
     }
 
     public async Task<ProjectPayload> ProjectGet(CancellationToken ct, string projectId)
@@ -125,7 +128,8 @@ public class ProjectsQuery
         return new ProjectFilterByTeamParticipantIdPayload(projects.ToArray());
     }
 
-    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(CancellationToken ct,
+    public async Task<ProjectTeamJoinRequestGetPayload> GetProjectTeamJoinRequestsByProjectId(
+        CancellationToken ct,
         ProjectTeamJoinRequestGetInput input)
     {
         var result =
@@ -133,12 +137,27 @@ public class ProjectsQuery
         result.ThrowQueryExceptionIfHasErrors();
 
         var teamJoinRequests = result.Value;
-        return new ProjectTeamJoinRequestGetPayload(teamJoinRequests.Select(x => new ProjectTeamJoinRequestPayload(
-            x.Id,
-            x.TeamId,
-            x.TeamName,
-            x.ProjectId
-        )).ToArray());
+
+        List<ProjectTeamJoinRequestPayload> payload = new();
+
+        foreach (var teamJoinRequest in teamJoinRequests)
+        {
+            var team = await _projectTeamGetQuery.Query(ct, teamJoinRequest.TeamId);
+            var teamParticipant = await _projectTeamParticipantFilterQuery.Query(ct, teamJoinRequest.TeamId);
+
+            payload.Add(new ProjectTeamJoinRequestPayload(
+                teamJoinRequest.Id,
+                teamJoinRequest.TeamId,
+                teamJoinRequest.TeamName,
+                team.TeamDescription,
+                team.TeamAvatarUrl,
+                teamJoinRequest.ProjectId,
+                teamParticipant.Length,
+                team.UserParticipantIds.Length
+            ));
+        }
+
+        return new ProjectTeamJoinRequestGetPayload(payload.ToArray());
     }
 
     public async Task<ProjectTaskGetPayload> ProjectTaskGetById(CancellationToken ct, string taskId)

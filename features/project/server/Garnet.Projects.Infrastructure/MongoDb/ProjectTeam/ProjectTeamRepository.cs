@@ -36,14 +36,15 @@ public class ProjectTeamRepository : IProjectTeamRepository
 
 
     public async Task<ProjectTeamEntity?> UpdateProjectTeam(CancellationToken ct, string teamId,
-        string teamName, string ownerUserId, string? teamAvatarUrl)
+        string teamName, string ownerUserId, string? teamAvatarUrl, string teamDescription)
     {
         var db = _dbFactory.Create();
         var team = await db.ProjectTeams.FindOneAndUpdateAsync(
             _f.Eq(x => x.Id, teamId),
             _u.Set(x => x.TeamName, teamName)
                 .Set(x => x.OwnerUserId, ownerUserId)
-                .Set(x => x.TeamAvatarUrl, teamAvatarUrl),
+                .Set(x => x.TeamAvatarUrl, teamAvatarUrl)
+                .Set(x => x.TeamDescription, teamDescription),
             options: new FindOneAndUpdateOptions<ProjectTeamDocument>
             {
                 ReturnDocument = ReturnDocument.After

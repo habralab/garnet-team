@@ -186,7 +186,7 @@ public class ProjectsMutation
     }
 
 
-    public async Task<ProjectTeamJoinRequestPayload> ProjectTeamJoinRequestDecide(CancellationToken ct,
+    public async Task<ProjectTeamJoinRequestDecidePayload> ProjectTeamJoinRequestDecide(CancellationToken ct,
         ProjectTeamJoinRequestDecideInput input)
     {
         var result = await _projectTeamJoinRequestDecideCommand.Execute(ct,
@@ -194,7 +194,10 @@ public class ProjectsMutation
         result.ThrowQueryExceptionIfHasErrors();
 
         var teamJoinRequest = result.Value;
-        return new ProjectTeamJoinRequestPayload(teamJoinRequest.Id, teamJoinRequest.TeamId, teamJoinRequest.TeamName,
+        return new ProjectTeamJoinRequestDecidePayload(
+            teamJoinRequest.Id,
+            teamJoinRequest.TeamId,
+            teamJoinRequest.TeamName,
             teamJoinRequest.ProjectId);
     }
 
