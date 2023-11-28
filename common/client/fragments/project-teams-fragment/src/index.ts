@@ -1,1 +1,1 @@
-export * from './user-teams.component'
+export * from './project-teams.component'
