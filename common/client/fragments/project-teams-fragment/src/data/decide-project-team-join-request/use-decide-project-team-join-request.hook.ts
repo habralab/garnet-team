@@ -5,9 +5,10 @@ import { JoinRequest }                      from '@shared/data'
 import { DECIDE_PROJECT_TEAM_JOIN_REQUEST } from './decide-project-team-join-request.mutation'
 
 export interface DecideProjectTeamJoinRequestResponse {
-  projectTeamJoinRequestPayload: {
-    id: JoinRequest['id']
-  }
+  id?: string
+  teamId?: string
+  teamName?: string
+  projectId?: string
 }
 
 export interface DecideProjectTeamJoinRequestInput {

@@ -1,37 +1,19 @@
 import { useQuery }          from '@apollo/client'
 
 import { Project }           from '@shared/data'
-import { User }              from '@shared/data'
-import { mockTeams }         from '@shared/data'
 
 import { GET_JOIN_REQUESTS } from './get-join-requests.query'
 
-interface JoinRequest {
+export interface JoinRequest {
   id?: string
+  projectId?: string
   teamId?: string
   teamName?: string
-  projectId?: string
-}
-
-export interface MockJoinRequest extends JoinRequest {
   teamDescription?: string
   teamAvatarUrl?: string
-  teamProjectCount?: number
-  teamParticipants?: User[]
+  projectCount?: number
+  teamUserParticipants?: number
 }
-
-const mockJoinRequests: MockJoinRequest[] = mockTeams.map(
-  (item, index): MockJoinRequest => ({
-    id: String(index),
-    teamId: item.id,
-    teamName: item.name,
-    projectId: String(index),
-    teamDescription: item.description,
-    teamAvatarUrl: item.avatarUrl,
-    teamProjectCount: item.projectCount,
-    teamParticipants: item.teamParticipants || [],
-  })
-)
 
 export interface GetJoinRequestsResponse {
   projectTeamJoinRequest: JoinRequest[]
@@ -42,18 +24,13 @@ export interface GetJoinRequestsInput {
 }
 
 export const useGetJoinRequests = (props: GetJoinRequestsInput) => {
-  const { refetch } = useQuery<GetJoinRequestsResponse, GetJoinRequestsInput>(
+  const { data, refetch } = useQuery<GetJoinRequestsResponse, GetJoinRequestsInput>(
     GET_JOIN_REQUESTS,
     { variables: props }
   )
 
   return {
-    joinRequests: mockJoinRequests,
+    joinRequests: data?.projectTeamJoinRequest || [],
     refetch,
   }
-
-  // return {
-  //   joinRequests: data?.projectTeamJoinRequest || [],
-  //   refetch,
-  // }
 }

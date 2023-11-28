@@ -51,11 +51,11 @@ export const JoinRequests: FC<JoinRequestsProps> = ({ joinRequests }) => {
                 <Text fontSize='semiMedium' color='text.gray'>
                   <FormattedMessage id='project_teams.participants' />:
                   <Space />
-                  {item.teamParticipants?.length}
+                  {item.teamUserParticipants}
                 </Text>
                 <Layout flexBasis={32} flexShrink={0} />
                 <Text fontSize='semiMedium' color='text.gray'>
-                  <FormattedMessage id='project_teams.projects' />: {item.teamProjectCount}
+                  <FormattedMessage id='project_teams.projects' />: {item.projectCount}
                 </Text>
               </Row>
               <Layout flexBasis={6} flexShrink={0} />

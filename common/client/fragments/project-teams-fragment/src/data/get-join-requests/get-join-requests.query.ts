@@ -5,9 +5,13 @@ export const GET_JOIN_REQUESTS = gql`
     projectTeamJoinRequestsByProjectId(input: { projectId: $id }) {
       projectTeamJoinRequest {
         id
+        projectId
         teamId
         teamName
-        projectId
+        teamDescription
+        teamAvatarUrl
+        projectCount
+        teamUserParticipants
       }
     }
   }

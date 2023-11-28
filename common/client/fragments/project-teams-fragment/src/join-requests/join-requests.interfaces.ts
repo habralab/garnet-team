@@ -1,6 +1,6 @@
-import { MockJoinRequest } from '../data'
+import { JoinRequest } from '../data'
 
 export interface JoinRequestsProps {
-  joinRequests: MockJoinRequest[]
+  joinRequests: JoinRequest[]
   refetch: () => void
 }
