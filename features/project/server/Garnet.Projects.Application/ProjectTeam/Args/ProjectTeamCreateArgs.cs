@@ -4,5 +4,6 @@ public record ProjectTeamCreateArgs(
     string TeamId,
     string TeamName,
     string OwnerUserId,
+    string TeamDescription,
     string? TeamAvatarUrl
     );
