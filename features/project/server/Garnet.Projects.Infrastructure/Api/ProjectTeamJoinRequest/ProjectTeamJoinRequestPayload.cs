@@ -4,5 +4,9 @@ public record ProjectTeamJoinRequestPayload(
     string Id,
     string TeamId,
     string TeamName,
-    string ProjectId
+    string TeamDescription,
+    string? TeamAvatarUrl,
+    string ProjectId,
+    int ProjectCount,
+    int TeamUserParticipants
     );
