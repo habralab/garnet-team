@@ -5,6 +5,8 @@
   "dependencies": {
     "@shared/data": "workspace:0.0.1",
     "@shared/routes": "workspace:0.0.1",
+    "@shared/utils": "workspace:0.0.1",
+    "@ui/avatar": "workspace:0.0.1",
     "@ui/background": "workspace:0.0.1",
     "@ui/button": "workspace:0.0.1",
     "@ui/condition": "workspace:0.0.1",
@@ -13,9 +15,11 @@
     "@ui/link": "workspace:0.0.1",
     "@ui/logo": "workspace:0.0.1",
     "@ui/modal": "workspace:0.0.1",
-    "@ui/text": "workspace:0.0.1"
+    "@ui/text": "workspace:0.0.1",
+    "react-laag": "2.0.5"
   },
   "devDependencies": {
+    "@apollo/client": "3.8.7",
     "@atls/next-identity-integration": "0.0.17",
     "@emotion/react": "11.9.3",
     "@emotion/styled": "11.9.3",
@@ -30,6 +34,7 @@
   },
   "peerDependencies": {
     "@atls/next-identity-integration": "*",
+    "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
     "@stores/session": "workspace:*",

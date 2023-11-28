@@ -15,6 +15,7 @@ import { Logo }             from '@ui/logo'
 
 import { ButtonExit }       from './button-exit'
 import { HeaderProps }      from './header.interfaces'
+import { Notifications }    from './notifications'
 import { TabItem }          from './tab-item'
 import { navigationItems }  from './header.constants'
 import { isActiveLink }     from './helpers'
@@ -45,7 +46,12 @@ export const Header: FC<HeaderProps> = ({ disableNavigation = false }) => {
                 <Layout flexBasis={30} flexShrink={0} />
               </Fragment>
             ))}
-            <ButtonExit />
+            <Box fill alignItems='center' justifyContent='flex-end'>
+              <Notifications />
+              <Layout flexBasis={20} flexShrink={0} />
+              <ButtonExit />
+              <Layout flexBasis={24} flexShrink={0} />
+            </Box>
           </Condition>
         </Row>
         <Layout flexBasis={36.5} flexShrink={0} />
