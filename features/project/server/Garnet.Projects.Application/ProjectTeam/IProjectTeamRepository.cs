@@ -3,7 +3,7 @@
 public interface IProjectTeamRepository
 {
     Task<ProjectTeamEntity> AddProjectTeam(CancellationToken ct, string teamId, string teamName,
-        string ownerUserId, string? teamAvatarUrl);
+        string ownerUserId, string teamDescription, string? teamAvatarUrl);
 
     Task<ProjectTeamEntity> GetProjectTeamById(CancellationToken ct, string teamId);
 

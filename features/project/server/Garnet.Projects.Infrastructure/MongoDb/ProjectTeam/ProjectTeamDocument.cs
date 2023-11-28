@@ -12,7 +12,7 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam
         public string[] UserParticipantIds { get; init; } = null!;
 
         public static ProjectTeamDocument Create(string id, string teamName, string ownerUserId, string? teamAvatarUrl,
-            string[] userParticipants)
+            string teamDescription, string[] userParticipants)
         {
             return new ProjectTeamDocument
             {
@@ -20,6 +20,7 @@ namespace Garnet.Projects.Infrastructure.MongoDb.ProjectTeam
                 TeamName = teamName,
                 OwnerUserId = ownerUserId,
                 TeamAvatarUrl = teamAvatarUrl,
+                TeamDescription = teamDescription,
                 UserParticipantIds = userParticipants
             };
         }
