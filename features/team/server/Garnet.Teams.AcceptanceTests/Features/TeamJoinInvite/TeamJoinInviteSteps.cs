@@ -88,7 +88,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvite
             var team = await Db.Teams.Find(x=> x.Name == teamName).FirstAsync();
             var message = _sendNotificationCommandMessageFakeConsumer.Notifications
             .Last(x=> x.UserId == user.Id);
-            message.LinkedEntityId.Should().Be(team.Id);
+            message.QuotedEntities.Should().Contain(x=> x.Id == team.Id);
         }
     }
 }
