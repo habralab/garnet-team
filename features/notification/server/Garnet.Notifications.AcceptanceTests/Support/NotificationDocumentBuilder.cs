@@ -56,7 +56,8 @@ namespace Garnet.Notifications.AcceptanceTests.Support
                 document.UserId,
                 document.Type,
                 document.CreatedAt,
-                document.LinkedEntityId
+                document.LinkedEntityId,
+                Array.Empty<NotificationQuotedEntity>()
             );
         }
     }
