@@ -75,7 +75,7 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
             var notificationForDelete = invitation.DeleteTeamInviteNotification();
             await _messageBus.Publish(notificationForDelete);
 
-            var notification = invitation.CreateTeamInviteDecideNotification(team, user.Username, isApproved);
+            var notification = invitation.CreateTeamInviteDecideNotification(team, user, isApproved);
             await _messageBus.Publish(notification);
             return Result.Ok(invitation);
         }
