@@ -7,13 +7,20 @@ namespace Garnet.Projects.Application.ProjectTeamParticipant.Notifications
     {
         public static SendNotificationCommandMessage CreateTeamLeaveProjectNotification(this ProjectTeamParticipantEntity projectTeamParticipant, ProjectEntity project)
         {
+            var quotes = new NotificationQuotedEntity[]
+            {
+                new(projectTeamParticipant.ProjectId, projectTeamParticipant.TeamAvatarUrl!, projectTeamParticipant.TeamName),
+                new(project.Id, project.AvatarUrl, project.ProjectName)
+            };
+
             return new SendNotificationCommandMessage(
                 Title: "Команда покинула проект",
                 Body: $"Команда {projectTeamParticipant.TeamName} покинула проект {project.ProjectName}",
                 project.OwnerUserId,
                 Type: "TeamLeaveProject",
                 DateTimeOffset.Now,
-                projectTeamParticipant.TeamId
+                projectTeamParticipant.Id,
+                quotes
             );
         }
     }
