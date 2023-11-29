@@ -30,7 +30,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
             return new DeleteNotificationCommandMessage(
                teamOwnerUserId,
                Type: "TeamUserJoinRequest",
-               userJoinRequestEntity.UserId
+               userJoinRequestEntity.Id
            );
         }
 
