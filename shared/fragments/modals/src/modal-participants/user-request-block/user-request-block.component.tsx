@@ -16,10 +16,10 @@ import { Layout }                   from '@ui/layout'
 import { Tag }                      from '@ui/tag'
 import { Text }                     from '@ui/text'
 import { routes }                   from '@shared/routes'
+import { getDaysAgo }               from '@shared/utils'
 
 import { UserRequestBlockProps }    from './user-request-block.interfaces'
 import { useDecideTeamJoinRequest } from '../data'
-import { getDaysAgo }               from './helpers'
 
 export const UserRequestBlock: FC<UserRequestBlockProps> = ({ user, size = 'normal' }) => {
   const { id, avatarUrl, tags = [], userName, requestType, date = '' } = user

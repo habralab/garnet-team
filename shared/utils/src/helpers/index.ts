@@ -1,3 +1,4 @@
-export * from './check-password'
+export * from './check-password.helper'
+export * from './get-days-ago.helper'
 export * from './get-unique-tags.helper'
-export * from './is-includes'
+export * from './is-includes.helper'
