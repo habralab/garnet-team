@@ -29,5 +29,14 @@ namespace Garnet.Projects.Application.ProjectTeamJoinRequest.Notifications
                 projectTeamJoinRequest.ProjectId
             );
         }
+
+        public static DeleteNotificationCommandMessage DeleteProjectTeamJoinRequestNotification(this ProjectTeamJoinRequestEntity projectTeamJoinRequest, string projectOwnerUserId)
+        {
+            return new DeleteNotificationCommandMessage(
+                projectOwnerUserId,
+                "TeamJoinProjectRequest",
+                projectTeamJoinRequest.TeamId
+            );
+        }
     }
 }

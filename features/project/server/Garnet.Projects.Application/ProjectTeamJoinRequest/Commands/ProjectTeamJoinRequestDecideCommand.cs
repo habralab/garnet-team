@@ -68,6 +68,9 @@ public class ProjectTeamJoinRequestDecideCommand
             teamJoinRequest.ProjectId, isApproved);
         await _messageBus.Publish(decideEvent);
 
+        var notificationForDelete = teamJoinRequest.DeleteProjectTeamJoinRequestNotification(project.OwnerUserId);
+        await _messageBus.Publish(notificationForDelete);
+
         var team = await _projectTeamRepository.GetProjectTeamById(ct, teamJoinRequest.TeamId);
         var notification = teamJoinRequest.CreateProjectTeamJoinRequestDecideNotification(project, team.OwnerUserId, isApproved);
         await _messageBus.Publish(notification);

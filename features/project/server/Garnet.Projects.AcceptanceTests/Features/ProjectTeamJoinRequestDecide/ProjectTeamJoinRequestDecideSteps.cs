@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Projects.AcceptanceTests.FakeServices.NotificationFake;
 using Garnet.Projects.Application;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
 using Garnet.Projects.Infrastructure.MongoDb;
@@ -15,13 +16,16 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private readonly QueryExceptionsContext _queryExceptionsContext;
+    private readonly DeleteNotificationCommandMessageFakeConsumer _deleteNotificationCommandMessageFakeConsumer;
 
 
     public ProjectTeamJoinRequestDecideSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake,
+        DeleteNotificationCommandMessageFakeConsumer deleteNotificationCommandMessageFakeConsumer,
         QueryExceptionsContext queryExceptionsContext) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
         _queryExceptionsContext = queryExceptionsContext;
+        _deleteNotificationCommandMessageFakeConsumer = deleteNotificationCommandMessageFakeConsumer;
     }
 
     private async Task<ProjectTeamJoinRequestDecideInput> SetJoinRequestDecision(string projectName, string teamName,
@@ -93,5 +97,24 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
         var teamParticipant = await Db.ProjectTeamsParticipants
             .Find(x => x.TeamName == teamName & x.ProjectId == project.Id).FirstOrDefaultAsync();
         teamParticipant.Should().BeNull();
+    }
+
+    [Then(@"для пользователя '(.*)' нет уведомлений типа '(.*)'")]
+    public async Task ThenДляПользователяНетУведомленийТипа(string username, string eventType)
+    {
+        var user = await Db.ProjectUsers.Find(x => x.UserName == username).FirstAsync();
+        var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
+           .First(x => x.UserId == user.Id);
+        message.Type.Should().Be(eventType);
+    }
+
+    [Then(@"для пользователя '(.*)' нет уведомлений со связанной сущностью командой '(.*)'")]
+    public async Task ThenДляПользователяНетУведомленийСоСвязаннойСущностьюКомандой(string username, string teamName)
+    {
+        var user = await Db.ProjectUsers.Find(x => x.UserName == username).FirstAsync();
+        var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
+           .First(x => x.UserId == user.Id);
+        var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
+        message.LinkedEntityId.Should().Be(team.Id);
     }
 }
