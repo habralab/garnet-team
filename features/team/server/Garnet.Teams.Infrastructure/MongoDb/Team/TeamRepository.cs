@@ -31,7 +31,8 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
              args.Description,
              ownerUserId!,
              string.Empty,
-             args.Tags
+             args.Tags,
+             0
             );
 
             team = await InsertOneDocument(ct, db.Teams, team);
@@ -62,7 +63,9 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
 
             var searchFilter = args.Search is null
                 ? _f.Empty
-                : _f.Where(x => x.Description.ToLower().Contains(args.Search.ToLower()) || x.Name.ToLower().Contains(args.Search.ToLower()));
+                : _f.Where(x =>
+                    x.Description.ToLower().Contains(args.Search.ToLower()) ||
+                    x.Name.ToLower().Contains(args.Search.ToLower()));
 
             var tagsFilter = args.Tags.Length > 0
                 ? _f.All(o => o.Tags, args.Tags)
@@ -171,6 +174,18 @@ namespace Garnet.Teams.Infrastructure.MongoDb.Team
                 .ToListAsync(ct);
 
             return teams.Select(x => TeamDocument.ToDomain(x)).ToArray();
+        }
+
+        public async Task EditTeamTotalScore(CancellationToken ct, string teamId, float teamTotalScore)
+        {
+            var db = _dbFactory.Create();
+
+            await FindOneAndUpdateDocument(
+                ct,
+                db.Teams,
+                _f.Eq(x => x.Id, teamId),
+                _u.Inc(x => x.TotalScore, teamTotalScore)
+            );
         }
     }
 }

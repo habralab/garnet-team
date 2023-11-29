@@ -11,5 +11,16 @@ public record ProjectTaskClosedEvent(
     string[] TeamExecutorIds,
     string[] UserExecutorIds,
     string[] Tags,
-    string[] Labels
-    );
+    string[] Labels,
+    bool Reopened,
+    RatingCalculation? RatingCalculation
+);
+
+public record RatingCalculation(
+    string ProjectOwnerId,
+    float ProjectOwnerTotalScore,
+    string[] UserExecutorIds,
+    float UserTotalScore,
+    Dictionary<string, float> SkillScorePerUser,
+    Dictionary<string, float> TeamsTotalScore
+);

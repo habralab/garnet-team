@@ -39,7 +39,8 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
             args.TeamExecutorIds,
             args.UserExecutorIds,
             args.Tags,
-            args.Labels);
+            args.Labels,
+            false);
 
         task = await InsertOneDocument(
             ct,
@@ -184,7 +185,9 @@ public class ProjectTaskRepository : RepositoryBase, IProjectTaskRepository
     {
         var db = _dbFactory.Create();
         var filter = _f.Eq(x => x.Id, taskId);
-        var update = _u.Set(x => x.Status, status);
+        var update = _u
+            .Set(x => x.Status, status)
+            .Set(x => x.Reopened, true);
 
         var task = await FindOneAndUpdateDocument(
             ct,

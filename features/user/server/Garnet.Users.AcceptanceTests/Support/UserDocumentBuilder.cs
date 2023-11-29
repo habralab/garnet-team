@@ -13,6 +13,8 @@ public class UserDocumentBuilder
     private string _description = "Description";
     private string _avatarUrl = "";
     private List<string> _tags = new();
+    private float _totalScore = 0;
+    private Dictionary<string, float> _skillScore = new();
 
     public UserDocumentBuilder WithId(string id)
     {
@@ -43,11 +45,24 @@ public class UserDocumentBuilder
         _avatarUrl = avatarUrl;
         return this;
     }
-    
+
+    public UserDocumentBuilder WithTotalScore(float totalScore)
+    {
+        _totalScore = totalScore;
+        return this;
+    }
+
+    public UserDocumentBuilder WithSkillScore(Dictionary<string, float> skillScore)
+    {
+        _skillScore = skillScore;
+        return this;
+    }
+
     public UserDocument Build()
     {
         var document = UserDocument.Create(
-            new UserDocumentCreateArgs(_id, _userName, _description, _avatarUrl, _tags.ToArray())
+            new UserDocumentCreateArgs(_id, _userName, _description, _avatarUrl, _tags.ToArray(), _totalScore,
+                _skillScore)
         );
         return document with { AuditInfo = _auditInfo };
     }

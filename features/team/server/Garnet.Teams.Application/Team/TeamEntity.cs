@@ -10,6 +10,7 @@ namespace Garnet.Teams.Application.Team
         string OwnerUserId,
         string AvatarUrl,
         string[] Tags,
+        float TotalScore,
         AuditInfo AuditInfo
     );
 
@@ -17,17 +18,20 @@ namespace Garnet.Teams.Application.Team
     {
         public static TeamCreatedEvent ToCreatedEvent(this TeamEntity entity)
         {
-            return new TeamCreatedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description, entity.AvatarUrl, entity.Tags);
+            return new TeamCreatedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description,
+                entity.AvatarUrl, entity.Tags);
         }
 
         public static TeamDeletedEvent ToDeletedEvent(this TeamEntity entity)
         {
-            return new TeamDeletedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description, entity.AvatarUrl, entity.Tags);
+            return new TeamDeletedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description,
+                entity.AvatarUrl, entity.Tags, entity.TotalScore);
         }
 
         public static TeamUpdatedEvent ToUpdatedEvent(this TeamEntity entity)
         {
-            return new TeamUpdatedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description, entity.AvatarUrl, entity.Tags);
+            return new TeamUpdatedEvent(entity.Id, entity.Name, entity.OwnerUserId, entity.Description,
+                entity.AvatarUrl, entity.Tags, entity.TotalScore);
         }
     }
 }

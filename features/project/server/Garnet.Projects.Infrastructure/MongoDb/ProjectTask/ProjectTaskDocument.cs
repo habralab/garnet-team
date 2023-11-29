@@ -16,6 +16,7 @@ public record ProjectTaskDocument : DocumentBase
     public string[] UserExecutorIds { get; init; } = null!;
     public string[] Tags { get; init; } = null!;
     public string[] Labels { get; init; } = null!;
+    public bool Reopened { get; init; } = false;
 
     public static ProjectTaskDocument Create(
         string id,
@@ -28,7 +29,8 @@ public record ProjectTaskDocument : DocumentBase
         string[] teamExecutorIds,
         string[] userExecutorIds,
         string[] tags,
-        string[] labels
+        string[] labels,
+        bool reopened
     )
     {
         return new ProjectTaskDocument
@@ -43,7 +45,8 @@ public record ProjectTaskDocument : DocumentBase
             TeamExecutorIds = teamExecutorIds,
             UserExecutorIds = userExecutorIds,
             Tags = tags,
-            Labels = labels
+            Labels = labels,
+            Reopened = reopened
         };
     }
 
@@ -62,6 +65,7 @@ public record ProjectTaskDocument : DocumentBase
             doc.UserExecutorIds,
             doc.Tags,
             doc.Labels,
+            doc.Reopened,
             auditInfo
         );
     }

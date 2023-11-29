@@ -68,7 +68,9 @@ public class UsersRepository : RepositoryBase, IUsersRepository
                username,
                string.Empty,
                string.Empty,
-               Array.Empty<string>()
+               Array.Empty<string>(),
+               0,
+               new Dictionary<string, float>()
             )
         );
         var userDocument = await InsertOneDocument(_ct, db.Users, user);
@@ -118,6 +120,36 @@ public class UsersRepository : RepositoryBase, IUsersRepository
             _u.Set(o => o.UserName, username)
         );
         return UserDocument.ToDomain(user);
+    }
+
+    public async Task EditUserTotalScore(string userId, float totalScore)
+    {
+        var db = _dbFactory.Create();
+
+        await FindOneAndUpdateDocument(
+            _ct,
+            db.Users,
+            _f.Eq(x => x.Id, userId),
+            _u.Inc(x => x.TotalScore, totalScore)
+        );
+    }
+
+    public async Task EditUserSkillScore(string userId, Dictionary<string, float> skillScorePerUser)
+    {
+        var db = _dbFactory.Create();
+        var user = db.Users.Find(x => x.Id == userId).FirstOrDefault();
+
+        foreach (var skill in skillScorePerUser)
+        {
+            user.SkillScore[skill.Key] += skill.Value;
+        }
+
+        await FindOneAndUpdateDocument(
+            _ct,
+            db.Users,
+            _f.Eq(x => x.Id, userId),
+            _u.Set(x => x, user)
+        );
     }
 
     public async Task CreateIndexes()

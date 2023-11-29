@@ -6,6 +6,7 @@ namespace Garnet.Teams.Events.Team
         string OwnerUserId,
         string Description,
         string? AvatarUrl,
-        string[] Tags
+        string[] Tags,
+        float TotalScore
     );
 }

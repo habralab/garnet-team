@@ -11,5 +11,7 @@ public interface IUsersRepository
     Task<User> EditUserAvatar(string userId, string avatarUrl);
     Task<User> CreateUser(string identityId, string username);
     Task<User[]> FilterUsers(UserFilterArgs args);
+    Task EditUserTotalScore(string userId, float totalScore);
+    Task EditUserSkillScore(string userId, Dictionary<string, float> skillScorePerUser);
     Task CreateIndexes();
 }

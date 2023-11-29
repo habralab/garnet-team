@@ -19,6 +19,7 @@ public class ProjectTaskDocumentBuilder
     private string[] _userExecutorIds = Array.Empty<string>();
     private string[] _tags = Array.Empty<string>();
     private string[] _labels = Array.Empty<string>();
+    private bool _reopened = false;
     private AuditInfoDocument _auditInfo = new(DateTime.UtcNow, "CreatedByUser", DateTime.UtcNow, "UpdatedByUser", 0);
 
 
@@ -97,8 +98,7 @@ public class ProjectTaskDocumentBuilder
     public ProjectTaskDocument Build()
     {
         return ProjectTaskDocument.Create(_id, _taskNumber, _projectId, _responsibleUserId, _name, _description,
-                _status,
-                _teamExecutorIds, _userExecutorIds, _tags, _labels)
+                _status, _teamExecutorIds, _userExecutorIds, _tags, _labels, _reopened)
             with
             {
                 AuditInfo = _auditInfo

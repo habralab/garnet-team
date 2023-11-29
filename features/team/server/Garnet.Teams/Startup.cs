@@ -43,6 +43,7 @@ using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Events.TeamParticipant;
 using Garnet.Teams.Application.TeamParticipant.Commands;
 using Garnet.Notifications.Events;
+using Garnet.Projects.Events.ProjectTask;
 using Garnet.Teams.Application.TeamUser.Commands;
 using Garnet.Teams.Infrastructure.MongoDb.ProjectTeamParticipant;
 using Garnet.Teams.Application.ProjectTeamParticipant.Commands;
@@ -94,6 +95,7 @@ namespace Garnet.Team
                 o.RegisterConsumer<UserUpdatedEventConsumer, UserUpdatedEvent>();
                 o.RegisterConsumer<ProjectTeamJoinRequestDecidedEventConsumer, ProjectTeamJoinRequestDecidedEvent>();
                 o.RegisterConsumer<ProjectDeletedEventConsumer, ProjectDeletedEvent>();
+                o.RegisterConsumer<ProjectTaskClosedEventConsumer, ProjectTaskClosedEvent>();
                 o.RegisterMessage<TeamLeaveProjectEvent>();
                 o.RegisterMessage<TeamCreatedEvent>();
                 o.RegisterMessage<TeamDeletedEvent>();
