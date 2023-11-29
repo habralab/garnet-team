@@ -71,7 +71,10 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Commands
 
             var @event = invitation.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
-            
+
+            var notificationForDelete = invitation.DeleteTeamInviteNotification();
+            await _messageBus.Publish(notificationForDelete);
+
             var notification = invitation.CreateTeamInviteDecideNotification(team, user.Username, isApproved);
             await _messageBus.Publish(notification);
             return Result.Ok(invitation);

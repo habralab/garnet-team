@@ -73,6 +73,9 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             var @event = userJoinRequest.ToDecidedEvent(isApproved);
             await _messageBus.Publish(@event);
 
+            var notificationForDelete = userJoinRequest.DeleteTeamUserJoinRequestNotification(team.OwnerUserId);
+            await _messageBus.Publish(notificationForDelete);
+
             var notification = userJoinRequest.CreateTeamUserJoinRequestDecideNotification(team, isApproved);
             await _messageBus.Publish(notification);
             return Result.Ok(userJoinRequest);
