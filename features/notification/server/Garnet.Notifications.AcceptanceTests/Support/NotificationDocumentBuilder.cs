@@ -1,5 +1,6 @@
 using Garnet.Common.AcceptanceTests.Support;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Notifications.Application;
 using Garnet.Notifications.Application.Args;
 using Garnet.Notifications.Events;
 using Garnet.Notifications.Infrastructure.MongoDB;
@@ -31,7 +32,7 @@ namespace Garnet.Notifications.AcceptanceTests.Support
         {
             return NotificationDocument.Create(
                 _id,
-                new NotificationCreateArgs(_title, _body, _type, _userId, _createdAt, null)
+                new NotificationCreateArgs(_title, _body, _type, _userId, _createdAt, null, Array.Empty<QuotedEntity>())
             );
         }
 
