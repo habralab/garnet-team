@@ -1,19 +1,27 @@
 using Garnet.Notifications.Events;
 using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.TeamUser;
 
 namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
 {
     public static class TeamUserJoinRequestEntityNotificationsExtensions
     {
-        public static SendNotificationCommandMessage CreateTeamUserJoinRequestNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, string username)
+        public static SendNotificationCommandMessage CreateTeamUserJoinRequestNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, TeamUserEntity user)
         {
+            var quotes = new NotificationQuotedEntity[]
+            {
+                new(team.Id, team.AvatarUrl, team.Name),
+                new(user.Id, user.AvatarUrl, user.Username)
+            };
+
             return new SendNotificationCommandMessage(
                 Title: "Заявка на вступление в команду",
-                Body: $"Пользователь {username} хочет вступить в команду {team.Name}",
+                Body: $"Пользователь {user.Username} хочет вступить в команду {team.Name}",
                 team.OwnerUserId,
                 "TeamUserJoinRequest",
                 userJoinRequestEntity.AuditInfo.CreatedAt,
-                team.Id
+                userJoinRequestEntity.Id,
+                quotes
             );
         }
 
@@ -28,6 +36,11 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
 
         public static SendNotificationCommandMessage CreateTeamUserJoinRequestDecideNotification(this TeamUserJoinRequestEntity userJoinRequestEntity, TeamEntity team, bool isApproved)
         {
+            var quotes = new NotificationQuotedEntity[]
+            {
+                new(team.Id, team.AvatarUrl, team.Name)
+            };
+
             var decision = isApproved ? "принял" : "отклонил";
             return new SendNotificationCommandMessage(
                 Title: "Решение по заявке на вступление в команду",
@@ -35,7 +48,8 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Notifications
                 userJoinRequestEntity.UserId,
                 "TeamUserJoinRequestDecide",
                 DateTimeOffset.Now,
-                userJoinRequestEntity.TeamId
+                userJoinRequestEntity.Id,
+                quotes
             );
         }
     }
