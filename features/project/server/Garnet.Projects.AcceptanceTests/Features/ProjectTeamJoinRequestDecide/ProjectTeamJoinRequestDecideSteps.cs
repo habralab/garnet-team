@@ -1,6 +1,7 @@
 ﻿using FluentAssertions;
 using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
+using Garnet.Project.AcceptanceTests.FakeServices.NotificationFake;
 using Garnet.Projects.AcceptanceTests.FakeServices.NotificationFake;
 using Garnet.Projects.Application;
 using Garnet.Projects.Infrastructure.Api.ProjectTeamJoinRequestDecide;
@@ -16,16 +17,19 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
 {
     private readonly CurrentUserProviderFake _currentUserProviderFake;
     private readonly QueryExceptionsContext _queryExceptionsContext;
+    private readonly SendNotificationCommandMessageFakeConsumer _sendNotificationCommandMessageFakeConsumer;
     private readonly DeleteNotificationCommandMessageFakeConsumer _deleteNotificationCommandMessageFakeConsumer;
 
 
     public ProjectTeamJoinRequestDecideSteps(StepsArgs args, CurrentUserProviderFake currentUserProviderFake,
+        SendNotificationCommandMessageFakeConsumer sendNotificationCommandMessageFakeConsumer,
         DeleteNotificationCommandMessageFakeConsumer deleteNotificationCommandMessageFakeConsumer,
         QueryExceptionsContext queryExceptionsContext) : base(args)
     {
         _currentUserProviderFake = currentUserProviderFake;
         _queryExceptionsContext = queryExceptionsContext;
         _deleteNotificationCommandMessageFakeConsumer = deleteNotificationCommandMessageFakeConsumer;
+        _sendNotificationCommandMessageFakeConsumer = sendNotificationCommandMessageFakeConsumer;
     }
 
     private async Task<ProjectTeamJoinRequestDecideInput> SetJoinRequestDecision(string projectName, string teamName,
@@ -112,9 +116,12 @@ public class ProjectTeamJoinRequestDecideSteps : BaseSteps
     public async Task ThenДляПользователяНетУведомленийСоСвязаннойСущностьюКомандой(string username, string teamName)
     {
         var user = await Db.ProjectUsers.Find(x => x.UserName == username).FirstAsync();
-        var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
-           .First(x => x.UserId == user.Id);
         var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
-        message.LinkedEntityId.Should().Be(team.Id);
+        var requestedForDeleteNotice = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
+           .First(x => x.UserId == user.Id);
+        var notice = _sendNotificationCommandMessageFakeConsumer.Notifications
+                .First(x => x.UserId == user.Id && x.QuotedEntities.Any(y => y.Id == team.Id));
+
+        requestedForDeleteNotice.LinkedEntityId.Should().Be(notice.LinkedEntityId);
     }
 }

@@ -9,7 +9,7 @@ namespace Garnet.Projects.Application.ProjectTeamParticipant.Notifications
         {
             var quotes = new NotificationQuotedEntity[]
             {
-                new(projectTeamParticipant.ProjectId, projectTeamParticipant.TeamAvatarUrl!, projectTeamParticipant.TeamName),
+                new(projectTeamParticipant.TeamId, projectTeamParticipant.TeamAvatarUrl!, projectTeamParticipant.TeamName),
                 new(project.Id, project.AvatarUrl, project.ProjectName)
             };
 

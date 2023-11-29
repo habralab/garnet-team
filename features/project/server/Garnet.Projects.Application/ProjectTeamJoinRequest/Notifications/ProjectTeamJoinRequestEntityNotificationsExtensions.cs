@@ -10,7 +10,7 @@ namespace Garnet.Projects.Application.ProjectTeamJoinRequest.Notifications
         {
             var quotes = new NotificationQuotedEntity[]
             {
-                new(projectTeamJoinRequest.Id, teamAvatarUrl, projectTeamJoinRequest.TeamName),
+                new(projectTeamJoinRequest.TeamId, teamAvatarUrl, projectTeamJoinRequest.TeamName),
                 new(project.Id, project.AvatarUrl, project.ProjectName)
             };
 
@@ -50,7 +50,7 @@ namespace Garnet.Projects.Application.ProjectTeamJoinRequest.Notifications
             return new DeleteNotificationCommandMessage(
                 projectOwnerUserId,
                 "TeamJoinProjectRequest",
-                projectTeamJoinRequest.TeamId
+                projectTeamJoinRequest.Id
             );
         }
     }
