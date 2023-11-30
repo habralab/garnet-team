@@ -16,6 +16,7 @@ export const GET_USER = gql`
         tags
         avatarUrl
         projectCount
+        ownerUserId
         teamParticipants {
           id
           avatarUrl
