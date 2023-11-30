@@ -10,7 +10,6 @@ import { Button }           from '@ui/button'
 import { Condition }        from '@ui/condition'
 import { LogoutIcon }       from '@ui/icon'
 import { Layout }           from '@ui/layout'
-import { Box }              from '@ui/layout'
 import { Modal }            from '@ui/modal'
 import { Text }             from '@ui/text'
 import { useSession }       from '@stores/session'
@@ -33,32 +32,29 @@ export const ButtonExit: FC = () => {
   return (
     <>
       <Condition match={!isLogout}>
-        <Box fill justifyContent='flex-end'>
-          <Button variant='link' onClick={toggleModalOpen}>
-            <Text fontSize='medium' color='currentColor'>
-              <FormattedMessage id='header.exit' />
-            </Text>
-            <LogoutIcon width={24} height={24} color='currentColor' />
-          </Button>
-          <Modal
-            theme='exit'
-            open={modalOpen}
-            confirmText={formatMessage({ id: 'header.exit' })}
-            onConfirm={handleExit}
-            onCancel={toggleModalOpen}
-            onClose={toggleModalOpen}
-          >
-            <Text fontSize='semiMedium' fontWeight='bold' color='text.secondary'>
-              {fullName}
-            </Text>
-            <Layout flexBasis={4} flexShrink={0} />
-            <Text fontSize='semiMedium' color='text.secondary'>
-              <FormattedMessage id='header.exit_message' />
-            </Text>
-            <Layout flexBasis={40} />
-          </Modal>
-          <Layout flexBasis={24} flexShrink={0} />
-        </Box>
+        <Button variant='link' size='micro' onClick={toggleModalOpen}>
+          <Text fontSize='medium' color='currentColor'>
+            <FormattedMessage id='header.exit' />
+          </Text>
+          <LogoutIcon width={24} height={24} color='currentColor' />
+        </Button>
+        <Modal
+          theme='exit'
+          open={modalOpen}
+          confirmText={formatMessage({ id: 'header.exit' })}
+          onConfirm={handleExit}
+          onCancel={toggleModalOpen}
+          onClose={toggleModalOpen}
+        >
+          <Text fontSize='semiMedium' fontWeight='bold' color='text.secondary'>
+            {fullName}
+          </Text>
+          <Layout flexBasis={4} flexShrink={0} />
+          <Text fontSize='semiMedium' color='text.secondary'>
+            <FormattedMessage id='header.exit_message' />
+          </Text>
+          <Layout flexBasis={40} />
+        </Modal>
       </Condition>
       <Condition match={isLogout}>
         <Layout />
