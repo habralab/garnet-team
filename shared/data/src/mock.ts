@@ -128,7 +128,7 @@ export const getMockUser = (id: string) => {
 
 export const mockProjects: Project[] = Array.from({ length: 20 }, (_, index) => ({
   id: String(index),
-  name: `Dream Project ${index}`,
+  projectName: `Dream Project ${index}`,
   description:
     'Идейные соображения высшего порядка, а также постоянное информационно-пропагандистское обеспечение нашей деятельности играет важную роль в формировании системы обучения кадров.',
   ownerUserId: index % 2 === 0 ? mockAuthUserId : mockNotAuthUserId,

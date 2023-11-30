@@ -3,6 +3,9 @@ using Garnet.Common.AcceptanceTests.Contexts;
 using Garnet.Common.AcceptanceTests.Fakes;
 using Garnet.Common.Infrastructure.MongoDb;
 using Garnet.Common.Infrastructure.Support;
+using Garnet.Notifications.Events;
+using Garnet.Teams.AcceptanceTests.FakeServices.NotificationFake;
+using Garnet.Teams.AcceptanceTests.Support;
 using Garnet.Teams.Infrastructure.MongoDb.TeamUserJoinRequest;
 using HotChocolate.Execution;
 using MongoDB.Driver;
@@ -14,16 +17,19 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequest
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
         private readonly QueryExceptionsContext _errorStepContext;
+        private readonly SendNotificationCommandMessageFakeConsumer _sendNotificationCommandMessageFakeConsumer;
         private readonly DateTimeServiceFake _dateTimeServiceFake;
         public TeamUserJoinRequestStep(
             DateTimeServiceFake dateTimeServiceFake,
             CurrentUserProviderFake currentUserProviderFake,
+            SendNotificationCommandMessageFakeConsumer sendNotificationCommandMessageFakeConsumer,
             QueryExceptionsContext errorStepContext,
             StepsArgs args) : base(args)
         {
             _dateTimeServiceFake = dateTimeServiceFake;
             _currentUserProviderFake = currentUserProviderFake;
             _errorStepContext = errorStepContext;
+            _sendNotificationCommandMessageFakeConsumer = sendNotificationCommandMessageFakeConsumer;
         }
 
         [Given(@"существует заявка на вступление в команду '(.*)' от пользователя '(.*)'")]
@@ -36,6 +42,14 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequest
 
             request = request with { AuditInfo = audit };
             await Db.TeamUserJoinRequests.InsertOneAsync(request);
+
+            _sendNotificationCommandMessageFakeConsumer.Notifications.Add(
+               GiveMe.SendNotificationCommandMessage()
+                   .WithUserId(team.OwnerUserId)
+                   .WithType("TeamUserJoinRequest")
+                   .WithLinkedEntityId(request.Id)
+                   .WithQuotedEntityIds(new[] { userId, team.Id })
+           );
         }
 
         [When(@"пользователь '(.*)' подает заявку на вступление в команду '(.*)'")]

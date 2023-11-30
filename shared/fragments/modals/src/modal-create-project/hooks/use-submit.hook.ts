@@ -27,7 +27,7 @@ export const useSubmit = () => {
 
       router.push(`${routes.projects}/${data?.projectCreate.id}`)
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

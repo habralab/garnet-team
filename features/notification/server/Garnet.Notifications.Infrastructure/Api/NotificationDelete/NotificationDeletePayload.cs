@@ -9,6 +9,7 @@ namespace Garnet.Notifications.Infrastructure.Api.NotificationDelete
         string Type,
         string UserId,
         DateTimeOffset CreatedAt,
-        string? LinkedEntityId
-    ) : NotificationPayload(Id, Title, Body, Type, UserId, CreatedAt, LinkedEntityId);
+        string? LinkedEntityId,
+        QuotedEntityPayload[] QuotedEntities
+    ) : NotificationPayload(Id, Title, Body, Type, UserId, CreatedAt, LinkedEntityId, QuotedEntities);
 }

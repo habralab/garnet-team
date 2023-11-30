@@ -6,6 +6,7 @@ namespace Garnet.Notifications.Events
         string UserId,
         string Type,
         DateTimeOffset CreatedAt,
-        string? LinkedEntityId
+        string? LinkedEntityId,
+        NotificationQuotedEntity[] QuotedEntities
     );
 }

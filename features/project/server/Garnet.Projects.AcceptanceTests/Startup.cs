@@ -13,6 +13,7 @@ using Garnet.Common.Infrastructure.MessageBus;
 using SolidToken.SpecFlow.DependencyInjection;
 using Garnet.Project.AcceptanceTests.FakeServices.NotificationFake;
 using Garnet.Notifications.Events;
+using Garnet.Projects.AcceptanceTests.FakeServices.NotificationFake;
 
 namespace Garnet.Projects.AcceptanceTests;
 
@@ -72,6 +73,7 @@ public static class Startup
         services.AddGarnetMessageBus(Uuid.NewGuid(), o =>
         {
             o.RegisterConsumer<SendNotificationCommandMessageFakeConsumer, SendNotificationCommandMessage>();
+            o.RegisterConsumer<DeleteNotificationCommandMessageFakeConsumer, DeleteNotificationCommandMessage>();
         });
     }
 }

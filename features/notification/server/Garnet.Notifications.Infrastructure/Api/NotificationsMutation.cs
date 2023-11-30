@@ -1,6 +1,7 @@
 using Garnet.Common.Infrastructure.Support;
 using Garnet.Notifications.Application.Commands;
 using Garnet.Notifications.Infrastructure.Api.NotificationDelete;
+using Garnet.Notifications.Infrastructure.Api.NotificationGet;
 using HotChocolate.Types;
 
 namespace Garnet.Notifications.Infrastructure.Api
@@ -28,7 +29,12 @@ namespace Garnet.Notifications.Infrastructure.Api
                 notification.Type,
                 notification.UserId,
                 notification.CreatedAt,
-                notification.LinkedEntityId
+                notification.LinkedEntityId,
+                notification.QuotedEntities.Select(y => new QuotedEntityPayload(
+                    y.Id,
+                    y.AvatarUrl,
+                    y.Quote
+                )).ToArray()
             );
         }
     }

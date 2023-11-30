@@ -28,10 +28,10 @@ export const useSubmit = (team?: Team) => {
         avatarUrl: avatar,
       }
     } catch (error) {
-      /** @todo error notification */
-
-      return undefined
+      if (process.env.NODE_ENV !== 'production') throw error
     }
+
+    return undefined
   }
 
   return { submit, loading: loadingUpdate || loadingUpload }

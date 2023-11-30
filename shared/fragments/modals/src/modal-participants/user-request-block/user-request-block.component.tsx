@@ -32,7 +32,7 @@ export const UserRequestBlock: FC<UserRequestBlockProps> = ({ user, size = 'norm
     try {
       await decideTeamJoinRequest({ variables: { approve, id: user.requestId } })
     } catch (error) {
-      /** @todo error notification */
+      if (process.env.NODE_ENV !== 'production') throw error
     }
   }
 

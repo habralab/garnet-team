@@ -71,6 +71,6 @@ public class ProjectTeamJoinRequestSteps : BaseSteps
         var team = await Db.ProjectTeams.Find(x => x.TeamName == teamName).FirstAsync();
         var notification = _sendNotificationCommandMessageFakeConsumer.Notifications
             .Last(x => x.UserId == user.Id);
-        notification.LinkedEntityId.Should().Be(team.Id);
+        notification.QuotedEntities.Should().Contain(x=> x.Id == team.Id);
     }
 }

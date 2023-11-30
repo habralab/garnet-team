@@ -12,6 +12,7 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
         public string UserId { get; init; } = null!;
         public string Type { get; init; } = null!;
         public string? LinkedEntityId { get; init; }
+        public NotificationQuoteDocument[] QuoteDocuments { get; init; } = Array.Empty<NotificationQuoteDocument>();
 
         public static NotificationDocument Create(string id, NotificationCreateArgs args)
         {
@@ -23,7 +24,8 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
                 UserId = args.UserId,
                 Type = args.Type,
                 CreatedAt = args.CreatedAt,
-                LinkedEntityId = args.LinkedEntityId
+                LinkedEntityId = args.LinkedEntityId,
+                QuoteDocuments = args.QuotedEntities.Select(x=> NotificationQuoteDocument.Create(x)).ToArray()
             };
         }
 
@@ -36,7 +38,8 @@ namespace Garnet.Notifications.Infrastructure.MongoDB
                 doc.Type,
                 doc.UserId,
                 doc.CreatedAt,
-                doc.LinkedEntityId
+                doc.LinkedEntityId,
+                doc.QuoteDocuments.Select(x => NotificationQuoteDocument.ToDomain(x)).ToArray()
             );
         }
     }

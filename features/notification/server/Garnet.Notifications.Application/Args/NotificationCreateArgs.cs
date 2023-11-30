@@ -6,6 +6,7 @@ namespace Garnet.Notifications.Application.Args
         string Type,
         string UserId,
         DateTimeOffset CreatedAt,
-        string? LinkedEntityId
+        string? LinkedEntityId,
+        QuotedEntity[] QuotedEntities
     );
 }

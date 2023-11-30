@@ -13,5 +13,10 @@ namespace Garnet.Teams.AcceptanceTests.Support
         {
             return new TeamParticipantDocumentBuilder();
         }
+
+        public static SendNotificationCommandMessageBuilder SendNotificationCommandMessage(this GiveMe _)
+        {
+            return new SendNotificationCommandMessageBuilder();
+        }
     }
 }

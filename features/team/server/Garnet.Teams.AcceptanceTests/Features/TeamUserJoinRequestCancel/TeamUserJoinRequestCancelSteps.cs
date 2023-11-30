@@ -12,16 +12,19 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestCancel
     {
         private readonly QueryExceptionsContext _queryExceptionsContext;
         private readonly CurrentUserProviderFake _currentUserProviderFake;
+        private readonly SendNotificationCommandMessageFakeConsumer _sendNotificationCommandMessageFakeConsumer;
         private readonly DeleteNotificationCommandMessageFakeConsumer _deleteNotificationCommandMessageFakeConsumer;
 
         public TeamUserJoinRequestCancelSteps(
             CurrentUserProviderFake currentUserProviderFake,
             QueryExceptionsContext queryExceptionsContext,
+            SendNotificationCommandMessageFakeConsumer  sendNotificationCommandMessageFakeConsumer,
             DeleteNotificationCommandMessageFakeConsumer deleteNotificationCommandMessageFakeConsumer,
             StepsArgs args) : base(args)
         {
             _currentUserProviderFake = currentUserProviderFake;
             _queryExceptionsContext = queryExceptionsContext;
+            _sendNotificationCommandMessageFakeConsumer = sendNotificationCommandMessageFakeConsumer;
             _deleteNotificationCommandMessageFakeConsumer = deleteNotificationCommandMessageFakeConsumer;
         }
 
@@ -50,9 +53,12 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamUserJoinRequestCancel
         [Then(@"для пользователя '(.*)' нет уведомлений со связанной сущностью пользователь '(.*)'")]
         public Task ThenДляПользователяНетУведомленийСоСвязаннойСущностьюПользователь(string username, string linkedUsername)
         {
-            var message = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications
-               .First(x => x.UserId == _currentUserProviderFake.GetUserIdByUsername(username));
-            message.LinkedEntityId!.Should().Be(_currentUserProviderFake.GetUserIdByUsername(linkedUsername));
+            var userId = _currentUserProviderFake.GetUserIdByUsername(username);
+            var requestedForDeleteNotice = _deleteNotificationCommandMessageFakeConsumer.DeletedNotifications.First(x => x.UserId == userId);
+            var notice = _sendNotificationCommandMessageFakeConsumer.Notifications
+                .First(x=> x.UserId == userId && x.QuotedEntities.Any(y => y.Id == _currentUserProviderFake.GetUserIdByUsername(linkedUsername)));
+
+            requestedForDeleteNotice.LinkedEntityId.Should().Be(notice.LinkedEntityId);
             return Task.CompletedTask;
         }
     }

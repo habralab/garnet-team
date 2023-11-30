@@ -1,5 +1,6 @@
 using Garnet.Notifications.Events;
 using Garnet.Teams.Application.Team;
+using Garnet.Teams.Application.TeamUser;
 
 namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
 {
@@ -7,13 +8,19 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
     {
         public static SendNotificationCommandMessage CreateTeamInviteNotification(this TeamJoinInvitationEntity invitation, TeamEntity team)
         {
+            var quotes = new NotificationQuotedEntity[]
+            {
+                new(team.Id, team.AvatarUrl, team.Name)
+            };
+
             return new SendNotificationCommandMessage(
                 Title: "Приглашение в команду",
                 Body: $"Вас пригласили вступить в команду {team.Name}",
                 invitation.UserId,
                 Type: "TeamInvite",
                 invitation.AuditInfo.CreatedAt,
-                team.Id
+                invitation.Id,
+                quotes
             );
         }
 
@@ -27,16 +34,23 @@ namespace Garnet.Teams.Application.TeamJoinInvitation.Notifications
            );
         }
 
-        public static SendNotificationCommandMessage CreateTeamInviteDecideNotification(this TeamJoinInvitationEntity invitation, TeamEntity team, string username, bool isApproved)
+        public static SendNotificationCommandMessage CreateTeamInviteDecideNotification(this TeamJoinInvitationEntity invitation, TeamEntity team, TeamUserEntity user, bool isApproved)
         {
+            var quotes = new NotificationQuotedEntity[]
+            {
+                new(team.Id, team.AvatarUrl, team.Name),
+                new(user.Id, user.AvatarUrl, user.Username)
+            };
+
             var decision = isApproved ? "принял" : "отклонил";
             return new SendNotificationCommandMessage(
                 Title: "Решение по приглашению в команду",
-                Body: $"Пользователь {username} {decision} приглашение на вступление в команду {team.Name}",
+                Body: $"Пользователь {user.Username} {decision} приглашение на вступление в команду {team.Name}",
                 team.OwnerUserId,
                 Type: "TeamInviteDecide",
                 DateTimeOffset.Now,
-                invitation.UserId
+                invitation.Id,
+                quotes
             );
         }
     }
