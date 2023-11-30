@@ -19,14 +19,24 @@ namespace Garnet.Notifications.Infrastructure.Api
         {
             var result = await _notificationGetQuery.Query(ct);
 
-            var notifications = result.Select(x => new NotificationPayload(
+            var notifications = result.Select(x =>
+            {
+                var quote = x.QuotedEntities.Select(y => new QuotedEntityPayload(
+                    y.Id,
+                    y.AvatarUrl,
+                    y.Quote
+                ));
+
+                return new NotificationPayload(
                 x.Id,
                 x.Title,
                 x.Body,
                 x.Type,
                 x.UserId,
                 x.CreatedAt,
-                x.LinkedEntityId));
+                x.LinkedEntityId,
+                quote.ToArray());
+            });
             return new NotificationGetPayload(notifications.ToArray());
         }
     }

@@ -67,6 +67,6 @@ public class ProjectEditOwnerSteps : BaseSteps
         var notification = _sendNotificationCommandMessageFakeConsumer.Notifications
             .Last(x => x.UserId == user.Id);
         var project = await Db.Projects.Find(x => x.ProjectName == projectName).FirstAsync();
-        notification.LinkedEntityId.Should().Be(project.Id);
+        notification.QuotedEntities.Should().Contain(x=> x.Id == project.Id);
     }
 }

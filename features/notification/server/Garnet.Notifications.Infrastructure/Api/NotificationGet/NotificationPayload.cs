@@ -7,6 +7,7 @@ namespace Garnet.Notifications.Infrastructure.Api.NotificationGet
         string Type,
         string UserId,
         DateTimeOffset CreatedAt,
-        string? LinkedEntityId
+        string? LinkedEntityId,
+        QuotedEntityPayload[] QuotedEntities
     );
 }

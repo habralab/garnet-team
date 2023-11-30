@@ -51,7 +51,7 @@ public class ProjectEditOwnerCommand
 
         await _messageBus.Publish(project.ToUpdatedEvent());
 
-        var notification = project.CreateProjectEditOwnerNotification(user.UserName);
+        var notification = project.CreateProjectEditOwnerNotification(user!);
         await _messageBus.Publish(notification);
         return Result.Ok(project);
     }

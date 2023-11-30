@@ -81,7 +81,7 @@ namespace Garnet.Teams.Application.TeamUserJoinRequest.Commands
             var @event = request.ToCreatedEvent();
             await _messageBus.Publish(@event);
 
-            var notification = request.CreateTeamUserJoinRequestNotification(team, user.Username);
+            var notification = request.CreateTeamUserJoinRequestNotification(team, user);
             await _messageBus.Publish(notification);
             return Result.Ok(request);
         }
