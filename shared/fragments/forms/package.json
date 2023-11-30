@@ -20,6 +20,7 @@
     "@emotion/css": "*",
     "@emotion/react": "*",
     "@emotion/styled": "*",
+    "@stores/session": "workspace:*",
     "graphql": "*",
     "next": "*",
     "react": "*",
