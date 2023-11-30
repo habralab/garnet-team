@@ -21,34 +21,37 @@ import { ButtonDelete }                from './button-delete'
 import { ButtonsDecide }               from './buttons-decide'
 import { NotificationItemProps }       from './notification-item.interfaces'
 import { getPathFromNotificationType } from '../../../helpers'
+import { decideTypes }                 from './notification-item.constants'
 
 export const NotificationItem: FC<NotificationItemProps> = ({
   body,
   createdAt,
-  linkedEntitiesNames,
   id,
-  linkedEntityAvatarUrl,
   linkedEntityId,
-  linkedRequestId,
   type,
+  quotedEntities,
 }) => {
   const [notificationText, setNotificationText] = useState<string | undefined>(body)
 
   useEffect(() => {
     let newNotificationText = body
 
-    linkedEntitiesNames?.forEach((name) => {
-      newNotificationText = newNotificationText?.replace(name, `<b>${name}</b>`)
+    quotedEntities?.forEach(({ quote }) => {
+      if (!quote) return
+
+      newNotificationText = newNotificationText?.replace(quote, `<b>${quote}</b>`)
     })
 
     setNotificationText(newNotificationText)
-  }, [body, linkedEntitiesNames])
+  }, [body, quotedEntities])
 
   const daysAgo = getDaysAgo(createdAt || '')
 
+  const isDecideType = Boolean(type && decideTypes.includes(type))
+
   return (
     <Row height={62} alignItems='center'>
-      <Avatar image={linkedEntityAvatarUrl} shape='square' size={62} />
+      <Avatar image={quotedEntities[0].avatarUrl} shape='square' size={62} />
       <Layout flexBasis={10} flexShrink={0} />
       <Column fill flexShrink={1}>
         <Condition match={daysAgo <= 1}>
@@ -74,12 +77,12 @@ export const NotificationItem: FC<NotificationItemProps> = ({
       </Column>
       <Layout flexBasis={10} flexShrink={0} />
       <Box
-        flexBasis={linkedRequestId ? 250 : 190}
+        flexBasis={isDecideType ? 250 : 190}
         flexShrink={0}
         alignItems='center'
         justifyContent='flex-end'
       >
-        <Condition match={!linkedRequestId}>
+        <Condition match={!isDecideType}>
           <NextLink path={getPathFromNotificationType(type, linkedEntityId)}>
             <Button variant='link' size='micro'>
               <Text fontSize='normal' color='currentColor'>
@@ -89,8 +92,8 @@ export const NotificationItem: FC<NotificationItemProps> = ({
           </NextLink>
           <Layout flexBasis={28} flexShrink={0} />
         </Condition>
-        <Condition match={Boolean(linkedRequestId)}>
-          <ButtonsDecide linkedRequestId={linkedRequestId} type={type} />
+        <Condition match={isDecideType}>
+          <ButtonsDecide linkedRequestId={linkedEntityId} type={type} />
           <Layout flexBasis={14} flexShrink={0} />
         </Condition>
         <ButtonDelete id={id} />
