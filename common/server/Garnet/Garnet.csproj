@@ -17,6 +17,7 @@
       <ProjectReference Include="..\..\..\features\team\server\Garnet.Teams\Garnet.Teams.csproj" />
       <ProjectReference Include="..\..\..\features\user\server\Garnet.Users\Garnet.Users.csproj" />
       <ProjectReference Include="..\..\..\features\notification\server\Garnet.Notifications\Garnet.Notifications.csproj" />
+      <ProjectReference Include="..\..\..\features\newsfeed\server\Garnet.NewsFeed\Garnet.NewsFeed.csproj" />
     </ItemGroup>
     
 </Project>

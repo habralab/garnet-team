@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Garnet.NewsFeed.Events\Garnet.NewsFeed.Events.csproj" />
+    <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Application\Garnet.Common.Application.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Garnet.NewsFeed.Application</RootNamespace>
+  </PropertyGroup>
+
+</Project>

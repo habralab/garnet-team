@@ -6,6 +6,7 @@ using Garnet.User;
 using Garnet.Project;
 using Garnet.Notifications;
 using Microsoft.AspNetCore.Authorization;
+using Garnet.NewsFeed;
 
 namespace Garnet;
 
@@ -38,6 +39,7 @@ public static class Program
             .AddGarnetUsers()
             .AddGarnetTeams()
             .AddGarnetNotifications()
+            .AddGarnetNewsFeed()
             .AddGarnetProjects();
 
         builder.Services.AddControllers();

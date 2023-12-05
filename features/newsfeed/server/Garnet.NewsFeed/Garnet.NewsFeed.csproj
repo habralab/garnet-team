@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\Garnet.NewsFeed.Infrastructure\Garnet.NewsFeed.Infrastructure.csproj" />
+    <ProjectReference Include="..\Garnet.NewsFeed.Events\Garnet.NewsFeed.Events.csproj" />
+    <ProjectReference Include="..\..\..\..\common\server\Garnet.Common.Infrastructure\Garnet.Common.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>Garnet.NewsFeed.Infrastructure</RootNamespace>
+  </PropertyGroup>
+
+</Project>
