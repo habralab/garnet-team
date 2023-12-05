@@ -17,7 +17,7 @@ export const Header: FC = () => (
       <Row justifyContent='space-between' alignItems='center'>
         <Layout flexBasis={24} flexShrink={0} />
         <Box minWidth={202} height={47}>
-          <Logo />
+          <Logo withLink={false} />
         </Box>
         <Layout flexBasis={100} flexShrink={0} />
         <LinkSwitch />
