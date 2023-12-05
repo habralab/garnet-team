@@ -1,6 +1,6 @@
-namespace Garnet.Teams.Infrastructure.Api.TeamJoinInvitationsShow
+namespace Garnet.Teams.Infrastructure.Api.TeamUserJoinRequestsShow
 {
-    public record TeamJoinInvitationShowPayload(
+    public record TeamUserJoinRequestShowPayload(
        string Id,
        string UserId,
        string Username,

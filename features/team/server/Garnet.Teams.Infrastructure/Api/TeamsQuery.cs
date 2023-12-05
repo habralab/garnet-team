@@ -5,6 +5,7 @@ using Garnet.Teams.Application.Team.Queries;
 using Garnet.Teams.Application.TeamJoinInvitation.Queries;
 using Garnet.Teams.Application.TeamParticipant.Args;
 using Garnet.Teams.Application.TeamParticipant.Queries;
+using Garnet.Teams.Application.TeamUser.Queries;
 using Garnet.Teams.Application.TeamUserJoinRequest.Queries;
 using Garnet.Teams.Infrastructure.Api.TeamGet;
 using Garnet.Teams.Infrastructure.Api.TeamJoinInvitationsShow;
@@ -26,6 +27,7 @@ namespace Garnet.Teams.Infrastructure.Api
         private readonly TeamGetQuery _teamGetQuery;
         private readonly TeamsListByUserQuery _teamsListQuery;
         private readonly TeamsFilterQuery _teamsFilterQuery;
+        private readonly TeamUserListByIdQuery _teamUserListByIdQuery;
         private readonly TeamUserJoinRequestsShowQuery _teamUserJoinRequestsShowQuery;
         private readonly TeamParticipantListByTeamsQuery _teamParticipantListByTeamsQuery;
         private readonly TeamParticipantFilterQuery _teamParticipantFilterQuery;
@@ -37,7 +39,7 @@ namespace Garnet.Teams.Infrastructure.Api
             TeamsFilterQuery teamsFilterQuery,
             TeamsListByUserQuery teamsListQuery,
             TeamParticipantListByTeamsQuery teamParticipantListByTeamsQuery,
-            
+            TeamUserListByIdQuery teamUserListByIdQuery,
             TeamProjectListByTeamsQuery teamProjectGetByTeamQuery,
             TeamJoinInvitationsShowQuery teamJoinInvitationsShowQuery,
             TeamUserJoinRequestsShowQuery teamUserJoinRequestsShowQuery,
@@ -48,6 +50,7 @@ namespace Garnet.Teams.Infrastructure.Api
             _teamGetQuery = teamGetQuery;
             _teamProjectGetByTeamQuery = teamProjectGetByTeamQuery;
             _teamsFilterQuery = teamsFilterQuery;
+            _teamUserListByIdQuery = teamUserListByIdQuery;
             _teamParticipantListByTeamsQuery = teamParticipantListByTeamsQuery;
             _teamUserJoinRequestsShowQuery = teamUserJoinRequestsShowQuery;
             _teamParticipantFilterQuery = teamParticipantFilterQuery;
@@ -87,10 +90,25 @@ namespace Garnet.Teams.Infrastructure.Api
 
         public async Task<TeamUserJoinRequestsShowPayload> TeamUserJoinRequestsShow(CancellationToken ct, string teamId)
         {
-            var result = await _teamUserJoinRequestsShowQuery.Query(ct, teamId);
-            result.ThrowQueryExceptionIfHasErrors();
+            var requestsResult = await _teamUserJoinRequestsShowQuery.Query(ct, teamId);
+            requestsResult.ThrowQueryExceptionIfHasErrors();
+            var requests = requestsResult.Value;
 
-            var userJoinRequests = result.Value.Select(x => new TeamUserJoinRequestPayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt));
+            var requestedUserIds = requests.Select(x => x.UserId).ToArray();
+            var usersResult = await _teamUserListByIdQuery.Query(ct, requestedUserIds);
+
+            var userJoinRequests = requestsResult.Value.Select(x =>
+            {
+                var user = usersResult.First(y => x.UserId == y.Id);
+                return new TeamUserJoinRequestShowPayload(
+                x.Id,
+                user.Id,
+                user.Username,
+                user.Tags,
+                user.AvatarUrl,
+                x.TeamId,
+                x.AuditInfo.CreatedAt);
+            });
             return new TeamUserJoinRequestsShowPayload(userJoinRequests.ToArray());
         }
 
@@ -124,13 +142,28 @@ namespace Garnet.Teams.Infrastructure.Api
             return new TeamsListPayload(teams.ToArray());
         }
 
-        public async Task<TeamJoinInvitationShowPayload> TeamJoinInvitationsShow(CancellationToken ct, string teamId)
+        public async Task<TeamJoinInvitationsShowPayload> TeamJoinInvitationsShow(CancellationToken ct, string teamId)
         {
-            var result = await _teamJoinInvitationsShowQuery.Query(ct, teamId);
-            result.ThrowQueryExceptionIfHasErrors();
+            var inviteResult = await _teamJoinInvitationsShowQuery.Query(ct, teamId);
+            inviteResult.ThrowQueryExceptionIfHasErrors();
+            var invite = inviteResult.Value;
 
-            var joinInvitations = result.Value.Select(x => new TeamJoinInvitePayload(x.Id, x.UserId, x.TeamId, x.AuditInfo.CreatedAt));
-            return new TeamJoinInvitationShowPayload(joinInvitations.ToArray());
+            var invitedUserIds = invite.Select(x => x.UserId).ToArray();
+            var usersResult = await _teamUserListByIdQuery.Query(ct, invitedUserIds);
+
+            var joinInvitations = inviteResult.Value.Select(x =>
+            {
+                var user = usersResult.First(y => x.UserId == y.Id);
+                return new TeamJoinInvitationShowPayload(
+                x.Id,
+                user.Id,
+                user.Username,
+                user.Tags,
+                user.AvatarUrl,
+                x.TeamId,
+                x.AuditInfo.CreatedAt);
+            });
+            return new TeamJoinInvitationsShowPayload(joinInvitations.ToArray());
         }
     }
 }

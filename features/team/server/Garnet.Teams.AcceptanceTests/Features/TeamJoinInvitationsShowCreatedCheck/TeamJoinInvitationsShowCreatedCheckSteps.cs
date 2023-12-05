@@ -13,7 +13,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShowCreatedCh
     public class TeamJoinInvitationsShowCreatedCheckSteps : BaseSteps
     {
         private readonly CurrentUserProviderFake _currentUserProviderFake;
-        private TeamJoinInvitationShowPayload _result = null!;
+        private TeamJoinInvitationsShowPayload _result = null!;
         private readonly UpdateDefinitionBuilder<TeamJoinInvitationDocument> _u = Builders<TeamJoinInvitationDocument>.Update;
         private readonly FilterDefinitionBuilder<TeamJoinInvitationDocument> _f = Builders<TeamJoinInvitationDocument>.Filter;
 
@@ -53,7 +53,7 @@ namespace Garnet.Teams.AcceptanceTests.Features.TeamJoinInvitationsShowCreatedCh
             var created = DateTimeOffset.Parse(date);
             _result.TeamJoinInvites.First()
                 .Should()
-                .Match<TeamJoinInvitePayload>(x => x.CreatedAt == created);
+                .Match<TeamJoinInvitationShowPayload>(x => x.CreatedAt == created);
             return Task.CompletedTask;
         }
     }

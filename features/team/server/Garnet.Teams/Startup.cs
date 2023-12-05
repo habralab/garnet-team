@@ -48,6 +48,7 @@ using Garnet.Teams.Infrastructure.MongoDb.ProjectTeamParticipant;
 using Garnet.Teams.Application.ProjectTeamParticipant.Commands;
 using Garnet.Teams.Application.ProjectTeamParticipant;
 using Garnet.Teams.Application.ProjectTeamParticipant.Queries;
+using Garnet.Teams.Application.TeamUser.Queries;
 
 namespace Garnet.Team
 {
@@ -132,6 +133,7 @@ namespace Garnet.Team
         {
             services.AddScoped<ITeamUserRepository, TeamUserRepository>();
             services.AddScoped<TeamUserUpdateCommand>();
+            services.AddScoped<TeamUserListByIdQuery>();
         }
 
         public static void AddTeamProjectInternal(this IServiceCollection services)

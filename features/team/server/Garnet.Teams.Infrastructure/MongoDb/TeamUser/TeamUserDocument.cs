@@ -6,6 +6,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
     {
         public string Id { get; init; } = null!;
         public string Username { get; init; } = null!;
+        public string[] Tags {get;init;} = Array.Empty<string>();
         public string AvatarUrl { get; init; } = string.Empty;
 
         public static TeamUserDocument Create(string userId, string username, string avatarUrl)
@@ -20,7 +21,7 @@ namespace Garnet.Teams.Infrastructure.MongoDb.TeamUser
 
         public static TeamUserEntity ToDomain(TeamUserDocument doc)
         {
-            return new TeamUserEntity(doc.Id, doc.Username, doc.AvatarUrl);
+            return new TeamUserEntity(doc.Id, doc.Username, doc.Tags, doc.AvatarUrl);
         }
     }
 }
